@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "615107863955",
+    "firebase_url": "https://wewantour.firebaseio.com",
+    "project_id": "wewantour",
+    "storage_bucket": "wewantour.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615107863955:android:7a15c700af80bc1cb13466",
+        "android_client_info": {
+          "package_name": "com.example.wewantour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615107863955-1hika84d72ku37bf1cvet4u59niqu5t7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wewantour",
+            "certificate_hash": "54a173729b5ecd228b9f6f7a6d3e918cd05b9d48"
+          }
+        },
+        {
+          "client_id": "615107863955-v1k8tqvgleg00m664jvvgmigbj9mh554.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWUuKXQKOZJOxT-Le62_QYtZcMlWJxBGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615107863955-v1k8tqvgleg00m664jvvgmigbj9mh554.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
