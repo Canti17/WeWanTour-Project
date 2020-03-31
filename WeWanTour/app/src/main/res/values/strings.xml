@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WeWanTour9</string>
+    <string name="inserisci_tour">INSERISCI TOUR</string>
+    <string name="premi">PREMI</string>
+    <string name="descrizione">DESCRIZIONE</string>
+    <string name="numero_di_clienti">NUMERO DI CLIENTI</string>
+</resources>
