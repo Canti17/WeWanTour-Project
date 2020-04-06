@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--dimes for design 3-->
+    <dimen name="headerTextSize">37sp</dimen>
+    <dimen name="newsMoreTextSize">16sp</dimen>
+    <dimen name="loginViewsMargin">20dp</dimen>
+    <dimen name="formEditTextWidth">300dp</dimen>
+    <dimen name="formEditTextHeight">53dp</dimen>
+
+
+</resources>

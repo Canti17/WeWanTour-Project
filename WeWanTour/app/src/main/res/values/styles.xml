@@ -8,4 +8,36 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- For the forms -->
+    <style name="parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="formHeader">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/headerTextSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="modifiedEditText">
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
+        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:textColorHint">@color/hintTextColor </item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:layout_width">@dimen/formEditTextWidth</item>
+        <item name="android:layout_height">@dimen/formEditTextHeight</item>
+    </style>
+
+    <style name="modifiedSubmitButton">
+        <item name="android:background">@drawable/modified_submit_button</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textSize">20sp</item>
+
+    </style><style name="modifiedDateTimeButton">
+        <item name="android:background">@drawable/modified_date_time_button</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
