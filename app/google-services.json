@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "650158662314",
+    "firebase_url": "https://wewantour9-f9fcd.firebaseio.com",
+    "project_id": "wewantour9-f9fcd",
+    "storage_bucket": "wewantour9-f9fcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650158662314:android:b26af093b1c509867326d3",
+        "android_client_info": {
+          "package_name": "com.example.wewantour9"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650158662314-lqlsq6ltlai4p2960fs0sq3pdmrig067.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wewantour9",
+            "certificate_hash": "54a173729b5ecd228b9f6f7a6d3e918cd05b9d48"
+          }
+        },
+        {
+          "client_id": "650158662314-thrumn7kcssgjavgtsp3c7mgets2so2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO048lh2-ECdkKe2UHvmlC7htU8G8B1G0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650158662314-thrumn7kcssgjavgtsp3c7mgets2so2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

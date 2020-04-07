@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddTour">
+
+        <View
+            android:id="@+id/view_name"
+            android:layout_width="319dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="112dp"
+            android:background="@drawable/bg_rounded_input_field"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textview_name"
+            android:layout_width="55dp"
+            android:layout_height="-25dp"
+            android:background="@color/colorgray"
+            android:paddingLeft="0dp"
+            android:paddingRight="4dp"
+            android:text=""
+            android:textSize="16sp"
+            android:translationX="-48dp"
+
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.257"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_name" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_name"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationX="-12dp"
+            android:translationY="-12dp"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/HintTextStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/view_name"
+            app:layout_constraintEnd_toEndOf="@+id/view_name"
+            app:layout_constraintHorizontal_bias="0.275"
+            app:layout_constraintStart_toStartOf="@+id/view_name"
+            app:layout_constraintTop_toTopOf="@+id/view_name"
+            app:layout_constraintVertical_bias="0.0"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/prova"
+                android:layout_width="232dp"
+                android:layout_height="46dp"
+                android:background="@null"
+                android:hint="Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
