@@ -1,21 +1,11 @@
 package com.example.wewantour9;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,23 +57,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddTour.class));
             }
         });
-
-        send.setOnClickListener(new View.OnClickListener() {
+*/
+        Button btn2 = (Button)findViewById(R.id.add_transport);
+        btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tour1= new Tour(name.getText().toString(),description.getText().toString(),n_clients.getText().toString());
-                ref.child(String.valueOf(id)).setValue(tour1);
-
-                DatabaseReference ref1= database.getInstance().getReference("PROVA");
-                lista.add(tour1);
-                prova1 = new Prova(lista);
-                ref1.child((String.valueOf(tour1.getName()))).setValue(prova1);
-
-
+                startActivity(new Intent(MainActivity.this, add_transport.class));
             }
         });
 
