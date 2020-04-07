@@ -26,7 +26,6 @@
             android:id="@+id/textview_name"
             android:layout_width="55dp"
             android:layout_height="-25dp"
-            android:background="@color/colorgray"
             android:paddingLeft="0dp"
             android:paddingRight="4dp"
             android:text=""

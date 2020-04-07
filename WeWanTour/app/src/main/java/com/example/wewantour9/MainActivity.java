@@ -5,6 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         send= (Button) findViewById(R.id.button);
         butt= (Button) findViewById(R.id.butt);
 
+
+        /*
         name=findViewById(R.id.nameTour);
         description=findViewById(R.id.description);
         n_clients=findViewById(R.id.numb_clients);
