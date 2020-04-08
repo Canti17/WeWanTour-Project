@@ -5,6 +5,7 @@
     <dimen name="newsMoreTextSize">16sp</dimen>
     <dimen name="loginViewsMargin">20dp</dimen>
     <dimen name="formEditTextWidth">300dp</dimen>
+    <dimen name="formEditTextLayoutHeight">71dp</dimen>
     <dimen name="formEditTextHeight">53dp</dimen>
 
 

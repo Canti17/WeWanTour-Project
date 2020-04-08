@@ -12,28 +12,20 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-        <activity android:name=".ProvaActivity">
+        <activity
+            android:name=".add_tour">
 
         </activity>
-        <activity android:name=".Activity_Registration_Agency">
-
+        <activity android:name=".Activity_Registration_Agency"></activity>
+        <activity android:name=".Activity_Registration_User" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-
         </activity>
-        <activity android:name=".Activity_Registration_User"></activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
-
-        <activity android:name=".add_transport">
-        </activity>
-
+        <activity android:name=".add_transport"></activity>
     </application>
 
 </manifest>

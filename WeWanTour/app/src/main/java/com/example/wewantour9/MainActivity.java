@@ -5,45 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button send;
-    private Button butt;
-
-
     private FirebaseDatabase database;
     private DatabaseReference ref;
-
-    EditText name, description, n_clients;
-    Tour tour1;
-    Prova prova1;
-    int id=0;
-
-
-
-
-    ArrayList<Tour> lista = new ArrayList<Tour>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        send= (Button) findViewById(R.id.button);
-        butt= (Button) findViewById(R.id.butt);
-
 
         /*
         name=findViewById(R.id.nameTour);
@@ -71,8 +46,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 */
-        Button btn2 = (Button)findViewById(R.id.add_transport);
-        btn2.setOnClickListener(new View.OnClickListener() {
+
+        Button add_tour =(Button)findViewById(R.id.add_tour);
+        add_tour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, add_tour.class));
+            }
+        });
+
+
+        Button btn_add_transport = (Button)findViewById(R.id.add_transport);
+        btn_add_transport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, add_transport.class));
@@ -80,14 +65,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        butt.setOnClickListener(new View.OnClickListener() {
+        Button btn_registration_user= (Button)findViewById(R.id.registration_user);
+        btn_registration_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Activity_Registration_User.class));
+            }
+        });
 
-                startActivity(new Intent(MainActivity.this, Prova.class));
-
-
+        Button btn_registration_agency= (Button)findViewById(R.id.registration_agency);
+        btn_registration_agency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Activity_Registration_Agency.class));
             }
         });
 

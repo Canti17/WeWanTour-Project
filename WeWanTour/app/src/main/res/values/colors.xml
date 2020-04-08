@@ -5,6 +5,10 @@
     <color name="colorAccent">#2196F3</color>
 
 
+
+
+
+
     <!--colors for modern ui-->
     <color name="whiteTextColor">#fff</color>
     <color name="blackTextColor">#000000</color>
@@ -12,3 +16,5 @@
     <color name="hintTextColor">#80000000</color>
 
 </resources>
+
+

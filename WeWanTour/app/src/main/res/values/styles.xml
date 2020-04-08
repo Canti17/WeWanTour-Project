@@ -5,7 +5,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
+
+
+    <style name="InputTextAppTheme" parent="Theme.AppCompat.Light" >
+        <item name="colorControlActivated">@color/primaryTextColor</item>
+    </style>
+
+
+
+
+
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -42,10 +54,77 @@
         <item name="android:textColor">@color/whiteTextColor</item>
         <item name="android:textSize">20sp</item>
 
-    </style><style name="modifiedDateTimeButton">
+    </style>
+
+    <style name="modifiedDateTimeButton">
         <item name="android:background">@drawable/modified_date_time_button</item>
         <item name="android:textColor">@color/whiteTextColor</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
+
+
+
+
+    <style name="TextInputLayout">
+        <item name="android:layout_width">@dimen/formEditTextWidth </item>
+
+        <item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>
+        <!-- Ho usato una Height diversa perchè il "container" deve essere più grande altrimenti
+         l'EditText non si vede bene -->
+        <item name="android:layout_height">@dimen/formEditTextLayoutHeight</item>
+    </style>
+
+    <style name="TextInputEditText">
+        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:layout_width">@dimen/formEditTextWidth</item>
+        <item name="android:layout_height">@dimen/formEditTextHeight</item>
+    </style>
+
+
+
+
+    <!-- Usato per TextInputLayout and TextInputEditTex, vengono chiamati in automatico grazie a "name="
+
+            LI LASCIO QUI PERCHè MAGARI POTRANNO SERVIRE,
+    -->
+
+    <!--
+    <style name="Widget.Design.TextInputLayout" parent="AppTheme">
+        <item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>
+        <item name="errorTextAppearance">@style/AppTheme.TextErrorAppearance</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Design.Counter.Overflow</item>
+    </style>
+
+    <style name="Widget.Design.TextInputEditText" parent="AppTheme">
+        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+-->
+
+    <style name="AppTheme.TextFloatLabelAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+
+    <!--
+    <style name="AppTheme.TextErrorAppearance" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+-->
+
+
+
+
+
+
+
+
 
 </resources>

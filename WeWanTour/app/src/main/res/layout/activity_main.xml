@@ -21,11 +21,12 @@
 
     <Button
         android:id="@+id/add_tour"
+        style="@style/modifiedDateTimeButton"
         android:layout_width="372dp"
         android:layout_height="48dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="20dp"
-        android:text="ADD TOUR"
+        android:text="@string/add_tour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,25 +34,39 @@
 
     <Button
         android:id="@+id/add_transport"
+        style="@style/modifiedDateTimeButton"
         android:layout_width="372dp"
         android:layout_height="48dp"
+        android:layout_marginTop="28dp"
         android:text="ADD TRANSPORT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent" />
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_tour" />
 
     <Button
-        android:id="@+id/butt"
-        android:layout_width="142dp"
-        android:layout_height="59dp"
-        android:text="Button"
+        android:id="@+id/registration_user"
+        style="@style/modifiedDateTimeButton"
+        android:layout_width="372dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:text="REGISTRATION USER"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_transport" />
 
-
-
+    <Button
+        android:id="@+id/registration_agency"
+        style="@style/modifiedDateTimeButton"
+        android:layout_width="372dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:text="REGISTRATION AGENCY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registration_user" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

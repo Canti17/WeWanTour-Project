@@ -35,6 +35,18 @@ public class add_transport extends AppCompatActivity implements
 
     int id = 0;
 
+
+    public String pad(int input) {
+        String str = "";
+        if (input > 10) {
+            str = Integer.toString(input);
+        } else {
+            str = "0" + Integer.toString(input);
+        }
+        return str;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +132,6 @@ public class add_transport extends AppCompatActivity implements
         }
 
         if (v == btnTimePicker) {
-
             // Get Current Time
             final Calendar c = Calendar.getInstance();
             mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -134,17 +145,12 @@ public class add_transport extends AppCompatActivity implements
 
                             ////This is the code to directly show data and time in the edit text but is good only after the hint up movement
                             //txtTime.setTextColor(ResourcesCompat.getColor(getResources(), R.color.blackTextColor, null));
-                            if(minute==0){
-                                String buff = "00";
-                                txtTime.setText(hourOfDay + ":" + buff);
-                            }else{
-                                txtTime.setText(hourOfDay + ":" + minute);
-                            }
+                            txtTime.setText(pad(hourOfDay) + ":" + pad(minute));
                             outHourOfDay = hourOfDay;
                             outMinute = minute;
 
                         }
-                    }, mHour, mMinute, false);
+                    }, mHour, mMinute, true);
             timePickerDialog.show();
         }
 
