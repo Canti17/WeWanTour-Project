@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.wewantour9">
+    package="com.example.wewantour9" >
 
     <application
         android:allowBackup="true"
@@ -11,21 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:label">
-        <activity
-            android:name=".add_tour">
-
-        </activity>
-        <activity android:name=".Activity_Registration_Agency"></activity>
+        tools:replace="android:label" >
+        <activity android:name=".add_services" />
+        <activity android:name=".add_tour" />
+        <activity android:name=".Activity_Registration_Agency" />
         <activity android:name=".Activity_Registration_User" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".add_transport"></activity>
+        <activity android:name=".add_transport" />
     </application>
 
 </manifest>

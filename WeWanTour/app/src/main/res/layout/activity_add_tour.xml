@@ -123,6 +123,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_startdate"
             style="@style/TextInputEditText"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_width="170dp"
             android:layout_height="53dp"
             android:hint="Starting Date"
@@ -158,6 +162,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_starthour"
             style="@style/TextInputEditText"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_width="170dp"
             android:layout_height="53dp"
             android:hint="Starting Time"
@@ -292,8 +300,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Choose the Vehicle for your Transport"
-        android:textSize="15dp"
+        android:text="Choose the Vehicle for your Tour"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -301,21 +309,23 @@
         app:layout_constraintTop_toBottomOf="@+id/text_input_peoplelimit" />
 
     <ImageButton
-        android:id="@+id/btn_bike"
+        android:id="@+id/btn_AddTour"
         android:layout_width="129dp"
         android:layout_height="81dp"
         android:layout_marginTop="38dp"
         android:background="@drawable/imgbutton_color1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_walk"
+        app:layout_constraintEnd_toStartOf="@+id/btn_AddTransport"
         app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_vehicle"
         app:layout_constraintVertical_bias="0.043"
-        app:srcCompat="@drawable/ic_directions_bike_black_24dp" />
+        app:srcCompat="@drawable/ic_directions_bike_black_24dp"
+        android:scaleType="fitCenter"
+        android:padding="16dp"/>
 
     <ImageButton
-        android:id="@+id/btn_walk"
+        android:id="@+id/btn_AddTransport"
         android:layout_width="129dp"
         android:layout_height="81dp"
         android:layout_marginTop="38dp"
@@ -325,7 +335,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_vehicle"
         app:layout_constraintVertical_bias="0.043"
-        app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
+        app:srcCompat="@drawable/ic_directions_walk_black_24dp"
+        android:scaleType="fitCenter"
+        android:padding="16dp"/>
 
     <Button
         android:id="@+id/btn_submit"
@@ -339,7 +351,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_walk"
+        app:layout_constraintTop_toBottomOf="@+id/btn_AddTransport"
         app:layout_constraintVertical_bias="0.0" />
 
 

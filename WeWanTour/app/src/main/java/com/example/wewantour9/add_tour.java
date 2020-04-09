@@ -64,8 +64,8 @@ public class add_tour extends AppCompatActivity {
         btn_DatePicker = findViewById(R.id.btn_startdate);
         btn_HourPicker = findViewById(R.id.btn_starthour);
         btn_submit= findViewById(R.id.btn_submit);
-        btn_walk= findViewById(R.id.btn_walk);
-        btn_bike= findViewById(R.id.btn_bike);
+        btn_walk= findViewById(R.id.btn_AddTransport);
+        btn_bike= findViewById(R.id.btn_AddTour);
         edtxt_description = findViewById(R.id.edittxt_description);
         edtxt_startPlace = findViewById(R.id.edittxt_startplace);
         edtxt_name = findViewById(R.id.edittxt_name);
