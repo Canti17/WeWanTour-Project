@@ -6,16 +6,18 @@ public class Transport {
 
     private String startLocation;
     private Calendar startDate;
-    private int CurrrentPeople;
+    private int currentPeople;
     private int maxPeople;
     private double cost;
+    private String vehicle;
 
-    public Transport(String startLocation, Calendar startDate, int currrentPeople, int maxPeople, double cost) {
+    public Transport(String startLocation, Calendar startDate, int currrentPeople, int maxPeople, double cost, String vehicle) {
         this.startLocation = startLocation;
         this.startDate = startDate;
-        CurrrentPeople = currrentPeople;
+        this.currentPeople = currrentPeople;
         this.maxPeople = maxPeople;
         this.cost = cost;
+        this.vehicle = vehicle;
     }
 
     public String getStartLocation() {
@@ -35,11 +37,11 @@ public class Transport {
     }
 
     public int getCurrrentPeople() {
-        return CurrrentPeople;
+        return currentPeople;
     }
 
     public void setCurrrentPeople(int currrentPeople) {
-        CurrrentPeople = currrentPeople;
+        currentPeople = currrentPeople;
     }
 
     public int getMaxPeople() {
@@ -58,6 +60,10 @@ public class Transport {
         this.cost = cost;
     }
 
+    public String getVehicle() { return vehicle; }
+
+    public void setVehicle(String vehicle) { this.vehicle = vehicle; }
+
     @Override
     public String toString() {
         return "Transport{" +
@@ -67,9 +73,10 @@ public class Transport {
                                        startDate.get(Calendar.YEAR) + " H:" +
                                   startDate.get(Calendar.HOUR_OF_DAY) + ":" +
                                              startDate.get(Calendar.MINUTE) +
-                ", CurrrentPeople=" + CurrrentPeople +
+                ", CurrrentPeople=" + currentPeople +
                 ", maxPeople=" + maxPeople +
                 ", cost=" + cost +
+                ", vehicle" + vehicle +
                 '}';
     }
 }

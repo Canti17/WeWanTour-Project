@@ -7,11 +7,14 @@ import androidx.core.content.res.ResourcesCompat;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +29,13 @@ public class add_transport extends AppCompatActivity implements
         View.OnClickListener{
 
     private Button btnDatePicker, btnTimePicker, btnSubmit;
+    private ImageButton btnBus, btnCar;
     private EditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtVehicle, txtCost, txtMaxPeople;
     int mYear, mMonth, mDay, mHour, mMinute;
     int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
+    //keep attention that there are no error in reload the page because these booleans are resetted outside the on create function
+    private boolean btnBusPressed=false;
+    private boolean btnCarPressed=false;
 
     private FirebaseDatabase database;
     private DatabaseReference db;
@@ -54,19 +61,21 @@ public class add_transport extends AppCompatActivity implements
 
         btnDatePicker = findViewById(R.id.TransportDateButton);
         btnTimePicker = findViewById(R.id.TransportHourButton);
+        btnBus = findViewById(R.id.BusBtn);
+        btnCar = findViewById(R.id.CarBtn);
         btnSubmit = findViewById(R.id.TransportSubmit);
         txtDate = findViewById(R.id.TransportDay);
         txtTime = findViewById(R.id.TransportHour);
         txtStartCity = findViewById(R.id.TransportStartCity);
         txtStartStreet = findViewById(R.id.TransportStartStreet);
         txtStartCivic = findViewById(R.id.TransportStartCivic);
-        txtVehicle = findViewById(R.id.TransportVehicle);
         txtCost = findViewById(R.id.TransportCost);
         txtMaxPeople = findViewById(R.id.TransportMaxPeople);
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+
 /*      //This is the code to directly show data and time in the edit text but is good only after the hint up movement
         final Calendar cal = Calendar.getInstance();
         mYear = cal.get(Calendar.YEAR);
@@ -97,6 +106,54 @@ public class add_transport extends AppCompatActivity implements
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        //used only to reset the error appeared in the data and time after the submit push with the empty field
+        txtDate.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                txtDate.setError(null);
+            }
+        });
+        txtTime.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                txtTime.setError(null);
+            }
+        });
+
+        //change vehicle button colors when pressed
+        btnBus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnCarPressed){
+                    btnCarPressed=false;
+                    btnCar.setBackgroundResource(R.drawable.imgbutton_color1);
+                }
+                btnBus.setBackgroundResource(R.drawable.imgbutton_color2);
+                btnBusPressed=true;
+            }
+        });
+        btnCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnBusPressed) {
+                    btnBusPressed = false;
+                    btnBus.setBackgroundResource(R.drawable.imgbutton_color1);
+                }
+                btnCar.setBackgroundResource(R.drawable.imgbutton_color2);
+                btnCarPressed=true;
             }
         });
 
@@ -160,16 +217,14 @@ public class add_transport extends AppCompatActivity implements
             if(txtStartCity.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartCity.setError("please enter start city");//it gives user to info message
-            }if(txtStartStreet.getText().toString().equalsIgnoreCase("")) {
+            }
+            else if(txtStartStreet.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartStreet.setError("please enter start street");//it gives user to info message
-            }if(txtStartCivic.getText().toString().equalsIgnoreCase("")) {
+            }
+            else if(txtStartCivic.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartCivic.setError("please enter start civic, if no civic type SNC");//it gives user to info message
-            }
-            else if(txtVehicle.getText().toString().equalsIgnoreCase("")) {
-                //txtVehicle.setHint("please enter transport vehicle");//it gives user to hint
-                txtVehicle.setError("please enter transport vehicle");//it gives user to info message
             }
             else if(txtDate.getText().toString().equalsIgnoreCase("")) {
                 //txtDate.setHint("please enter start date");//it gives user to hint
@@ -194,11 +249,16 @@ public class add_transport extends AppCompatActivity implements
                 int intMaxPeople = Integer.parseInt(buffer);
                 double doubleCost = Double.parseDouble(txtCost.getText().toString());
                 String startingLocation = txtStartCity.getText().toString()+","+txtStartStreet.getText().toString()+","+txtStartCivic.getText().toString();
-                Transport transport = new Transport(startingLocation, calendar, 0, intMaxPeople, doubleCost);
+                String vehicle="";
+                if(btnBusPressed==true && btnCarPressed==false){
+                    vehicle="Bus";
+                }else if(btnBusPressed==false && btnCarPressed==true){
+                    vehicle="Car";
+                }
+                Transport transport = new Transport(startingLocation, calendar, 0, intMaxPeople, doubleCost, vehicle);
                 db.child(String.valueOf(id)).setValue(transport);
                 //Log.println(Log.ERROR, "2", transport.toString());
             }
-
         }
     }
 
