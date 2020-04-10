@@ -26,7 +26,7 @@ public class add_tour extends AppCompatActivity {
 
     private Button btn_DatePicker, btn_HourPicker, btn_submit;
     private ImageButton btn_bike, btn_walk;
-    private EditText edtxt_name, edtxt_description, edtxt_startPlace, edtxt_StartDate, edtxt_StartHour, edtxt_price,
+    private EditText edtxt_name, edtxt_description, edtxt_startCity,edtxt_startStreet, edtxt_startCivic, edtxt_StartDate, edtxt_StartHour, edtxt_price,
             edtxt_duration, edtxt_currentPeople, edtxt_peopleLimit;
     private TextView txt_vehicle;
     private int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
@@ -67,7 +67,9 @@ public class add_tour extends AppCompatActivity {
         btn_walk= findViewById(R.id.btn_AddTransport);
         btn_bike= findViewById(R.id.btn_AddTour);
         edtxt_description = findViewById(R.id.edittxt_description);
-        edtxt_startPlace = findViewById(R.id.edittxt_startplace);
+        edtxt_startCity = findViewById(R.id.edittxt_startcity);
+        edtxt_startStreet = findViewById(R.id.edittxt_startstreet);
+        edtxt_startCivic = findViewById(R.id.edittxt_startcivic);
         edtxt_name = findViewById(R.id.edittxt_name);
         edtxt_StartDate = findViewById(R.id.edittxt_startdate);
         edtxt_StartHour = findViewById(R.id.edittxt_starthour);
@@ -177,8 +179,14 @@ public class add_tour extends AppCompatActivity {
                 if(edtxt_description.getText().toString().equalsIgnoreCase("")) {
                     edtxt_description.setError("please enter Tour description");//it gives user to info message)
                 }
-                if(edtxt_startPlace.getText().toString().equalsIgnoreCase("")) {
-                    edtxt_startPlace.setError("please enter Tour description");//it gives user to info message)
+                if(edtxt_startCity.getText().toString().equalsIgnoreCase("")) {
+                    edtxt_startCity.setError("please enter city");//it gives user to info message)
+                }
+                if(edtxt_startStreet.getText().toString().equalsIgnoreCase("")) {
+                    edtxt_startStreet.setError("please enter street");//it gives user to info message)
+                }
+                if(edtxt_startCivic.getText().toString().equalsIgnoreCase("")) {
+                    edtxt_startCivic.setError("please enter civic");//it gives user to info message)
                 }
                 if(edtxt_StartDate.getText().toString().equalsIgnoreCase("")) {
                     edtxt_StartDate.setError("please enter start date");//it gives user to info message
@@ -207,7 +215,7 @@ public class add_tour extends AppCompatActivity {
                     double doubleDuration = Double.parseDouble(edtxt_duration.getText().toString());
                     String tourName= edtxt_name.getText().toString();
                     String tourDescription= edtxt_description.getText().toString();
-                    String startPlace= edtxt_startPlace.getText().toString();
+                    String startPlace= edtxt_startCity.getText().toString()+","+edtxt_startStreet.getText().toString()+","+edtxt_startCivic.getText().toString();
                     int currentPeople= Integer.parseInt(edtxt_currentPeople.getText().toString());
                     int peopleLimit= Integer.parseInt(edtxt_peopleLimit.getText().toString());
                     String vehicle="";
