@@ -26,79 +26,139 @@
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="35dp"
                     android:text="NEW TRANSPORT"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportStartCity"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportStartCity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.500"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.175" />
 
-                <EditText
-                    android:id="@+id/TransportStartStreet"
-                    style="@style/modifiedEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportStartCity"
+                    style="@style/TextInputLayout"
+                    android:layout_marginBottom="10dp"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportStartStreet"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.513"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.02"
+                    app:theme="@style/InputTextAppTheme">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportStartCity"
+                            style="@style/TextInputEditText"
+                            android:hint="Starting City"
+                            android:inputType="text"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportStartCity"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportStartCity"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportStartCity" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportStartStreet"
+                    style="@style/TextInputLayout"
                     android:layout_width="196dp"
-                    android:layout_height="53dp"
-                    android:layout_marginStart="56dp"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Starting Street"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportDay"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:layout_marginBottom="8dp"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportDay"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.265"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:theme="@style/InputTextAppTheme">
 
-                <EditText
-                    android:id="@+id/TransportStartCivic"
-                    style="@style/modifiedEditText"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportStartStreet"
+                            style="@style/TextInputEditText"
+                            android:layout_width="196dp"
+                            android:hint="Starting Street"
+                            android:inputType="text"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportStartStreet"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportStartStreet"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportStartStreet" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportStartCivic"
+                    style="@style/TextInputLayout"
                     android:layout_width="87dp"
-                    android:layout_height="53dp"
                     android:layout_marginBottom="10dp"
-                    android:hint="Civic"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportDay"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportDay"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.236"
-                    app:layout_constraintStart_toEndOf="@+id/TransportStartStreet" />
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportStartStreet"
+                    app:theme="@style/InputTextAppTheme">
 
-                <EditText
-                    android:id="@+id/TransportStartCity"
-                    style="@style/modifiedEditText"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Starting City"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportStartStreet"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.500"
-                    app:layout_constraintStart_toStartOf="parent" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportStartCivic"
+                            style="@style/TextInputEditText"
+                            android:layout_width="87dp"
+                            android:hint="Civic"
+                            android:inputType="text"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportStartCivic"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportStartCivic"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportStartCivic" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/TransportDateButton"
                     style="@style/modifiedDateTimeButton"
                     android:layout_width="113dp"
                     android:layout_height="48dp"
-                    android:layout_alignBottom="@+id/TransportDay"
-                    android:layout_marginBottom="18dp"
-                    android:layout_toEndOf="@+id/TransportDay"
-                    android:layout_toRightOf="@+id/TransportDay"
+                    android:layout_alignBottom="@+id/HintMovementTransportDay"
+                    android:layout_marginBottom="34dp"
+                    android:layout_toEndOf="@+id/HintMovementTransportDay"
+                    android:layout_toRightOf="@+id/HintMovementTransportDay"
                     android:fontFamily="sans-serif-medium"
                     android:text="SELECT DATE"
                     app:layout_constraintBottom_toTopOf="@+id/TransportHourButton"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.361"
-                    app:layout_constraintStart_toEndOf="@+id/TransportDay" />
+                    app:layout_constraintHorizontal_bias="0.364"
+                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportDay" />
 
-                <EditText
-                    android:id="@+id/TransportDay"
-                    style="@style/modifiedEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportDay"
+                    style="@style/TextInputLayout"
                     android:layout_width="157dp"
-                    android:layout_height="55dp"
-                    android:layout_below="@+id/TransportHour"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginStart="56dp"
-                    android:layout_marginBottom="12dp"
-                    android:editable="false"
-                    android:hint="Start Date"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportHour"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:layout_marginBottom="8dp"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportHour"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.224"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:theme="@style/InputTextAppTheme">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportDay"
+                            style="@style/TextInputEditText"
+                            android:layout_width="157dp"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Starting Date"
+                            android:inputType="text"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportDay"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportDay"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportDay" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/TransportHourButton"
@@ -111,62 +171,119 @@
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="16dp"
                     android:text="SELECT TIME"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportCost"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportCost"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.969"
-                    app:layout_constraintStart_toEndOf="@+id/TransportHour" />
+                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportHour" />
 
-                <EditText
-                    android:id="@+id/TransportHour"
-                    style="@style/modifiedEditText"
-                    android:layout_width="156dp"
-                    android:layout_height="55dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="56dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportHour"
+                    style="@style/TextInputLayout"
+                    android:layout_width="157dp"
                     android:layout_marginBottom="10dp"
-                    android:editable="false"
-                    android:hint="Start Time"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportCost"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <EditText
-                    android:id="@+id/TransportCost"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Travel Cost €"
-                    android:inputType="numberDecimal"
-                    android:numeric="decimal"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportMaxPeople"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportCost"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.500"
+                    app:layout_constraintHorizontal_bias="0.224"
                     app:layout_constraintStart_toStartOf="parent"
-                    style="@style/modifiedEditText"
-                    />
+                    app:theme="@style/InputTextAppTheme">
 
-                <EditText
-                    android:id="@+id/TransportMaxPeople"
-                    style="@style/modifiedEditText"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportHour"
+                            style="@style/TextInputEditText"
+                            android:layout_width="157dp"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Starting Time"
+                            android:inputType="text"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportHour"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportHour"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportHour" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportCost"
+                    style="@style/TextInputLayout"
                     android:layout_marginBottom="10dp"
-                    android:hint="Max People Number"
-                    android:inputType="number"
-                    android:numeric="integer"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportMaxPeople"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.513"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:theme="@style/InputTextAppTheme">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportCost"
+                            style="@style/TextInputEditText"
+                            android:hint="Travel Cost"
+                            android:inputType="numberDecimal"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportCost"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportCost"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportCost" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportMaxPeople"
+                    style="@style/TextInputLayout"
+                    android:layout_marginBottom="15dp"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/TextTransportVehicle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.513"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:theme="@style/InputTextAppTheme">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportMaxPeople"
+                            style="@style/TextInputEditText"
+                            android:hint="Max People Number"
+                            android:inputType="number"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportMaxPeople"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportMaxPeople"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportMaxPeople" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/TextTransportVehicle"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="13dp"
+                    android:text="Vehicle: "
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/BusBtn"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.522"
+                    app:layout_constraintHorizontal_bias="0.531"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageButton
                     android:id="@+id/BusBtn"
                     android:layout_width="129dp"
                     android:layout_height="81dp"
-                    android:layout_marginStart="56dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/imgbutton_color1"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/TransportSubmit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.202"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/bus"
-                    android:scaleType="fitCenter"/>
+                    app:srcCompat="@drawable/bus" />
 
                 <ImageButton
                     android:id="@+id/CarBtn"

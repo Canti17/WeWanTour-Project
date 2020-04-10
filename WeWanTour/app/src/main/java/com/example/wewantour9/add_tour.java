@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -154,6 +156,7 @@ public class add_tour extends AppCompatActivity {
                 }
                 btn_walk.setBackgroundResource(R.drawable.imgbutton_color2);
                 walk_pressed=true;
+                txt_vehicle.setError(null);
             }
         });
 
@@ -165,50 +168,88 @@ public class add_tour extends AppCompatActivity {
                     btn_walk.setBackgroundResource(R.drawable.imgbutton_color1);
                 }
                 btn_bike.setBackgroundResource(R.drawable.imgbutton_color2);
+                txt_vehicle.setError(null);
                 bike_pressed=true;
             }
         });
 
+        //used only to reset the error appeared in the data and time after the submit push with the empty field
+        edtxt_StartDate.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtxt_StartDate.setError(null);
+            }
+        });
+        edtxt_StartHour.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtxt_StartHour.setError(null);
+            }
+        });
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean check = true;
                 if(edtxt_name.getText().toString().equalsIgnoreCase("")) {
                     edtxt_name.setError("please enter Tour name");//it gives user to info message)
+                    check = false;
                 }
                 if(edtxt_description.getText().toString().equalsIgnoreCase("")) {
                     edtxt_description.setError("please enter Tour description");//it gives user to info message)
+                    check = false;
                 }
                 if(edtxt_startCity.getText().toString().equalsIgnoreCase("")) {
                     edtxt_startCity.setError("please enter city");//it gives user to info message)
+                    check = false;
                 }
                 if(edtxt_startStreet.getText().toString().equalsIgnoreCase("")) {
                     edtxt_startStreet.setError("please enter street");//it gives user to info message)
+                    check = false;
                 }
                 if(edtxt_startCivic.getText().toString().equalsIgnoreCase("")) {
                     edtxt_startCivic.setError("please enter civic");//it gives user to info message)
+                    check = false;
                 }
                 if(edtxt_StartDate.getText().toString().equalsIgnoreCase("")) {
                     edtxt_StartDate.setError("please enter start date");//it gives user to info message
+                    check = false;
                 }
                 if(edtxt_StartHour.getText().toString().equalsIgnoreCase("")) {
                     edtxt_StartHour.setError("please enter start hour");//it gives user to info message
+                    check = false;
                 }
                 if(edtxt_price.getText().toString().equalsIgnoreCase("")) {
                     edtxt_price.setError("please enter price");//it gives user to info message
+                    check = false;
                 }
                 if(edtxt_duration.getText().toString().equalsIgnoreCase("")) {
                     edtxt_duration.setError("please duration ");//it gives user to info message
+                    check = false;
                 }
                 if(edtxt_currentPeople.getText().toString().equalsIgnoreCase("")) {
                     edtxt_currentPeople.setError("please enter number of current people");//it gives user to info message
+                    check = false;
                 }
                 if(edtxt_peopleLimit.getText().toString().equalsIgnoreCase("")) {
                     edtxt_peopleLimit.setError("please enter number of people limit");//it gives user to info message
+                    check = false;
                 }
                 if(!((bike_pressed==true && walk_pressed==false) ||  (bike_pressed==false && walk_pressed==true))){
                     txt_vehicle.setError("please choose the vehicle");//it gives user to info message
-                }else{
+                    check = false;
+                }
+                if(check){
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(outYear, outMonthOfYear, outDayOfMonth, outHourOfDay, outMinute);
                     double doublePrice = Double.parseDouble(edtxt_price.getText().toString());

@@ -2,7 +2,7 @@
 <resources>
     <!--dimes for design 3-->
     <dimen name="headerTextSize">37sp</dimen>
-    <dimen name="newsMoreTextSize">16sp</dimen>
+    <dimen name="newsMoreTextSize">18sp</dimen>
     <dimen name="loginViewsMargin">20dp</dimen>
     <dimen name="formEditTextWidth">300dp</dimen>
     <dimen name="formEditTextLayoutHeight">71dp</dimen>

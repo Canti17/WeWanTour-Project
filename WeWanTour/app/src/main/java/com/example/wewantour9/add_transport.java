@@ -15,8 +15,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,9 +31,11 @@ import java.util.Calendar;
 public class add_transport extends AppCompatActivity implements
         View.OnClickListener{
 
+    private TextView txtViewVehicle;
     private Button btnDatePicker, btnTimePicker, btnSubmit;
     private ImageButton btnBus, btnCar;
-    private EditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtVehicle, txtCost, txtMaxPeople;
+    private TextInputEditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtCost, txtMaxPeople;
+    private TextInputLayout layoutTxtDate, layoutTxtTime;
     int mYear, mMonth, mDay, mHour, mMinute;
     int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
     //keep attention that there are no error in reload the page because these booleans are resetted outside the on create function
@@ -71,12 +76,15 @@ public class add_transport extends AppCompatActivity implements
         txtStartCivic = findViewById(R.id.TransportStartCivic);
         txtCost = findViewById(R.id.TransportCost);
         txtMaxPeople = findViewById(R.id.TransportMaxPeople);
+        layoutTxtDate = findViewById(R.id.HintMovementTransportDay);
+        layoutTxtTime = findViewById(R.id.HintMovementTransportHour);
+        txtViewVehicle = findViewById(R.id.TextTransportVehicle);
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
-
-/*      //This is the code to directly show data and time in the edit text but is good only after the hint up movement
+ /*
+        //This is the code to directly show data and time in the edit text but is good only after the hint up movement
         final Calendar cal = Calendar.getInstance();
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
@@ -86,13 +94,9 @@ public class add_transport extends AppCompatActivity implements
         txtDate.setTextColor(ResourcesCompat.getColor(getResources(), R.color.hintTextColor, null));
         txtTime.setTextColor(ResourcesCompat.getColor(getResources(), R.color.hintTextColor, null));
         txtDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
-        if(mMinute==0){
-            String buff = "00";
-            txtTime.setText(mHour + ":" + buff);
-        }else{
-            txtTime.setText(mHour + ":" + mMinute);
-        }
+        txtTime.setText(pad(mHour) + ":" + pad(mMinute));
 */
+
         db= database.getInstance().getReference("TRANSPORT");
 
         db.addValueEventListener(new ValueEventListener() {
@@ -143,6 +147,7 @@ public class add_transport extends AppCompatActivity implements
                 }
                 btnBus.setBackgroundResource(R.drawable.imgbutton_color2);
                 btnBusPressed=true;
+                txtViewVehicle.setError(null);
             }
         });
         btnCar.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +159,7 @@ public class add_transport extends AppCompatActivity implements
                 }
                 btnCar.setBackgroundResource(R.drawable.imgbutton_color2);
                 btnCarPressed=true;
+                txtViewVehicle.setError(null);
             }
         });
 
@@ -177,6 +183,7 @@ public class add_transport extends AppCompatActivity implements
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                             ////This is the code to directly show data and time in the edit text but is good only after the hint up movement
+                            //layoutTxtDate.setHint("Starting Date");
                             //txtDate.setTextColor(ResourcesCompat.getColor(getResources(), R.color.blackTextColor, null));
                             txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                             outYear = year;
@@ -201,6 +208,7 @@ public class add_transport extends AppCompatActivity implements
                         public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
 
                             ////This is the code to directly show data and time in the edit text but is good only after the hint up movement
+                            //layoutTxtTime.setHint("Starting Time");
                             //txtTime.setTextColor(ResourcesCompat.getColor(getResources(), R.color.blackTextColor, null));
                             txtTime.setText(pad(hourOfDay) + ":" + pad(minute));
                             outHourOfDay = hourOfDay;
@@ -213,36 +221,48 @@ public class add_transport extends AppCompatActivity implements
 
         if (v == btnSubmit) {
 
+            boolean check = true;
 
             if(txtStartCity.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartCity.setError("please enter start city");//it gives user to info message
+                check = false;
             }
-            else if(txtStartStreet.getText().toString().equalsIgnoreCase("")) {
+            if(txtStartStreet.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartStreet.setError("please enter start street");//it gives user to info message
+                check = false;
             }
-            else if(txtStartCivic.getText().toString().equalsIgnoreCase("")) {
+            if(txtStartCivic.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartCivic.setError("please enter start civic, if no civic type SNC");//it gives user to info message
+                check = false;
             }
-            else if(txtDate.getText().toString().equalsIgnoreCase("")) {
+            if(txtDate.getText().toString().equalsIgnoreCase("")) {
                 //txtDate.setHint("please enter start date");//it gives user to hint
                 txtDate.setError("please enter start date");//it gives user to info message
+                check = false;
             }
-            else if(txtTime.getText().toString().equalsIgnoreCase("")) {
+            if(txtTime.getText().toString().equalsIgnoreCase("")) {
                 //txtTime.setHint("please enter start houre");//it gives user to hint
                 txtTime.setError("please enter start houre");//it gives user to info message
+                check = false;
             }
-            else if(txtCost.getText().toString().equalsIgnoreCase("")) {
+            if(txtCost.getText().toString().equalsIgnoreCase("")) {
                 //txtCost.setHint("please enter cost");//it gives user to hint
                 txtCost.setError("please enter cost");//it gives user to info message
+                check = false;
             }
-            else if(txtMaxPeople.getText().toString().equalsIgnoreCase("")) {
+            if(txtMaxPeople.getText().toString().equalsIgnoreCase("")) {
                 //txtMaxPeople.setHint("please enter maximum number of people");//it gives user to hint
                 txtMaxPeople.setError("please enter maximum number of people");//it gives user to info message
+                check = false;
             }
-            else {
+            if(btnBusPressed==false && btnCarPressed==false){
+                txtViewVehicle.setError("please select one from the proposed vehicles");//it gives user to info message
+                check = false;
+            }
+            if(check) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(outYear, outMonthOfYear, outDayOfMonth, outHourOfDay, outMinute);
                 String buffer = txtMaxPeople.getText().toString();

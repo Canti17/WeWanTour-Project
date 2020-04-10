@@ -107,7 +107,7 @@
 
     <style name="AppTheme.TextFloatLabelAppearance" parent="TextAppearance.Design.Hint">
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
     </style>
 
 
