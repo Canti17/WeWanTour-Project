@@ -4,192 +4,263 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".Activity_Registration_Agency">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/register_logo"
+        style="@style/formHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="cursive"
+        android:text="Register"
+        android:textAlignment="viewStart"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fullname_text"
+        style="@style/TextInputLayout"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_logo"
+        app:layout_constraintVertical_bias="0.02"
+        app:theme="@style/InputTextAppTheme">
 
-        <TextView
-            android:id="@+id/register_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="cursive"
-            android:text="Register"
-            android:textAlignment="viewStart"
-            android:textSize="50sp"
-            app:layout_constraintBottom_toTopOf="@+id/fullname_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/fullname_text"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="@string/full_name_text"
-            android:inputType="textPersonName"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_logo" />
-
-        <EditText
-            android:id="@+id/agencyname_text"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="Agency Name"
-            android:inputType="textPersonName"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullname_text" />
-
-        <EditText
-            android:id="@+id/email_text"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/agencyname_text" />
-
-        <EditText
-            android:id="@+id/iva_number"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="Iva Number"
-            android:inputType="numberDecimal"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_text" />
-
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/ccp"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            app:layout_constraintEnd_toStartOf="@+id/telephone_number"
-            app:layout_constraintHorizontal_bias="0.644"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iva_number" />
-
-        <EditText
-            android:id="@+id/telephone_number"
-            android:layout_width="207dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="Telephone Number"
-            android:inputType="phone"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iva_number" />
-
-        <EditText
-            android:id="@+id/password_text"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/telephone_number"/>
-
-        <EditText
-            android:id="@+id/confirmPassword_text"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_custom"
-            android:ems="10"
-            android:fontFamily="roboto_regular"
-            android:hint="Password Confirmation"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:singleLine="true"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_text" />
-
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="300dp"
-            android:layout_height="26dp"
-            android:layout_marginTop="30dp"
-            android:text="I accept privacy conditions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
-
-
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="300dp"
-            android:layout_height="52dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/btn_custom"
-            android:fontFamily="roboto_regular"
-
-            android:text="CREATE ACCOUNT"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullname_field"
+            style="@style/TextInputEditText"
+            android:hint="Full Name"
+            android:inputType="text"
+            android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintEnd_toEndOf="@+id/fullname_text"
+            app:layout_constraintStart_toStartOf="@+id/fullname_text"
+            app:layout_constraintTop_toTopOf="@+id/fullname_text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/agencyname_text"
+        style="@style/TextInputLayout"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:theme="@style/InputTextAppTheme"
+        app:layout_constraintTop_toBottomOf="@+id/fullname_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/agency_name_field"
+            style="@style/TextInputEditText"
+            android:hint="Agency Name"
+            android:inputType="text"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/fullname_text"
+            app:layout_constraintStart_toStartOf="@+id/fullname_text"
+            app:layout_constraintTop_toTopOf="@+id/fullname_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_text"
+        style="@style/TextInputLayout"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:theme="@style/InputTextAppTheme"
+        app:layout_constraintTop_toBottomOf="@+id/agencyname_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_field"
+            style="@style/TextInputEditText"
+            android:hint="Email"
+            android:inputType="text"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/agencyname_text"
+            app:layout_constraintStart_toStartOf="@+id/agencyname_text"
+            app:layout_constraintTop_toTopOf="@+id/agencyname_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/iva_number"
+        style="@style/TextInputLayout"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:theme="@style/InputTextAppTheme"
+        app:layout_constraintTop_toBottomOf="@+id/email_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iva_number_field"
+            style="@style/TextInputEditText"
+            android:hint="IVA Number"
+            android:inputType="numberDecimal"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/email_text"
+            app:layout_constraintStart_toStartOf="@+id/email_text"
+            app:layout_constraintTop_toTopOf="@+id/email_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="120dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/iva_number"
+        app:layout_constraintTop_toBottomOf="@+id/iva_number" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/telephone_number"
+        style="@style/TextInputLayout"
+        android:layout_width="180dp"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iva_number"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintVertical_bias="0.0"
+        app:theme="@style/InputTextAppTheme"
+        app:layout_constraintTop_toBottomOf="@+id/iva_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/telephone_number_field"
+            style="@style/TextInputEditText"
+            android:layout_width="220dp"
+            android:hint="Telephone Number"
+            android:inputType="numberDecimal"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iva_number"
+            app:layout_constraintStart_toStartOf="@+id/iva_number"
+            app:layout_constraintTop_toTopOf="@+id/iva_number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_text"
+        style="@style/TextInputLayout"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:theme="@style/InputTextAppTheme"
+        app:layout_constraintTop_toBottomOf="@+id/telephone_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_field"
+            style="@style/TextInputEditText"
+            android:hint="Password"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/telephone_number"
+            app:layout_constraintStart_toStartOf="@+id/email_text"
+            app:layout_constraintTop_toTopOf="@+id/telephone_number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirmPassword_text"
+        style="@style/TextInputLayout"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:theme="@style/InputTextAppTheme"
+        app:layout_constraintTop_toBottomOf="@+id/password_text"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirm_password_field"
+            style="@style/TextInputEditText"
+            android:hint="Confirm Password"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/password_text"
+            app:layout_constraintStart_toStartOf="@+id/password_text"
+            app:layout_constraintTop_toTopOf="@+id/password_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="37dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
+
+    <TextView
+        android:id="@+id/textViewprivacy"
+        android:layout_width="273dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="30dp"
+        android:text="I accept privacy condition"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
+
+
+    <Button
+        android:id="@+id/register_button"
+        style="@style/modifiedSubmitButton"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/btn_custom"
+        android:text="CREATE ACCOUNT"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewprivacy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

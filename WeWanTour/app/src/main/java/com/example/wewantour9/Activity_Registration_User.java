@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.app.ProgressDialog;
 import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -41,10 +40,10 @@ public class Activity_Registration_User extends AppCompatActivity {
 
         registration_button = (Button) findViewById(R.id.register_button);
 
-        full_name = (EditText) findViewById(R.id.fullname_text);
-        email = (EditText) findViewById(R.id.email_text);
-        password = (EditText) findViewById(R.id.password_text);
-        password_confirmation = (EditText) findViewById(R.id.confirmPassword_text);
+        full_name = (EditText) findViewById(R.id.fullname_field);
+        email = (EditText) findViewById(R.id.email_field);
+        password = (EditText) findViewById(R.id.password_field);
+        password_confirmation = (EditText) findViewById(R.id.confirm_password_field);
         /*image_button = (ImageButton) findViewById(R.id.imageButton);*/
         privacy_checkbox = (CheckBox) findViewById(R.id.checkBox);
 

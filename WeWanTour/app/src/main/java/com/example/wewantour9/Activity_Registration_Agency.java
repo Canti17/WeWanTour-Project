@@ -42,15 +42,15 @@ public class Activity_Registration_Agency extends AppCompatActivity {
 
         registration_button = (Button) findViewById(R.id.register_button);
 
-        full_name = (EditText) findViewById(R.id.fullname_text);
-        email = (EditText) findViewById(R.id.email_text);
-        password = (EditText) findViewById(R.id.password_text);
-        password_confirmation = (EditText) findViewById(R.id.confirmPassword_text);
+        full_name = (EditText) findViewById(R.id.fullname_field);
+        email = (EditText) findViewById(R.id.email_field);
+        password = (EditText) findViewById(R.id.password_field);
+        password_confirmation = (EditText) findViewById(R.id.confirm_password_field);
         /*image_button = (ImageButton) findViewById(R.id.imageButton);*/
         privacy_checkbox = (CheckBox) findViewById(R.id.checkBox);
-        telephone_number = (EditText) findViewById(R.id.telephone_number);
-        iva_number = (EditText) findViewById(R.id.iva_number);
-        agency_name = (EditText) findViewById(R.id.agencyname_text);
+        telephone_number = (EditText) findViewById(R.id.telephone_number_field);
+        iva_number = (EditText) findViewById(R.id.iva_number_field);
+        agency_name = (EditText) findViewById(R.id.agency_name_field);
 
         ccp = (CountryCodePicker) findViewById(R.id.ccp);   /*PLACING ITA/+39 AS DEFAULT PREFIX PHONE*/
         ccp.setDefaultCountryUsingNameCode("IT");
