@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class Login extends AppCompatActivity {
 
     Button login_button;
@@ -63,10 +65,11 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), ProfileUser.class));
+                            finish();
                             }
                             else{
-                                Toast.makeText(Login.this, "Authentication failed."+ task.getException().getMessage(),
+                                Toast.makeText(Login.this, "Authentication failed."+ Objects.requireNonNull(task.getException()).getMessage(),
                                         Toast.LENGTH_SHORT).show();
                                 progress.setVisibility(View.GONE);
                             }
