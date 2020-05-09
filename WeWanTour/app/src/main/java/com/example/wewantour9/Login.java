@@ -1,8 +1,10 @@
 package com.example.wewantour9;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,17 +18,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
 
-    private Button login_button;
+    Button login_button;
     EditText  email, password;
     FirebaseAuth fAuth;
     ProgressBar progress;
     TextView link;
+    TextView forgot;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,7 @@ public class Login extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         progress = (ProgressBar) findViewById(R.id.progressBar);
         link = (TextView) findViewById(R.id.link);
+        forgot = (TextView) findViewById(R.id.forgotpassword);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +102,6 @@ public class Login extends AppCompatActivity {
                 return true;
             };
 
-            boolean isEmpty(EditText text) {
-                CharSequence str = text.getText().toString();
-                return TextUtils.isEmpty(str);
-            }
-
 
     });
 
@@ -108,9 +113,62 @@ public class Login extends AppCompatActivity {
             }
         });
 
+
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final EditText resettext = new EditText(view.getContext());
+                AlertDialog.Builder passwordresetdialog = new AlertDialog.Builder(view.getContext());
+                passwordresetdialog.setMessage("Enter your Email to reset the password");
+                passwordresetdialog.setView(resettext);
+
+                passwordresetdialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //get the email and reset the password
+                        String mail = resettext.getText().toString();
+                        if (mail.isEmpty()) {
+                                //do nothing
+                        } else {
+                            fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(Login.this, "Done! Check your Email!", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(Login.this, "Error!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+                        }
+                    }
+                });
+
+
+
+                passwordresetdialog.create().show();
+            }
+        });
+
+
+
+
+
+
+
+
     };
 
 
 
+    static boolean isEmpty(EditText text) {
+        CharSequence str = text.getText().toString();
+        return TextUtils.isEmpty(str);
+    }
 
 }
