@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,8 +14,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,10 +32,12 @@ public class Activity_Registration_User extends AppCompatActivity {
     private Button registration_button;
     private FirebaseDatabase database;
     private DatabaseReference reference;
+    FirebaseAuth fAuth;
 
     EditText full_name, email, password, password_confirmation;
     /*ImageButton image_button;*/
     CheckBox privacy_checkbox;
+    ProgressBar progress;
 
     private int id;
 
@@ -46,8 +54,9 @@ public class Activity_Registration_User extends AppCompatActivity {
         password_confirmation = (EditText) findViewById(R.id.confirm_password_field);
         /*image_button = (ImageButton) findViewById(R.id.imageButton);*/
         privacy_checkbox = (CheckBox) findViewById(R.id.checkBox);
+        progress = (ProgressBar)findViewById(R.id.progressBar);
 
-
+        fAuth = FirebaseAuth.getInstance();
         reference = database.getInstance().getReference("USER").child("Customer");
 
 
@@ -70,14 +79,29 @@ public class Activity_Registration_User extends AppCompatActivity {
         registration_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progress.setVisibility(View.VISIBLE);
 
-                /* CONTROLLI PASSWORD E PRIVACY*/
+                /* ALL CONTROLS*/
                 if (registerUser(full_name, email, password,password_confirmation, privacy_checkbox)) {
 
-
-                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                       password.getText().toString(), null, id);
-                    reference.child(String.valueOf(customer.getId())).setValue(customer);
+                    fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(),  password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(Activity_Registration_User.this, "User Created", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
+                                        password.getText().toString(), null, id);
+                                reference.child(String.valueOf(customer.getId())).setValue(customer);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(Activity_Registration_User.this, "Authentication failed."+ task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                                progress.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                 }
 
                 else{
@@ -88,51 +112,50 @@ public class Activity_Registration_User extends AppCompatActivity {
 
             private boolean registerUser(EditText full_name, EditText email, EditText password, EditText password_confirmation,
                                       CheckBox checkbox) {
-                boolean var = true;
                 if (isEmpty(full_name)) {
                     full_name.setError("Name is required!");
-                    var = false;
+                    return false;
                 }
 
                 if (isEmpty(email)) {
                     email.setError("Email is required!");
-                    var = false;
+                    return false;
                 }
 
-                if ( Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+                if ( Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()){
                     /*DO NOTHING*/
                 } else{
                     email.setError("Email Format is wrong!");
-                    var = false;
+                    return false;
 
                 }
 
 
                 if (isEmpty(password)) {
                     password.setError("Password is required!");
-                    var = false;
+                    return false;
                 }
 
                 if (isEmpty(password_confirmation)) {
                     password_confirmation.setError("Password Confirmation is required!");
-                    var = false;
+                    return false;
 
-                } else if(password.getText().toString().equals(password_confirmation.getText().toString())) {
+                } else if(password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
                     /*DO NOTHING*/
                 } else{
                     password_confirmation.setError("Password Confirmation is different from the password!");
-                    var = false;
+                    return false;
                 }
 
                 if (checkbox.isChecked()) {
                     /*ok*/
                 } else{
                         checkbox.setError("Privacy Confirmation is required!");
-                        var = false;
+                        return false;
                     }
 
 
-                return var;
+                return true;
             };
 
             boolean isEmpty(EditText text) {
@@ -142,20 +165,7 @@ public class Activity_Registration_User extends AppCompatActivity {
         });
 
 
-    }
-
-    ;
+    };
 
 }
-
-
-
-
-
-
-
-
-
-
-
 

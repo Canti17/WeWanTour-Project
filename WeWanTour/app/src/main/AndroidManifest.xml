@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
+        <activity android:name=".Login"></activity>
         <activity android:name=".add_services" />
         <activity android:name=".add_tour" />
         <activity android:name=".Activity_Registration_Agency" />

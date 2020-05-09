@@ -2,6 +2,8 @@ package com.example.wewantour9;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,7 +13,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +36,8 @@ public class Activity_Registration_Agency extends AppCompatActivity {
     EditText full_name, email, password, password_confirmation,agency_name,telephone_number,iva_number;
     /*ImageButton image_button;*/
     CheckBox privacy_checkbox;
+    FirebaseAuth fAuth;
+    ProgressBar progress;
 
     CountryCodePicker ccp;
 
@@ -56,6 +66,10 @@ public class Activity_Registration_Agency extends AppCompatActivity {
         ccp.setDefaultCountryUsingNameCode("IT");
         ccp.resetToDefaultCountry();
 
+        progress = (ProgressBar) findViewById(R.id.progressBar);
+
+        fAuth = FirebaseAuth.getInstance();
+
         reference = database.getInstance().getReference("USER").child("Agency");
 
 
@@ -81,20 +95,37 @@ public class Activity_Registration_Agency extends AppCompatActivity {
         registration_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String telephone = telephone_number.getText().toString();
-                telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString();
-
+                progress.setVisibility(View.VISIBLE);
                 /* ALL CONTROLS*/
                 if (registerUser(full_name, email, password,password_confirmation, privacy_checkbox)) {
 
+                    fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(),  password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                String telephone = telephone_number.getText().toString();
+                                telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
+
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(Activity_Registration_Agency.this, "User Created", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
+                                        password.getText().toString().trim(), null, id, agency_name.getText().toString().trim(),
+                                        telephone , "Rome" ,iva_number.getText().toString().trim());
+
+                                reference.child(String.valueOf(agency.getId())).setValue(agency);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(Activity_Registration_Agency.this, "Authentication failed."+ task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                                progress.setVisibility(View.GONE);
+                            }
+                        }
+                    });
 
 
-                    Agency agency = new Agency(full_name.getText().toString(), email.getText().toString(),
-                       password.getText().toString(), null, id, agency_name.getText().toString(),
-                        telephone , "Rome" ,iva_number.getText().toString());
 
-                    reference.child(String.valueOf(agency.getId())).setValue(agency);
+
                 }
 
                 else{
@@ -116,7 +147,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                     var = false;
                 }
 
-                if ( Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+                if ( Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()){
                     /*DO NOTHING*/
                 } else{
                     email.setError("Email Format is wrong!");
@@ -134,7 +165,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                     password_confirmation.setError("Password Confirmation is required!");
                     var = false;
 
-                } else if(password.getText().toString().equals(password_confirmation.getText().toString())) {
+                } else if(password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
                     /*DO NOTHING*/
                 } else{
                     password_confirmation.setError("Password Confirmation is different from the password!");
@@ -167,7 +198,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
             };
 
             boolean isEmpty(EditText text) {
-                CharSequence str = text.getText().toString();
+                CharSequence str = text.getText().toString().trim();
                 return TextUtils.isEmpty(str);
             }
         });
