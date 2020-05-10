@@ -265,7 +265,9 @@ public class add_tour extends AppCompatActivity {
                     }else if(bike_pressed==false && walk_pressed==true){
                         vehicle="walk";
                     }
-                    Tour tour=new Tour(tourName,tourDescription,startPlace,calendar,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle);
+
+                    /* get current user to set agency*/
+                    Tour tour=new Tour(tourName,tourDescription,startPlace,calendar,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle,null);
                     db.child(String.valueOf(id)).setValue(tour);
                 }
             }

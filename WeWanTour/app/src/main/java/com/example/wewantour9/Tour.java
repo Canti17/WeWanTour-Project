@@ -1,6 +1,9 @@
 package com.example.wewantour9;
 
+import android.widget.TableRow;
+
 import java.util.Calendar;
+import java.util.LinkedList;
 
 public class Tour {
     private String name;
@@ -12,8 +15,12 @@ public class Tour {
     private int currentPeople;
     private int peopleLimit;
     private String vehicle;
+    private Agency agency;
+    private LinkedList<Transport> transports;
 
-    public Tour(String name, String description, String startPlace, Calendar calendar, double price, double duration, int currentPeople, int peopleLimit, String vehicle) {
+
+
+    public Tour(String name, String description, String startPlace, Calendar calendar, double price, double duration, int currentPeople, int peopleLimit, String vehicle, Agency agency) {
         this.name = name;
         this.description = description;
         this.startPlace = startPlace;
@@ -23,7 +30,15 @@ public class Tour {
         this.currentPeople = currentPeople;
         this.peopleLimit = peopleLimit;
         this.vehicle = vehicle;
+        this.agency=agency;
+        this.transports= new LinkedList<Transport>();
     }
+
+    public LinkedList<Transport> getTransports() { return transports; }
+
+    public void setTransports(LinkedList<Transport> transports) { this.transports = transports; }
+
+    public void addTransport(Transport transport){ this.transports.add(transport);}
 
     public String getName() {
         return name;
@@ -96,4 +111,8 @@ public class Tour {
     public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
     }
+
+    public Agency getAgency() { return agency; }
+
+    public void setAgency(Agency agency) { this.agency = agency; }
 }
