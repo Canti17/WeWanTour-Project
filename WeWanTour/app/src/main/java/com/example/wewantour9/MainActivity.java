@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, add_services.class));
             }
         });
+        Button btn_prove = (Button)findViewById(R.id.prove);
+        btn_prove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, prove.class));
+            }
+        });
 
     }
 }
