@@ -14,20 +14,6 @@
         tools:context=".add_tour">
 
 
-    <Button
-        android:id="@+id/btn_choose_img"
-        style="@style/modifiedDateTimeButton"
-        android:layout_width="110dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="28dp"
-        android:text="CHOOSE"
-        app:layout_constraintBottom_toTopOf="@+id/imgView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.612"
-        app:layout_constraintStart_toEndOf="@+id/txt_img"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_peoplelimit"
-        app:layout_constraintVertical_bias="0.527" />
-
     <TextView
             android:id="@+id/title"
             style="@style/formHeader"
@@ -369,32 +355,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <TextView
-        android:id="@+id/txt_img"
-        android:layout_width="111dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="52dp"
-        android:text="Tour image"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_peoplelimit" />
-
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="301dp"
-        android:layout_height="274dp"
-        android:background="@drawable/img_tour_background"
-        android:padding="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_img"
-        app:layout_constraintVertical_bias="0.036"
-        app:srcCompat="@drawable/earth" />
 
     <TextView
         android:id="@+id/txt_vehicle"
@@ -407,7 +367,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgView" />
+        app:layout_constraintTop_toBottomOf="@+id/text_input_peoplelimit" />
 
     <ImageButton
         android:id="@+id/btn_AddTour"

@@ -15,7 +15,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
         <activity android:name=".prove" />
-        
+
         <activity android:name=".ProfileUser"></activity>
         <activity android:name=".Login" />
         <activity android:name=".add_services" />
