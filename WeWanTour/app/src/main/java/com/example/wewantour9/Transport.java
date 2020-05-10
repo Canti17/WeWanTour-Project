@@ -10,14 +10,18 @@ public class Transport {
     private int maxPeople;
     private double cost;
     private String vehicle;
+    private Tour tour;
+    private Agency agency;
 
-    public Transport(String startLocation, Calendar startDate, int currrentPeople, int maxPeople, double cost, String vehicle) {
+    public Transport(String startLocation, Calendar startDate, int currrentPeople, int maxPeople, double cost, String vehicle, Tour tour, Agency agency) {
         this.startLocation = startLocation;
         this.startDate = startDate;
         this.currentPeople = currrentPeople;
         this.maxPeople = maxPeople;
         this.cost = cost;
         this.vehicle = vehicle;
+        this.tour = tour;
+        this.agency = agency;
     }
 
     public String getStartLocation() {
@@ -63,6 +67,14 @@ public class Transport {
     public String getVehicle() { return vehicle; }
 
     public void setVehicle(String vehicle) { this.vehicle = vehicle; }
+
+    public Tour getTour() { return tour; }
+
+    public void setTour(Tour tour) { this.tour = tour; }
+
+    public Agency getAgency() { return agency; }
+
+    public void setAgency(Agency agency) { this.agency = agency; }
 
     @Override
     public String toString() {
