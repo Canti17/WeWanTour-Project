@@ -4,23 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,6 +47,11 @@ public class Activity_Registration_Agency extends AppCompatActivity {
     EditText full_name, email, password, password_confirmation,agency_name,telephone_number,iva_number;
     /*ImageButton image_button;*/
     CheckBox privacy_checkbox;
+    TextView checkbox_textview;
+
+    TextInputLayout passwordbox;
+    TextInputLayout passwordboxconfirmation;
+
     FirebaseAuth fAuth;
     ProgressBar progress;
 
@@ -66,6 +77,11 @@ public class Activity_Registration_Agency extends AppCompatActivity {
         telephone_number = (EditText) findViewById(R.id.telephone_number_field);
         iva_number = (EditText) findViewById(R.id.iva_number_field);
         agency_name = (EditText) findViewById(R.id.agency_name_field);
+
+        passwordbox = (TextInputLayout)findViewById(R.id.password_text);
+        passwordboxconfirmation = (TextInputLayout)findViewById(R.id.confirmPassword_text);
+
+        checkbox_textview = (TextView)findViewById(R.id.textViewprivacy);
 
         ccp = (CountryCodePicker) findViewById(R.id.ccp);   /*PLACING ITA/+39 AS DEFAULT PREFIX PHONE*/
         ccp.setDefaultCountryUsingNameCode("IT");
@@ -94,6 +110,61 @@ public class Activity_Registration_Agency extends AppCompatActivity {
 
             }
         });
+
+
+
+        //Handle problem checkbox
+        privacy_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    checkbox_textview.setError(null);
+
+                }
+            };
+
+        });
+
+        //Handle problem see password
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordbox.setPasswordVisibilityToggleEnabled(true);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
+        //Handle problem see passwordconfirmation
+        password_confirmation.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordboxconfirmation.setPasswordVisibilityToggleEnabled(true);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
 
 
@@ -126,7 +197,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                 });
 
                                 //union of prefix and telephone number
-                                String telephone = telephone_number.getText().toString();
+                                String telephone;
                                 telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
 
 
@@ -153,7 +224,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                 }
 
                 else{
-                    /*do nothing */
+                   //ok
                 }
             };
 
@@ -161,6 +232,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
             private boolean registerUser(EditText full_name, EditText email, EditText password, EditText password_confirmation,
                                          CheckBox checkbox) {
                 boolean var = true;
+
                 if (isEmpty(full_name)) {
                     full_name.setError("Name is required!");
                     var = false;
@@ -181,25 +253,26 @@ public class Activity_Registration_Agency extends AppCompatActivity {
 
 
                 if (isEmpty(password)) {
+                    passwordbox.setPasswordVisibilityToggleEnabled(false);
                     password.setError("Password is required!");
                     var = false;
                 }
 
                 if (isEmpty(password_confirmation)) {
+                    passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
                     password_confirmation.setError("Password Confirmation is required!");
                     var = false;
 
                 } else if(password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
                     /*DO NOTHING*/
                 } else{
+                    passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
                     password_confirmation.setError("Password Confirmation is different from the password!");
                     var = false;
                 }
 
-                if (checkbox.isChecked()) {
-                    /*ok*/
-                } else{
-                    checkbox.setError("Privacy Confirmation is required!");
+                if (!checkbox.isChecked()) {
+                    checkbox_textview.setError("Privacy Confirmation is required!");
                     var = false;
                 }
 
@@ -209,7 +282,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                 }
 
                 if (isEmpty(telephone_number)) {
-                    telephone_number.setError("Telephone number is required!");
+                    telephone_number.setError("Mobile Phone is required!");
                     var = false;
                 }
                 if (isEmpty(iva_number)) {

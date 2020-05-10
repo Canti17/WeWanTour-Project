@@ -90,9 +90,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:theme="@style/InputTextAppTheme"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/email_text"
-        >
+        app:passwordToggleEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/email_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_field"
@@ -114,7 +113,7 @@
         style="@style/TextInputLayout"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
+        app:passwordToggleEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -144,18 +143,18 @@
         android:layout_height="30dp"
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
 
     <TextView
         android:id="@+id/textViewprivacy"
-        android:layout_width="273dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="30dp"
-        android:text="I accept privacy condition"
+        android:layout_width="279dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="59dp"
+        android:text="     I accept privacy condition"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
 
@@ -175,7 +174,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewprivacy"
         app:layout_constraintVertical_bias="0.01999998" />
@@ -189,10 +188,8 @@
         android:layout_marginStart="178dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="178dp"
-        android:layout_marginBottom="121dp"
         android:progressTint="#009688"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

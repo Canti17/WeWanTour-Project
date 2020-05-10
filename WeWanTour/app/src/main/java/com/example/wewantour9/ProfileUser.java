@@ -34,8 +34,8 @@ public class ProfileUser extends AppCompatActivity {
         setContentView(R.layout.activity_profile_user);
 
         profile_layout = (ConstraintLayout) findViewById(R.id.profile_layout);
-
-        currentUser = fAuth.getInstance().getCurrentUser();
+        fAuth = fAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
         logout_button = (Button)findViewById(R.id.logout_button);
 
 
@@ -70,7 +70,7 @@ public class ProfileUser extends AppCompatActivity {
        logout_button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               fAuth.getInstance().signOut();
+               fAuth.signOut();
                startActivity(new Intent(getApplicationContext(), Login.class));
                finish();
            };

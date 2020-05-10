@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +24,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -35,9 +41,7 @@ public class Login extends AppCompatActivity {
     TextView link;
     TextView forgot;
 
-
-
-
+    TextInputLayout passwordbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +57,33 @@ public class Login extends AppCompatActivity {
         link = (TextView) findViewById(R.id.link);
         forgot = (TextView) findViewById(R.id.forgotpassword);
 
+        passwordbox = (TextInputLayout)findViewById(R.id.password_text);
+
+
+
+        //Handle problem see password
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordbox.setPasswordVisibilityToggleEnabled(true);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                progress.setVisibility(View.VISIBLE);
-
                 if (loginUser(email, password)) {
+                    progress.setVisibility(View.VISIBLE);
                     fAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -78,31 +102,38 @@ public class Login extends AppCompatActivity {
                     });
             }
 
+                else{
+                    //ok
+                }
+
         };
 
 
             private boolean loginUser(EditText email, EditText password) {
 
+                boolean var = true;
+
                 if (isEmpty(email)) {
                     email.setError("Email is required!");
-                    return false;
+                    var = false;
                 }
 
                 if (Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()) {
                     /*DO NOTHING*/
                 } else {
                     email.setError("Email Format is wrong!");
-                    return false;
+                    var = false;
 
                 }
 
 
                 if (isEmpty(password)) {
+                    passwordbox.setPasswordVisibilityToggleEnabled(false);
                     password.setError("Password is required!");
-                    return false;
+                    var = false;
                 }
 
-                return true;
+                return var;
             };
 
 
