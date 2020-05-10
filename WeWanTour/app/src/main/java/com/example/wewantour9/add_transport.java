@@ -278,6 +278,9 @@ public class add_transport extends AppCompatActivity implements
 
                 Transport transport = new Transport(startingLocation, calendar, 0, intMaxPeople, doubleCost, vehicle, null, null);        //DA CAMBIARE NEL MOMENTO DELLA CREAZIONE DELLA LIST DEI TOUR DELL'AGENT AGGIUNGI AGENCY
                 db.child(String.valueOf(id)).setValue(transport);
+
+
+
                 //Log.println(Log.ERROR, "2", transport.toString());
             }
         }
