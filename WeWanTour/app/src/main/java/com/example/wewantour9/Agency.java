@@ -28,7 +28,7 @@ public class Agency extends User {
 
     }
 
-    
+
     public String getAgency_name() {
         return agency_name;
     }

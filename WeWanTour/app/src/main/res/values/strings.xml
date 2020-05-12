@@ -11,4 +11,13 @@
     <string name="full_name_text">Full Name</string>
     <string name="add_tour">ADD TOUR</string>
     <string name="title">Insert Tour</string>
+    <string name="title_activity_register">Register</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
 </resources>

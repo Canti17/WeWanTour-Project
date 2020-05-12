@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/home_icon"
+            >
+        </item>
+
+        <item
+            android:id="@+id/nav_login"
+            android:title="Login"
+            android:icon="@drawable/login"
+            >
+        </item>
+
+        <item
+            android:id="@+id/nav_register"
+            android:title="Create Account"
+            android:icon="@drawable/createaccount"
+            >
+        </item>
+
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile"
+            android:icon="@drawable/profile">
+        </item>
+
+        <item
+            android:id="@+id/nav_reservations"
+            android:title="My Reservations"
+            android:icon="@drawable/reservations">
+        </item>
+
+
+        <item
+            android:id="@+id/nav_credits"
+            android:title="Credits"
+            android:icon="@drawable/credits"
+            >
+        </item>
+
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"
+            android:icon="@drawable/logout"
+            >
+        </item>
+
+
+
+    </group>
+</menu>

@@ -1,28 +1,33 @@
 <resources>
 
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        
+        <item name="colorControlNormal">@color/whiteTextColor</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+
+
 
     </style>
 
 
-    <style name="InputTextAppTheme" parent="Theme.AppCompat.Light" >
+    <style name="InputTextAppTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/primaryTextColor</item>
     </style>
 
-
-
-
-
-
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
     <style name="HintTextStyle" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">18sp</item>
@@ -43,7 +48,7 @@
     <style name="modifiedEditText">
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
         <item name="android:backgroundTint">@color/primaryTextColor</item>
-        <item name="android:textColorHint">@color/hintTextColor </item>
+        <item name="android:textColorHint">@color/hintTextColor</item>
         <item name="android:textColor">@color/blackTextColor</item>
         <item name="android:layout_width">@dimen/formEditTextWidth</item>
         <item name="android:layout_height">@dimen/formEditTextHeight</item>
@@ -63,12 +68,8 @@
     </style>
 
 
-
-
-
-
     <style name="TextInputLayout">
-        <item name="android:layout_width">@dimen/formEditTextWidth </item>
+        <item name="android:layout_width">@dimen/formEditTextWidth</item>
 
         <item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>
         <!-- Ho usato una Height diversa perchè il "container" deve essere più grande altrimenti
@@ -81,8 +82,6 @@
         <item name="android:layout_width">@dimen/formEditTextWidth</item>
         <item name="android:layout_height">@dimen/formEditTextHeight</item>
     </style>
-
-
 
 
     <!-- Usato per TextInputLayout and TextInputEditTex, vengono chiamati in automatico grazie a "name="
@@ -110,6 +109,10 @@
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
     <!--
     <style name="AppTheme.TextErrorAppearance" parent="TextAppearance.Design.Error">
@@ -118,13 +121,6 @@
     </style>
 
 -->
-
-
-
-
-
-
-
 
 
 </resources>

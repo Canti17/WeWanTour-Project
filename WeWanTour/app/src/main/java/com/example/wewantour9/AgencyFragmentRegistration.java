@@ -1,23 +1,23 @@
 package com.example.wewantour9;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.nfc.Tag;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +35,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.hbb20.CountryCodePicker;
 
-public class Activity_Registration_Agency extends AppCompatActivity {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class AgencyFragmentRegistration extends Fragment {
+
+    public AgencyFragmentRegistration() {
+        // Required empty public constructor
+    }
 
     private Button registration_button;
     private FirebaseDatabase database;
@@ -61,33 +68,37 @@ public class Activity_Registration_Agency extends AppCompatActivity {
 
     private int id;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__registration__agency);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        registration_button = (Button) findViewById(R.id.register_button);
 
-        full_name = (EditText) findViewById(R.id.fullname_field);
-        email = (EditText) findViewById(R.id.email_field);
-        password = (EditText) findViewById(R.id.password_field);
-        password_confirmation = (EditText) findViewById(R.id.confirm_password_field);
-        /*image_button = (ImageButton) findViewById(R.id.imageButton);*/
-        privacy_checkbox = (CheckBox) findViewById(R.id.checkBox);
-        telephone_number = (EditText) findViewById(R.id.telephone_number_field);
-        iva_number = (EditText) findViewById(R.id.iva_number_field);
-        agency_name = (EditText) findViewById(R.id.agency_name_field);
+        View view = inflater.inflate(R.layout.fragment_agency_registration, container, false);
 
-        passwordbox = (TextInputLayout)findViewById(R.id.password_text);
-        passwordboxconfirmation = (TextInputLayout)findViewById(R.id.confirmPassword_text);
+        registration_button = (Button) view.findViewById(R.id.register_button);
 
-        checkbox_textview = (TextView)findViewById(R.id.textViewprivacy);
+        full_name = (EditText) view.findViewById(R.id.fullname_field);
+        email = (EditText) view.findViewById(R.id.email_field);
+        password = (EditText) view.findViewById(R.id.password_field);
+        password_confirmation = (EditText) view.findViewById(R.id.confirm_password_field);
+        /*image_button = (ImageButton) view.findViewById(R.id.imageButton);*/
+        privacy_checkbox = (CheckBox) view.findViewById(R.id.checkBox);
+        telephone_number = (EditText) view.findViewById(R.id.telephone_number_field);
+        iva_number = (EditText) view.findViewById(R.id.iva_number_field);
+        agency_name = (EditText) view.findViewById(R.id.agency_name_field);
 
-        ccp = (CountryCodePicker) findViewById(R.id.ccp);   /*PLACING ITA/+39 AS DEFAULT PREFIX PHONE*/
+        passwordbox = (TextInputLayout) view.findViewById(R.id.password_text);
+        passwordboxconfirmation = (TextInputLayout) view.findViewById(R.id.confirmPassword_text);
+
+        checkbox_textview = (TextView) view.findViewById(R.id.textViewprivacy);
+
+        ccp = (CountryCodePicker) view.findViewById(R.id.ccp);   /*PLACING ITA/+39 AS DEFAULT PREFIX PHONE*/
         ccp.setDefaultCountryUsingNameCode("IT");
         ccp.resetToDefaultCountry();
 
-        progress = (ProgressBar) findViewById(R.id.progressBar);
+        progress = (ProgressBar) view.findViewById(R.id.progressBar);
 
         fAuth = FirebaseAuth.getInstance();
 
@@ -185,8 +196,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                 user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Activity_Registration_Agency.this, "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
-
+                                        Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -202,8 +212,8 @@ public class Activity_Registration_Agency extends AppCompatActivity {
 
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(Activity_Registration_Agency.this, "User Created", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                //Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                         password.getText().toString().trim(), null, id, agency_name.getText().toString().trim(),
                                         telephone , "Rome" ,iva_number.getText().toString().trim());
@@ -211,7 +221,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                 reference.child(String.valueOf(agency.getId())).setValue(agency);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(Activity_Registration_Agency.this, "Authentication failed."+ task.getException().getMessage(),
+                                Toast.makeText(getActivity().getApplicationContext(), "Authentication failed."+ task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                                 progress.setVisibility(View.GONE);
                             }
@@ -224,7 +234,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                 }
 
                 else{
-                   //ok
+                    //ok
                 }
             };
 
@@ -300,12 +310,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
             }
         });
 
+        return view;
 
-    };
-
+    }
 }
-
-
-
-
-

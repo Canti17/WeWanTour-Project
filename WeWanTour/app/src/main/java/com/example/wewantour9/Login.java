@@ -48,16 +48,16 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login_button = (Button) findViewById(R.id.login_button);
+        login_button =  findViewById(R.id.login_button);
 
-        email = (EditText) findViewById(R.id.email_field_login);
-        password = (EditText)findViewById(R.id.password_field_login);
+        email =  findViewById(R.id.email_field_login);
+        password = findViewById(R.id.password_field_login);
         fAuth = FirebaseAuth.getInstance();
-        progress = (ProgressBar) findViewById(R.id.progressBar);
-        link = (TextView) findViewById(R.id.link);
-        forgot = (TextView) findViewById(R.id.forgotpassword);
+        progress =  findViewById(R.id.progressBar);
+        link =  findViewById(R.id.link);
+        forgot =  findViewById(R.id.forgotpassword);
 
-        passwordbox = (TextInputLayout)findViewById(R.id.password_text);
+        passwordbox = findViewById(R.id.password_text);
 
 
 
@@ -136,14 +136,13 @@ public class Login extends AppCompatActivity {
                 return var;
             };
 
-
     });
 
 
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),Activity_Registration_User.class));
+                startActivity(new Intent(getApplicationContext(),TotalRegister.class));
             }
         });
 
@@ -188,11 +187,6 @@ public class Login extends AppCompatActivity {
                 passwordresetdialog.create().show();
             }
         });
-
-
-
-
-
 
 
 
