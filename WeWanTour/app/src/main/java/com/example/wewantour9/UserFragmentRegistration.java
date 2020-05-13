@@ -96,18 +96,21 @@ public class UserFragmentRegistration extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         reference = database.getInstance().getReference("USER").child("Customer");
 
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+
                     id= (int) dataSnapshot.getChildrenCount();
+
                 }else{
                     ///
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
 
             }
         });
@@ -200,10 +203,10 @@ public class UserFragmentRegistration extends Fragment {
 
                                 // Sign in success, update UI with the signed-in user's information
                                 //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
                                         password.getText().toString(), null, id);
                                 reference.child(String.valueOf(customer.getId())).setValue(customer);
+                                startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(getActivity().getApplicationContext(), "Authentication failed."+ task.getException().getMessage(),
