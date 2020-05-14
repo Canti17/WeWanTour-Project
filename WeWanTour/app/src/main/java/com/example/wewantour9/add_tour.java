@@ -71,6 +71,7 @@ public class add_tour extends AppCompatActivity {
     private String vehicle="";
     private boolean bike_pressed=false;
     private boolean walk_pressed=false;
+    private Tour tour;
 
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -413,8 +414,7 @@ public class add_tour extends AppCompatActivity {
                         uriPath= uri.getResult().toString();
 
                         /* get current user to set agency*/
-                        final Tour tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle,null, uriPath);
-                        db.child(String.valueOf(id)).setValue(tour);
+                        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle,null, uriPath);
 
 
 
@@ -424,6 +424,8 @@ public class add_tour extends AppCompatActivity {
                                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                     final Agency current_agency= postSnapshot.getValue(Agency.class);
                                     if(current_agency.getEmail().equals(currentUser.getEmail())) {
+                                        tour.setAgency(current_agency);
+                                        db.child(String.valueOf(id)).setValue(tour);
                                         db_User.child("0").child("list_tour").child(Integer.toString(id-1)).setValue(tour);
                                     }
                                 }
