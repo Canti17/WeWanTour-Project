@@ -40,7 +40,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finish();
+            super.onBackPressed();
         }
 
     }
@@ -111,10 +111,10 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 finish();
                 break;
             case R.id.nav_reservations:
-                nav_view.setCheckedItem(R.id.nav_home);
+
                 break;
             case R.id.nav_credits:
-                nav_view.setCheckedItem(R.id.nav_home);
+                startActivity(new Intent(HomepageAgency.this, Credits.class));
                 break;
 
 
@@ -131,11 +131,9 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         switch (view.getId()){
             case R.id.addtour:
                 startActivity(new Intent(HomepageAgency.this, add_tour.class));
-                finish();
                 break;
             case R.id.addtransport:
                 startActivity(new Intent(HomepageAgency.this, add_transport.class));
-                finish();
                 break;
             case R.id.profile:
                 startActivity(new Intent(HomepageAgency.this, ProfileUser.class));

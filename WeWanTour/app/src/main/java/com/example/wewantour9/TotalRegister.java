@@ -43,7 +43,7 @@ public class TotalRegister extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(TotalRegister.this, MainActivity.class));
+        finish();
     }
 
     @SuppressLint("RestrictedApi")
@@ -144,7 +144,7 @@ public class TotalRegister extends AppCompatActivity {
         }
 
         else{
-            startActivity(new Intent(TotalRegister.this, MainActivity.class));
+           finish();
 
         }
 

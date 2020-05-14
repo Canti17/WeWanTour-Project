@@ -103,11 +103,6 @@ public class Login extends AppCompatActivity {
                             final String emailuser = email.getText().toString().trim();
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER");
 
-                            //PER IL MOMENTO VAI A MAIN ACTIVITY
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            //DatabaseReference referencecustomer = FirebaseDatabase.getInstance().getReference("User").child("Customer");
-/*
                             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -119,14 +114,20 @@ public class Login extends AppCompatActivity {
                                         Log.d("SONO qui",agency.getAgency_name());
                                         if(emailuser.equals(agency.getEmail())){
                                             Log.d("SONO qui","*******SONO DENTRO DELL IF");
-                                            startActivity(new Intent(getApplicationContext(), HomepageAgency.class));
+                                            Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
                                             finish();
+                                            break;
                                         }
 
                                         else{
                                             Log.d("SONO qui","*******PARTE LA MAIN ACTIVITY");
-                                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                            Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
                                             finish();
+                                            break;
                                         }
 
 
@@ -140,7 +141,7 @@ public class Login extends AppCompatActivity {
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                 }
-                            });*/
+                            });
 
                             }
                             else{
