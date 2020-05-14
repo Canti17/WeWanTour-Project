@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class Agency extends User {
 
-    private final String agency_name;
+    private String agency_name;
     private String telephone_number;
     private String location;
     private String iva_number;
@@ -26,6 +26,10 @@ public class Agency extends User {
         list_tour = new LinkedList<Tour>();
         list_transports = new LinkedList<Transport>();
 
+    }
+
+    public Agency(){
+        super();
     }
 
 

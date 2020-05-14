@@ -4,13 +4,13 @@ import android.media.Image;
 
 public class User {
 
-    private final String full_name;
+    private String full_name;
     private String email;
     private String password;
     private Image image;
 
 
-    private final int id;
+    private int id;
 
     public User(String full_name, String email, String password, Image image, int id){
 
@@ -19,8 +19,9 @@ public class User {
         this.password = password;
         this.image = image;
         this.id = id;
-
     }
+
+    public User(){}
 
 
 
