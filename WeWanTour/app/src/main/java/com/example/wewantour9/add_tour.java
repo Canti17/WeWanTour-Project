@@ -1,28 +1,51 @@
 package com.example.wewantour9;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
+import android.widget.Toast;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.rpc.Help;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class add_tour extends AppCompatActivity {
 
@@ -32,35 +55,100 @@ public class add_tour extends AppCompatActivity {
             edtxt_duration, edtxt_currentPeople, edtxt_peopleLimit;
     private TextView txt_vehicle;
     private int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
+    private Button btn_chooseImg;
+    private EditText editText3;
+    private String FileName;
 
-
+    private double doublePrice;
+    private double doubleDuration;
+    private String tourName;
+    private String tourDescription;
+    private String startPlace;
+    private String startDate;
+    private String startHour;
+    private int currentPeople;
+    private int peopleLimit;
+    private String vehicle="";
     private boolean bike_pressed=false;
     private boolean walk_pressed=false;
 
+    // request code
+    private final int PICK_IMAGE_REQUEST = 22;
+
+    // Uri indicates, where the image will be picked from
+    private Uri filePath;
+    // instance for firebase storage and StorageReference
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private StorageReference reference_img;
+    private UploadTask uploadTask;
+
+    private FirebaseAuth fAuth;
+    private FirebaseUser currentUser;
+
+
+
+    private ArrayList<Tour> list_tour_currentUser=new ArrayList<Tour>();
+
     private FirebaseDatabase database;
     private DatabaseReference db;
+    private DatabaseReference db_User;
     private int id=0;
-
+    private String uriPath="";
 
     public String pad(int input) {
-
         String str = "";
-
         if (input > 10) {
-
             str = Integer.toString(input);
         } else {
             str = "0" + Integer.toString(input);
-
         }
         return str;
     }
+
+    // Select Image method
+    private void ChooseImage() {
+        // Defining Implicit Intent to mobile gallery
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(intent, "Select Image from here..."), PICK_IMAGE_REQUEST);
+    }
+
+    // Override onActivityResult method
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // checking request code and result code if request code is PICK_IMAGE_REQUEST and resultCode is RESULT_OK then set image in the image view
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            // Get the Uri of data
+            filePath = data.getData();
+
+            String fileLastPath= filePath.getLastPathSegment();
+            String[] fileNamesplitted= fileLastPath.split("/");
+
+            FileName = fileNamesplitted[2];
+
+            /* I need to set reference_img beacause here I take the file name from the device,
+            I will use it later when I call the putFile(filePath) function*/
+            reference_img = storageReference.child("tour/"+FileName);
+
+            editText3.setText(FileName);
+
+        }
+    }
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tour);
+
 
 
         btn_DatePicker = findViewById(R.id.btn_startdate);
@@ -83,8 +171,33 @@ public class add_tour extends AppCompatActivity {
 
 
 
-        db= database.getInstance().getReference("TOUR");
+        fAuth = FirebaseAuth.getInstance();
 
+        currentUser = fAuth.getCurrentUser();
+
+        Log.println(Log.ERROR,"222-STAMPO STAMPO STAMPO------------------------", currentUser.getEmail());
+
+
+        // initialise views
+        btn_chooseImg = findViewById(R.id.btnChoose);
+        editText3=findViewById(R.id.edit_img);
+
+
+        // get the Firebase  storage reference
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference("images");
+
+        // on pressing btnSelect SelectImage() is called
+        btn_chooseImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChooseImage();
+            }
+        });
+
+
+        db_User=database.getInstance().getReference("USER").child("Agency");
+        db= database.getInstance().getReference("TOUR");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -178,23 +291,17 @@ public class add_tour extends AppCompatActivity {
 
             public void afterTextChanged(Editable s) {}
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                edtxt_StartDate.setError(null);
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { edtxt_StartDate.setError(null); }
         });
         edtxt_StartHour.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {}
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                edtxt_StartHour.setError(null);
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { edtxt_StartHour.setError(null); }
         });
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -252,26 +359,121 @@ public class add_tour extends AppCompatActivity {
                 if(check){
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(outYear, outMonthOfYear, outDayOfMonth, outHourOfDay, outMinute);
-                    double doublePrice = Double.parseDouble(edtxt_price.getText().toString());
-                    double doubleDuration = Double.parseDouble(edtxt_duration.getText().toString());
-                    String tourName= edtxt_name.getText().toString();
-                    String tourDescription= edtxt_description.getText().toString();
-                    String startPlace= edtxt_startCity.getText().toString()+","+edtxt_startStreet.getText().toString()+","+edtxt_startCivic.getText().toString();
-                    int currentPeople= Integer.parseInt(edtxt_currentPeople.getText().toString());
-                    int peopleLimit= Integer.parseInt(edtxt_peopleLimit.getText().toString());
-                    String vehicle="";
+                    doublePrice = Double.parseDouble(edtxt_price.getText().toString());
+                    doubleDuration = Double.parseDouble(edtxt_duration.getText().toString());
+                    tourName= edtxt_name.getText().toString();
+                    tourDescription= edtxt_description.getText().toString();
+                    startPlace= edtxt_startCity.getText().toString()+","+edtxt_startStreet.getText().toString()+","+edtxt_startCivic.getText().toString();
+                    startDate=edtxt_StartDate.getText().toString();
+                    startHour=edtxt_StartHour.getText().toString();
+                    currentPeople= Integer.parseInt(edtxt_currentPeople.getText().toString());
+                    peopleLimit= Integer.parseInt(edtxt_peopleLimit.getText().toString());
+
                     if(bike_pressed==true && walk_pressed==false){
                         vehicle="bike";
                     }else if(bike_pressed==false && walk_pressed==true){
                         vehicle="walk";
                     }
 
-                    /* get current user to set agency*/
-                    Tour tour=new Tour(tourName,tourDescription,startPlace,calendar,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle,null);
-                    db.child(String.valueOf(id)).setValue(tour);
+                    uploadFile();
+
+
                 }
             }
         });
+    }
+
+    private void uploadFile(){
+        final ProgressDialog progressDialog
+                = new ProgressDialog(add_tour.this);
+
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+
+        // adding listeners on upload or failure of image
+
+        uploadTask=reference_img.putFile(filePath);
+
+
+        uploadTask.addOnSuccessListener(
+                new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        // Image uploaded successfully
+                        // Dismiss dialog
+                        progressDialog.dismiss();
+                        Toast.makeText(add_tour.this,
+                                "Image Uploaded!!",
+                                Toast.LENGTH_SHORT).show();
+
+                        Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                        while(!uri.isComplete());
+                        uriPath= uri.getResult().toString();
+
+                        /* get current user to set agency*/
+                        final Tour tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle,null, uriPath);
+                        db.child(String.valueOf(id)).setValue(tour);
+
+
+
+                        db_User.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    final Agency current_agency= postSnapshot.getValue(Agency.class);
+                                    if(current_agency.getEmail().equals(currentUser.getEmail())) {
+                                        db_User.child("0").child("list_tour").child(Integer.toString(id-1)).setValue(tour);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                })
+
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                        // Error, Image not uploaded
+                        progressDialog.dismiss();
+                        Toast.makeText(add_tour.this, "Failed wewe " + e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnProgressListener(
+                        new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                            // Progress Listener for loading
+                            // percentage on the dialog box
+                            @Override
+                            public void onProgress(
+                                    UploadTask.TaskSnapshot taskSnapshot)
+                            {
+                                double progress
+                                        = (100.0
+                                        * taskSnapshot.getBytesTransferred()
+                                        / taskSnapshot.getTotalByteCount());
+                                progressDialog.setMessage(
+                                        "Uploaded " + (int)progress + "%");
+                            }
+                        });
+
+
+
 
     }
+
+
+
+
+
+
+
+
 }

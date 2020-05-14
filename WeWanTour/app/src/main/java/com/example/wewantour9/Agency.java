@@ -2,18 +2,25 @@ package com.example.wewantour9;
 
 import android.media.Image;
 
+import com.google.rpc.Help;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
 public class Agency extends User {
 
-    private final String agency_name;
+    private String agency_name;
     private String telephone_number;
     private String location;
     private String iva_number;
 
-    private LinkedList<Tour> list_tour;
+    private ArrayList<Tour> list_tour;
     private LinkedList<Transport> list_transports;
+
+    public Agency() {
+        super();
+    }
 
     public Agency(String full_name, String email, String password, Image image, int id, String agency_name, String telephone_number,
                   String location, String iva_number) {
@@ -23,9 +30,8 @@ public class Agency extends User {
         this.location = location;
         this.iva_number = iva_number;
 
-        list_tour = new LinkedList<Tour>();
-        list_transports = new LinkedList<Transport>();
-
+        this.list_tour=new ArrayList<>();
+        this.list_transports=new LinkedList<Transport>();
     }
 
     
@@ -57,11 +63,11 @@ public class Agency extends User {
         this.iva_number = iva_number;
     }
 
-    public LinkedList<Tour> getList_tour() {
+    public ArrayList<Tour> getList_tour() {
         return list_tour;
     }
 
-    public void setList_tour(LinkedList<Tour> list_tour) {
+    public void setList_tour(ArrayList<Tour> list_tour) {
         this.list_tour = list_tour;
     }
 

@@ -14,9 +14,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-        <activity android:name=".prove" />
-
-        <activity android:name=".ProfileUser"></activity>
+        <activity android:name=".Homepage"></activity>
+        <activity android:name=".ProfileUser" />
         <activity android:name=".Login" />
         <activity android:name=".add_services" />
         <activity android:name=".add_tour" />
