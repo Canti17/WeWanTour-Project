@@ -249,7 +249,7 @@ public class add_tour extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                edtxt_StartHour.setText(pad(sHour) + "." + pad(sMinute));
+                                edtxt_StartHour.setText(pad(sHour) + ":" + pad(sMinute));
                                 outHourOfDay = sHour;
                                 outMinute = sMinute;
                             }

@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,12 +21,16 @@ import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class add_transport extends AppCompatActivity implements
@@ -41,9 +46,12 @@ public class add_transport extends AppCompatActivity implements
     //keep attention that there are no error in reload the page because these booleans are resetted outside the on create function
     private boolean btnBusPressed=false;
     private boolean btnCarPressed=false;
+    private Transport newTransport;
 
+    private FirebaseAuth fAuth;
+    private FirebaseUser currentUser;
     private FirebaseDatabase database;
-    private DatabaseReference db;
+    private DatabaseReference db, db_agency;
 
     int id = 0;
 
@@ -57,6 +65,16 @@ public class add_transport extends AppCompatActivity implements
         }
         return str;
     }
+
+    /*public void getId(DataSnapshot postSnapshot) {
+        ArrayList lastList = new ArrayList();
+        for (DataSnapshot postSnapshotList : postSnapshot.child("list_tour").getChildren()) {
+            lastList.add(postSnapshotList.getKey());
+            Log.println(Log.ERROR, "lastlistlastlist", lastList.toString());
+        }
+        //return lastList.get(lastList.size() - 1);
+        //return 1;
+    }*/
 
 
     @Override
@@ -83,21 +101,11 @@ public class add_transport extends AppCompatActivity implements
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
- /*
-        //This is the code to directly show data and time in the edit text but is good only after the hint up movement
-        final Calendar cal = Calendar.getInstance();
-        mYear = cal.get(Calendar.YEAR);
-        mMonth = cal.get(Calendar.MONTH);
-        mDay = cal.get(Calendar.DAY_OF_MONTH);
-        mHour = cal.get(Calendar.HOUR_OF_DAY);
-        mMinute = cal.get(Calendar.MINUTE);
-        txtDate.setTextColor(ResourcesCompat.getColor(getResources(), R.color.hintTextColor, null));
-        txtTime.setTextColor(ResourcesCompat.getColor(getResources(), R.color.hintTextColor, null));
-        txtDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
-        txtTime.setText(pad(mHour) + ":" + pad(mMinute));
-*/
 
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
         db= database.getInstance().getReference("TRANSPORT");
+        db_agency = database.getInstance().getReference("USER/Agency");
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -182,9 +190,6 @@ public class add_transport extends AppCompatActivity implements
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                            ////This is the code to directly show data and time in the edit text but is good only after the hint up movement
-                            //layoutTxtDate.setHint("Starting Date");
-                            //txtDate.setTextColor(ResourcesCompat.getColor(getResources(), R.color.blackTextColor, null));
                             txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                             outYear = year;
                             outMonthOfYear = monthOfYear;
@@ -207,9 +212,6 @@ public class add_transport extends AppCompatActivity implements
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
 
-                            ////This is the code to directly show data and time in the edit text but is good only after the hint up movement
-                            //layoutTxtTime.setHint("Starting Time");
-                            //txtTime.setTextColor(ResourcesCompat.getColor(getResources(), R.color.blackTextColor, null));
                             txtTime.setText(pad(hourOfDay) + ":" + pad(minute));
                             outHourOfDay = hourOfDay;
                             outMinute = minute;
@@ -263,8 +265,8 @@ public class add_transport extends AppCompatActivity implements
                 check = false;
             }
             if(check) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(outYear, outMonthOfYear, outDayOfMonth, outHourOfDay, outMinute);
+                String startDate = txtDate.getText().toString();
+                String startHoure = txtTime.getText().toString();
                 String buffer = txtMaxPeople.getText().toString();
                 int intMaxPeople = Integer.parseInt(buffer);
                 double doubleCost = Double.parseDouble(txtCost.getText().toString());
@@ -276,12 +278,27 @@ public class add_transport extends AppCompatActivity implements
                     vehicle="Car";
                 }
 
-                Transport transport = new Transport(startingLocation, calendar, 0, intMaxPeople, doubleCost, vehicle, null, null);        //DA CAMBIARE NEL MOMENTO DELLA CREAZIONE DELLA LIST DEI TOUR DELL'AGENT AGGIUNGI AGENCY
-                db.child(String.valueOf(id)).setValue(transport);
+                newTransport = new Transport(startingLocation, startDate, startHoure, 0, intMaxPeople, doubleCost, vehicle, null, null);        //DA CAMBIARE NEL MOMENTO DELLA CREAZIONE DELLA LIST DEI TOUR DELL'AGENT AGGIUNGI AGENCY
 
+                db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            Agency agency_crnt = postSnapshot.getValue(Agency.class);
+                            if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
+                                newTransport.setAgency(agency_crnt);
+                                db.child(String.valueOf(id)).setValue(newTransport);
+                                db_agency.child("1").child("list_transports").child("0").setValue(newTransport);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                //Log.println(Log.ERROR, "2", transport.toString());
+                    }
+                });
+                startActivity(new Intent(getApplicationContext(), HomepageAgency.class));
+                finish();
             }
         }
     }

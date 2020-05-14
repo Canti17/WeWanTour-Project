@@ -16,7 +16,7 @@ public class Agency extends User {
     private String iva_number;
 
     private ArrayList<Tour> list_tour;
-    private LinkedList<Transport> list_transports;
+    private ArrayList<Transport> list_transports;
 
     public Agency() {
         super();
@@ -31,7 +31,7 @@ public class Agency extends User {
         this.iva_number = iva_number;
 
         this.list_tour=new ArrayList<>();
-        this.list_transports=new LinkedList<Transport>();
+        this.list_transports=new ArrayList<Transport>();
     }
 
     public String getAgency_name() {
@@ -70,11 +70,11 @@ public class Agency extends User {
         this.list_tour = list_tour;
     }
 
-    public LinkedList<Transport> getList_transports() {
+    public ArrayList<Transport> getList_transports() {
         return list_transports;
     }
 
-    public void setList_transports(LinkedList<Transport> list_transports) {
+    public void setList_transports(ArrayList<Transport> list_transports) {
         this.list_transports = list_transports;
     }
 

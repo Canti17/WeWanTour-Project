@@ -5,7 +5,8 @@ import java.util.Calendar;
 public class Transport {
 
     private String startLocation;
-    private Calendar startDate;
+    private String startDate;
+    private String startHour;
     private int currentPeople;
     private int maxPeople;
     private double cost;
@@ -13,9 +14,11 @@ public class Transport {
     private Tour tour;
     private Agency agency;
 
-    public Transport(String startLocation, Calendar startDate, int currrentPeople, int maxPeople, double cost, String vehicle, Tour tour, Agency agency) {
+    public Transport(){}
+    public Transport(String startLocation, String startDate, String startHour, int currrentPeople, int maxPeople, double cost, String vehicle, Tour tour, Agency agency) {
         this.startLocation = startLocation;
         this.startDate = startDate;
+        this.startHour = startHour;
         this.currentPeople = currrentPeople;
         this.maxPeople = maxPeople;
         this.cost = cost;
@@ -32,13 +35,17 @@ public class Transport {
         this.startLocation = startLocation;
     }
 
-    public Calendar getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
+
+    public String getStartHour() { return startHour; }
+
+    public void setStartHour(String startHour) { this.startHour = startHour; }
 
     public int getCurrrentPeople() {
         return currentPeople;
@@ -80,15 +87,14 @@ public class Transport {
     public String toString() {
         return "Transport{" +
                 "startLocation='" + startLocation + '\'' +
-                ", startDate=" + startDate.get(Calendar.DAY_OF_MONTH) + "/" +
-                                    (startDate.get(Calendar.MONTH)+1) + "/" +
-                                       startDate.get(Calendar.YEAR) + " H:" +
-                                  startDate.get(Calendar.HOUR_OF_DAY) + ":" +
-                                             startDate.get(Calendar.MINUTE) +
-                ", CurrrentPeople=" + currentPeople +
+                ", startDate='" + startDate + '\'' +
+                ", startHour='" + startHour + '\'' +
+                ", currentPeople=" + currentPeople +
                 ", maxPeople=" + maxPeople +
                 ", cost=" + cost +
-                ", vehicle" + vehicle +
+                ", vehicle='" + vehicle + '\'' +
+                ", tour=" + tour +
+                ", agency=" + agency +
                 '}';
     }
 }

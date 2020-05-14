@@ -107,12 +107,14 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                                    boolean flag = true;
                                     Log.d("SONO qui","*******FUORI DAL FOR");
                                     for(DataSnapshot data: dataSnapshot.child("Agency").getChildren() ){
                                         Agency agency = data.getValue(Agency.class);
                                         Log.d("SONO qui","*******SONO PRIMA DELL IF");
                                         Log.d("SONO qui",agency.getAgency_name());
                                         if(emailuser.equals(agency.getEmail())){
+                                            flag = false;
                                             Log.d("SONO qui","*******SONO DENTRO DELL IF");
                                             Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -120,18 +122,19 @@ public class Login extends AppCompatActivity {
                                             finish();
                                             break;
                                         }
-
-                                        else{
-                                            Log.d("SONO qui","*******PARTE LA MAIN ACTIVITY");
-                                            Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
-                                            finish();
-                                            break;
-                                        }
-
-
                                     }
+                                    if(flag) {
+                                        Log.d("SONO qui", "*******PARTE LA MAIN ACTIVITY");
+                                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+
+
+
+
 
 
 
