@@ -12,6 +12,7 @@ public class User {
 
     private int id;
 
+
     public User(String full_name, String email, String password, Image image, int id){
 
         this.full_name = full_name;
@@ -22,7 +23,6 @@ public class User {
     }
 
     public User(){}
-
 
 
 

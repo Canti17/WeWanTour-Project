@@ -9,7 +9,8 @@ public class Tour {
     private String name;
     private String description;
     private String startPlace;
-    private Calendar calendar;
+    private String startDate;
+    private String startHour;
     private double price;
     private double duration;
     private int currentPeople;
@@ -17,14 +18,20 @@ public class Tour {
     private String vehicle;
     private Agency agency;
     private LinkedList<Transport> transports;
+    private String filePath;
 
 
 
-    public Tour(String name, String description, String startPlace, Calendar calendar, double price, double duration, int currentPeople, int peopleLimit, String vehicle, Agency agency) {
+    public Tour(){
+    }
+
+
+    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int peopleLimit, String vehicle, Agency agency, String filePath) {
         this.name = name;
         this.description = description;
         this.startPlace = startPlace;
-        this.calendar = calendar;
+        this.startDate= startDate;
+        this.startHour= startHour;
         this.price = price;
         this.duration = duration;
         this.currentPeople = currentPeople;
@@ -32,7 +39,10 @@ public class Tour {
         this.vehicle = vehicle;
         this.agency=agency;
         this.transports= new LinkedList<Transport>();
+        this.filePath= filePath;
     }
+
+
 
     public LinkedList<Transport> getTransports() { return transports; }
 
@@ -64,13 +74,13 @@ public class Tour {
         this.startPlace = startPlace;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
-    }
+    public String getStartDate() { return startDate; }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
+
+    public String getStartHour() { return startHour; }
+
+    public void setStartHour(String startHour) { this.startHour = startHour; }
 
     public double getPrice() {
         return price;
@@ -115,4 +125,12 @@ public class Tour {
     public Agency getAgency() { return agency; }
 
     public void setAgency(Agency agency) { this.agency = agency; }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }

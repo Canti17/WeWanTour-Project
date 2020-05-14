@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         btn_registration_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,10 +154,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 fAuth.signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
 
-            ;
+                finish(); 
+            }
         });
 
     }
