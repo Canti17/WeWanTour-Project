@@ -35,7 +35,6 @@ public class ProfileUser extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(ProfileUser.this, HomepageAgency.class));
         finish();
     }
 
@@ -91,8 +90,6 @@ public class ProfileUser extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        startActivity(new Intent(ProfileUser.this, HomepageAgency.class));
         finish();
         return true;
     }

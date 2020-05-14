@@ -40,7 +40,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            finish();
         }
 
     }
@@ -103,9 +103,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
             case R.id.nav_register:
                 break;
             case R.id.nav_profile:
-                nav_view.setCheckedItem(R.id.nav_home);
                 startActivity(new Intent(HomepageAgency.this, ProfileUser.class));
-                finish();
                 break;
             case R.id.nav_logout:
                 fAuth.signOut();
@@ -122,6 +120,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
 
 
         }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -140,11 +139,16 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.profile:
                 startActivity(new Intent(HomepageAgency.this, ProfileUser.class));
-                finish();
                 break;
             case R.id.toursandtransports:
                 break;
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nav_view.setCheckedItem(R.id.nav_home);
     }
 }

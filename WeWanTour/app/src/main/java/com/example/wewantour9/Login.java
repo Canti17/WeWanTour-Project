@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -91,8 +97,51 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
 
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                            Log.d("SONO qui","*******SONO DENTRO TASK SUCCESSFUL");
+
+                            //FirebaseUser current_user = fAuth.getCurrentUser();
+                            final String emailuser = email.getText().toString().trim();
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER");
+
+                            //PER IL MOMENTO VAI A MAIN ACTIVITY
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            //DatabaseReference referencecustomer = FirebaseDatabase.getInstance().getReference("User").child("Customer");
+/*
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    Log.d("SONO qui","*******FUORI DAL FOR");
+                                    for(DataSnapshot data: dataSnapshot.child("Agency").getChildren() ){
+                                        Agency agency = data.getValue(Agency.class);
+                                        Log.d("SONO qui","*******SONO PRIMA DELL IF");
+                                        Log.d("SONO qui",agency.getAgency_name());
+                                        if(emailuser.equals(agency.getEmail())){
+                                            Log.d("SONO qui","*******SONO DENTRO DELL IF");
+                                            startActivity(new Intent(getApplicationContext(), HomepageAgency.class));
+                                            finish();
+                                        }
+
+                                        else{
+                                            Log.d("SONO qui","*******PARTE LA MAIN ACTIVITY");
+                                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                            finish();
+                                        }
+
+
+                                    }
+
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });*/
+
                             }
                             else{
                                 Toast.makeText(Login.this, "Authentication failed."+ Objects.requireNonNull(task.getException()).getMessage(),
