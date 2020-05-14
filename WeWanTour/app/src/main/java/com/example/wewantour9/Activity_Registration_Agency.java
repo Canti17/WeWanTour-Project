@@ -36,7 +36,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.rpc.Help;
 import com.hbb20.CountryCodePicker;
+
+
 
 public class Activity_Registration_Agency extends AppCompatActivity {
 
@@ -204,6 +207,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(Activity_Registration_Agency.this, "User Created", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), Login.class));
+
                                 Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                         password.getText().toString().trim(), null, id, agency_name.getText().toString().trim(),
                                         telephone , "Rome" ,iva_number.getText().toString().trim());

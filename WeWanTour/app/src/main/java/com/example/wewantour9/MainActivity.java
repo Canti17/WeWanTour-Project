@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         btn_registration_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         btn_prove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, prove.class));
+                startActivity(new Intent(MainActivity.this, Homepage.class));
             }
         });
 
@@ -86,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 fAuth.signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            };
+                finish(); };
         });
 
     }
