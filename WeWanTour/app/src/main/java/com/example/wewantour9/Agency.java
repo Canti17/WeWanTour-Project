@@ -34,11 +34,6 @@ public class Agency extends User {
         this.list_transports=new LinkedList<Transport>();
     }
 
-    public Agency(){
-        super();
-    }
-
-
     public String getAgency_name() {
         return agency_name;
     }

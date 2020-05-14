@@ -16,28 +16,17 @@
         tools:replace="android:label">
 
         <activity android:name=".Homepage"></activity>
-        <activity android:name=".ProfileUser" />
-        <activity android:name=".Login" />
-        <activity android:name=".add_services" />
-        <activity android:name=".add_tour" />
-        <activity android:name=".Activity_Registration_Agency" />
-        <activity android:name=".Activity_Registration_User" />
-        <activity android:name=".MainActivity">
+
+
         <activity android:name=".HomepageAgency"
-
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
+
         <activity
             android:name=".TotalRegister"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".prove" />
+
         <activity
             android:name=".ProfileUser"
             android:theme="@style/AppTheme.NoActionBar">
@@ -58,6 +47,11 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".add_transport" />
