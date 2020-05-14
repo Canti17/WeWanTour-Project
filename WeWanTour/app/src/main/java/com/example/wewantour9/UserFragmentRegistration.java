@@ -1,24 +1,28 @@
 package com.example.wewantour9;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.nfc.Tag;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,85 +39,81 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.rpc.Help;
-import com.hbb20.CountryCodePicker;
 
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class UserFragmentRegistration extends Fragment {
 
-public class Activity_Registration_Agency extends AppCompatActivity {
+   // NestedScrollView scroll;
+
+    public UserFragmentRegistration() {
+        // Required empty public constructor
+    }
 
     private Button registration_button;
     private FirebaseDatabase database;
     private DatabaseReference reference;
+    FirebaseAuth fAuth;
 
-    EditText full_name, email, password, password_confirmation,agency_name,telephone_number,iva_number;
-    /*ImageButton image_button;*/
-    CheckBox privacy_checkbox;
-    TextView checkbox_textview;
+    EditText full_name, email, password, password_confirmation;
 
     TextInputLayout passwordbox;
     TextInputLayout passwordboxconfirmation;
-
-    FirebaseAuth fAuth;
+    /*ImageButton image_button;*/
+    CheckBox privacy_checkbox;
+    TextView checkbox_textview;
     ProgressBar progress;
-
-    CountryCodePicker ccp;
-
-
 
     private int id;
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__registration__agency);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_user_registration, container, false);
 
-        registration_button = (Button) findViewById(R.id.register_button);
+        registration_button = (Button) view.findViewById(R.id.register_button);
 
-        full_name = (EditText) findViewById(R.id.fullname_field);
-        email = (EditText) findViewById(R.id.email_field);
-        password = (EditText) findViewById(R.id.password_field);
-        password_confirmation = (EditText) findViewById(R.id.confirm_password_field);
+        full_name = (EditText) view.findViewById(R.id.fullname_field);
+        email = (EditText) view.findViewById(R.id.email_field);
+        password = (EditText) view.findViewById(R.id.password_field);
+        password_confirmation = (EditText) view.findViewById(R.id.confirm_password_field);
         /*image_button = (ImageButton) findViewById(R.id.imageButton);*/
-        privacy_checkbox = (CheckBox) findViewById(R.id.checkBox);
-        telephone_number = (EditText) findViewById(R.id.telephone_number_field);
-        iva_number = (EditText) findViewById(R.id.iva_number_field);
-        agency_name = (EditText) findViewById(R.id.agency_name_field);
+        privacy_checkbox = (CheckBox) view.findViewById(R.id.checkBox);
+        progress = (ProgressBar)view.findViewById(R.id.progressBar);
 
-        passwordbox = (TextInputLayout)findViewById(R.id.password_text);
-        passwordboxconfirmation = (TextInputLayout)findViewById(R.id.confirmPassword_text);
+        checkbox_textview = (TextView)view.findViewById(R.id.textViewprivacy);
 
-        checkbox_textview = (TextView)findViewById(R.id.textViewprivacy);
+        passwordbox = (TextInputLayout) view.findViewById(R.id.password_text);
+        passwordboxconfirmation = (TextInputLayout) view.findViewById(R.id.confirmPassword_text);
 
-        ccp = (CountryCodePicker) findViewById(R.id.ccp);   /*PLACING ITA/+39 AS DEFAULT PREFIX PHONE*/
-        ccp.setDefaultCountryUsingNameCode("IT");
-        ccp.resetToDefaultCountry();
-
-        progress = (ProgressBar) findViewById(R.id.progressBar);
+        passwordbox.setPasswordVisibilityToggleEnabled(false);
+        passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
 
         fAuth = FirebaseAuth.getInstance();
-
-        reference = database.getInstance().getReference("USER").child("Agency");
-
-
+        reference = database.getInstance().getReference("USER").child("Customer");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+
                     id= (int) dataSnapshot.getChildrenCount();
+
                 }else{
                     ///
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
+
             }
         });
-
 
 
         //Handle problem checkbox
@@ -122,7 +122,6 @@ public class Activity_Registration_Agency extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
                     checkbox_textview.setError(null);
-
                 }
             };
 
@@ -132,7 +131,6 @@ public class Activity_Registration_Agency extends AppCompatActivity {
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -169,11 +167,10 @@ public class Activity_Registration_Agency extends AppCompatActivity {
         });
 
 
-
-
         registration_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 /* ALL CONTROLS*/
                 if (registerUser(full_name, email, password,password_confirmation, privacy_checkbox)) {
@@ -183,12 +180,15 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
                                 //verification email
                                 FirebaseUser user = fAuth.getCurrentUser();
+                                assert user != null;
                                 user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Activity_Registration_Agency.this, "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -199,42 +199,35 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                     }
                                 });
 
-                                //union of prefix and telephone number
-                                String telephone;
-                                telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
 
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(Activity_Registration_Agency.this, "User Created", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), Login.class));
-
-                                Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                        password.getText().toString().trim(), null, id, agency_name.getText().toString().trim(),
-                                        telephone , "Rome" ,iva_number.getText().toString().trim());
-
-                                reference.child(String.valueOf(agency.getId())).setValue(agency);
+                                //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
+                                Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
+                                        password.getText().toString(), null, id);
+                                reference.child(String.valueOf(customer.getId())).setValue(customer);
+                                startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(Activity_Registration_Agency.this, "Authentication failed."+ task.getException().getMessage(),
+                                Toast.makeText(getActivity().getApplicationContext(), "Authentication failed."+ task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                                 progress.setVisibility(View.GONE);
                             }
                         }
                     });
-
-
-
-
                 }
 
                 else{
-                   //ok
+                    //ok
+
                 }
             };
 
 
             private boolean registerUser(EditText full_name, EditText email, EditText password, EditText password_confirmation,
                                          CheckBox checkbox) {
+
+
                 boolean var = true;
 
                 if (isEmpty(full_name)) {
@@ -259,7 +252,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                 if (isEmpty(password)) {
                     passwordbox.setPasswordVisibilityToggleEnabled(false);
                     password.setError("Password is required!");
-                    var = false;
+                    var =  false;
                 }
 
                 if (isEmpty(password_confirmation)) {
@@ -272,26 +265,12 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                 } else{
                     passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
                     password_confirmation.setError("Password Confirmation is different from the password!");
-                    var = false;
+                    var =  false;
                 }
 
                 if (!checkbox.isChecked()) {
                     checkbox_textview.setError("Privacy Confirmation is required!");
-                    var = false;
-                }
-
-                if (isEmpty(agency_name)) {
-                    agency_name.setError("Agency Name is required!");
-                    var = false;
-                }
-
-                if (isEmpty(telephone_number)) {
-                    telephone_number.setError("Mobile Phone is required!");
-                    var = false;
-                }
-                if (isEmpty(iva_number)) {
-                    iva_number.setError("IVA number is required!");
-                    var = false;
+                    var  =  false;
                 }
 
 
@@ -299,17 +278,10 @@ public class Activity_Registration_Agency extends AppCompatActivity {
             };
 
             boolean isEmpty(EditText text) {
-                CharSequence str = text.getText().toString().trim();
+                CharSequence str = text.getText().toString();
                 return TextUtils.isEmpty(str);
             }
         });
-
-
-    };
-
+        return view;
+    }
 }
-
-
-
-
-

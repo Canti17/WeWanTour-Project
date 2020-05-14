@@ -7,10 +7,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,25 +19,42 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ProfileUser extends AppCompatActivity {
+import java.util.Objects;
 
+public class ProfileUser extends AppCompatActivity {
 
     FirebaseAuth fAuth;
     Snackbar snack;
     ConstraintLayout profile_layout;
-    Button logout_button;
     FirebaseUser currentUser;
 
+    Toolbar toolbar;
+
+    //Toolbar toolbar;
+
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ProfileUser.this, HomepageAgency.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_user);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         profile_layout = (ConstraintLayout) findViewById(R.id.profile_layout);
+        //toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+
         fAuth = fAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
-        logout_button = (Button)findViewById(R.id.logout_button);
 
 
         if(!currentUser.isEmailVerified()){
@@ -67,13 +85,15 @@ public class ProfileUser extends AppCompatActivity {
         }
 
 
-       logout_button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               fAuth.signOut();
-               startActivity(new Intent(getApplicationContext(), Login.class));
-               finish();
-           };
-       });
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        startActivity(new Intent(ProfileUser.this, HomepageAgency.class));
+        finish();
+        return true;
     }
 }

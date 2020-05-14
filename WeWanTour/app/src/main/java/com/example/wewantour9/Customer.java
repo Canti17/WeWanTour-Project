@@ -13,6 +13,10 @@ public class Customer extends User {
         this.list_reservation =  new LinkedList<Reservation>();
     }
 
+    public Customer(){
+        super();
+    }
+
     public void setList_reservation(LinkedList<Reservation> list_reservation) {
         this.list_reservation = list_reservation;
     }

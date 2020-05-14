@@ -12,8 +12,6 @@ public class User {
 
     private int id;
 
-    public User() { }
-
 
     public User(String full_name, String email, String password, Image image, int id){
 
@@ -22,8 +20,9 @@ public class User {
         this.password = password;
         this.image = image;
         this.id = id;
-
     }
+
+    public User(){}
 
 
 
