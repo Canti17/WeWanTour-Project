@@ -31,7 +31,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
     DrawerLayout drawer;
     CardView newtour;
     CardView newtransport;
-    CardView profile;
+    CardView alltours;
     CardView toursandtransports;
 
 
@@ -60,13 +60,13 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
 
         newtour = findViewById(R.id.addtour);
         newtransport = findViewById(R.id.addtransport);
-        profile = findViewById(R.id.profile);
+        alltours = findViewById(R.id.alltours);
         toursandtransports = findViewById(R.id.toursandtransports);
 
         newtour.setOnClickListener((View.OnClickListener) this);
         toursandtransports.setOnClickListener((View.OnClickListener) this);
         newtransport.setOnClickListener((View.OnClickListener) this);
-        profile.setOnClickListener((View.OnClickListener) this);
+        alltours.setOnClickListener((View.OnClickListener) this);
 
         //TOOLBAR
         setSupportActionBar(toolbar);
@@ -107,7 +107,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.nav_logout:
                 fAuth.signOut();
-                startActivity(new Intent(HomepageAgency.this, MainActivity.class));
+                startActivity(new Intent(HomepageAgency.this, Homepage.class));
                 finish();
                 break;
             case R.id.nav_reservations:
@@ -135,8 +135,10 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
             case R.id.addtransport:
                 startActivity(new Intent(HomepageAgency.this, add_transport.class));
                 break;
-            case R.id.profile:
-                startActivity(new Intent(HomepageAgency.this, ProfileUser.class));
+            case R.id.alltours:
+                Intent intent = new Intent(HomepageAgency.this, Homepage.class);
+                intent.putExtra("Ue", 1);
+                startActivity(intent);
                 break;
             case R.id.toursandtransports:
                 break;

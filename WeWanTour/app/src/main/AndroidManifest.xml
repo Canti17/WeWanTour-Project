@@ -14,39 +14,41 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Credits"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Homepage"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-        <category android:name="android.intent.category.DEFAULT"/>
-    </intent-filter>
         </activity>
         <activity
             android:name=".HomepageAgency"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".TotalRegister"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ProfileUser"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
             android:parentActivityName=".Homepage" />
         <activity android:name=".add_services" />
-        <activity android:name=".add_tour"
-            android:parentActivityName=".HomepageAgency"/>
+        <activity
+            android:name=".add_tour"
+            android:parentActivityName=".HomepageAgency" />
         <activity
             android:name=".Activity_Registration_Agency"
             android:parentActivityName=".Homepage" />
@@ -55,11 +57,10 @@
             android:parentActivityName=".Homepage" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".add_transport"
-            android:parentActivityName=".HomepageAgency"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".add_transport"
+            android:parentActivityName=".HomepageAgency" />
 
         <meta-data
             android:name="preloaded_fonts"
