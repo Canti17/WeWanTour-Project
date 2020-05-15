@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,13 +39,17 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private DatabaseReference mDatabaseReferenceTour;
     private List<Tour> mUploads;
     private LinearLayoutManager mLayoutManager;
+    private Toolbar toolbar;
+    private Menu menu;
 
 
-    //AGGIUNTE DA CANTI PER MENU
     private FirebaseAuth fAuth;
+    private  FirebaseAuth fAuth2;
+    FirebaseUser current_user;
+    FirebaseUser current;
 
-    NavigationView nav_view;
-    ActionBarDrawerToggle toggle;
+    private NavigationView nav_view;
+    private ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
 
 
@@ -63,7 +69,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_homepage);
 
         fAuth = FirebaseAuth.getInstance();
-        FirebaseUser current_user = fAuth.getCurrentUser();
+        current_user = fAuth.getCurrentUser();
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -74,38 +80,59 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         mProgressCircle = findViewById(R.id.progress_circle);
         mUploads = new ArrayList<Tour>();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         nav_view = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer);
+
+
+
 
         //TOOLBAR
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        int value = intent.getIntExtra("Ue", 0);
+        Log.d("VALUE", Integer.toString(value));
 
-        //NAVIGATION MENU
-        nav_view.bringToFront();
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
-        drawer.addDrawerListener(toggle);
-        toggle.setDrawerIndicatorEnabled(true);
-        toggle.syncState();
+        if(value == 1){
+            Log.d("USER", "BAAAACK");
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
 
-        nav_view.setNavigationItemSelectedListener(this);
-        nav_view.setCheckedItem(R.id.nav_home);
+        else{
+
+            Log.d("USER", "MENUUU");
+            //NAVIGATION MENU
+            nav_view.bringToFront();
+            toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+            drawer.addDrawerListener(toggle);
+            toggle.setDrawerIndicatorEnabled(true);
+            toggle.syncState();
 
 
-        //Hide or show items
-        Menu menu = nav_view.getMenu();
+            nav_view.setNavigationItemSelectedListener(this);
+            nav_view.setCheckedItem(R.id.nav_home);
 
-        if (current_user != null) {
-            menu.findItem(R.id.nav_login).setVisible(false);
-            menu.findItem(R.id.nav_register).setVisible(false);
+            //Hide or show items
+            menu = nav_view.getMenu();
 
-        } else {
-            menu.findItem(R.id.nav_logout).setVisible(false);
-            menu.findItem(R.id.nav_profile).setVisible(false);
-            menu.findItem(R.id.nav_reservations).setVisible(false);
+            //GESTIONE MENU
+            if(current_user == null) {
+                menu.findItem(R.id.nav_logout).setVisible(false);
+                menu.findItem(R.id.nav_profile).setVisible(false);
+                menu.findItem(R.id.nav_reservations).setVisible(false);
+            }
+            else{
+                menu.findItem(R.id.nav_login).setVisible(false);
+                menu.findItem(R.id.nav_register).setVisible(false);
+
+            }
+
+
 
         }
+
+
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
@@ -167,5 +194,20 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         nav_view.setCheckedItem(R.id.nav_home);
     }
 
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+
+
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
 
 }

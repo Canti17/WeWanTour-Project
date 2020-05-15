@@ -147,41 +147,7 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/profile"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:cardElevation="10dp"
-                    app:cardCornerRadius="18dp"
-                    android:layout_margin="12dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:padding="16dp"
-                        android:orientation="vertical"
-                        >
-                        <ImageView
-                            android:src="@drawable/avatarprofile"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"/>
-
-                        <TextView
-                            android:layout_marginTop="12dp"
-                            android:textColor="@color/blackTextColor"
-                            android:text="Profile"
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-
-
-                </androidx.cardview.widget.CardView>
 
 
                 <androidx.cardview.widget.CardView
@@ -203,7 +169,7 @@
                         android:orientation="vertical"
                         >
                         <ImageView
-                            android:src="@drawable/tourstransports"
+                            android:src="@drawable/toursandtransports"
                             android:layout_width="80dp"
                             android:layout_height="80dp"/>
 
@@ -216,6 +182,43 @@
                             android:layout_height="wrap_content"/>
 
                     </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/alltours"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="18dp"
+                    android:layout_margin="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:orientation="vertical"
+                        >
+                        <ImageView
+                            android:src="@drawable/tours"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
+
+                        <TextView
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/blackTextColor"
+                            android:text="All Tours"
+                            android:textSize="18sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
 
                 </androidx.cardview.widget.CardView>
 
