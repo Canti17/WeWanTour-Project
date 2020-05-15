@@ -38,6 +38,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Activity_Registration_User extends AppCompatActivity {
 
     private Button registration_button;
@@ -54,7 +56,7 @@ public class Activity_Registration_User extends AppCompatActivity {
     TextView checkbox_textview;
     ProgressBar progress;
 
-    private int id;
+    private String new_user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +88,20 @@ public class Activity_Registration_User extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    id= (int) dataSnapshot.getChildrenCount();
-                }else{
-                    ///
+                ArrayList<String> lastList = new ArrayList<String>();
+                for (DataSnapshot postSnapshotList : dataSnapshot.getChildren()) {
+                    lastList.add(postSnapshotList.getKey());
                 }
+                int id_progressive;
+                if(lastList.size() != 0) {
+                    id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+                }else{
+                    id_progressive = 0;
+                }
+                new_user_id =  String.valueOf(id_progressive);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -188,7 +195,7 @@ public class Activity_Registration_User extends AppCompatActivity {
                                 Toast.makeText(Activity_Registration_User.this, "User Created", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), Login.class));
                                 Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                        password.getText().toString(), null, id);
+                                        password.getText().toString(), null, Integer.parseInt(new_user_id));
                                 reference.child(String.valueOf(customer.getId())).setValue(customer);
                             } else {
                                 // If sign in fails, display a message to the user.

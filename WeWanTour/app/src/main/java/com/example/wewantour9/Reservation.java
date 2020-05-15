@@ -3,9 +3,9 @@ package com.example.wewantour9;
 public class Reservation {
     private Tour tour;
     private Transport transport;
-    private Customer customer;
+    private String customer;
 
-    public Reservation(Tour tour, Transport transport, Customer customer) {
+    public Reservation(Tour tour, Transport transport, String customer) {
         this.tour = tour;
         this.transport = transport;
         this.customer = customer;
@@ -27,11 +27,11 @@ public class Reservation {
         this.transport = transport;
     }
 
-    public Customer getCustomer() {
+    public String getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(String customer) {
         this.customer = customer;
     }
 }

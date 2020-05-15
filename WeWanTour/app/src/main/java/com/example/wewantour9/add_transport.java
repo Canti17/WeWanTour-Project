@@ -43,7 +43,6 @@ public class add_transport extends AppCompatActivity implements
     private TextInputLayout layoutTxtDate, layoutTxtTime;
     int mYear, mMonth, mDay, mHour, mMinute;
     int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
-    //keep attention that there are no error in reload the page because these booleans are resetted outside the on create function
     private boolean btnBusPressed=false;
     private boolean btnCarPressed=false;
     private Transport newTransport;
@@ -54,7 +53,6 @@ public class add_transport extends AppCompatActivity implements
     private DatabaseReference db, db_agency;
 
     private String new_transport_id;
-    int id;
 
 
     public String pad(int input) {
@@ -112,20 +110,26 @@ public class add_transport extends AppCompatActivity implements
         db= database.getInstance().getReference("TRANSPORT");
         db_agency = database.getInstance().getReference("USER/Agency");
 
-        //db.once("value").then(function(snapshot) {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    id= (int) dataSnapshot.getChildrenCount();
-                }else{
-                    ///
+                ArrayList<String> lastList = new ArrayList<String>();
+                for (DataSnapshot postSnapshotList : dataSnapshot.getChildren()) {
+                    lastList.add(postSnapshotList.getKey());
                 }
+                int id_progressive;
+                if(lastList.size() != 0) {
+                    id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+                }else{
+                    id_progressive = 0;
+                }
+                new_transport_id =  String.valueOf(id_progressive);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
         //used only to reset the error appeared in the data and time after the submit push with the empty field
         txtDate.addTextChangedListener(new TextWatcher() {
 
@@ -292,9 +296,10 @@ public class add_transport extends AppCompatActivity implements
                             Agency agency_crnt = postSnapshot.getValue(Agency.class);
                             if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
                                 newTransport.setAgency(agency_crnt.getEmail());
-                                db.child(String.valueOf(id)).setValue(newTransport);
+                                db.child(String.valueOf(new_transport_id)).setValue(newTransport);
                                 db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
-                                Log.println(Log.ERROR, "DOPOGETMAINFUNCTION", getNextId(postSnapshot.child("list_transports")));
+                                //db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+                                Log.println(Log.ERROR, "DOPOGETMAINFUNCTION", new_transport_id);
                             }
                         }
                     }

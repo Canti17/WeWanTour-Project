@@ -94,7 +94,7 @@ public class add_tour extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference db;
     private DatabaseReference db_User;
-    private int id=0;
+    private String new_tour_id;
     private String uriPath="";
 
     public String pad(int input) {
@@ -215,11 +215,17 @@ public class add_tour extends AppCompatActivity {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    id= (int) dataSnapshot.getChildrenCount();
-                }else{
-                    ///
+                ArrayList<String> lastList = new ArrayList<String>();
+                for (DataSnapshot postSnapshotList : dataSnapshot.getChildren()) {
+                    lastList.add(postSnapshotList.getKey());
                 }
+                int id_progressive;
+                if(lastList.size() != 0) {
+                    id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+                }else{
+                    id_progressive = 0;
+                }
+                new_tour_id =  String.valueOf(id_progressive);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -438,8 +444,10 @@ public class add_tour extends AppCompatActivity {
                                     final Agency current_agency= postSnapshot.getValue(Agency.class);
                                     if(current_agency.getEmail().equals(currentUser.getEmail())) {
                                         tour.setAgency(current_agency.getEmail());
-                                        db.child(String.valueOf(id)).setValue(tour);
+                                        db.child(new_tour_id).setValue(tour);
                                         db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
+                                        //db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+
                                     }
                                 }
                             }

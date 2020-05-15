@@ -39,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.rpc.Help;
 import com.hbb20.CountryCodePicker;
 
+import java.util.ArrayList;
 
 
 public class Activity_Registration_Agency extends AppCompatActivity {
@@ -62,7 +63,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
 
 
 
-    private int id;
+    private String new_agency_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,16 +102,20 @@ public class Activity_Registration_Agency extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    id= (int) dataSnapshot.getChildrenCount();
-                }else{
-                    ///
+                ArrayList<String> lastList = new ArrayList<String>();
+                for (DataSnapshot postSnapshotList : dataSnapshot.getChildren()) {
+                    lastList.add(postSnapshotList.getKey());
                 }
+                int id_progressive;
+                if(lastList.size() != 0) {
+                    id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+                }else{
+                    id_progressive = 0;
+                }
+                new_agency_id =  String.valueOf(id_progressive);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -209,7 +214,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), Login.class));
 
                                 Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                        password.getText().toString().trim(), null, id, agency_name.getText().toString().trim(),
+                                        password.getText().toString().trim(), null, Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
                                         telephone , "Rome" ,iva_number.getText().toString().trim());
 
                                 reference.child(String.valueOf(agency.getId())).setValue(agency);
