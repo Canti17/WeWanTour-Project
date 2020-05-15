@@ -116,6 +116,19 @@ public class add_tour extends AppCompatActivity {
         startActivityForResult(
                 Intent.createChooser(intent, "Select Image from here..."), PICK_IMAGE_REQUEST);
     }
+    public String getNextId(DataSnapshot postSnapshot) {
+        ArrayList<String> lastList = new ArrayList<String>();
+        for (DataSnapshot postSnapshotList : postSnapshot.getChildren()) {
+            lastList.add(postSnapshotList.getKey());
+        }
+        int id_progressive;
+        if(lastList.size() != 0) {
+            id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+        }else{
+            id_progressive = 0;
+        }
+        return String.valueOf(id_progressive);
+    }
 
     // Override onActivityResult method
     @Override
@@ -424,9 +437,9 @@ public class add_tour extends AppCompatActivity {
                                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                     final Agency current_agency= postSnapshot.getValue(Agency.class);
                                     if(current_agency.getEmail().equals(currentUser.getEmail())) {
-                                        tour.setAgency(current_agency);
+                                        tour.setAgency(current_agency.getEmail());
                                         db.child(String.valueOf(id)).setValue(tour);
-                                        db_User.child("0").child("list_tour").child(Integer.toString(id-1)).setValue(tour);
+                                        db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
                                     }
                                 }
                             }

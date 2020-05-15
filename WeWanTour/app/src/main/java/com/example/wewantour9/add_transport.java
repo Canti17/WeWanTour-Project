@@ -53,7 +53,8 @@ public class add_transport extends AppCompatActivity implements
     private FirebaseDatabase database;
     private DatabaseReference db, db_agency;
 
-    int id = 0;
+    private String new_transport_id;
+    int id;
 
 
     public String pad(int input) {
@@ -66,15 +67,19 @@ public class add_transport extends AppCompatActivity implements
         return str;
     }
 
-    /*public void getId(DataSnapshot postSnapshot) {
-        ArrayList lastList = new ArrayList();
-        for (DataSnapshot postSnapshotList : postSnapshot.child("list_tour").getChildren()) {
+    public String getNextId(DataSnapshot postSnapshot) {
+        ArrayList<String> lastList = new ArrayList<String>();
+        for (DataSnapshot postSnapshotList : postSnapshot.getChildren()) {
             lastList.add(postSnapshotList.getKey());
-            Log.println(Log.ERROR, "lastlistlastlist", lastList.toString());
         }
-        //return lastList.get(lastList.size() - 1);
-        //return 1;
-    }*/
+        int id_progressive;
+        if(lastList.size() != 0) {
+            id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+        }else{
+            id_progressive = 0;
+        }
+        return String.valueOf(id_progressive);
+    }
 
 
     @Override
@@ -107,6 +112,7 @@ public class add_transport extends AppCompatActivity implements
         db= database.getInstance().getReference("TRANSPORT");
         db_agency = database.getInstance().getReference("USER/Agency");
 
+        //db.once("value").then(function(snapshot) {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -120,7 +126,6 @@ public class add_transport extends AppCompatActivity implements
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
         //used only to reset the error appeared in the data and time after the submit push with the empty field
         txtDate.addTextChangedListener(new TextWatcher() {
 
@@ -286,9 +291,10 @@ public class add_transport extends AppCompatActivity implements
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             Agency agency_crnt = postSnapshot.getValue(Agency.class);
                             if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
-                                newTransport.setAgency(agency_crnt);
+                                newTransport.setAgency(agency_crnt.getEmail());
                                 db.child(String.valueOf(id)).setValue(newTransport);
-                                db_agency.child("1").child("list_transports").child("0").setValue(newTransport);
+                                db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
+                                Log.println(Log.ERROR, "DOPOGETMAINFUNCTION", getNextId(postSnapshot.child("list_transports")));
                             }
                         }
                     }

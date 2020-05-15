@@ -16,7 +16,7 @@ public class Tour {
     private int currentPeople;
     private int peopleLimit;
     private String vehicle;
-    private Agency agency;
+    private String agency;
     private LinkedList<Transport> transports;
     private String filePath;
 
@@ -26,7 +26,7 @@ public class Tour {
     }
 
 
-    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int peopleLimit, String vehicle, Agency agency, String filePath) {
+    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int peopleLimit, String vehicle, String agency, String filePath) {
         this.name = name;
         this.description = description;
         this.startPlace = startPlace;
@@ -122,9 +122,9 @@ public class Tour {
         this.vehicle = vehicle;
     }
 
-    public Agency getAgency() { return agency; }
+    public String getAgency() { return agency; }
 
-    public void setAgency(Agency agency) { this.agency = agency; }
+    public void setAgency(String agency) { this.agency = agency; }
 
     public String getFilePath() {
         return filePath;
