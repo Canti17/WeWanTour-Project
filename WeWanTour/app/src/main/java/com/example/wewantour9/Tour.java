@@ -14,6 +14,7 @@ public class Tour {
     private double price;
     private double duration;
     private int currentPeople;
+    private int minPeople;
     private int peopleLimit;
     private String vehicle;
     private String agency;
@@ -26,7 +27,7 @@ public class Tour {
     }
 
 
-    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int peopleLimit, String vehicle, String agency, String filePath) {
+    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int peopleLimit,int minPeople, String vehicle, String agency, String filePath) {
         this.name = name;
         this.description = description;
         this.startPlace = startPlace;
@@ -36,6 +37,7 @@ public class Tour {
         this.duration = duration;
         this.currentPeople = currentPeople;
         this.peopleLimit = peopleLimit;
+        this.minPeople=minPeople;
         this.vehicle = vehicle;
         this.agency=agency;
         this.transports= new LinkedList<Transport>();
@@ -113,6 +115,10 @@ public class Tour {
     public void setPeopleLimit(int peopleLimit) {
         this.peopleLimit = peopleLimit;
     }
+
+    public int getMinPeople() { return minPeople; }
+
+    public void setMinPeople(int minPeople) { this.minPeople = minPeople; }
 
     public String getVehicle() {
         return vehicle;

@@ -52,7 +52,7 @@ public class add_tour extends AppCompatActivity {
     private Button btn_DatePicker, btn_HourPicker, btn_submit;
     private ImageButton btn_bike, btn_walk;
     private EditText edtxt_name, edtxt_description, edtxt_startCity,edtxt_startStreet, edtxt_startCivic, edtxt_StartDate, edtxt_StartHour, edtxt_price,
-            edtxt_duration, edtxt_currentPeople, edtxt_peopleLimit;
+            edtxt_duration, edtxt_minPeople, edtxt_peopleLimit;
     private TextView txt_vehicle;
     private int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
     private Button btn_chooseImg;
@@ -66,7 +66,7 @@ public class add_tour extends AppCompatActivity {
     private String startPlace;
     private String startDate;
     private String startHour;
-    private int currentPeople;
+    private int minPeople;
     private int peopleLimit;
     private String vehicle="";
     private boolean bike_pressed=false;
@@ -179,7 +179,7 @@ public class add_tour extends AppCompatActivity {
         edtxt_StartHour = findViewById(R.id.edittxt_starthour);
         edtxt_price = findViewById(R.id.edittxt_price);
         edtxt_duration = findViewById(R.id.edittxt_duration);
-        edtxt_currentPeople = findViewById(R.id.edittxt_currentpeople);
+        edtxt_minPeople = findViewById(R.id.edittxt_minPeople);
         edtxt_peopleLimit= findViewById(R.id.edittxt_peoplelimit);
         txt_vehicle = findViewById(R.id.txt_vehicle);
 
@@ -364,8 +364,8 @@ public class add_tour extends AppCompatActivity {
                     edtxt_duration.setError("please duration ");//it gives user to info message
                     check = false;
                 }
-                if(edtxt_currentPeople.getText().toString().equalsIgnoreCase("")) {
-                    edtxt_currentPeople.setError("please enter number of current people");//it gives user to info message
+                if(edtxt_minPeople.getText().toString().equalsIgnoreCase("")) {
+                    edtxt_minPeople.setError("please enter min number of current people");//it gives user to info message
                     check = false;
                 }
                 if(edtxt_peopleLimit.getText().toString().equalsIgnoreCase("")) {
@@ -386,7 +386,7 @@ public class add_tour extends AppCompatActivity {
                     startPlace= edtxt_startCity.getText().toString()+","+edtxt_startStreet.getText().toString()+","+edtxt_startCivic.getText().toString();
                     startDate=edtxt_StartDate.getText().toString();
                     startHour=edtxt_StartHour.getText().toString();
-                    currentPeople= Integer.parseInt(edtxt_currentPeople.getText().toString());
+                    minPeople= Integer.parseInt(edtxt_minPeople.getText().toString());
                     peopleLimit= Integer.parseInt(edtxt_peopleLimit.getText().toString());
 
                     if(bike_pressed==true && walk_pressed==false){
@@ -425,7 +425,7 @@ public class add_tour extends AppCompatActivity {
                         // Dismiss dialog
                         progressDialog.dismiss();
                         Toast.makeText(add_tour.this,
-                                "Image Uploaded!!",
+                                "Tour Uploaded!!",
                                 Toast.LENGTH_SHORT).show();
 
                         Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
@@ -433,7 +433,7 @@ public class add_tour extends AppCompatActivity {
                         uriPath= uri.getResult().toString();
 
                         /* get current user to set agency*/
-                        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,currentPeople,peopleLimit,vehicle,null, uriPath);
+                        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,minPeople,peopleLimit,vehicle,null, uriPath);
 
 
 

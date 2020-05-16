@@ -136,11 +136,13 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 startActivity(new Intent(HomepageAgency.this, add_transport.class));
                 break;
             case R.id.alltours:
-                Intent intent = new Intent(HomepageAgency.this, Homepage.class);
+                Intent intent = new Intent(HomepageAgency.this, List_tour_inAgency.class);
                 intent.putExtra("Ue", 1);
                 startActivity(intent);
                 break;
             case R.id.toursandtransports:
+                startActivity(new Intent(HomepageAgency.this, myReservation.class));
+                finish();
                 break;
 
         }

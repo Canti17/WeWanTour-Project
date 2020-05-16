@@ -336,7 +336,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_duration"
             style="@style/TextInputEditText"
-            android:hint="Duration"
+            android:hint="Duration (minuts)"
             android:inputType="numberDecimal"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -363,9 +363,9 @@
         app:theme="@style/InputTextAppTheme">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edittxt_currentpeople"
+            android:id="@+id/edittxt_minPeople"
             style="@style/TextInputEditText"
-            android:hint="Current People"
+            android:hint="Min People"
             android:inputType="numberSigned"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
