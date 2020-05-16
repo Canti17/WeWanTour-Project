@@ -2,10 +2,11 @@ package com.example.wewantour9;
 
 import android.widget.TableRow;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-public class Tour {
+public class Tour implements Serializable {
     private String name;
     private String description;
     private String startPlace;
@@ -138,5 +139,25 @@ public class Tour {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startPlace='" + startPlace + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", startHour='" + startHour + '\'' +
+                ", price=" + price +
+                ", duration=" + duration +
+                ", currentPeople=" + currentPeople +
+                ", minPeople=" + minPeople +
+                ", peopleLimit=" + peopleLimit +
+                ", vehicle='" + vehicle + '\'' +
+                ", agency='" + agency + '\'' +
+                ", transports=" + transports +
+                ", filePath='" + filePath + '\'' +
+                '}';
     }
 }

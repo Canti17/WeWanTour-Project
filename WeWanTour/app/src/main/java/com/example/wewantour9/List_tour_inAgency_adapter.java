@@ -1,6 +1,7 @@
 package com.example.wewantour9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, final int position) {
         final Tour current_tour=uploads.get(position);
         holder.text_name_tour.setText(current_tour.getName());
         holder.text_name_agency.setText(current_tour.getAgency());
@@ -52,6 +53,16 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         Glide.with(mContext)
                 .load(current_tour.getFilePath())
                 .into(holder.img_tour);
+
+        //Passaggio ad add_tour con l'ogetto PER RICCARDO se l'idea è mettere il bottone sposta il codice nell'onClick del bottone KISS
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, add_transport.class);
+                intent.putExtra("Tour class from ListTourInAgency", uploads.get(position));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

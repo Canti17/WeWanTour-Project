@@ -55,16 +55,17 @@ public class tour_adapter extends RecyclerView.Adapter<tour_adapter.ImageViewHol
 
 
         /* PER ANDREA, questo gestisce il click sull'item del RecyclerView, una volta cliccato hai il riferimento al tour per poterlo
-            andare a cercare nel db il tour e rappresentarlo nella pagina. Mi so rotto di scrive, fai tu, BA, FINE.
+            andare a cercare nel db il tour e rappresentarlo nella pagina. Mi so rotto di scrive, fai tu, BA, FINE.*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String ida= uploads.get(position).getName();
-               Log.d("NAMEEEEEEE",ida);
+                Intent intent = new Intent(mContext, tour_details.class);
+                intent.putExtra("Tour class from HomePage", uploads.get(position));
+                mContext.startActivity(intent);
             }
         });
-         */
+
     }
 
     @Override

@@ -53,6 +53,7 @@ public class add_transport extends AppCompatActivity implements
     private DatabaseReference db, db_agency;
 
     private String new_transport_id;
+    private Tour selectedTour;
 
 
     public String pad(int input) {
@@ -109,6 +110,9 @@ public class add_transport extends AppCompatActivity implements
         currentUser = fAuth.getCurrentUser();
         db= database.getInstance().getReference("TRANSPORT");
         db_agency = database.getInstance().getReference("USER/Agency");
+
+
+        selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from ListTourInAgency");
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -179,7 +183,6 @@ public class add_transport extends AppCompatActivity implements
                 txtViewVehicle.setError(null);
             }
         });
-
     }
 
 
@@ -287,7 +290,8 @@ public class add_transport extends AppCompatActivity implements
                     vehicle="Car";
                 }
 
-                newTransport = new Transport(startingLocation, startDate, startHoure, 0, intMaxPeople, doubleCost, vehicle, null, null);        //DA CAMBIARE NEL MOMENTO DELLA CREAZIONE DELLA LIST DEI TOUR DELL'AGENT AGGIUNGI AGENCY
+                String destFromTour = selectedTour.getStartPlace();
+                newTransport = new Transport(startingLocation, startDate, startHoure, 0, intMaxPeople, doubleCost, vehicle, destFromTour, null);
 
                 db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

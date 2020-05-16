@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <!--android:background="@drawable/gradient>"-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".tour_details">
+
+        <ImageView
+            android:id="@+id/imageViewMain"
+            android:layout_width="414dp"
+            android:layout_height="267dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/col" />
+
+        <TextView
+            android:id="@+id/textViewTourTitle"
+            android:layout_width="394dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="12dp"
+            android:autoSizeTextType="uniform"
+            android:text="Lovely Rome"
+            android:textAlignment="textStart"
+            android:textColor="#D2000000"
+            android:textIsSelectable="false"
+            android:textSize="14sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMain" />
+
+        <TextView
+            android:id="@+id/textViewTourDescription"
+            android:layout_width="369dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="30dp"
+            android:autoSizeTextType="uniform"
+            android:text="Tour Description"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMapIcon" />
+
+        <TextView
+            android:id="@+id/textViewDetailsText"
+            android:layout_width="369dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="100"
+            android:minLines="1"
+            android:text="Prova testo descrizione per il tour non so che scrivere è la parte piu noiosa riepio tre righe per vedere se si espande mannaggia tutto non so che dire pero roma tutto sommato non è male ma cosa sto dicendo qualcuni si è impossessato di me aiuto aiuto aiuto"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTourDescription" />
+
+        <TextView
+            android:id="@+id/textViewStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="5dp"
+            android:text="15/06/2022"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+            app:layout_constraintHorizontal_bias="0.038"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCalendarIcon"
+            app:layout_constraintTop_toTopOf="@+id/imageViewCalendarIcon" />
+
+        <TextView
+            android:id="@+id/textViewStartPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="5dp"
+            android:text="Via della Giuliana, Rome"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMapIcon"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMapIcon" />
+
+        <ImageView
+            android:id="@+id/imageViewMapIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toStartOf="@+id/textViewClockIcon"
+            app:layout_constraintTop_toBottomOf="@+id/textViewClockIcon"
+            app:srcCompat="@drawable/map" />
+
+        <ImageView
+            android:id="@+id/textViewClockIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toStartOf="@+id/imageViewCalendarIcon"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCalendarIcon"
+            app:srcCompat="@drawable/clock" />
+
+        <TextView
+            android:id="@+id/textViewStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="5dp"
+            android:text="10:30 am"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+            app:layout_constraintHorizontal_bias="0.035"
+            app:layout_constraintStart_toEndOf="@+id/textViewClockIcon"
+            app:layout_constraintTop_toTopOf="@+id/textViewClockIcon" />
+
+        <ImageView
+            android:id="@+id/imageViewCalendarIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toStartOf="@+id/textViewStartingDetails"
+            app:layout_constraintTop_toBottomOf="@+id/textViewStartingDetails"
+            app:srcCompat="@drawable/calendar" />
+
+        <TextView
+            android:id="@+id/textViewStartingDetails"
+            android:layout_width="369dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="30dp"
+            android:autoSizeTextType="uniform"
+            android:text="Starting Details"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTourTitle" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="369dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="77dp"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPeopleNumber">
+
+                <TextView
+                    android:id="@+id/textViewMinPeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:textAlignment="textStart"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewNowPeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewMinPeople"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewMinPeople"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textViewMinPeople"
+                    app:layout_constraintTop_toTopOf="@+id/textViewMinPeople" />
+
+                <TextView
+                    android:id="@+id/textViewMaxPeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="30"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewMinPeople"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewMinPeople"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textViewMinPeople"
+                    app:layout_constraintTop_toTopOf="@+id/textViewMinPeople"
+                    app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <TextView
+                    android:id="@+id/textViewMin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MIN"
+                    android:textAlignment="textStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NOW"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewMin"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewMin"
+                    app:layout_constraintStart_toStartOf="@+id/textViewMin"
+                    app:layout_constraintTop_toTopOf="@+id/textViewMin" />
+
+                <TextView
+                    android:id="@+id/textViewMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MAX"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewMin"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewMin"
+                    app:layout_constraintStart_toStartOf="@+id/textViewMin"
+                    app:layout_constraintTop_toTopOf="@+id/textViewMin" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textViewPeopleNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tour People Number"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="369dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDetailsText">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewVehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Vehicle"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                <TextView
+                    android:id="@+id/textViewDurationValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="180 min"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewVehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_gravity="right"
+                    android:scaleType="fitEnd"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/bicycle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <TextView
+                android:id="@+id/textViewTourCost"
+                android:layout_width="113dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="Tour Cost "
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewCostValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewCostValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45€"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

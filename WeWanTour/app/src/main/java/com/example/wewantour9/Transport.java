@@ -75,9 +75,9 @@ public class Transport {
 
     public void setVehicle(String vehicle) { this.vehicle = vehicle; }
 
-    public String getTour() { return destination; }
+    public String getDestination() { return destination; }
 
-    public void setTour(String tour) { this.destination = tour; }
+    public void setDestination(String destination) { this.destination = destination; }
 
     public String getAgency() { return agency; }
 
