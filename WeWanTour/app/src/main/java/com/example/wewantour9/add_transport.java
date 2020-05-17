@@ -42,7 +42,7 @@ public class add_transport extends AppCompatActivity implements
     private TextView txtViewVehicle;
     private Button btnDatePicker, btnTimePicker, btnSubmit;
     private ImageButton btnBus, btnCar;
-    private TextInputEditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtCost, txtMaxPeople;
+    private TextInputEditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtCost, txtMaxPeople, transportDestination;
     private TextInputLayout layoutTxtDate, layoutTxtTime;
     int mYear, mMonth, mDay, mHour, mMinute;
     int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
@@ -111,6 +111,7 @@ public class add_transport extends AppCompatActivity implements
         layoutTxtDate = findViewById(R.id.HintMovementTransportDay);
         layoutTxtTime = findViewById(R.id.HintMovementTransportHour);
         txtViewVehicle = findViewById(R.id.TextTransportVehicle);
+        transportDestination = findViewById(R.id.TransportDestination);
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
@@ -128,6 +129,7 @@ public class add_transport extends AppCompatActivity implements
 
 
         selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from ListTourInAgency");
+        transportDestination.setText(selectedTour.getStartPlace());
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
