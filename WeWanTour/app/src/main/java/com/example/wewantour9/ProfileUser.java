@@ -98,24 +98,6 @@ public class ProfileUser extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("images");
 
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChooseImage();
-            }
-        });
-
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Glide.with(getApplicationContext()).load(R.drawable.logopng).into(image);
-                ChooseImage();
-            }
-        });
-
-
-
         phonedit = findViewById(R.id.phoneedit);
         ivaedit = findViewById(R.id.ivaedit);
         agencyedit = findViewById(R.id.agencyedit);
@@ -154,11 +136,7 @@ public class ProfileUser extends AppCompatActivity {
                                 aster+="*";
                             }
                             password.setText(customer.getPassword().substring(0,2)+aster);
-                            if(customer.getImage().equals("")){
-                                Glide.with(getApplicationContext()).load(R.drawable.iconuser).into(image);
-
-                            }
-                            else{
+                            if(!customer.getImage().equals("")){
                                 Glide.with(getApplicationContext()).load(customer.getImage()).into(image);
 
                             }
@@ -224,8 +202,20 @@ public class ProfileUser extends AppCompatActivity {
         }
 
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChooseImage();
+            }
+        });
 
-
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Glide.with(getApplicationContext()).load(R.drawable.logopng).into(image);
+                ChooseImage();
+            }
+        });
 
 
 
@@ -256,9 +246,6 @@ public class ProfileUser extends AppCompatActivity {
                     .show();
         }
 
-
-
-
     }
 
     @Override
@@ -286,8 +273,7 @@ public class ProfileUser extends AppCompatActivity {
 
             // Get the Uri of data
             filePath = data.getData();
-            Log.d("FilePath", filePath.toString());
-
+            Glide.with(getApplicationContext()).load(filePath).into(image);
 
             String fileLastPath= filePath.getLastPathSegment();
             String[] fileNamesplitted= fileLastPath.split("/");
@@ -299,7 +285,7 @@ public class ProfileUser extends AppCompatActivity {
             I will use it later when I call the putFile(filePath) function*/
             reference_img = storageReference.child("Agency/"+currentUser.getEmail());
 
-            Glide.with(getApplicationContext()).load(filePath).into(image);
+
             uploadFile();
 
         }
@@ -323,7 +309,7 @@ public class ProfileUser extends AppCompatActivity {
                         // Image uploaded successfully
                         // Dismiss dialog
                         Toast.makeText(getApplicationContext(),
-                                "Image Uploaded!",
+                                "Image Saved!",
                                 Toast.LENGTH_SHORT).show();
 
                         Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
@@ -418,8 +404,6 @@ public class ProfileUser extends AppCompatActivity {
 
                             }
                         });
-
-
 
 
     }
