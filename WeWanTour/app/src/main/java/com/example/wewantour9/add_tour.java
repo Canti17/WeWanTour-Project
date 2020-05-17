@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,6 +64,8 @@ public class add_tour extends AppCompatActivity {
     private boolean bike_pressed=false;
     private boolean walk_pressed=false;
     private Tour tour;
+
+    private Toolbar toolbar;
 
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -146,7 +150,10 @@ public class add_tour extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +188,10 @@ public class add_tour extends AppCompatActivity {
 
         Log.println(Log.ERROR,"222-STAMPO STAMPO STAMPO------------------------", currentUser.getEmail());
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // initialise views
         btn_chooseImg = findViewById(R.id.btnChoose);
@@ -483,10 +494,9 @@ public class add_tour extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
 }

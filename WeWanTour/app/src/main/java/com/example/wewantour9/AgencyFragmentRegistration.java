@@ -51,18 +51,18 @@ public class AgencyFragmentRegistration extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference reference;
 
-    EditText full_name, email, password, password_confirmation,agency_name,telephone_number,iva_number;
+    private EditText full_name, email, password, password_confirmation,agency_name,telephone_number,iva_number;
     /*ImageButton image_button;*/
-    CheckBox privacy_checkbox;
-    TextView checkbox_textview;
+    private CheckBox privacy_checkbox;
+    private TextView checkbox_textview;
 
-    TextInputLayout passwordbox;
-    TextInputLayout passwordboxconfirmation;
+    private TextInputLayout passwordbox;
+    private TextInputLayout passwordboxconfirmation;
 
     FirebaseAuth fAuth;
-    ProgressBar progress;
+    private ProgressBar progress;
 
-    CountryCodePicker ccp;
+    private CountryCodePicker ccp;
 
 
 
@@ -79,20 +79,20 @@ public class AgencyFragmentRegistration extends Fragment {
 
         registration_button = (Button) view.findViewById(R.id.register_button);
 
-        full_name = (EditText) view.findViewById(R.id.fullname_field);
-        email = (EditText) view.findViewById(R.id.email_field);
-        password = (EditText) view.findViewById(R.id.password_field);
-        password_confirmation = (EditText) view.findViewById(R.id.confirm_password_field);
+        full_name =view.findViewById(R.id.fullname_field);
+        email =  view.findViewById(R.id.email_field);
+        password =  view.findViewById(R.id.password_field);
+        password_confirmation =  view.findViewById(R.id.confirm_password_field);
         /*image_button = (ImageButton) view.findViewById(R.id.imageButton);*/
-        privacy_checkbox = (CheckBox) view.findViewById(R.id.checkBox);
-        telephone_number = (EditText) view.findViewById(R.id.telephone_number_field);
-        iva_number = (EditText) view.findViewById(R.id.iva_number_field);
-        agency_name = (EditText) view.findViewById(R.id.agency_name_field);
+        privacy_checkbox =  view.findViewById(R.id.checkBox);
+        telephone_number =  view.findViewById(R.id.telephone_number_field);
+        iva_number =  view.findViewById(R.id.iva_number_field);
+        agency_name =  view.findViewById(R.id.agency_name_field);
 
-        passwordbox = (TextInputLayout) view.findViewById(R.id.password_text);
-        passwordboxconfirmation = (TextInputLayout) view.findViewById(R.id.confirmPassword_text);
+        passwordbox =  view.findViewById(R.id.password_text);
+        passwordboxconfirmation =  view.findViewById(R.id.confirmPassword_text);
 
-        checkbox_textview = (TextView) view.findViewById(R.id.textViewprivacy);
+        checkbox_textview =  view.findViewById(R.id.textViewprivacy);
 
         ccp = (CountryCodePicker) view.findViewById(R.id.ccp);   /*PLACING ITA/+39 AS DEFAULT PREFIX PHONE*/
         ccp.setDefaultCountryUsingNameCode("IT");

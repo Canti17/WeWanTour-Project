@@ -2,6 +2,7 @@ package com.example.wewantour9;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.app.TimePickerDialog;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class add_transport extends AppCompatActivity implements
         View.OnClickListener{
@@ -54,6 +57,8 @@ public class add_transport extends AppCompatActivity implements
 
     private String new_transport_id;
     private Tour selectedTour;
+
+    private Toolbar toolbar;
 
 
     public String pad(int input) {
@@ -82,6 +87,11 @@ public class add_transport extends AppCompatActivity implements
 
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transport);
@@ -105,6 +115,11 @@ public class add_transport extends AppCompatActivity implements
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
@@ -185,6 +200,12 @@ public class add_transport extends AppCompatActivity implements
         });
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
 
     @Override
     public void onClick(View v) {

@@ -1,10 +1,13 @@
 package com.example.wewantour9;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class List_tour_inAgency extends AppCompatActivity {
 
@@ -27,7 +31,12 @@ public class List_tour_inAgency extends AppCompatActivity {
     private List<Tour> mUploads;
     private LinearLayoutManager mLayoutManager;
 
+    private Toolbar toolbar;
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,12 @@ public class List_tour_inAgency extends AppCompatActivity {
 
         mProgressCircle = findViewById(R.id.progress_circle);
         mUploads = new ArrayList<Tour>();
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
@@ -65,5 +80,12 @@ public class List_tour_inAgency extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
     }
 }
