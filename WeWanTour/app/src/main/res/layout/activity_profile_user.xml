@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/drawer">
 
 
     <LinearLayout
@@ -29,50 +30,232 @@
 
 
 
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:fillViewport="true"
-    tools:context=".ProfileUser"
-    android:background="@drawable/gradient">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profile_layout">
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorPrimary"
+        >
 
-
-        <TextView
-            android:id="@+id/profile_title"
-            style="@style/formHeader"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="cursive"
-            android:text="Profile"
-            android:textAlignment="viewStart"
-            android:textSize="50sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/iconuser"/>
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_gravity="center"
+                android:layout_width="38dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit">
+
+            </ImageView>
+
+        </LinearLayout>
+
+
 
         <TextView
-            android:id="@+id/andrewrick"
-            style="@style/formHeader"
-            android:layout_width="299dp"
-            android:layout_height="143dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginBottom="312dp"
-            android:text="Prova Testo Profilo"
-            android:textAlignment="viewStart"
-            android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_title" />
+            android:id="@+id/fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NOME"
+            android:layout_gravity="center_horizontal"
+            android:textSize="26dp"
+            android:fontFamily="@font/baloo"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:fillViewport="true"
+            tools:context=".ProfileUser"
+            android:background="@drawable/gradient">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linearagency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/agencyedit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Agency Name"
+                            android:textSize="22sp"></TextView>
+
+                        <TextView
+                            android:layout_marginBottom="30dp"
+                            android:id="@+id/agencyname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/baloo"
+                            android:text="nome agency"
+                            android:textSize="18sp" />
+
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="22sp"></TextView>
+
+                        <TextView
+                            android:layout_marginBottom="30dp"
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/baloo"
+                            android:text="emailacaso@gmail.com"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/passwordedit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Password"
+                            android:textSize="22sp"></TextView>
+
+                        <TextView
+                            android:layout_marginBottom="30dp"
+                            android:id="@+id/password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/baloo"
+                            android:text="423423"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lineariva"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/ivaedit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="IVA Number"
+                            android:textSize="22sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/iva_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/baloo"
+                            android:text="423423"
+                            android:layout_marginBottom="30dp"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linearphone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/phoneedit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number"
+                            android:textSize="22sp"></TextView>
+
+                        <TextView
+                            android:layout_marginBottom="30dp"
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/baloo"
+                            android:text="2343242"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/logopng"></ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="sans-serif-black"
+                            android:text="WEWANTOUR"
+                            android:textSize="12dp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+
 
 
 </androidx.core.widget.NestedScrollView>

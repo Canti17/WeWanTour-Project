@@ -201,7 +201,7 @@ public class UserFragmentRegistration extends Fragment {
                                 // Sign in success, update UI with the signed-in user's information
                                 //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
                                 Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                        password.getText().toString(), null, id);
+                                        password.getText().toString(), "", id);
                                 reference.child(String.valueOf(customer.getId())).setValue(customer);
                                 startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                             } else {

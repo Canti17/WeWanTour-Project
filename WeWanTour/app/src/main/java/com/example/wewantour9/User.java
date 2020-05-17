@@ -7,13 +7,13 @@ public class User {
     private String full_name;
     private String email;
     private String password;
-    private Image image;
+    private String image;
 
 
     private int id;
 
 
-    public User(String full_name, String email, String password, Image image, int id){
+    public User(String full_name, String email, String password, String image, int id){
 
         this.full_name = full_name;
         this.email = email;
@@ -47,11 +47,11 @@ public class User {
         this.password = password;
     }
 
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

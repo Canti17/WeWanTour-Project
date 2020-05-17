@@ -100,7 +100,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         }
 
         else{
-            
+
             //NAVIGATION MENU
             nav_view.bringToFront();
             toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);

@@ -215,7 +215,7 @@ public class AgencyFragmentRegistration extends Fragment {
                                 //Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                        password.getText().toString().trim(), null, id, agency_name.getText().toString().trim(),
+                                        password.getText().toString().trim(), "", id, agency_name.getText().toString().trim(),
                                         telephone , "Rome" ,iva_number.getText().toString().trim());
 
                                 reference.child(String.valueOf(agency.getId())).setValue(agency);

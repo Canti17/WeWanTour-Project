@@ -103,7 +103,9 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
             case R.id.nav_register:
                 break;
             case R.id.nav_profile:
-                startActivity(new Intent(HomepageAgency.this, ProfileUser.class));
+                Intent intent = new Intent(HomepageAgency.this, ProfileUser.class);
+                intent.putExtra("Ueila", 1);
+                startActivity(intent);
                 break;
             case R.id.nav_logout:
                 fAuth.signOut();
