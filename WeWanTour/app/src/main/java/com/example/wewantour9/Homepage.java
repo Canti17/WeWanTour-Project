@@ -95,13 +95,12 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         Log.d("VALUE", Integer.toString(value));
 
         if(value == 1){
-            Log.d("USER", "BAAAACK");
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
 
         else{
-
-            Log.d("USER", "MENUUU");
+            
             //NAVIGATION MENU
             nav_view.bringToFront();
             toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);

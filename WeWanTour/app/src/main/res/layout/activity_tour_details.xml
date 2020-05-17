@@ -7,18 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-<androidx.core.widget.NestedScrollView
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <!--android:background="@drawable/gradient>"-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:context=".tour_details">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,6 +25,22 @@
             app:popupTheme="@style/AppTheme"
             app:titleTextColor="@color/whiteTextColor" />
 
+
+
+
+<androidx.core.widget.NestedScrollView
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <!--android:background="@drawable/gradient>"-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".tour_details">
+
+
         <ImageView
             android:id="@+id/imageViewMain"
             android:layout_width="411dp"
@@ -40,9 +48,9 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/col" />
 
         <TextView
@@ -412,6 +420,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

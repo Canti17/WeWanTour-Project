@@ -12,12 +12,14 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
+
 public class Login extends AppCompatActivity {
 
     Button login_button;
@@ -43,7 +46,14 @@ public class Login extends AppCompatActivity {
     TextView link;
     TextView forgot;
 
+    Toolbar toolbar;
+
     TextInputLayout passwordbox;
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +70,11 @@ public class Login extends AppCompatActivity {
         forgot =  findViewById(R.id.forgotpassword);
 
         passwordbox = findViewById(R.id.password_text);
+        toolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Handle problem see password
         password.addTextChangedListener(new TextWatcher() {
@@ -92,7 +105,6 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
 
-                            Log.d("SONO qui","*******SONO DENTRO TASK SUCCESSFUL");
 
                             //FirebaseUser current_user = fAuth.getCurrentUser();
                             final String emailuser = email.getText().toString().trim();
@@ -103,14 +115,11 @@ public class Login extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                     boolean flag = true;
-                                    Log.d("SONO qui","*******FUORI DAL FOR");
                                     for(DataSnapshot data: dataSnapshot.child("Agency").getChildren() ){
                                         Agency agency = data.getValue(Agency.class);
-                                        Log.d("SONO qui","*******SONO PRIMA DELL IF");
-                                        Log.d("SONO qui",agency.getAgency_name());
                                         if(emailuser.equals(agency.getEmail())){
                                             flag = false;
-                                            Log.d("SONO qui","*******SONO DENTRO DELL IF");
+
                                             Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
@@ -249,4 +258,10 @@ public class Login extends AppCompatActivity {
         return TextUtils.isEmpty(str);
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
 }

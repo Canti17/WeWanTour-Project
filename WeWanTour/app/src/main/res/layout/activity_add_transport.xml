@@ -15,6 +15,24 @@
               3)no control on the city, street, civic, in the db are saved with the format city,street,civic
               4)change transport vehicle field-->
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="enterAlways|scroll"
+            app:popupTheme="@style/AppTheme"
+            app:titleTextColor="@color/whiteTextColor" />
+
 <androidx.core.widget.NestedScrollView
 
     android:layout_width="match_parent"
@@ -27,25 +45,13 @@
             android:layout_height="match_parent"
             tools:context=".add_transport">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    android:theme="@style/AppTheme"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_scrollFlags="enterAlways|scroll"
-                    app:popupTheme="@style/AppTheme"
-                    app:titleTextColor="@color/whiteTextColor" />
 
                 <TextView
                     android:id="@+id/NewTransportTitle"
                     style="@style/formHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="35dp"
                     android:fontFamily="@font/baloo"
                     android:text="NEW TRANSPORT"
@@ -53,7 +59,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.500"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.175" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -328,7 +334,7 @@
                     android:layout_width="300dp"
                     android:layout_height="53dp"
                     android:layout_marginBottom="50dp"
-                    android:text="Submit"
+                    android:text="Add Transport"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.486"
@@ -338,5 +344,6 @@
 
 
 </androidx.core.widget.NestedScrollView>
+</LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

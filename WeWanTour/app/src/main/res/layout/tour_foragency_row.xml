@@ -20,17 +20,18 @@
             android:layout_width="208dp"
             android:layout_height="179dp"
             android:layout_marginTop="32dp"
+            android:background="@drawable/col"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/col" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_name_agency"
             android:layout_width="116dp"
             android:layout_height="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/imageView5"
@@ -67,6 +68,7 @@
             android:id="@+id/text_start_place"
             android:layout_width="117dp"
             android:layout_height="39dp"
+            android:layout_marginStart="10dp"
             android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/text_name_agency"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +111,7 @@
             android:id="@+id/img_vehicle_tour"
             android:layout_width="37dp"
             android:layout_height="34dp"
-            android:layout_marginStart="116dp"
+            android:layout_marginStart="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_tour"
