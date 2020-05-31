@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         holder.text_start_place.setText(current_tour.getStartPlace());
         holder.text_date_tour.setText(current_tour.getStartDate());
         holder.text_hour_tour.setText(current_tour.getStartHour());
+        
         if(current_tour.getVehicle().equals("bike")){
             Glide.with(mContext)
                     .load(R.drawable.ic_directions_bike_black_24dp)
@@ -55,7 +57,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                 .into(holder.img_tour);
 
         //Passaggio ad add_tour con l'ogetto PER RICCARDO se l'idea è mettere il bottone sposta il codice nell'onClick del bottone KISS
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.btn_add_transport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, add_transport.class);
@@ -78,6 +80,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         public TextView text_hour_tour;
         public ImageView img_vehicle_tour;
         public ImageView img_tour;
+        public Button btn_add_transport;
 
 
         public ImageViewHolder(@NonNull View itemView) {
@@ -89,6 +92,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
             text_hour_tour =itemView.findViewById(R.id.text_hour_tour);
             img_vehicle_tour= itemView.findViewById(R.id.img_vehicle_tour);
             img_tour= itemView.findViewById(R.id.img_tour);
+            btn_add_transport=itemView.findViewById(R.id.btn_add_transport);
         }
     }
 }

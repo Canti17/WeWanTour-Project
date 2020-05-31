@@ -145,6 +145,19 @@
             app:layout_constraintVertical_bias="0.029"
             app:srcCompat="@drawable/ic_place_black_24dp" />
 
+        <Button
+            android:id="@+id/btn_add_transport"
+            style="@style/modifiedDateTimeButton"
+            android:layout_width="165dp"
+            android:layout_height="30dp"
+            android:text="Add Transport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toEndOf="@+id/img_tour"
+            app:layout_constraintTop_toBottomOf="@+id/text_hour_tour"
+            app:layout_constraintVertical_bias="0.923" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
