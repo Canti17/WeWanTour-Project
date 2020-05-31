@@ -42,7 +42,7 @@
             android:id="@+id/imageView7"
             android:layout_width="27dp"
             android:layout_height="25dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="28dp"
             app:layout_constraintStart_toEndOf="@+id/text_agency_name"
             app:layout_constraintTop_toBottomOf="@+id/transport_vehicle"
