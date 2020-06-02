@@ -51,19 +51,46 @@
                 app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
             <TextView
-                android:id="@+id/andrewrick"
+                android:id="@+id/rick"
                 style="@style/formHeader"
-                android:layout_width="299dp"
-                android:layout_height="143dp"
-                android:layout_marginTop="90dp"
-                android:layout_marginBottom="312dp"
-                android:text="Prova Testo Credits"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="Riccardo Fiore 1705634"
                 android:textAlignment="viewStart"
-                android:textSize="40sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_title" />
+
+            <TextView
+                android:id="@+id/andrew"
+                style="@style/formHeader"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="Andrea Franceschi 1709888"
+                android:textAlignment="viewStart"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rick" />
+
+            <TextView
+                android:id="@+id/canti"
+                style="@style/formHeader"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="Daniele Cantisani 1707633"
+                android:textAlignment="viewStart"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/andrew" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -118,9 +118,8 @@ public class TotalRegister extends AppCompatActivity {
         int res_id = item.getItemId();
         if(res_id == R.id.menu_info){
             AlertDialog.Builder info = new AlertDialog.Builder(TotalRegister.this);
-            info.setMessage("Se sei utente te registri come utente se sei operator te registri come operator! " +
-                    "Non sbagliare se no Andrea me mena. Ora sto scrivendo parole a caso per vedere se l' Alert Dialog quanto" +
-                    "spazio prende. Ciao");
+            info.setMessage("If you are interested to book tours registered as a Customer.\n" +
+                    "If you are a tourist agent who wants to provide their own tours or transports register as Tour Operator.\n");
 
 
            info.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

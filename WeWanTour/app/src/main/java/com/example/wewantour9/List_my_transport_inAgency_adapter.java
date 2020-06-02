@@ -35,7 +35,7 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         final Transport transport=transports.get(position);
-        holder.text_destination.setText("NDO CAZZO VAI");
+        holder.text_destination.setText("Destination");
         holder.text_agency_name.setText(transport.getAgency());
         holder.text_start_place.setText(transport.getStartLocation());
         holder.text_start_date.setText(transport.getStartDate());
