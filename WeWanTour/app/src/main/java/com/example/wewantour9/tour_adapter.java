@@ -34,7 +34,7 @@ public class tour_adapter extends RecyclerView.Adapter<tour_adapter.ImageViewHol
     public void onBindViewHolder(ImageViewHolder holder, final int position) {
         final Tour current_tour=uploads.get(position);
         holder.text_name.setText(current_tour.getName());
-        holder.text_price.setText(Double.toString(current_tour.getPrice())+"€");
+        holder.text_price.setText("€ "+Double.toString(current_tour.getPrice()));
         holder.text_date.setText(current_tour.getStartDate());
         holder.text_hour.setText(current_tour.getStartHour());
 
