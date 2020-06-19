@@ -14,23 +14,26 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-
-
-        <activity android:name=".List_tour_inAgency"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".List_transport_for_prenotation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".List_tour_inAgency"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
         </activity>
-
-        <activity android:name=".myReservation"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".myReservation"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Credits"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -49,7 +52,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".add_services" />
         <activity
             android:name=".add_tour"
@@ -66,9 +69,10 @@
         <activity
             android:name=".add_transport"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".tour_details"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".tour_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
