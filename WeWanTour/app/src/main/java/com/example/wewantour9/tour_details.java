@@ -60,7 +60,7 @@ public class tour_details extends AppCompatActivity {
         startPlace.setText(selectedTour.getStartPlace());
         detailsText.setText(selectedTour.getDescription());
         duration.setText(String.valueOf((int)selectedTour.getDuration())+" min");
-        minPeople.setText("isn't");
+        minPeople.setText(String.valueOf(selectedTour.getMinPeople()));
         nowPeople.setText(String.valueOf(selectedTour.getCurrentPeople()));
         maxPeople.setText(String.valueOf(selectedTour.getPeopleLimit()));
         double tourCost = selectedTour.getPrice();
