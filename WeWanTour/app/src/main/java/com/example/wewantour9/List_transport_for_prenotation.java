@@ -6,7 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -31,6 +34,7 @@ public class List_transport_for_prenotation extends AppCompatActivity {
     private DatabaseReference mDatabaseReferenceTour;
     private List<Transport> transports;
     private LinearLayoutManager mLayoutManager;
+    private Activity activity;
 
     private Toolbar toolbar;
 
@@ -54,12 +58,16 @@ public class List_transport_for_prenotation extends AppCompatActivity {
         mProgressCircle = findViewById(R.id.progress_circle);
         transports = new ArrayList<Transport>();
 
+        activity = this;
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+
+        final Tour selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class for transport list for prenotation");
+        final int selectedNumberOfPeople =  (int) getIntent().getSerializableExtra("Number of people to filter the transports");
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TRANSPORT");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
@@ -68,9 +76,11 @@ public class List_transport_for_prenotation extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Transport upload = postSnapshot.getValue(Transport.class);
-                    transports.add(upload);
+                    if(upload.getDestination().equals(selectedTour.getStartPlace()) && (upload.getMaxPeople()-upload.getCurrentPeople()) >= selectedNumberOfPeople){
+                        transports.add(upload);
+                    }
                 }
-                mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transports);
+                mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transports, activity);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);

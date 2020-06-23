@@ -5,6 +5,7 @@ import android.widget.TableRow;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Tour implements Serializable {
     private String name;
@@ -160,4 +161,26 @@ public class Tour implements Serializable {
                 ", filePath='" + filePath + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tour tour = (Tour) o;
+        return Double.compare(tour.price, price) == 0 &&
+                Double.compare(tour.duration, duration) == 0 &&
+                currentPeople == tour.currentPeople &&
+                minPeople == tour.minPeople &&
+                peopleLimit == tour.peopleLimit &&
+                Objects.equals(name, tour.name) &&
+                Objects.equals(description, tour.description) &&
+                Objects.equals(startPlace, tour.startPlace) &&
+                Objects.equals(startDate, tour.startDate) &&
+                Objects.equals(startHour, tour.startHour) &&
+                Objects.equals(vehicle, tour.vehicle) &&
+                Objects.equals(agency, tour.agency) &&
+                Objects.equals(transports, tour.transports) &&
+                Objects.equals(filePath, tour.filePath);
+    }
+
 }

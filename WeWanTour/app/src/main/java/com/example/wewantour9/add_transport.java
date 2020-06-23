@@ -325,7 +325,7 @@ public class add_transport extends AppCompatActivity implements
                                 newTransport.setAgency(agency_crnt.getEmail());
                                 db.child(String.valueOf(new_transport_id)).setValue(newTransport);
                                 db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
-                                //db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+                                //db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                                 Log.println(Log.ERROR, "DOPOGETMAINFUNCTION", new_transport_id);
                             }
                         }

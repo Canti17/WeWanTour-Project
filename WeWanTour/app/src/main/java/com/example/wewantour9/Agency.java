@@ -4,11 +4,12 @@ import android.media.Image;
 
 import com.google.rpc.Help;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 
-public class Agency extends User {
+public class Agency extends User implements Serializable {
 
     private String agency_name;
     private String telephone_number;
@@ -86,4 +87,15 @@ public class Agency extends User {
         this.list_transports.add(transport);
     }
 
+    @Override
+    public String toString() {
+        return "Agency{" +
+                "agency_name='" + agency_name + '\'' +
+                ", telephone_number='" + telephone_number + '\'' +
+                ", location='" + location + '\'' +
+                ", iva_number='" + iva_number + '\'' +
+                ", list_tour=" + list_tour +
+                ", list_transports=" + list_transports +
+                '}';
+    }
 }
