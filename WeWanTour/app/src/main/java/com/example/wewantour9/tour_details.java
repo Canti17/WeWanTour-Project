@@ -37,7 +37,7 @@ public class tour_details extends AppCompatActivity {
         finish();
     }
 
-    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople, cost, transDate, transHour, transPlace, transCost, noTransport, transDateLabel, transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel;
+    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople, cost, transDate, transHour, transPlace, transCost, noTransport, transDateLabel, transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, directRegister;
     private ImageView vehicle, mainImage, transVehicle, deleteTransport;
     private Button selectTransport, gotToSummaryPage;
     private NumberPicker numberPicker;
@@ -83,6 +83,7 @@ public class tour_details extends AppCompatActivity {
         transVehicleLabel = findViewById(R.id.textViewTourDetailsTransportVehicle);
         deleteTransport = findViewById(R.id.imageViewTourDetailsTransportRemove);
         gotToSummaryPage = findViewById(R.id.buttonTourDetailsGoToSummaryPage);
+        directRegister = findViewById(R.id.textViewTourDetailsRegistrationDirectLink);
 
         selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from HomePage");
 
@@ -125,6 +126,12 @@ public class tour_details extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        directRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), TotalRegister.class));
+            }
+        });
 
         if(currentUser==null){
             findViewById(R.id.ConstraintLayoutTourDetailsToursSelected).setVisibility(View.GONE);
@@ -146,6 +153,7 @@ public class tour_details extends AppCompatActivity {
             numberPicker.setMin(1);
             numberPicker.setUnit(1);
             numberPicker.setValue(1);
+            directRegister.setVisibility(View.GONE);
 
             gotToSummaryPage.setOnClickListener(new View.OnClickListener() {
                 @Override

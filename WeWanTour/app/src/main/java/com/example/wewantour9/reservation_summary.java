@@ -2,12 +2,15 @@ package com.example.wewantour9;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +27,10 @@ import java.util.Map;
 
 public class reservation_summary extends AppCompatActivity {
 
-    private TextView summary;
+    private TextView tourTitleValue, tourDateValue, tourHourValue, tourPlaceValue, transportDateValue, transportHourValue, transportPlaceValue, priceNumberPeople, priceNumberPeople1, priceTourCost, priceTransportCost, priceTotalCost, priceTransportLabel, priceTransportX, priceTransportPlus, priceTourPlus;
     private Button submitButton;
+    private ImageView tourVehicleValue, transportVehicleValue;
+    private ConstraintLayout transportLayout;
     private Reservation reservation;
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
 
@@ -59,15 +64,38 @@ public class reservation_summary extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
 
-        summary = findViewById(R.id.textViewSummary);
+        tourTitleValue = findViewById(R.id.textViewReservationSummary);
+        tourDateValue = findViewById(R.id.textViewReservationSummaryTourDateValue);
+        tourHourValue = findViewById(R.id.textViewReservationSummaryTourHourValue);
+        tourPlaceValue = findViewById(R.id.textViewReservationSummaryTourPlaceValue);
+        tourVehicleValue = findViewById(R.id.imageViewReservationSummaryTourVehicleValue);
+
+        transportDateValue = findViewById(R.id.textViewReservationSummaryTransportDateValue);
+        transportHourValue = findViewById(R.id.textViewReservationSummaryTransportHourValue);
+        transportPlaceValue = findViewById(R.id.textViewReservationSummaryTransportPlaceValue);
+        transportVehicleValue = findViewById(R.id.imageViewReservationSummaryTransportVehicleValue);
+        transportLayout = findViewById(R.id.ConstraintLayoutReservationSummaryTransport);
+
+        priceTourCost = findViewById(R.id.textViewReservationSummaryPriceTourValue);
+        priceTransportCost = findViewById(R.id.textViewReservationSummaryPriceTransportValue);
+        priceNumberPeople = findViewById(R.id.textViewReservationSummaryPricePeopleValue);
+        priceNumberPeople1 = findViewById(R.id.textViewReservationSummaryPricePeopleValue1);
+        priceTotalCost = findViewById(R.id.textViewReservationSummaryPriceTotValue);
+
+        priceTransportLabel = findViewById(R.id.textViewReservationSummaryPriceTransportLabel);
+        priceTransportX = findViewById(R.id.textViewReservationSummaryPriceXLabel1);
+        priceTransportPlus = findViewById(R.id.textViewReservationSummaryPricePlusLabel1);
+        priceTourPlus = findViewById(R.id.textViewReservationSummaryPricePlusLabel);
+
         submitButton = findViewById(R.id.buttonSummaryConfirmBooking);
+
+
 
         db_reservation= database.getInstance().getReference("RESERVATION");
         db_customer_reservations= database.getInstance().getReference("USER/Customer");
         db_transport= database.getInstance().getReference("TRANSPORT");
         db_tour= database.getInstance().getReference("TOUR");
         db_agency= database.getInstance().getReference("USER/Agency");
-
         //Id of each reservation
         db_reservation.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,8 +118,69 @@ public class reservation_summary extends AppCompatActivity {
         });
 
         reservation =  (Reservation) getIntent().getSerializableExtra("Reservation class from tour details to summary");
+        double totalCost;
 
-        summary.setText(reservation.toString());
+        //set tour field
+        tourTitleValue.setText(reservation.getTour().getName());
+        tourDateValue.setText(reservation.getTour().getStartDate());
+        tourHourValue.setText(reservation.getTour().getStartHour());
+        tourPlaceValue.setText(reservation.getTour().getStartPlace());
+        Drawable myDrawable;
+        if(reservation.getTour().getVehicle().equals("bike"))
+            myDrawable = getResources().getDrawable(R.drawable.ic_directions_bike_black_24dp);
+        else
+            myDrawable = getResources().getDrawable(R.drawable.ic_directions_walk_black_24dp);
+        tourVehicleValue.setImageDrawable(myDrawable);
+        double tourCost = reservation.getTour().getPrice();
+        if((tourCost-(int)tourCost)!=0)
+            priceTourCost.setText(String.valueOf(tourCost) + " €");
+        else
+            priceTourCost.setText(String.valueOf((int)tourCost)+ " €");
+        priceNumberPeople.setText(String.valueOf(reservation.getNumberOfPeople()));
+        //set transport field
+        if(reservation.getTransport()==null){
+            transportLayout.setVisibility(View.GONE);
+            priceTourPlus.setVisibility(View.GONE);
+            priceTransportLabel.setVisibility(View.GONE);
+            priceTransportX.setVisibility(View.GONE);
+            priceTransportPlus.setVisibility(View.GONE);
+            priceTransportCost.setVisibility(View.GONE);
+            priceNumberPeople1.setVisibility(View.GONE);
+            totalCost = tourCost*reservation.getNumberOfPeople();
+        }else{
+            transportDateValue.setText(reservation.getTransport().getStartDate());
+            transportHourValue.setText(reservation.getTransport().getStartHour());
+            transportPlaceValue.setText(reservation.getTransport().getStartLocation());
+            Drawable myDrawable1;
+            if(reservation.getTransport().getVehicle().equals("Bus"))
+                myDrawable1 = getResources().getDrawable(R.drawable.bus);
+            else
+                myDrawable1 = getResources().getDrawable(R.drawable.car);
+            transportVehicleValue.setImageDrawable(myDrawable1);
+            double transportCost = reservation.getTransport().getCost();
+            if((transportCost-(int)transportCost)!=0)
+                priceTransportCost.setText(String.valueOf(transportCost) + " €");
+            else
+                priceTransportCost.setText(String.valueOf((int)transportCost)+ " €");
+            priceNumberPeople1.setText(String.valueOf(reservation.getNumberOfPeople()));
+            totalCost = (tourCost+transportCost)*reservation.getNumberOfPeople();
+        }
+
+        if((totalCost-(int)totalCost)!=0)
+            priceTotalCost.setText(String.valueOf(totalCost)+ " €");
+        else
+            priceTotalCost.setText(String.valueOf((int)totalCost)+ " €");
+
+
+
+
+
+
+
+
+
+
+
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +290,12 @@ public class reservation_summary extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
+
+                //CAMBIARE QUI DEVE ANDARE A MY RESERVATION DELL CUSTOMER
+                Intent intent = new Intent(reservation_summary.this, Homepage.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
