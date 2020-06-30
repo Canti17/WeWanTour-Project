@@ -176,6 +176,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 finish();
                 break;
             case R.id.nav_reservations:
+                startActivity(new Intent(Homepage.this, My_reservation_customer.class));
                 break;
             case R.id.nav_credits:
                 startActivity(new Intent(Homepage.this, Credits.class));

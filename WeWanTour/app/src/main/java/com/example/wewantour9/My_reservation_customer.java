@@ -1,14 +1,15 @@
 package com.example.wewantour9;
 
-import android.app.Activity;
-import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,76 +23,74 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class fragment_myTours_agency extends Fragment {
-
-
-    public fragment_myTours_agency() {
-        // Required empty public constructor
-    }
+public class My_reservation_customer extends AppCompatActivity {
 
 
     private RecyclerView mRecyclerView;
-    private List_tour_inAgency_adapter mAdapter;
+    private My_reservation_customer_adapter mAdapter;
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseReferenceTour;
-    private List<Tour> mUploads;
+    private List<Reservation> reservations;
     private LinearLayoutManager mLayoutManager;
+    private Toolbar toolbar;
+
+
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
 
-    private View view;
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_my_tours_agency, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_reservation_customer);
 
         fAuth = FirebaseAuth.getInstance();
         current_user = fAuth.getCurrentUser();
 
-
-        mRecyclerView = view.findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mProgressCircle = view.findViewById(R.id.progress_circle);
-        mUploads = new ArrayList<Tour>();
+        mProgressCircle = findViewById(R.id.progress_circle);
+        reservations = new ArrayList<Reservation>();
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
-
-
-        mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
+        mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("RESERVATION");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Tour upload = postSnapshot.getValue(Tour.class);
-                    if(upload.getAgency().equals(current_user.getEmail())) {
-                        mUploads.add(upload);
+                    Reservation reserv = postSnapshot.getValue(Reservation.class);
+                    if(current_user.getEmail().equals(reserv.getCustomer())){
+                        reservations.add(reserv);
                     }
                 }
-                mAdapter = new List_tour_inAgency_adapter(getContext(), mUploads);
+                mAdapter = new My_reservation_customer_adapter(My_reservation_customer.this, reservations);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(My_reservation_customer.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
 
-
-        return view;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
     }
 }
