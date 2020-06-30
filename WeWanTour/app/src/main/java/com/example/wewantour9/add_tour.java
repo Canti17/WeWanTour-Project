@@ -333,6 +333,7 @@ public class add_tour extends AppCompatActivity {
                     edtxt_name.setError("please enter Tour name");//it gives user to info message)
                     check = false;
                 }
+                //campo modificabile ma obbligatorio
                 if(edtxt_description.getText().toString().equalsIgnoreCase("")) {
                     edtxt_description.setError("please enter Tour description");//it gives user to info message)
                     check = false;
@@ -373,10 +374,10 @@ public class add_tour extends AppCompatActivity {
                     edtxt_peopleLimit.setError("please enter number of people limit");//it gives user to info message
                     check = false;
                 }
-                if(!((bike_pressed==true && walk_pressed==false) ||  (bike_pressed==false && walk_pressed==true))){
+                /*if(!((bike_pressed==true && walk_pressed==false) ||  (bike_pressed==false && walk_pressed==true))){
                     txt_vehicle.setError("please choose the vehicle");//it gives user to info message
                     check = false;
-                }
+                }*/
                 if(check){
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(outYear, outMonthOfYear, outDayOfMonth, outHourOfDay, outMinute);

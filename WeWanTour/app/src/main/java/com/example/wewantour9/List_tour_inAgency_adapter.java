@@ -1,7 +1,9 @@
 package com.example.wewantour9;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_inAgency_adapter.ImageViewHolder> {
@@ -25,6 +28,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         this.mContext = mContext;
         this.uploads = uploads;
     }
+
 
     @NonNull
     @Override
@@ -65,6 +69,17 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                 mContext.startActivity(intent);
             }
         });
+
+        holder.img_edit_tour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, edit_tour.class);
+                intent.putExtra("Tour class from ListTourInAgency", uploads.get(position));
+                intent.putExtra("Tour list from ListTourInAgency", (Serializable) uploads);
+                mContext.startActivity(intent);
+                ((Activity)mContext).finish();
+            }
+        });
     }
 
     @Override
@@ -81,6 +96,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         public ImageView img_vehicle_tour;
         public ImageView img_tour;
         public Button btn_add_transport;
+        public ImageView img_edit_tour;
 
 
         public ImageViewHolder(@NonNull View itemView) {
@@ -93,6 +109,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
             img_vehicle_tour= itemView.findViewById(R.id.img_vehicle_tour);
             img_tour= itemView.findViewById(R.id.img_tour);
             btn_add_transport=itemView.findViewById(R.id.btn_add_transport);
+            img_edit_tour=itemView.findViewById(R.id.btn_edit_tour);
         }
     }
 }

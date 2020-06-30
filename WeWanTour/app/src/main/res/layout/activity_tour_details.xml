@@ -26,400 +26,713 @@
             app:titleTextColor="@color/whiteTextColor" />
 
 
+        <androidx.core.widget.NestedScrollView
 
-
-<androidx.core.widget.NestedScrollView
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <!--android:background="@drawable/gradient>"-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".tour_details">
-
-
-        <ImageView
-            android:id="@+id/imageViewMain"
-            android:layout_width="411dp"
-            android:layout_height="277dp"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/col" />
-
-        <TextView
-            android:id="@+id/textViewTourTitle"
-            android:layout_width="394dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="12dp"
-            android:autoSizeTextType="uniform"
-            android:text="Lovely Rome"
-            android:textAlignment="textStart"
-            android:textColor="#D2000000"
-            android:textIsSelectable="false"
-            android:textSize="14sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.512"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewMain" />
-
-        <TextView
-            android:id="@+id/textViewTourDescription"
-            android:layout_width="369dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="30dp"
-            android:autoSizeTextType="uniform"
-            android:text="Tour Description"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewMapIcon" />
-
-        <TextView
-            android:id="@+id/textViewDetailsText"
-            android:layout_width="369dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:maxLines="100"
-            android:minLines="1"
-            android:text="Prova testo descrizione per il tour non so che scrivere è la parte piu noiosa riepio tre righe per vedere se si espande mannaggia tutto non so che dire pero roma tutto sommato non è male ma cosa sto dicendo qualcuni si è impossessato di me aiuto aiuto aiuto"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTourDescription" />
-
-        <TextView
-            android:id="@+id/textViewStartDate"
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginTop="5dp"
-            android:text="15/06/2022"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
-            app:layout_constraintHorizontal_bias="0.038"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCalendarIcon"
-            app:layout_constraintTop_toTopOf="@+id/imageViewCalendarIcon" />
-
-        <TextView
-            android:id="@+id/textViewStartPlace"
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginTop="5dp"
-            android:text="Via della Giuliana, Rome"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
-            app:layout_constraintHorizontal_bias="0.061"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMapIcon"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMapIcon" />
-
-        <ImageView
-            android:id="@+id/imageViewMapIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@null"
-            app:layout_constraintStart_toStartOf="@+id/textViewClockIcon"
-            app:layout_constraintTop_toBottomOf="@+id/textViewClockIcon"
-            app:srcCompat="@drawable/map" />
-
-        <ImageView
-            android:id="@+id/textViewClockIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@null"
-            app:layout_constraintStart_toStartOf="@+id/imageViewCalendarIcon"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCalendarIcon"
-            app:srcCompat="@drawable/clock" />
-
-        <TextView
-            android:id="@+id/textViewStartTime"
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginTop="5dp"
-            android:text="10:30 am"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
-            app:layout_constraintHorizontal_bias="0.035"
-            app:layout_constraintStart_toEndOf="@+id/textViewClockIcon"
-            app:layout_constraintTop_toTopOf="@+id/textViewClockIcon" />
-
-        <ImageView
-            android:id="@+id/imageViewCalendarIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@null"
-            app:layout_constraintStart_toStartOf="@+id/textViewStartingDetails"
-            app:layout_constraintTop_toBottomOf="@+id/textViewStartingDetails"
-            app:srcCompat="@drawable/calendar" />
-
-        <TextView
-            android:id="@+id/textViewStartingDetails"
-            android:layout_width="369dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="30dp"
-            android:autoSizeTextType="uniform"
-            android:text="Starting Details"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTourTitle" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="369dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <!--android:background="@drawable/gradient>"-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="77dp"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPeopleNumber">
+                tools:context=".tour_details">
 
-                <TextView
-                    android:id="@+id/textViewMinPeople"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="15"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewNowPeople"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewMinPeople"
-                    app:layout_constraintEnd_toEndOf="@+id/textViewMinPeople"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/textViewMinPeople"
-                    app:layout_constraintTop_toTopOf="@+id/textViewMinPeople" />
-
-                <TextView
-                    android:id="@+id/textViewMaxPeople"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="30"
-                    android:textAlignment="textEnd"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewMinPeople"
-                    app:layout_constraintEnd_toEndOf="@+id/textViewMinPeople"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/textViewMinPeople"
-                    app:layout_constraintTop_toTopOf="@+id/textViewMinPeople"
-                    app:layout_constraintVertical_bias="1.0" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="70dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-                <TextView
-                    android:id="@+id/textViewMin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="MIN"
-                    android:textAlignment="textStart"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewNow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NOW"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewMin"
-                    app:layout_constraintEnd_toEndOf="@+id/textViewMin"
-                    app:layout_constraintStart_toStartOf="@+id/textViewMin"
-                    app:layout_constraintTop_toTopOf="@+id/textViewMin" />
-
-                <TextView
-                    android:id="@+id/textViewMax"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="MAX"
-                    android:textAlignment="textEnd"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewMin"
-                    app:layout_constraintEnd_toEndOf="@+id/textViewMin"
-                    app:layout_constraintStart_toStartOf="@+id/textViewMin"
-                    app:layout_constraintTop_toTopOf="@+id/textViewMin" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/textViewPeopleNumber"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Tour People Number"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="369dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDetailsText">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
-                android:layout_width="245dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textViewDuration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Duration"
-                    android:textAlignment="textStart"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewVehicle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Vehicle"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
-
-                <TextView
-                    android:id="@+id/textViewDurationValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="180 min"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageViewVehicle"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_gravity="right"
-                    android:scaleType="fitEnd"
+                    android:id="@+id/imageViewMain"
+                    android:layout_width="411dp"
+                    android:layout_height="277dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/col" />
+
+                <TextView
+                    android:id="@+id/textViewTourTitle"
+                    android:layout_width="394dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Lovely Rome"
+                    android:textAlignment="textStart"
+                    android:textColor="#D2000000"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.512"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewMain" />
+
+                <TextView
+                    android:id="@+id/textViewTourDescription"
+                    android:layout_width="369dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="30dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Tour Description"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewMapIcon" />
+
+                <TextView
+                    android:id="@+id/textViewDetailsText"
+                    android:layout_width="369dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:maxLines="100"
+                    android:minLines="1"
+                    android:text="Prova testo descrizione per il tour non so che scrivere è la parte piu noiosa riepio tre righe per vedere se si espande mannaggia tutto non so che dire pero roma tutto sommato non è male ma cosa sto dicendo qualcuni si è impossessato di me aiuto aiuto aiuto"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTourDescription" />
+
+                <TextView
+                    android:id="@+id/textViewStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="5dp"
+                    android:text="15/06/2022"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+                    app:layout_constraintHorizontal_bias="0.038"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewCalendarIcon"
+                    app:layout_constraintTop_toTopOf="@+id/imageViewCalendarIcon" />
+
+                <TextView
+                    android:id="@+id/textViewStartPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Via della Giuliana, Rome"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+                    app:layout_constraintHorizontal_bias="0.061"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewMapIcon"
+                    app:layout_constraintTop_toTopOf="@+id/imageViewMapIcon" />
+
+                <ImageView
+                    android:id="@+id/imageViewMapIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@+id/textViewClockIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewClockIcon"
+                    app:srcCompat="@drawable/map" />
+
+                <ImageView
+                    android:id="@+id/textViewClockIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@+id/imageViewCalendarIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewCalendarIcon"
+                    app:srcCompat="@drawable/clock" />
+
+                <TextView
+                    android:id="@+id/textViewStartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="5dp"
+                    android:text="10:30 am"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+                    app:layout_constraintHorizontal_bias="0.035"
+                    app:layout_constraintStart_toEndOf="@+id/textViewClockIcon"
+                    app:layout_constraintTop_toTopOf="@+id/textViewClockIcon" />
+
+                <ImageView
+                    android:id="@+id/imageViewCalendarIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="12dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@+id/textViewStartingDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStartingDetails"
+                    app:srcCompat="@drawable/calendar" />
+
+                <TextView
+                    android:id="@+id/textViewStartingDetails"
+                    android:layout_width="369dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="30dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Starting Details"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTourTitle" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutTourDetails2"
+                    android:layout_width="369dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails1">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="72dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="77dp"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayoutTourDetails2"
+                        app:layout_constraintStart_toEndOf="@+id/constraintLayoutTourDetails2"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayoutTourDetails2"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewPeopleNumber">
+
+                        <TextView
+                            android:id="@+id/textViewMinPeople"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="15"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewNowPeople"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textViewMinPeople"
+                            app:layout_constraintEnd_toEndOf="@+id/textViewMinPeople"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/textViewMinPeople"
+                            app:layout_constraintTop_toTopOf="@+id/textViewMinPeople" />
+
+                        <TextView
+                            android:id="@+id/textViewMaxPeople"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="30"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textViewMinPeople"
+                            app:layout_constraintEnd_toEndOf="@+id/textViewMinPeople"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/textViewMinPeople"
+                            app:layout_constraintTop_toTopOf="@+id/textViewMinPeople"
+                            app:layout_constraintVertical_bias="1.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="70dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                        <TextView
+                            android:id="@+id/textViewMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="MIN"
+                            android:textAlignment="textStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewNow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="NOW"
+                            android:textAlignment="center"
+                            app:layout_constraintBottom_toBottomOf="@+id/textViewMin"
+                            app:layout_constraintEnd_toEndOf="@+id/textViewMin"
+                            app:layout_constraintStart_toStartOf="@+id/textViewMin"
+                            app:layout_constraintTop_toTopOf="@+id/textViewMin" />
+
+                        <TextView
+                            android:id="@+id/textViewMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="MAX"
+                            android:textAlignment="textEnd"
+                            app:layout_constraintBottom_toBottomOf="@+id/textViewMin"
+                            app:layout_constraintEnd_toEndOf="@+id/textViewMin"
+                            app:layout_constraintStart_toStartOf="@+id/textViewMin"
+                            app:layout_constraintTop_toTopOf="@+id/textViewMin" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textViewPeopleNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tour People Number"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutTourDetails1"
+                    android:layout_width="369dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDetailsText">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout4"
+                        android:layout_width="245dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/textViewDuration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Duration"
+                            android:textAlignment="textStart"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewVehicle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Vehicle"
+                            android:textAlignment="textEnd"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                        <TextView
+                            android:id="@+id/textViewDurationValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="180 min"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageViewVehicle"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_gravity="right"
+                            android:scaleType="fitEnd"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            app:srcCompat="@drawable/bicycle" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutTourDetails5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails2">
+
+                    <TextView
+                        android:id="@+id/textViewTourCost"
+                        android:layout_width="113dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="Tour Cost "
+                        android:textAlignment="textStart"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textViewCostValue"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.58000004" />
+
+                    <TextView
+                        android:id="@+id/textViewCostValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45€"
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutTourDetails3"
+                    android:layout_width="369dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails6">
+
+                    <TextView
+                        android:id="@+id/textViewTourDetailsAddTransport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Need a transfer to\nyour destination ?"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.072"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/buttonTourDetailsAddTransport"
+                        style="@style/modifiedDateTimeButton"
+                        android:layout_width="128dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Add Transport"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.789"
+                        app:layout_constraintStart_toEndOf="@+id/textViewTourDetailsAddTransport"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ConstraintLayoutTourDetailsToursSelected"
+                        android:layout_width="336dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="@+id/buttonTourDetailsAddTransport"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsAddTransport"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsAddTransport">
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsNoTransport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="20dp"
+                            android:text="No selected transport"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toTopOf="@+id/dividerTourDetailsBottom"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsSelectedTransport" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsSelectedTransport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Selected transport:"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/dividerTourDetailsUp" />
+
+                        <View
+                            android:id="@+id/dividerTourDetailsUp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/blackTextColor"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/dividerTourDetailsLeft"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/blackTextColor"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/dividerTourDetailsRight"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/blackTextColor"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/dividerTourDetailsBottom"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/blackTextColor"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Starting date:"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsSelectedTransport" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="8dp"
+                            android:text="12-16-2020"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintHorizontal_bias="0.09"
+                            app:layout_constraintStart_toEndOf="@+id/textViewTourDetailsTransportDate"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsSelectedTransport" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Starting hour:"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportDate" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportHourValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="10:00"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportDateValue"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportDateValue" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportPlace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Starting place:"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportHour" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportPlaceValue"
+                            android:layout_width="115dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:maxLines="2"
+                            android:text="Terracina"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportDateValue"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportHourValue" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportCost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Cost:"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportPlaceValue" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportCostValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="10 €"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportDateValue"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportPlaceValue" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportVehicle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Vehicle:"
+                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintHorizontal_bias="0.9"
+                            app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewTourDetailsTransportRemove" />
+
+                        <ImageView
+                            android:id="@+id/imageViewTourDetailsTransportVehicleValue"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="18dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/textViewTourDetailsTransportVehicle"
+                            app:layout_constraintHorizontal_bias="0.555"
+                            app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportVehicle"
+                            app:srcCompat="@drawable/bus" />
+
+                        <ImageView
+                            android:id="@+id/imageViewTourDetailsTransportRemove"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_marginTop="35dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:layout_constraintEnd_toEndOf="@+id/textViewTourDetailsTransportVehicle"
+                            app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportVehicle"
+                            app:layout_constraintTop_toBottomOf="@+id/dividerTourDetailsUp"
+                            app:srcCompat="@drawable/cross" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutTourDetails6"
+                    android:layout_width="369dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails5">
+
+                    <TextView
+                        android:id="@+id/text_cost"
+                        android:layout_width="369dp"
+                        android:layout_height="37dp"
+                        android:autoSizeTextType="uniform"
+                        android:text="Booking Options"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textViewTourDetailsNumberOfPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="30dp"
+                        android:text="Number of people :"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_cost" />
+
+                    <com.travijuu.numberpicker.library.NumberPicker
+                        android:id="@+id/number_picker"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="16dp"
+                        app:focusable="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_cost"
+                        app:max="0"
+                        app:min="0"
+                        app:unit="1"
+                        app:value="0" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/buttonTourDetailsGoToSummaryPage"
+                    style="@style/modifiedDateTimeButton"
+                    android:layout_width="240dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="GO TO SUMMARY PAGE"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/bicycle" />
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails3" />
+
+                <TextView
+                    android:id="@+id/textViewTourDetailsRegistrationDirectLink"
+                    android:layout_width="249dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="Don't Have an Account ? Register Here"
+                    android:textColor="#1976D2"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonTourDetailsGoToSummaryPage" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-            <TextView
-                android:id="@+id/textViewTourCost"
-                android:layout_width="113dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:text="Tour Cost "
-                android:textAlignment="textStart"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textViewCostValue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewCostValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="45€"
-                android:textAlignment="textEnd"
-                android:textColor="#000000"
-                android:textSize="36sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </LinearLayout>

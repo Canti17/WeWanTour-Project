@@ -1,9 +1,13 @@
 package com.example.wewantour9;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,16 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter<List_transport_for_prenotation_adapter.ImageViewHolder> {
     private Context mContext;
     private List<Transport> transports;
+    private Transport transport;
+    private Activity activity;
 
-
-    public List_transport_for_prenotation_adapter(Context mContext, List<Transport> transports) {
+    public List_transport_for_prenotation_adapter(Context mContext, List<Transport> transports, Activity activity) {
         this.mContext = mContext;
         this.transports = transports;
+        this.activity = activity;
     }
 
     @NonNull
@@ -33,7 +40,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        final Transport transport=transports.get(position);
+        transport=transports.get(position);
         holder.text_destination.setText("Destination");
         holder.text_agency_name.setText(transport.getAgency());
         holder.text_start_place.setText(transport.getStartLocation());
@@ -48,6 +55,16 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
                     .load(R.drawable.car)
                     .into(holder.img_vehicle_transport);
         }
+
+        holder.select_transport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("Transport from list Transports for booking", transport);
+                activity.setResult(Activity.RESULT_OK, intent);
+                activity.finish();
+            }
+        });
     }
 
     @Override
@@ -60,6 +77,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
         public TextView text_start_date;
         public TextView text_start_hour;
         public ImageView img_vehicle_transport;
+        public Button select_transport;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +87,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
             text_start_date=itemView.findViewById(R.id.text_start_date);
             text_start_hour=itemView.findViewById(R.id.text_start_hour);
             img_vehicle_transport=itemView.findViewById(R.id.transport_vehicle);
+            select_transport=itemView.findViewById(R.id.select_transport);
 
         }
     }

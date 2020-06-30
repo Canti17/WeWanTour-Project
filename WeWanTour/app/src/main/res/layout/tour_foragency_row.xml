@@ -158,6 +158,17 @@
             app:layout_constraintTop_toBottomOf="@+id/text_hour_tour"
             app:layout_constraintVertical_bias="1.0" />
 
+        <ImageView
+            android:id="@+id/btn_edit_tour"
+            android:layout_width="18dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="112dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.822"
+            app:layout_constraintStart_toEndOf="@+id/text_name_tour"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

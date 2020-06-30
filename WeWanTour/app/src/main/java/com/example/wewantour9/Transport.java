@@ -1,8 +1,12 @@
 package com.example.wewantour9;
 
-import java.util.Calendar;
+import androidx.annotation.Nullable;
 
-public class Transport {
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Objects;
+
+public class Transport implements Serializable {
 
     private String startLocation;
     private String startDate;
@@ -15,11 +19,11 @@ public class Transport {
     private String agency;
 
     public Transport(){}
-    public Transport(String startLocation, String startDate, String startHour, int currrentPeople, int maxPeople, double cost, String vehicle, String destination, String agency) {
+    public Transport(String startLocation, String startDate, String startHour, int currentPeople, int maxPeople, double cost, String vehicle, String destination, String agency) {
         this.startLocation = startLocation;
         this.startDate = startDate;
         this.startHour = startHour;
-        this.currentPeople = currrentPeople;
+        this.currentPeople = currentPeople;
         this.maxPeople = maxPeople;
         this.cost = cost;
         this.vehicle = vehicle;
@@ -47,11 +51,11 @@ public class Transport {
 
     public void setStartHour(String startHour) { this.startHour = startHour; }
 
-    public int getCurrrentPeople() {
+    public int getCurrentPeople() {
         return currentPeople;
     }
 
-    public void setCurrrentPeople(int currrentPeople) {
+    public void setCurrentPeople(int currrentPeople) {
         currentPeople = currrentPeople;
     }
 
@@ -96,5 +100,21 @@ public class Transport {
                 ", destination=" + destination +
                 ", agency=" + agency +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transport transport = (Transport) o;
+        return currentPeople == transport.currentPeople &&
+                maxPeople == transport.maxPeople &&
+                Double.compare(transport.cost, cost) == 0 &&
+                Objects.equals(startLocation, transport.startLocation) &&
+                Objects.equals(startDate, transport.startDate) &&
+                Objects.equals(startHour, transport.startHour) &&
+                Objects.equals(vehicle, transport.vehicle) &&
+                Objects.equals(destination, transport.destination) &&
+                Objects.equals(agency, transport.agency);
     }
 }

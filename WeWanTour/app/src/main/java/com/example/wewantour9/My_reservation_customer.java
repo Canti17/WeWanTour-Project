@@ -6,15 +6,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,29 +25,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class List_transport_for_prenotation extends AppCompatActivity {
+public class My_reservation_customer extends AppCompatActivity {
 
 
     private RecyclerView mRecyclerView;
-    private List_transport_for_prenotation_adapter mAdapter;
+    private My_reservation_customer_adapter mAdapter;
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseReferenceTour;
-    private List<Transport> transports;
+    private List<Reservation> reservations;
     private LinearLayoutManager mLayoutManager;
-    private Activity activity;
-
     private Toolbar toolbar;
 
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+    private FirebaseAuth fAuth;
+    FirebaseUser current_user;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_transport_for_prenotation);
+        setContentView(R.layout.activity_my_reservation_customer);
+
+        fAuth = FirebaseAuth.getInstance();
+        current_user = fAuth.getCurrentUser();
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -56,45 +57,37 @@ public class List_transport_for_prenotation extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mProgressCircle = findViewById(R.id.progress_circle);
-        transports = new ArrayList<Transport>();
-
-        activity = this;
+        reservations = new ArrayList<Reservation>();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
-        final Tour selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class for transport list for prenotation");
-        final int selectedNumberOfPeople =  (int) getIntent().getSerializableExtra("Number of people to filter the transports");
-
-        mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TRANSPORT");
+        mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("RESERVATION");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Transport upload = postSnapshot.getValue(Transport.class);
-                    if(upload.getDestination().equals(selectedTour.getStartPlace()) && (upload.getMaxPeople()-upload.getCurrentPeople()) >= selectedNumberOfPeople){
-                        transports.add(upload);
+                    Reservation reserv = postSnapshot.getValue(Reservation.class);
+                    if(current_user.getEmail().equals(reserv.getCustomer())){
+                        reservations.add(reserv);
                     }
                 }
-                mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transports, activity);
+                mAdapter = new My_reservation_customer_adapter(My_reservation_customer.this, reservations);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(List_transport_for_prenotation.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(My_reservation_customer.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
 
-
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         finish();

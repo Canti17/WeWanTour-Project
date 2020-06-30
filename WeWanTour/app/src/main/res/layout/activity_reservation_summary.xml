@@ -1,0 +1,572 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:foregroundTint="#000000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".reservation_summary">
+
+        <Button
+            android:id="@+id/buttonSummaryConfirmBooking"
+            style="@style/modifiedDateTimeButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="50dp"
+            android:text="Confirm Booking"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutReservationSummaryCostSummary" />
+
+        <TextView
+            android:id="@+id/textViewReservationSummaryTitle"
+            android:layout_width="394dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Reservation Summary"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstraintLayoutReservationSummaryTour"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryWarning">
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOUR"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:maxWidth="270dp"
+                android:text="Tour Title"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTour" />
+
+            <ImageView
+                android:id="@+id/imageViewrReservationSummaryTour"
+                android:layout_width="160dp"
+                android:layout_height="106dp"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummary"
+                app:srcCompat="@drawable/col"
+                tools:srcCompat="@drawable/col" />
+
+            <ImageView
+                android:id="@+id/imageViewReservationSummaryTourDateIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewResewrvationSummaryDateLabel"
+                app:srcCompat="@drawable/calendar" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTourDateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="12-05-2020"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewReservationSummaryTourDateIcon"
+                app:layout_constraintStart_toEndOf="@+id/imageViewReservationSummaryTourDateIcon"
+                app:layout_constraintTop_toTopOf="@+id/imageViewReservationSummaryTourDateIcon" />
+
+            <TextView
+                android:id="@+id/textViewResewrvationSummaryDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="25dp"
+                android:text="► Date"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummary" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTourHourLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="► Hour"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewReservationSummaryTourDateIcon" />
+
+            <ImageView
+                android:id="@+id/imageViewreservationSummaryTourHourIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTourHourLabel"
+                app:srcCompat="@drawable/clock" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTourHourValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="10:30"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewreservationSummaryTourHourIcon"
+                app:layout_constraintStart_toEndOf="@+id/imageViewreservationSummaryTourHourIcon"
+                app:layout_constraintTop_toTopOf="@+id/imageViewreservationSummaryTourHourIcon" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTourPlaceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="► Place"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewreservationSummaryTourHourIcon" />
+
+            <ImageView
+                android:id="@+id/imageViewReservationSummaryTourPlaceIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTourPlaceLabel"
+                app:srcCompat="@drawable/map" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTourPlaceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:autoSizeMaxTextSize="250dp"
+                android:maxWidth="120dp"
+                android:text="Via V. pesca"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewReservationSummaryTourPlaceIcon"
+                app:layout_constraintTop_toTopOf="@+id/imageViewReservationSummaryTourPlaceIcon" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTourVehicleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="► Vehicle"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/imageViewrReservationSummaryTour"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryTourPlaceLabel" />
+
+            <ImageView
+                android:id="@+id/imageViewReservationSummaryTourVehicleValue"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryTourPlaceValue"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryTourVehicleLabel"
+                app:layout_constraintHorizontal_bias="0.74"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryTourVehicleLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryTourPlaceValue"
+                app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstraintLayoutReservationSummaryTransport"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ConstraintLayoutReservationSummaryTour">
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRANSPORT"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTransportDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:text="► Start Date"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTransport" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTransportDateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:text="12-05-2020"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTransportDateLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTransportHourLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="► Hour"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTransportDateValue" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTransportHourValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:text="08:30"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTransportHourLabel" />
+
+            <TextView
+                android:id="@+id/textViewreservationSummaryTransportPlaceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="► Place"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTransportHourValue" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryTransportPlaceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:maxWidth="250dp"
+                android:text="Via V. pescara"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewreservationSummaryTransportPlaceLabel" />
+
+            <ImageView
+                android:id="@+id/imageViewReservationSummaryTransportVehicleValue"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.76"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTransport"
+                app:srcCompat="@drawable/bus" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutReservationSummaryCostSummary"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ConstraintLayoutReservationSummaryTransport">
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRICE"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTourXLabel"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Cost for Person"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryPrice" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPricePeopleLabel"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="N° of People"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTourXLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTourLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Tour"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryPriceTourXLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTransportLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Transport  "
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryPriceTourLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTourValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13 €"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceTourLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTourLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceXLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceTourValue"
+                app:layout_constraintEnd_toStartOf="@+id/textViewReservationSummaryPricePeopleLabel"
+                app:layout_constraintStart_toEndOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTourValue" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPricePeopleValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceXLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePeopleLabel"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPricePeopleLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceXLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPricePlusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="+"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPricePeopleValue"
+                app:layout_constraintStart_toEndOf="@+id/textViewReservationSummaryPricePeopleLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPricePeopleValue" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTransportValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 €"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceTransportLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTransportLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceXLabel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceTransportValue"
+                app:layout_constraintEnd_toStartOf="@+id/textViewReservationSummaryPricePeopleLabel"
+                app:layout_constraintStart_toEndOf="@+id/textViewReservationSummaryPriceTourXLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTransportValue" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPricePeopleValue1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceXLabel1"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePeopleValue"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPricePeopleValue"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceXLabel1" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPricePlusLabel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPricePeopleValue1"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePlusLabel"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPricePlusLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPricePeopleValue1" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryEqualLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="="
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceTotLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePlusLabel1"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPricePlusLabel1"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTotLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTotLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="TOT"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryPriceTransportLabel" />
+
+            <View
+                android:id="@+id/dividerReservationSummary1"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="#000000"
+                android:backgroundTint="#000000"
+                android:foregroundTint="#000000"
+                app:layout_constraintBottom_toTopOf="@+id/textViewReservationSummaryPriceTotLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePlusLabel1"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPriceTourLabel"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryPriceTransportLabel" />
+
+            <TextView
+                android:id="@+id/textViewReservationSummaryPriceTotValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100 €"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryPriceTotLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePlusLabel1"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPriceTransportValue"
+                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryPriceTotLabel" />
+
+            <View
+                android:id="@+id/dividerReservationSummary3"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/blackTextColor"
+                android:backgroundTint="#000000"
+                android:foregroundTint="#000000"
+                app:layout_constraintBottom_toTopOf="@+id/textViewReservationSummaryPriceTourValue"
+                app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryPricePlusLabel"
+                app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryPriceTourLabel"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryPriceTourXLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textViewReservationSummaryWarning"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="        KEYNOTE \n\nOne week before the start date of a tour or transport; if the minimum number of participants has not been reached it will be cancelled and will not take place."
+            android:textAlignment="textStart"
+            android:textColor="#FF0000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTitle" />
+
+        <ImageView
+            android:id="@+id/imageViewReservationSummaryWarning"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryWarning"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryWarning"
+            app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryWarning"
+            app:srcCompat="@drawable/error_red" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

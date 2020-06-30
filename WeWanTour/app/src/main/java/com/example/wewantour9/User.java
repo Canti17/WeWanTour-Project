@@ -2,7 +2,9 @@ package com.example.wewantour9;
 
 import android.media.Image;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String full_name;
     private String email;
@@ -59,7 +61,15 @@ public class User {
         return id;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "full_name='" + full_name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.example.wewantour9;
 
+import android.app.Activity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,6 +64,8 @@ public class fragment_myTours_agency extends Fragment {
 
         mProgressCircle = view.findViewById(R.id.progress_circle);
         mUploads = new ArrayList<Tour>();
+
+
 
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
