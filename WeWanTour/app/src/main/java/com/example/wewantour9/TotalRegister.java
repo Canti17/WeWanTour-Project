@@ -118,7 +118,7 @@ public class TotalRegister extends AppCompatActivity {
         int res_id = item.getItemId();
         if(res_id == R.id.menu_info){
             AlertDialog.Builder info = new AlertDialog.Builder(TotalRegister.this);
-            info.setMessage("If you are interested to book tours registered as a Customer.\n" +
+            info.setMessage("If you are interested to book tours register as a Customer.\n" +
                     "If you are a tourist agent who wants to provide their own tours or transports register as Tour Operator.\n");
 
 
