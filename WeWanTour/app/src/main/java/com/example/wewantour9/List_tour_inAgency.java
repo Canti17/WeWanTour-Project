@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +32,7 @@ public class List_tour_inAgency extends AppCompatActivity {
     private DatabaseReference mDatabaseReferenceTour;
     private List<Tour> mUploads;
     private LinearLayoutManager mLayoutManager;
-
+    private Activity activity;
     private Toolbar toolbar;
 
     @Override
@@ -51,6 +53,7 @@ public class List_tour_inAgency extends AppCompatActivity {
         mProgressCircle = findViewById(R.id.progress_circle);
         mUploads = new ArrayList<Tour>();
 
+        activity=this;
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,7 +62,7 @@ public class List_tour_inAgency extends AppCompatActivity {
 
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
-        mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
+        mDatabaseReferenceTour.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -81,6 +84,9 @@ public class List_tour_inAgency extends AppCompatActivity {
 
 
     }
+
+
+
 
 
     @Override

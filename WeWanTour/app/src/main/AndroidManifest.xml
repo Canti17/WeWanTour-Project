@@ -14,7 +14,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-        <activity android:name=".reservation_summary"></activity>
+        <activity android:name=".edit_tour"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".My_reservation_customer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".reservation_summary" />
         <activity
             android:name=".List_transport_for_prenotation"
             android:theme="@style/AppTheme.NoActionBar" />
