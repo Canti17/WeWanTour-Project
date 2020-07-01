@@ -3,19 +3,31 @@ package com.example.wewantour9;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -26,6 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +47,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PopupMenu.OnMenuItemClickListener {
 
     private RecyclerView mRecyclerView;
     private tour_adapter mAdapter;
@@ -45,6 +58,10 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private Toolbar toolbar;
     private Menu menu;
 
+    private ArrayList<tour_adapter> allrecyclers;
+
+    private MaterialSearchView searchView;
+
 
     private FirebaseAuth fAuth;
     private  FirebaseAuth fAuth2;
@@ -54,6 +71,9 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private NavigationView nav_view;
     private ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
+
+
+
 
 
     @Override
@@ -87,11 +107,41 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         nav_view = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer);
 
+        searchView = findViewById(R.id.search_view);
+
 
 
 
         //TOOLBAR
         setSupportActionBar(toolbar);
+
+
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false; //booooo
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
 
         Intent intent = getIntent();
         int value = intent.getIntExtra("Ue", 0);
@@ -135,7 +185,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         }
 
 
-
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
@@ -157,6 +206,23 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    private void filter(String newText) {
+        ArrayList<Tour> filterlist = new ArrayList<>();
+
+        for(Tour item : mUploads){
+            if (item.getName().toLowerCase().contains(newText.toLowerCase()) ){
+                filterlist.add(item);
+            }
+
+        }
+
+        mAdapter = new tour_adapter(Homepage.this, filterlist);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
     }
 
 
@@ -211,7 +277,40 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menutoolbar, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
         return true;
     }
 
+    public void showpopup(MenuItem item) {
+
+        View menuview = findViewById(R.id.sorting);
+        PopupMenu popup = new PopupMenu(this, menuview);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.showpopupmenu);
+        popup.show();
+
+
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.sortbyalph:
+                return true;
+
+            case R.id.sortbycost:
+                return true;
+
+            case R.id.sortbydurat:
+                return true;
+
+        }
+
+        return true;
+    }
 }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,10 +20,17 @@ public class tour_adapter extends RecyclerView.Adapter<tour_adapter.ImageViewHol
     private Context mContext;
     private List<Tour> uploads;
 
+
+    private String testo;
+
+
     public tour_adapter(Context mContext, List<Tour> uploads) {
         this.mContext = mContext;
         this.uploads = uploads;
     }
+
+
+
 
     @NonNull
     @Override
@@ -33,6 +42,7 @@ public class tour_adapter extends RecyclerView.Adapter<tour_adapter.ImageViewHol
     @Override
     public void onBindViewHolder(ImageViewHolder holder, final int position) {
         final Tour current_tour=uploads.get(position);
+        testo = current_tour.getName();
         holder.text_name.setText(current_tour.getName());
         holder.text_price.setText("€ "+Double.toString(current_tour.getPrice()));
         holder.text_date.setText(current_tour.getStartDate());
@@ -72,6 +82,7 @@ public class tour_adapter extends RecyclerView.Adapter<tour_adapter.ImageViewHol
     public int getItemCount() {
         return uploads.size();
     }
+    
 
 
     public class ImageViewHolder extends RecyclerView.ViewHolder{
@@ -91,5 +102,34 @@ public class tour_adapter extends RecyclerView.Adapter<tour_adapter.ImageViewHol
             back_img=itemView.findViewById(R.id.back_img);
             vehicle_img=itemView.findViewById(R.id.vehicle_img);
         }
+
+
+        public String getText_name() {
+            return text_name.toString();
+        }
+
+        public TextView getText_price() {
+            return text_price;
+        }
+
+        public TextView getText_date() {
+            return text_date;
+        }
+
+        public TextView getText_hour() {
+            return text_hour;
+        }
+
+        public ImageView getVehicle_img() {
+            return vehicle_img;
+        }
     }
+
+
+    public String getTesto() {
+        return testo;
+    }
+    
+    
+    
 }

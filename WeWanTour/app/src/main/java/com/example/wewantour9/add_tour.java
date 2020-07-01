@@ -435,7 +435,7 @@ public class add_tour extends AppCompatActivity {
                         uriPath= uri.getResult().toString();
 
                         /* get current user to set agency*/
-                        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,minPeople,peopleLimit,vehicle,null, uriPath);
+                        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,peopleLimit,minPeople,vehicle,null, uriPath);
 
 
 

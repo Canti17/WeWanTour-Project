@@ -69,10 +69,12 @@ public class fragment_myTours_agency extends Fragment {
 
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
+
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mUploads.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Tour upload = postSnapshot.getValue(Tour.class);
                     if(upload.getAgency().equals(current_user.getEmail())) {

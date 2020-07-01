@@ -77,7 +77,6 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                 intent.putExtra("Tour class from ListTourInAgency", uploads.get(position));
                 intent.putExtra("Tour list from ListTourInAgency", (Serializable) uploads);
                 mContext.startActivity(intent);
-                ((Activity)mContext).finish();
             }
         });
     }

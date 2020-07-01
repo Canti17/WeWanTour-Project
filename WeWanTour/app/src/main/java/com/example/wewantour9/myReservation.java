@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -79,7 +80,6 @@ public class myReservation extends AppCompatActivity {
                 }
                 else{
                     viewpager.setLayoutParams(layoutparams2);
-
                 }*/
             }
 
@@ -106,4 +106,7 @@ public class myReservation extends AppCompatActivity {
         finish();
         return true;
     }
+
+
+
 }
