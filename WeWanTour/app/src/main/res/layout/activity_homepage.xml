@@ -24,7 +24,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -37,10 +39,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="enterAlways|scroll"
         app:popupTheme="@style/AppTheme"
-        app:titleTextColor="@color/whiteTextColor" />
+        app:titleTextColor="@color/whiteTextColor"
+        app:menu="@menu/menutoolbar"/>
 
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-
+</FrameLayout>
         <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
