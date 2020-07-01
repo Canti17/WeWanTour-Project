@@ -194,7 +194,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                     Tour upload = postSnapshot.getValue(Tour.class);
                     mUploads.add(upload);
                 }
-                Collections.sort(mUploads, Tour.TourNameComparator);                       //line to order the data, use some functions created in the Tour class
                 mAdapter = new tour_adapter(Homepage.this, mUploads);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
@@ -301,14 +300,25 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.sortbyalph:
+                Collections.sort(mUploads, Tour.TourNameComparator);
+                mAdapter = new tour_adapter(Homepage.this, mUploads);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(mLayoutManager);
                 return true;
 
             case R.id.sortbycost:
+                Collections.sort(mUploads, Tour.TourPriceComparator);
+                mAdapter = new tour_adapter(Homepage.this, mUploads);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(mLayoutManager);
                 return true;
 
             case R.id.sortbydurat:
+                Collections.sort(mUploads, Tour.TourDurationComparator);
+                mAdapter = new tour_adapter(Homepage.this, mUploads);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(mLayoutManager);
                 return true;
-
         }
 
         return true;

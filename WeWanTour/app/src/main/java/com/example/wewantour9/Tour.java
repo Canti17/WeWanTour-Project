@@ -194,7 +194,7 @@ public class Tour implements Serializable {
             return TourName1.compareTo(TourName2);
 
             //descending order
-            //return StudentName2.compareTo(StudentName1);
+            //return TourName2.compareTo(TourName1);
         }
     };
 
@@ -208,7 +208,7 @@ public class Tour implements Serializable {
             return (int)(TourPrice1-TouPrice2);
 
             //descending order
-            //return StudentName2.compareTo(StudentName1);
+            //return (int)(TourPrice2-TouPrice1);
         }
     };
 
@@ -222,7 +222,7 @@ public class Tour implements Serializable {
             return (int)(TourDuration1-TourDuration2);
 
             //descending order
-            //return StudentName2.compareTo(StudentName1);
+            //return (int)(TourDuration2-TourDuration1);
         }
     };
 }
