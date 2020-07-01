@@ -11,6 +11,7 @@ public class Transport implements Serializable {
     private String startLocation;
     private String startDate;
     private String startHour;
+    private int minPeople;
     private int currentPeople;
     private int maxPeople;
     private double cost;
@@ -19,10 +20,11 @@ public class Transport implements Serializable {
     private String agency;
 
     public Transport(){}
-    public Transport(String startLocation, String startDate, String startHour, int currentPeople, int maxPeople, double cost, String vehicle, String destination, String agency) {
+    public Transport(String startLocation, String startDate, String startHour, int minPeople, int currentPeople, int maxPeople, double cost, String vehicle, String destination, String agency) {
         this.startLocation = startLocation;
         this.startDate = startDate;
         this.startHour = startHour;
+        this.minPeople = minPeople;
         this.currentPeople = currentPeople;
         this.maxPeople = maxPeople;
         this.cost = cost;
@@ -50,6 +52,10 @@ public class Transport implements Serializable {
     public String getStartHour() { return startHour; }
 
     public void setStartHour(String startHour) { this.startHour = startHour; }
+
+    public int getMinPeople() { return minPeople; }
+
+    public void setMinPeople(int minPeople) { this.minPeople = minPeople; }
 
     public int getCurrentPeople() {
         return currentPeople;
@@ -93,12 +99,13 @@ public class Transport implements Serializable {
                 "startLocation='" + startLocation + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", startHour='" + startHour + '\'' +
+                ", minPeople=" + minPeople +
                 ", currentPeople=" + currentPeople +
                 ", maxPeople=" + maxPeople +
                 ", cost=" + cost +
                 ", vehicle='" + vehicle + '\'' +
-                ", destination=" + destination +
-                ", agency=" + agency +
+                ", destination='" + destination + '\'' +
+                ", agency='" + agency + '\'' +
                 '}';
     }
 
@@ -107,7 +114,8 @@ public class Transport implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transport transport = (Transport) o;
-        return currentPeople == transport.currentPeople &&
+        return minPeople == transport.minPeople &&
+                currentPeople == transport.currentPeople &&
                 maxPeople == transport.maxPeople &&
                 Double.compare(transport.cost, cost) == 0 &&
                 Objects.equals(startLocation, transport.startLocation) &&

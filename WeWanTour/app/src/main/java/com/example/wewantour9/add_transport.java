@@ -42,7 +42,7 @@ public class add_transport extends AppCompatActivity implements
     private TextView txtViewVehicle;
     private Button btnDatePicker, btnTimePicker, btnSubmit;
     private ImageButton btnBus, btnCar;
-    private TextInputEditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtCost, txtMaxPeople, transportDestination;
+    private TextInputEditText txtDate, txtTime, txtStartCity, txtStartStreet, txtStartCivic, txtCost, txtMaxPeople, txtMinPeople, transportDestination;
     private TextInputLayout layoutTxtDate, layoutTxtTime;
     int mYear, mMonth, mDay, mHour, mMinute;
     int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
@@ -107,6 +107,7 @@ public class add_transport extends AppCompatActivity implements
         txtStartStreet = findViewById(R.id.TransportStartStreet);
         txtStartCivic = findViewById(R.id.TransportStartCivic);
         txtCost = findViewById(R.id.TransportCost);
+        txtMinPeople = findViewById(R.id.TransportMinPeople);
         txtMaxPeople = findViewById(R.id.TransportMaxPeople);
         layoutTxtDate = findViewById(R.id.HintMovementTransportDay);
         layoutTxtTime = findViewById(R.id.HintMovementTransportHour);
@@ -295,6 +296,11 @@ public class add_transport extends AppCompatActivity implements
                 txtMaxPeople.setError("please enter maximum number of people");//it gives user to info message
                 check = false;
             }
+            if(txtMinPeople.getText().toString().equalsIgnoreCase("")) {
+                //txtMaxPeople.setHint("please enter maximum number of people");//it gives user to hint
+                txtMaxPeople.setError("please enter minimum number of people");//it gives user to info message
+                check = false;
+            }
             if(btnBusPressed==false && btnCarPressed==false){
                 txtViewVehicle.setError("please select one from the proposed vehicles");//it gives user to info message
                 check = false;
@@ -304,6 +310,8 @@ public class add_transport extends AppCompatActivity implements
                 String startHoure = txtTime.getText().toString();
                 String buffer = txtMaxPeople.getText().toString();
                 int intMaxPeople = Integer.parseInt(buffer);
+                buffer = txtMinPeople.getText().toString();
+                int intMinPeople = Integer.parseInt(buffer);
                 double doubleCost = Double.parseDouble(txtCost.getText().toString());
                 String startingLocation = txtStartCity.getText().toString()+","+txtStartStreet.getText().toString()+","+txtStartCivic.getText().toString();
                 String vehicle="";
@@ -314,7 +322,7 @@ public class add_transport extends AppCompatActivity implements
                 }
 
                 String destFromTour = selectedTour.getStartPlace();
-                newTransport = new Transport(startingLocation, startDate, startHoure, 0, intMaxPeople, doubleCost, vehicle, destFromTour, null);
+                newTransport = new Transport(startingLocation, startDate, startHoure, intMinPeople, 0, intMaxPeople, doubleCost, vehicle, destFromTour, null);
 
                 db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

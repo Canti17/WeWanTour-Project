@@ -4,6 +4,7 @@ import android.widget.TableRow;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -183,4 +184,45 @@ public class Tour implements Serializable {
                 Objects.equals(filePath, tour.filePath);
     }
 
+    public static Comparator<Tour> TourNameComparator = new Comparator<Tour>() {
+
+        public int compare(Tour s1, Tour s2) {
+            String TourName1 = s1.getName().toUpperCase();
+            String TourName2 = s2.getName().toUpperCase();
+
+            //ascending order
+            return TourName1.compareTo(TourName2);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }
+    };
+
+    public static Comparator<Tour> TourPriceComparator = new Comparator<Tour>() {
+
+        public int compare(Tour s1, Tour s2) {
+            Double TourPrice1 = s1.getPrice();
+            Double TouPrice2 = s2.getPrice();
+
+            //ascending order
+            return (int)(TourPrice1-TouPrice2);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }
+    };
+
+    public static Comparator<Tour> TourDurationComparator = new Comparator<Tour>() {
+
+        public int compare(Tour s1, Tour s2) {
+            Double TourDuration1 = s1.getDuration();
+            Double TourDuration2 = s2.getDuration();
+
+            //ascending order
+            return (int)(TourDuration1-TourDuration2);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }
+    };
 }

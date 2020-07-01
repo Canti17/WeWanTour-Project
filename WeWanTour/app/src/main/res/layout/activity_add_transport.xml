@@ -239,10 +239,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/HintMovementTransportCost"
                     style="@style/TextInputLayout"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     app:boxStrokeColor="#2661FA"
                     app:errorEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportMaxPeople"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportMinPeople"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.513"
                     app:layout_constraintStart_toStartOf="parent"
@@ -258,6 +258,30 @@
                             app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportCost"
                             app:layout_constraintStart_toStartOf="@+id/HintMovementTransportCost"
                             app:layout_constraintTop_toTopOf="@+id/HintMovementTransportCost" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/HintMovementTransportMinPeople"
+                    style="@style/TextInputLayout"
+                    android:layout_marginBottom="10dp"
+                    app:boxStrokeColor="#2661FA"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportMaxPeople"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:theme="@style/InputTextAppTheme">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/TransportMinPeople"
+                            style="@style/TextInputEditText"
+                            android:hint="Min People Number"
+                            android:inputType="number"
+                            android:textColorLink="#2661FA"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/HintMovementTransportMinPeople"
+                            app:layout_constraintStart_toStartOf="@+id/HintMovementTransportMinPeople"
+                            app:layout_constraintTop_toTopOf="@+id/HintMovementTransportMinPeople" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
