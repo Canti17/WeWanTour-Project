@@ -276,7 +276,7 @@ public class edit_tour extends AppCompatActivity {
             public void onClick(View v) {
                 uploadFile();
                 Toast.makeText(edit_tour.this, "Tour Uploaded!!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(edit_tour.this, myReservation.class));
+                //startActivity(new Intent(edit_tour.this, myReservation.class));
                 finish();
             }
         });

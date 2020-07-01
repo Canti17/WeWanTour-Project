@@ -125,7 +125,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_name"
             style="@style/TextInputEditText"
-            android:hint="Name"
+            android:hint="Name*"
             android:inputType="text"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -178,7 +178,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_startcity"
             style="@style/TextInputEditText"
-            android:hint="Starting City"
+            android:hint="Starting City*"
             android:inputType="text"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -209,7 +209,7 @@
             style="@style/TextInputEditText"
             android:layout_width="184dp"
             android:layout_height="49dp"
-            android:hint="Starting Street"
+            android:hint="Starting Street*"
             android:inputType="text"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -242,7 +242,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Starting Date"
+            android:hint="Starting Date*"
             android:inputType="text"
             android:textColorLink="#2661FA" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -268,7 +268,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Starting Time"
+            android:hint="Starting Time*"
             android:inputType="text"
             android:textColorLink="#2661FA" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -293,7 +293,7 @@
             style="@style/TextInputEditText"
             android:layout_width="96dp"
             android:layout_height="50dp"
-            android:hint="Civic"
+            android:hint="Civic*"
             android:inputType="text"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -345,7 +345,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_price"
             style="@style/TextInputEditText"
-            android:hint="Price €"
+            android:hint="Price € *"
             android:inputType="numberDecimal"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -371,7 +371,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_duration"
             style="@style/TextInputEditText"
-            android:hint="Duration (minuts)"
+            android:hint="Duration (minuts)*"
             android:inputType="numberDecimal"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -400,7 +400,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_minPeople"
             style="@style/TextInputEditText"
-            android:hint="Min People"
+            android:hint="Min People*"
             android:inputType="numberSigned"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -427,7 +427,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_peoplelimit"
             style="@style/TextInputEditText"
-            android:hint="People limit"
+            android:hint="People limit *"
             android:inputType="numberSigned"
             android:textColorLink="#2661FA"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -497,6 +497,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_AddTransport"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/required_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="*REQUIRED"
+        android:textColor="#808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
