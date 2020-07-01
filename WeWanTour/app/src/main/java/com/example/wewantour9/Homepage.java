@@ -17,11 +17,14 @@ import androidx.appcompat.view.menu.ActionMenuItemView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -51,6 +54,8 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private LinearLayoutManager mLayoutManager;
     private Toolbar toolbar;
     private Menu menu;
+
+    private ArrayList<tour_adapter> allrecyclers;
 
     private MaterialSearchView searchView;
 
@@ -102,6 +107,8 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         searchView = findViewById(R.id.search_view);
 
 
+
+
         //TOOLBAR
         setSupportActionBar(toolbar);
 
@@ -116,8 +123,8 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
+                filter(newText);
+                return false; //booooo
             }
         });
 
@@ -175,7 +182,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         }
 
 
-
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
@@ -196,6 +202,23 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    private void filter(String newText) {
+        ArrayList<Tour> filterlist = new ArrayList<>();
+
+        for(Tour item : mUploads){
+            if (item.getName().toLowerCase().contains(newText.toLowerCase()) ){
+                filterlist.add(item);
+            }
+
+        }
+
+        mAdapter = new tour_adapter(Homepage.this, filterlist);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
     }
 
 
