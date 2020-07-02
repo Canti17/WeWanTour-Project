@@ -50,7 +50,6 @@ android:id="@+id/drawer">
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/homepage_layout"
@@ -68,20 +67,6 @@ android:id="@+id/drawer">
                 app:layout_constraintTop_toBottomOf="@+id/recycler_view"
                 app:layout_constraintVertical_bias="0.239"
                 tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/baloo"
-                android:text="Your Reservations"
-                android:textColor="#3949AB"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/recycler_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
