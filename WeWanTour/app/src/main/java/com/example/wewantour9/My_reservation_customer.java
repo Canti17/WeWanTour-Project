@@ -61,7 +61,9 @@ public class My_reservation_customer extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("My Reservations");
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
 
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("RESERVATION");

@@ -24,7 +24,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,49 +64,47 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </RelativeLayout>
-            
+
             <androidx.gridlayout.widget.GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:columnOrderPreserved="false"
+                android:layout_height="383dp"
                 app:alignmentMode="alignMargins"
                 app:columnCount="2"
+                app:columnOrderPreserved="false"
                 app:rowCount="2">
-
 
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/addtour"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:cardElevation="10dp"
+                    android:layout_width="54dp"
+                    android:layout_height="165dp"
+                    android:layout_margin="12dp"
                     app:cardCornerRadius="18dp"
-                    android:layout_margin="12dp">
-                    
+                    app:cardElevation="10dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="16dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="16dp">
+
                         <ImageView
-                            android:src="@drawable/newtour"
                             android:layout_width="80dp"
-                            android:layout_height="80dp"/>
-                        
+                            android:layout_height="80dp"
+                            android:src="@drawable/newtour" />
+
                         <TextView
-                            android:layout_marginTop="12dp"
-                            android:textColor="@color/blackTextColor"
-                            android:text="Add Tour"
-                            android:textSize="18sp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Add Tour"
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
-
 
 
                 </androidx.cardview.widget.CardView>
@@ -116,70 +114,68 @@
                     android:id="@+id/addtransport"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
+                    android:layout_margin="12dp"
+                    app:cardCornerRadius="18dp"
                     app:cardElevation="10dp"
 
-                    app:cardCornerRadius="18dp"
-                    android:layout_margin="12dp">
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="16dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="16dp">
+
                         <ImageView
-                            android:src="@drawable/newtransport"
                             android:layout_width="80dp"
-                            android:layout_height="80dp"/>
+                            android:layout_height="80dp"
+                            android:src="@drawable/newtransport" />
 
                         <TextView
-                            android:layout_marginTop="12dp"
-                            android:textColor="@color/blackTextColor"
-                            android:text="Add Transport"
-                            android:textSize="18sp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Add Transport"
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
 
-
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/toursandtransports"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
+                    android:layout_width="32dp"
+                    android:layout_height="169dp"
+                    android:layout_margin="12dp"
+                    app:cardCornerRadius="18dp"
                     app:cardElevation="10dp"
 
-                    app:cardCornerRadius="18dp"
-                    android:layout_margin="12dp">
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="16dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="10dp">
+
                         <ImageView
-                            android:src="@drawable/card2"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"/>
+                            android:layout_width="91dp"
+                            android:layout_height="82dp"
+                            android:src="@drawable/card2" />
 
                         <TextView
+                            android:layout_width="130dp"
+                            android:layout_height="43dp"
                             android:layout_marginTop="12dp"
-                            android:textColor="@color/blackTextColor"
                             android:text="My Tours and Transports"
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -190,19 +186,18 @@
                     android:id="@+id/alltours"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:cardElevation="10dp"
+                    android:layout_margin="12dp"
                     app:cardCornerRadius="18dp"
-                    android:layout_margin="12dp">
+                    app:cardElevation="10dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="16dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="16dp">
 
                         <ImageView
                             android:layout_width="96dp"
@@ -210,20 +205,17 @@
                             android:src="@drawable/tours" />
 
                         <TextView
-                            android:layout_marginTop="12dp"
-                            android:textColor="@color/blackTextColor"
-                            android:text="All Tours"
-                            android:textSize="18sp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="All Tours"
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
 
-
                 </androidx.cardview.widget.CardView>
-
-
 
 
             </androidx.gridlayout.widget.GridLayout>
