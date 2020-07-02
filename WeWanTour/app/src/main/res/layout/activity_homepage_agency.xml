@@ -169,7 +169,7 @@
                         android:orientation="vertical"
                         >
                         <ImageView
-                            android:src="@drawable/toursandtransports"
+                            android:src="@drawable/card2"
                             android:layout_width="80dp"
                             android:layout_height="80dp"/>
 
@@ -203,10 +203,11 @@
                         android:padding="16dp"
                         android:orientation="vertical"
                         >
+
                         <ImageView
-                            android:src="@drawable/tours"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"/>
+                            android:layout_width="96dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/tours" />
 
                         <TextView
                             android:layout_marginTop="12dp"

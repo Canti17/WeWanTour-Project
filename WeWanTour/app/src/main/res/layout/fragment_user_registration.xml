@@ -22,13 +22,13 @@
             <TextView
                 android:id="@+id/register_logo"
                 style="@style/formHeader"
-                android:layout_width="161dp"
+                android:layout_width="217dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="cursive"
-                android:text="Register"
+                android:fontFamily="@font/baloo"
+                android:text="Registration"
                 android:textAlignment="viewStart"
-                android:textSize="50sp"
+                android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
