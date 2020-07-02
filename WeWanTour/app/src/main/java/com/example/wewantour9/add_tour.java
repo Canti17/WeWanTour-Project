@@ -449,7 +449,8 @@ public class add_tour extends AppCompatActivity {
                                         db.child(new_tour_id).setValue(tour);
                                         db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
                                         //db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
-
+                                        finish();
+                                        startActivity(new Intent(add_tour.this, HomepageAgency.class));
                                     }
                                 }
                             }
