@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +44,7 @@ public class tour_details extends AppCompatActivity {
     private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople, cost, transDate, transHour, transPlace, transCost, noTransport, transDateLabel, transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, directRegister;
     private ImageView vehicle, mainImage, transVehicle, deleteTransport;
     private Button selectTransport, gotToSummaryPage;
+    private ConstraintLayout bookingOptionsLayout1, bookingOptionsLayout2;
     private NumberPicker numberPicker;
     private Tour selectedTour;
     private Transport selectedTransport;
@@ -84,6 +89,8 @@ public class tour_details extends AppCompatActivity {
         deleteTransport = findViewById(R.id.imageViewTourDetailsTransportRemove);
         gotToSummaryPage = findViewById(R.id.buttonTourDetailsGoToSummaryPage);
         directRegister = findViewById(R.id.textViewTourDetailsRegistrationDirectLink);
+        bookingOptionsLayout1 = findViewById(R.id.constraintLayoutTourDetails6);
+        bookingOptionsLayout2 = findViewById(R.id.constraintLayoutTourDetails3);
 
         selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from HomePage");
 
@@ -134,9 +141,11 @@ public class tour_details extends AppCompatActivity {
         });
 
         if(currentUser==null){
-            findViewById(R.id.ConstraintLayoutTourDetailsToursSelected).setVisibility(View.GONE);
             selectTransport.setClickable(false);
+            //selectTransport.setBackgroundColor(Color.parseColor("grey"));
             gotToSummaryPage.setText("Login to book the tour");
+            bookingOptionsLayout1.setVisibility(View.GONE);
+            bookingOptionsLayout2.setVisibility(View.GONE);
 
             gotToSummaryPage.setOnClickListener(new View.OnClickListener() {
                 @Override
