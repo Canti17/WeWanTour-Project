@@ -63,7 +63,7 @@ public class add_transport extends AppCompatActivity implements
 
     public String pad(int input) {
         String str = "";
-        if (input > 10) {
+        if (input >= 10) {
             str = Integer.toString(input);
         } else {
             str = "0" + Integer.toString(input);

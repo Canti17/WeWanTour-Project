@@ -41,7 +41,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         transport=transports.get(position);
-        holder.text_destination.setText("Destination");
+        holder.text_destination.setText(transport.getDestination());
         holder.text_agency_name.setText(transport.getAgency());
         holder.text_start_place.setText(transport.getStartLocation());
         holder.text_start_date.setText(transport.getStartDate());
