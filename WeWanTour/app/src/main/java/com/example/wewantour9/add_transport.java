@@ -271,11 +271,6 @@ public class add_transport extends AppCompatActivity implements
                 txtStartStreet.setError("please enter start street");//it gives user to info message
                 check = false;
             }
-            if(txtStartCivic.getText().toString().equalsIgnoreCase("")) {
-                //txtStartLocation.setHint("please enter start location");//it gives user to hint
-                txtStartCivic.setError("please enter start civic, if no civic type SNC");//it gives user to info message
-                check = false;
-            }
             if(txtDate.getText().toString().equalsIgnoreCase("")) {
                 //txtDate.setHint("please enter start date");//it gives user to hint
                 txtDate.setError("please enter start date");//it gives user to info message
@@ -296,14 +291,15 @@ public class add_transport extends AppCompatActivity implements
                 txtMaxPeople.setError("please enter maximum number of people");//it gives user to info message
                 check = false;
             }
-            if(txtMinPeople.getText().toString().equalsIgnoreCase("")) {
-                //txtMaxPeople.setHint("please enter maximum number of people");//it gives user to hint
-                txtMaxPeople.setError("please enter minimum number of people");//it gives user to info message
-                check = false;
-            }
             if(btnBusPressed==false && btnCarPressed==false){
                 txtViewVehicle.setError("please select one from the proposed vehicles");//it gives user to info message
                 check = false;
+            }
+            if(txtStartCivic.getText().toString().equalsIgnoreCase("") && check) {
+                txtStartCivic.setText("SNC");
+            }
+            if(txtMinPeople.getText().toString().equalsIgnoreCase("") && check) {
+                txtMinPeople.setText("1");
             }
             if(check) {
                 String startDate = txtDate.getText().toString();
