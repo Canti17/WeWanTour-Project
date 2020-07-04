@@ -9,14 +9,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
@@ -30,12 +33,48 @@ public class TotalRegister extends AppCompatActivity {
     TabLayout tab;
     TabItem firstitem;
     TabItem seconditem;
+    private int value;
 
     PagerAdapter pageradapter;
 
     @Override
     public void onBackPressed() {
-        finish();
+        if(value == 2){
+            //Dialog dialog = createDialog();
+            //dialog.show();
+            finish();
+
+        }
+        else{
+            finish();
+        }
+
+
+    }
+
+    private Dialog createDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+// 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage("Do you want to exit from the registration phase?")
+                .setTitle("Exiting Registration")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+
+        return builder.create();
+
+
     }
 
     @SuppressLint("RestrictedApi")
@@ -62,13 +101,17 @@ public class TotalRegister extends AppCompatActivity {
         //toggle.setDrawerIndicatorEnabled(true);
         //toggle.syncState();
         String email =  getIntent().getStringExtra("Hey");
+        value =  getIntent().getIntExtra("Google",0);
+        //1 è normal, 2 è google
         Log.d("UEEEE", email);
 
 
-        pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount(), email);
+        pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount(), email, value);
         viewpager.setAdapter(pageradapter);
 
-
+        if (value == 2) {
+            FirebaseAuth.getInstance().signOut();
+        }
 
 
 
@@ -78,7 +121,7 @@ public class TotalRegister extends AppCompatActivity {
                 viewpager.setCurrentItem(tab.getPosition());
                 int g = tab.getPosition();
                 String l = Integer.toString(g);
-                tab.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_LABELED);
+                //tab.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_LABELED);
 
 
 /*
@@ -143,7 +186,15 @@ public class TotalRegister extends AppCompatActivity {
         }
 
         else{
-           finish();
+
+            if (value == 2){
+                finish();//createDialog().show();
+            }
+            else{
+                finish();
+
+            }
+
 
         }
 
@@ -152,6 +203,9 @@ public class TotalRegister extends AppCompatActivity {
     }
 
 
-
-
+     @Override
+   protected void onStop() {
+        super.onStop();
+        finish();
+    }
 }

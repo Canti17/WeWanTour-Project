@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,7 +60,7 @@ public class AgencyFragmentRegistration extends Fragment {
 
     private TextInputLayout passwordbox;
     private TextInputLayout passwordboxconfirmation;
-
+    private int value;
     FirebaseAuth fAuth;
     private ProgressBar progress;
 
@@ -104,6 +106,7 @@ public class AgencyFragmentRegistration extends Fragment {
 
         Bundle bundle = getArguments();
         String fixedemail = bundle.getString("key");
+        value = bundle.getInt("google");
 
         email.setText(fixedemail);
 
@@ -192,50 +195,63 @@ public class AgencyFragmentRegistration extends Fragment {
                 if (registerUser(full_name, email, password,password_confirmation, privacy_checkbox)) {
                     progress.setVisibility(View.VISIBLE);
 
-                    fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(),  password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                //verification email
-                                FirebaseUser user = fAuth.getCurrentUser();
-                                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("TAG", "Error: Verification Mail not sent"+ e.getMessage());
+                    if (value == 2) {
 
-                                    }
-                                });
+                        String telephone;
+                        telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
+                        startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
+                        Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
+                                password.getText().toString().trim(), "", id, agency_name.getText().toString().trim(),
+                                telephone, "Rome", iva_number.getText().toString().trim());
 
-                                //union of prefix and telephone number
-                                String telephone;
-                                telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
+                        reference.child(String.valueOf(agency.getId())).setValue(agency);
 
 
-                                // Sign in success, update UI with the signed-in user's information
-                                //Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
-                                Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                        password.getText().toString().trim(), "", id, agency_name.getText().toString().trim(),
-                                        telephone , "Rome" ,iva_number.getText().toString().trim());
+                    } else {
 
-                                reference.child(String.valueOf(agency.getId())).setValue(agency);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(getActivity().getApplicationContext(), "Authentication failed."+ task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                                progress.setVisibility(View.GONE);
+                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    //verification email
+                                    FirebaseUser user = fAuth.getCurrentUser();
+                                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("TAG", "Error: Verification Mail not sent" + e.getMessage());
+
+                                        }
+                                    });
+
+                                    //union of prefix and telephone number
+                                    String telephone;
+                                    telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
+
+
+                                    // Sign in success, update UI with the signed-in user's information
+                                    //Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
+                                    Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
+                                            password.getText().toString().trim(), "", id, agency_name.getText().toString().trim(),
+                                            telephone, "Rome", iva_number.getText().toString().trim());
+
+                                    reference.child(String.valueOf(agency.getId())).setValue(agency);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(getActivity().getApplicationContext(), "Authentication failed." + task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                    progress.setVisibility(View.GONE);
+                                }
                             }
-                        }
-                    });
+                        });
 
 
-
-
+                    }
                 }
 
                 else{

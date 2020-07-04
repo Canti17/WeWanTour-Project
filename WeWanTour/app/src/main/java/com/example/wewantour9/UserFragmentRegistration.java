@@ -55,6 +55,7 @@ public class UserFragmentRegistration extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference reference;
     FirebaseAuth fAuth;
+    private int value;
 
     EditText full_name, email, password, password_confirmation;
 
@@ -94,6 +95,7 @@ public class UserFragmentRegistration extends Fragment {
 
         Bundle bundle = getArguments();
         String fixedemail = bundle.getString("key");
+        value = bundle.getInt("google");
 
         email.setText(fixedemail);
 
@@ -181,45 +183,54 @@ public class UserFragmentRegistration extends Fragment {
                 if (registerUser(full_name, email, password,password_confirmation, privacy_checkbox)) {
                     progress.setVisibility(View.VISIBLE);
 
-                    fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(),  password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                    if (value == 2) {
+                        Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
+                                password.getText().toString(), "", id);
+                        reference.child(String.valueOf(customer.getId())).setValue(customer);
+                        Toast.makeText(getActivity().getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
+                        fAuth.signOut();
+                        startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
 
-                                //verification email
-                                FirebaseUser user = fAuth.getCurrentUser();
-                                assert user != null;
-                                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    } else {
+                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
+                                    //verification email
+                                    FirebaseUser user = fAuth.getCurrentUser();
+                                    assert user != null;
+                                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
 
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("TAG", "Error: Verification Mail not sent"+ e.getMessage());
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
 
-                                    }
-                                });
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("TAG", "Error: Verification Mail not sent" + e.getMessage());
+
+                                        }
+                                    });
 
 
-
-                                // Sign in success, update UI with the signed-in user's information
-                                //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
-                                Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                        password.getText().toString(), "", id);
-                                reference.child(String.valueOf(customer.getId())).setValue(customer);
-                                startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(getActivity().getApplicationContext(), "Authentication failed."+ task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                                progress.setVisibility(View.GONE);
+                                    // Sign in success, update UI with the signed-in user's information
+                                    //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
+                                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
+                                            password.getText().toString(), "", id);
+                                    reference.child(String.valueOf(customer.getId())).setValue(customer);
+                                    startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(getActivity().getApplicationContext(), "Authentication failed." + task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                    progress.setVisibility(View.GONE);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
 
                 else{
