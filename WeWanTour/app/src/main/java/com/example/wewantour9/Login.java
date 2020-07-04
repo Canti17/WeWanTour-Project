@@ -201,7 +201,7 @@ public class Login extends AppCompatActivity {
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TotalRegister.class));
+                startActivity(new Intent(getApplicationContext(), GoogleIntermediate.class));
             }
         });
 

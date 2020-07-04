@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -60,9 +61,14 @@ public class TotalRegister extends AppCompatActivity {
         //drawer.addDrawerListener(toggle);
         //toggle.setDrawerIndicatorEnabled(true);
         //toggle.syncState();
+        String email =  getIntent().getStringExtra("Hey");
+        Log.d("UEEEE", email);
 
-        pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount());
+
+        pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount(), email);
         viewpager.setAdapter(pageradapter);
+
+
 
 
 
@@ -72,6 +78,9 @@ public class TotalRegister extends AppCompatActivity {
                 viewpager.setCurrentItem(tab.getPosition());
                 int g = tab.getPosition();
                 String l = Integer.toString(g);
+                tab.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_LABELED);
+
+
 /*
                 ViewPager.LayoutParams layoutparams = new ViewPager.LayoutParams();
                 layoutparams.height = 500;

@@ -172,7 +172,6 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="60dp"
-                android:background="@drawable/btn_custom"
                 android:text="CREATE ACCOUNT"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="enterAlways|scroll"
+            app:popupTheme="@style/AppTheme"
+            app:titleTextColor="@color/whiteTextColor" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".GoogleIntermediate"
+        android:background="@drawable/gradient"
+
+
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/accounttitle"
+            style="@style/formHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/baloo"
+            android:text="Create Account"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_intermediate"
+            style="@style/TextInputLayout"
+            android:layout_gravity="center_horizontal"
+            app:boxStrokeColor="#2661FA"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_logo"
+            app:layout_constraintVertical_bias="0.060000002"
+            app:theme="@style/InputTextAppTheme">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_field_new"
+                style="@style/TextInputEditText"
+                android:hint="Insert Your Email"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/email_text"
+                app:layout_constraintStart_toStartOf="@+id/email_text"
+                app:layout_constraintTop_toTopOf="@+id/email_text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+
+            android:id="@+id/newaccountbutton"
+            style="@style/modifiedSubmitButton"
+            android:layout_width="300dp"
+            android:layout_height="52dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/modified_submit_button"
+            android:text="Register with Your Email"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_text"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/orview"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/baloo"
+            android:text="oppure"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/google_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.062" />
+
+
+        <com.shobhitpuri.custombuttons.GoogleSignInButton
+        android:id="@+id/google_button"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_alignParentTop="true"
+        android:layout_margin="0dp"
+        android:text="@string/signupbutton"
+        app:isDarkTheme="true"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="180dp">
+
+        </com.shobhitpuri.custombuttons.GoogleSignInButton>
+        
+
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -235,7 +235,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(Homepage.this, Login.class));
                 break;
             case R.id.nav_register:
-                startActivity(new Intent(Homepage.this, TotalRegister.class));
+                startActivity(new Intent(Homepage.this, GoogleIntermediate.class));
                 break;
             case R.id.nav_profile:
                 startActivity(new Intent(Homepage.this, ProfileUser.class));

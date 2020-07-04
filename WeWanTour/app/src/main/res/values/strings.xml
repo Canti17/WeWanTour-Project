@@ -6,6 +6,7 @@
     <string name="premi">PREMI</string>
     <string name="descrizione">DESCRIZIONE</string>
     <string name="numero_di_clienti">NUMERO DI CLIENTI</string>
+    <string name="signupbutton">Sign Up with Google</string>
 
 
     <string name="full_name_text">Full Name</string>

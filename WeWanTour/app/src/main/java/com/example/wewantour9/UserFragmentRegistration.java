@@ -37,6 +37,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.BufferUnderflowException;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,6 +91,12 @@ public class UserFragmentRegistration extends Fragment {
 
         passwordbox.setPasswordVisibilityToggleEnabled(false);
         passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
+
+        Bundle bundle = getArguments();
+        String fixedemail = bundle.getString("key");
+
+        email.setText(fixedemail);
+
 
         fAuth = FirebaseAuth.getInstance();
         reference = database.getInstance().getReference("USER").child("Customer");

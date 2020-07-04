@@ -102,6 +102,11 @@ public class AgencyFragmentRegistration extends Fragment {
 
         fAuth = FirebaseAuth.getInstance();
 
+        Bundle bundle = getArguments();
+        String fixedemail = bundle.getString("key");
+
+        email.setText(fixedemail);
+
         reference = database.getInstance().getReference("USER").child("Agency");
 
 
