@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,7 @@ public class List_transport_for_prenotation extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private List_transport_for_prenotation_adapter mAdapter;
+    private TextView noTransportLabel;
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseReferenceTour;
     private List<Transport> transports;
@@ -49,6 +51,7 @@ public class List_transport_for_prenotation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_transport_for_prenotation);
 
+        noTransportLabel = findViewById(R.id.textViewTransportListForCustomerBooking);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -79,6 +82,11 @@ public class List_transport_for_prenotation extends AppCompatActivity {
                     if(upload.getDestination().equals(selectedTour.getStartPlace()) && (upload.getMaxPeople()-upload.getCurrentPeople()) >= selectedNumberOfPeople){
                         transports.add(upload);
                     }
+                }
+                if(transports.isEmpty()){
+                    noTransportLabel.setVisibility(View.VISIBLE);
+                }else{
+                    noTransportLabel.setVisibility(View.GONE);
                 }
                 mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transports, activity);
                 mRecyclerView.setAdapter(mAdapter);
