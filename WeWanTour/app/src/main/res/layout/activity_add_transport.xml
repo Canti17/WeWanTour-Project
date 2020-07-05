@@ -97,8 +97,8 @@
                     app:errorEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportDay"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.265"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/HintMovementTransportStartCity"
                     app:theme="@style/InputTextAppTheme">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -148,15 +148,16 @@
                     android:layout_width="113dp"
                     android:layout_height="48dp"
                     android:layout_alignBottom="@+id/HintMovementTransportDay"
-                    android:layout_marginBottom="34dp"
                     android:layout_toEndOf="@+id/HintMovementTransportDay"
                     android:layout_toRightOf="@+id/HintMovementTransportDay"
                     android:fontFamily="sans-serif-medium"
                     android:text="SELECT DATE"
-                    app:layout_constraintBottom_toTopOf="@+id/TransportHourButton"
+                    app:layout_constraintBottom_toBottomOf="@+id/HintMovementTransportDay"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.364"
-                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportDay" />
+                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportDay"
+                    app:layout_constraintTop_toTopOf="@+id/HintMovementTransportDay"
+                    app:layout_constraintVertical_bias="0.72" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/HintMovementTransportDay"
@@ -167,8 +168,8 @@
                     app:errorEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportHour"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.224"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/HintMovementTransportStartStreet"
                     app:theme="@style/InputTextAppTheme">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -197,13 +198,13 @@
                     android:layout_below="@+id/TransportDateButton"
                     android:layout_alignStart="@+id/TransportDateButton"
                     android:layout_alignLeft="@+id/TransportDateButton"
-                    android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="16dp"
                     android:text="SELECT TIME"
-                    app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportCost"
+                    app:layout_constraintBottom_toBottomOf="@+id/HintMovementTransportHour"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.969"
-                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportHour" />
+                    app:layout_constraintHorizontal_bias="0.37"
+                    app:layout_constraintStart_toEndOf="@+id/HintMovementTransportHour"
+                    app:layout_constraintTop_toTopOf="@+id/HintMovementTransportHour"
+                    app:layout_constraintVertical_bias="0.72" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/HintMovementTransportHour"
@@ -214,8 +215,8 @@
                     app:errorEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportCost"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.224"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/HintMovementTransportDay"
                     app:theme="@style/InputTextAppTheme">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -330,26 +331,25 @@
                     android:layout_width="129dp"
                     android:layout_height="81dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/imgbutton_color1"
+                    android:background="@drawable/imgbutton_color1_blue_version"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/HintMovementDestination"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.202"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TextTransportVehicle"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="@+id/TextTransportVehicle"
                     app:srcCompat="@drawable/bus" />
 
                 <ImageButton
                     android:id="@+id/CarBtn"
                     android:layout_width="129dp"
                     android:layout_height="81dp"
-                    android:layout_marginEnd="52dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/imgbutton_color1"
+                    android:background="@drawable/imgbutton_color1_blue_version"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/HintMovementDestination"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/BusBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/TextTransportVehicle"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="@+id/TextTransportVehicle"
                     app:srcCompat="@drawable/car" />
 
                 <Button

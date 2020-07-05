@@ -53,9 +53,11 @@
 
         <TextView
             android:id="@+id/textViewReservationSummaryTitle"
-            android:layout_width="394dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="15dp"
             android:text="Reservation Summary"
             android:textAlignment="center"
             android:textColor="#000000"
@@ -68,9 +70,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConstraintLayoutReservationSummaryTour"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryWarning">
@@ -102,7 +106,7 @@
 
             <ImageView
                 android:id="@+id/imageViewrReservationSummaryTour"
-                android:layout_width="160dp"
+                android:layout_width="150dp"
                 android:layout_height="106dp"
                 android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -225,20 +229,22 @@
                 android:id="@+id/imageViewReservationSummaryTourVehicleValue"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewReservationSummaryTourPlaceValue"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/textViewReservationSummaryTourVehicleLabel"
                 app:layout_constraintHorizontal_bias="0.74"
                 app:layout_constraintStart_toStartOf="@+id/textViewReservationSummaryTourVehicleLabel"
-                app:layout_constraintTop_toTopOf="@+id/textViewReservationSummaryTourPlaceValue"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReservationSummaryTourVehicleLabel"
                 app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConstraintLayoutReservationSummaryTransport"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toStartOf="parent"
@@ -337,9 +343,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutReservationSummaryCostSummary"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ConstraintLayoutReservationSummaryTransport">
@@ -574,9 +582,11 @@
 
         <TextView
             android:id="@+id/textViewReservationSummaryWarning"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:text="        KEYNOTE \n\nOne week before the start date of a tour or transport; if the minimum number of participants has not been reached it will be cancelled and will not take place."
             android:textAlignment="textStart"
             android:textColor="#FF0000"

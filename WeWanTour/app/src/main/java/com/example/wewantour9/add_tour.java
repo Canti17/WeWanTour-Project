@@ -385,7 +385,7 @@ public class add_tour extends AppCompatActivity {
                     doubleDuration = Double.parseDouble(edtxt_duration.getText().toString());
                     tourName= edtxt_name.getText().toString();
                     tourDescription= edtxt_description.getText().toString();
-                    startPlace= edtxt_startCity.getText().toString()+","+edtxt_startStreet.getText().toString()+","+edtxt_startCivic.getText().toString();
+                    startPlace= edtxt_startCity.getText().toString()+", "+edtxt_startStreet.getText().toString()+", "+edtxt_startCivic.getText().toString();
                     startDate=edtxt_StartDate.getText().toString();
                     startHour=edtxt_StartHour.getText().toString();
                     minPeople= Integer.parseInt(edtxt_minPeople.getText().toString());

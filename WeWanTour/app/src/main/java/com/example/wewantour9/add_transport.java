@@ -182,9 +182,9 @@ public class add_transport extends AppCompatActivity implements
             public void onClick(View v) {
                 if(btnCarPressed){
                     btnCarPressed=false;
-                    btnCar.setBackgroundResource(R.drawable.imgbutton_color1);
+                    btnCar.setBackgroundResource(R.drawable.imgbutton_color1_blue_version);
                 }
-                btnBus.setBackgroundResource(R.drawable.imgbutton_color2);
+                btnBus.setBackgroundResource(R.drawable.modified_date_time_button);
                 btnBusPressed=true;
                 txtViewVehicle.setError(null);
             }
@@ -194,9 +194,9 @@ public class add_transport extends AppCompatActivity implements
             public void onClick(View v) {
                 if(btnBusPressed) {
                     btnBusPressed = false;
-                    btnBus.setBackgroundResource(R.drawable.imgbutton_color1);
+                    btnBus.setBackgroundResource(R.drawable.imgbutton_color1_blue_version);
                 }
-                btnCar.setBackgroundResource(R.drawable.imgbutton_color2);
+                btnCar.setBackgroundResource(R.drawable.modified_date_time_button);
                 btnCarPressed=true;
                 txtViewVehicle.setError(null);
             }
@@ -309,7 +309,7 @@ public class add_transport extends AppCompatActivity implements
                 buffer = txtMinPeople.getText().toString();
                 int intMinPeople = Integer.parseInt(buffer);
                 double doubleCost = Double.parseDouble(txtCost.getText().toString());
-                String startingLocation = txtStartCity.getText().toString()+","+txtStartStreet.getText().toString()+","+txtStartCivic.getText().toString();
+                String startingLocation = txtStartCity.getText().toString()+", "+txtStartStreet.getText().toString()+", "+txtStartCivic.getText().toString();
                 String vehicle="";
                 if(btnBusPressed==true && btnCarPressed==false){
                     vehicle="Bus";
