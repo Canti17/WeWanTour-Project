@@ -13,12 +13,14 @@ public class PagerAdapter extends FragmentPagerAdapter {
     private int tabs;
     private String email;
     private int value;
+    private String name;
 
-    public PagerAdapter(@NonNull FragmentManager fm, int behavior, int tabs, String email, int value) {
+    public PagerAdapter(@NonNull FragmentManager fm, int behavior, int tabs, String email, String name,  int value) {
         super(fm, behavior);
         this.tabs = tabs;
         this.email = email;
         this.value = value;
+        this.name = name;
 
     }
 
@@ -30,13 +32,16 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 0:
                 Bundle bundle = new Bundle();
                 bundle.putString("key", email);
+                bundle.putString("key2", name);
                 bundle.putInt("google",value);
                 UserFragmentRegistration us = new UserFragmentRegistration();
                 us.setArguments(bundle);
                 return us;
             case 1:
                 Bundle bundle2 = new Bundle();
+
                 bundle2.putString("key", email);
+                bundle2.putString("key2", name);
                 bundle2.putInt("google",value);
                 AgencyFragmentRegistration ag = new AgencyFragmentRegistration();
                 ag.setArguments(bundle2);

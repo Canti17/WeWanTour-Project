@@ -1,5 +1,6 @@
 package com.example.wewantour9;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -71,6 +72,7 @@ public class AgencyFragmentRegistration extends Fragment {
     private int id;
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -108,7 +110,20 @@ public class AgencyFragmentRegistration extends Fragment {
         String fixedemail = bundle.getString("key");
         value = bundle.getInt("google");
 
+        if(value == 2){
+            passwordbox.setVisibility(View.GONE);
+            passwordboxconfirmation.setVisibility(View.GONE);
+            String fixedname = bundle.getString("key2");
+
+            full_name.setText(fixedname);
+            full_name.setEnabled(false);
+            full_name.setTextColor(R.color.blackTextColor);
+        }
+
         email.setText(fixedemail);
+        email.setEnabled(false);
+        email.setTextColor(R.color.blackTextColor);
+
 
         reference = database.getInstance().getReference("USER").child("Agency");
 

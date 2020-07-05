@@ -97,12 +97,13 @@ public class TotalRegister extends AppCompatActivity {
         //toggle.setDrawerIndicatorEnabled(true);
         //toggle.syncState();
         String email =  getIntent().getStringExtra("Hey");
+        String name = getIntent().getStringExtra("Hey2");
         value =  getIntent().getIntExtra("Google",0);
         //1 è normal, 2 è google
         Log.d("UEEEE", email);
 
 
-        pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount(), email, value);
+        pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount(), email, name, value);
         viewpager.setAdapter(pageradapter);
 
         if (value == 2) {

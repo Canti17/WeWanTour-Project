@@ -296,6 +296,7 @@ public class GoogleIntermediate extends AppCompatActivity {
         Toast.makeText(this, "Account Recognized", Toast.LENGTH_SHORT).show();
         AuthCredential authcredetnial = GoogleAuthProvider.getCredential(go.getIdToken(),null);
         final String em = go.getEmail();
+        final String et = go.getDisplayName();
         mAuth.signInWithCredential(authcredetnial).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -303,6 +304,7 @@ public class GoogleIntermediate extends AppCompatActivity {
 
                     Intent intent = new Intent(GoogleIntermediate.this, TotalRegister.class);
                     intent.putExtra("Hey", em);
+                    intent.putExtra("Hey2",et);
                     intent.putExtra("Google",2);
                     startActivity(intent);
                     Toast.makeText(GoogleIntermediate.this, "Complete the Registration!",Toast.LENGTH_SHORT).show();

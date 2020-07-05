@@ -69,7 +69,7 @@ public class UserFragmentRegistration extends Fragment {
     private int id;
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,9 +95,21 @@ public class UserFragmentRegistration extends Fragment {
 
         Bundle bundle = getArguments();
         String fixedemail = bundle.getString("key");
+
         value = bundle.getInt("google");
 
+        if(value == 2){
+            passwordbox.setVisibility(View.GONE);
+            passwordboxconfirmation.setVisibility(View.GONE);
+            String fixedname = bundle.getString("key2");
+            full_name.setText(fixedname);
+            full_name.setEnabled(false);
+        }
+
         email.setText(fixedemail);
+        email.setEnabled(false);
+        email.setTextColor(R.color.blackTextColor);
+
 
 
         fAuth = FirebaseAuth.getInstance();

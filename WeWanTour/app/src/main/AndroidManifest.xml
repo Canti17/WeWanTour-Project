@@ -25,7 +25,8 @@
         <activity
             android:name=".My_reservation_customer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".reservation_summary" />
+        <activity android:name=".reservation_summary"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".List_transport_for_prenotation"
             android:theme="@style/AppTheme.NoActionBar" />

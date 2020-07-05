@@ -2,12 +2,14 @@ package com.example.wewantour9;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class reservation_summary extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class reservation_summary extends AppCompatActivity {
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
     private Boolean currentUserIsCustomer = false;
 
+    private Toolbar toolbar;
     private String new_reservation_id;
     private FirebaseDatabase database;
     private DatabaseReference db_reservation, db_customer_reservations, db_transport, db_tour, db_agency;
@@ -89,6 +93,11 @@ public class reservation_summary extends AppCompatActivity {
         priceTourPlus = findViewById(R.id.textViewReservationSummaryPricePlusLabel);
 
         submitButton = findViewById(R.id.buttonSummaryConfirmBooking);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -312,5 +321,17 @@ public class reservation_summary extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
