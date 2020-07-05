@@ -177,6 +177,7 @@ public class UserFragmentRegistration extends Fragment {
         registration_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                registration_button.setClickable(false);
 
 
                 /* ALL CONTROLS*/
@@ -227,6 +228,7 @@ public class UserFragmentRegistration extends Fragment {
                                     Toast.makeText(getActivity().getApplicationContext(), "Authentication failed." + task.getException().getMessage(),
                                             Toast.LENGTH_SHORT).show();
                                     progress.setVisibility(View.GONE);
+                                    registration_button.setClickable(true);
                                 }
                             }
                         });
@@ -234,6 +236,7 @@ public class UserFragmentRegistration extends Fragment {
                 }
 
                 else{
+                    registration_button.setClickable(true);
                     //ok
 
                 }

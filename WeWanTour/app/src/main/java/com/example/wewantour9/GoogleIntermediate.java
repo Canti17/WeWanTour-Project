@@ -2,9 +2,11 @@ package com.example.wewantour9;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,6 +32,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
 import java.util.Objects;
@@ -46,6 +53,15 @@ public class GoogleIntermediate extends AppCompatActivity {
     private GoogleSignInClient googleSignInclient;
     private String TAG = "Prova";
     private FirebaseAuth mAuth;
+
+    private boolean flaggoogle = true;
+    private boolean flaggoogle2 = true;
+
+
+
+    GoogleSignInAccount acc;
+
+    private int variable;
 
 
 
@@ -72,6 +88,20 @@ public class GoogleIntermediate extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        int control = getIntent().getIntExtra("Controllo",0);
+
+        if(control == 1){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setMessage("You Need to Complete the Registration first!!")
+                    .setTitle("Account Not Created")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            builder.create().show();
+        }
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -157,10 +187,104 @@ public class GoogleIntermediate extends AppCompatActivity {
 
     private void handlesigninresult(Task<GoogleSignInAccount> task) {
         try {
-            GoogleSignInAccount acc = task.getResult(ApiException.class);
-            Toast.makeText(this, "TUTTO BENE",Toast.LENGTH_SHORT).show();
+            acc = task.getResult(ApiException.class);
 
-            FirebaseGoogleAuth(acc);
+
+            final String em2 = acc.getEmail();
+            Log.d("UEEE", em2);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER").child("Agency");
+
+            ValueEventListener listener = (new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    Log.d("Inizializzato a True flag", String.valueOf(flaggoogle));
+                    for(DataSnapshot data: dataSnapshot.getChildren() ){
+                        Agency agency = data.getValue(Agency.class);
+                        Log.d("Email Database", agency.getEmail());
+                        Log.d("Email Google", em2);
+                        if(em2.equals(agency.getEmail())){
+                            Log.d("SONO QUA","AGENCY");
+                            variable = 1000; //AGENCY
+                            flaggoogle = false;
+                            break;
+                        }
+                    }
+
+                    if(flaggoogle == false){
+                        googleSignInclient.signOut();
+                        mAuth.signOut();
+                        Intent intent = new Intent(GoogleIntermediate.this, Login.class);
+                        intent.putExtra("ControlloLogin", 1);
+                        startActivity(intent);
+                        finish();
+
+                    }
+
+                    else{
+
+                        DatabaseReference db2 = FirebaseDatabase.getInstance().getReference("USER").child("Customer");
+                        ValueEventListener listener2 = (new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Log.d("Inizializzato a True flag2", String.valueOf(flaggoogle2));
+
+                                for(DataSnapshot data: dataSnapshot.getChildren() ) {
+                                    Customer customer = data.getValue(Customer.class);
+                                    Log.d("Email Database", customer.getEmail());
+                                    Log.d("Email Google", em2);
+                                    if (em2.equals(customer.getEmail())) {
+
+                                        Log.d("SONO QUA","CUSTOMER");
+                                        variable = 100;//CUSTOMER
+                                        flaggoogle2 = false;
+                                        break;
+                                    }
+                                }
+
+                                if(flaggoogle2 == false){
+                                    googleSignInclient.signOut();
+                                    mAuth.signOut();
+                                    Intent intent = new Intent(GoogleIntermediate.this, Login.class);
+                                    intent.putExtra("ControlloLogin", 1);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+
+                                else{
+                                    FirebaseGoogleAuth(acc);
+
+
+                                }
+
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        db2.addValueEventListener(listener2);
+
+
+                    }
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            reference.addValueEventListener(listener);
+
+
+
+
+
+
+
+
         }catch(ApiException e){
             Toast.makeText(this, "TUTTO MALE",Toast.LENGTH_SHORT).show();
             //FirebaseGoogleAuth(null);
@@ -169,6 +293,7 @@ public class GoogleIntermediate extends AppCompatActivity {
     }
 
     private void FirebaseGoogleAuth(GoogleSignInAccount go) {
+        Toast.makeText(this, "Account Recognized", Toast.LENGTH_SHORT).show();
         AuthCredential authcredetnial = GoogleAuthProvider.getCredential(go.getIdToken(),null);
         final String em = go.getEmail();
         mAuth.signInWithCredential(authcredetnial).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -180,12 +305,12 @@ public class GoogleIntermediate extends AppCompatActivity {
                     intent.putExtra("Hey", em);
                     intent.putExtra("Google",2);
                     startActivity(intent);
-                    Toast.makeText(GoogleIntermediate.this, "TUTTO BENE DI NUOVO",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoogleIntermediate.this, "Complete the Registration!",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
 
                 }
                 else{
-                    Toast.makeText(GoogleIntermediate.this, "TUTTO BENE DI NUOVO",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoogleIntermediate.this, "TUTTO MALE DI NUOVO",Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -196,6 +321,7 @@ public class GoogleIntermediate extends AppCompatActivity {
         CharSequence str = text.getText().toString();
         return TextUtils.isEmpty(str);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

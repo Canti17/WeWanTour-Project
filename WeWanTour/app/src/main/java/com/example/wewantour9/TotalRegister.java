@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,24 +43,17 @@ public class TotalRegister extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(value == 2){
-            //Dialog dialog = createDialog();
-            //dialog.show();
-            finish();
 
-        }
-        else{
             finish();
-        }
-
 
     }
 
+
+    //EXAMPLE DIALOG NOT USED
     private Dialog createDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-// 2. Chain together various setter methods to set the dialog characteristics
         builder.setMessage("Do you want to exit from the registration phase?")
                 .setTitle("Exiting Registration")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -73,7 +70,6 @@ public class TotalRegister extends AppCompatActivity {
 
 
         return builder.create();
-
 
     }
 
@@ -110,7 +106,15 @@ public class TotalRegister extends AppCompatActivity {
         viewpager.setAdapter(pageradapter);
 
         if (value == 2) {
+
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
             FirebaseAuth.getInstance().signOut();
+            mGoogleSignInClient.signOut();
+
         }
 
 
@@ -187,13 +191,7 @@ public class TotalRegister extends AppCompatActivity {
 
         else{
 
-            if (value == 2){
-                finish();//createDialog().show();
-            }
-            else{
                 finish();
-
-            }
 
 
         }
@@ -201,6 +199,8 @@ public class TotalRegister extends AppCompatActivity {
 
         return true;
     }
+
+
 
 
      @Override

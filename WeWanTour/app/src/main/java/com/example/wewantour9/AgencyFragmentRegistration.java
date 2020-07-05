@@ -191,6 +191,8 @@ public class AgencyFragmentRegistration extends Fragment {
             @Override
             public void onClick(View v) {
 
+                registration_button.setClickable(false);
+
                 /* ALL CONTROLS*/
                 if (registerUser(full_name, email, password,password_confirmation, privacy_checkbox)) {
                     progress.setVisibility(View.VISIBLE);
@@ -246,6 +248,7 @@ public class AgencyFragmentRegistration extends Fragment {
                                     Toast.makeText(getActivity().getApplicationContext(), "Authentication failed." + task.getException().getMessage(),
                                             Toast.LENGTH_SHORT).show();
                                     progress.setVisibility(View.GONE);
+                                    registration_button.setClickable(true);
                                 }
                             }
                         });
@@ -255,6 +258,7 @@ public class AgencyFragmentRegistration extends Fragment {
                 }
 
                 else{
+                    registration_button.setClickable(true);
                     //ok
                 }
             };

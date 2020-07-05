@@ -30,6 +30,9 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -72,6 +75,8 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
 
+    private int value;
+
 
 
 
@@ -108,6 +113,8 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         drawer = findViewById(R.id.drawer);
 
         searchView = findViewById(R.id.search_view);
+
+        value =  getIntent().getIntExtra("Google",0);
 
 
 
@@ -241,10 +248,24 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(Homepage.this, ProfileUser.class));
                 break;
             case R.id.nav_logout:
-                fAuth.signOut();
-                startActivity(new Intent(Homepage.this, Homepage.class));
-                finish();
-                break;
+                if(value == 2){
+                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(getString(R.string.default_web_client_id))
+                            .requestEmail()
+                            .build();
+                    GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                    fAuth.signOut();
+                    mGoogleSignInClient.signOut();
+                    startActivity(new Intent(Homepage.this, Homepage.class));
+                    finish();
+                    break;
+                }
+                else {
+                    fAuth.signOut();
+                    startActivity(new Intent(Homepage.this, Homepage.class));
+                    finish();
+                    break;
+                }
             case R.id.nav_reservations:
                 startActivity(new Intent(Homepage.this, My_reservation_customer.class));
                 break;
