@@ -214,14 +214,19 @@ public class AgencyFragmentRegistration extends Fragment {
 
                     if (value == 2) {
 
+                        Log.d("Key", "SONO QUA");
+
                         String telephone;
                         telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
-                        startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
+
                         Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                password.getText().toString().trim(), "", id, agency_name.getText().toString().trim(),
+                                "NO", "", id, agency_name.getText().toString().trim(),
                                 telephone, "Rome", iva_number.getText().toString().trim());
 
                         reference.child(String.valueOf(agency.getId())).setValue(agency);
+
+                        startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
+                        Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 
 
                     } else {
@@ -256,6 +261,8 @@ public class AgencyFragmentRegistration extends Fragment {
                                     Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                             password.getText().toString().trim(), "", id, agency_name.getText().toString().trim(),
                                             telephone, "Rome", iva_number.getText().toString().trim());
+
+                                    Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 
                                     reference.child(String.valueOf(agency.getId())).setValue(agency);
                                 } else {
@@ -301,24 +308,26 @@ public class AgencyFragmentRegistration extends Fragment {
 
                 }
 
+                if(value != 2) {
+                    if (isEmpty(password)) {
+                        passwordbox.setPasswordVisibilityToggleEnabled(false);
+                        password.setError("Password is required!");
+                        var = false;
+                    }
 
-                if (isEmpty(password)) {
-                    passwordbox.setPasswordVisibilityToggleEnabled(false);
-                    password.setError("Password is required!");
-                    var = false;
-                }
+                    if (isEmpty(password_confirmation)) {
+                        passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
+                        password_confirmation.setError("Password Confirmation is required!");
+                        var = false;
 
-                if (isEmpty(password_confirmation)) {
-                    passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
-                    password_confirmation.setError("Password Confirmation is required!");
-                    var = false;
+                    } else if (password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
+                        /*DO NOTHING*/
+                    } else {
+                        passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
+                        password_confirmation.setError("Password Confirmation is different from the password!");
+                        var = false;
+                    }
 
-                } else if(password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
-                    /*DO NOTHING*/
-                } else{
-                    passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
-                    password_confirmation.setError("Password Confirmation is different from the password!");
-                    var = false;
                 }
 
                 if (!checkbox.isChecked()) {

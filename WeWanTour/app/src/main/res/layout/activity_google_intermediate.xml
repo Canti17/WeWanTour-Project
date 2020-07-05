@@ -95,7 +95,7 @@
             android:background="@drawable/modified_submit_button"
             android:text="Register with Your Email"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

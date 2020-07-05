@@ -264,7 +264,7 @@ public class GoogleIntermediate extends AppCompatActivity {
 
                             }
                         });
-                        db2.addValueEventListener(listener2);
+                        db2.addListenerForSingleValueEvent(listener2);
 
 
                     }
@@ -276,7 +276,7 @@ public class GoogleIntermediate extends AppCompatActivity {
                 }
             });
 
-            reference.addValueEventListener(listener);
+            reference.addListenerForSingleValueEvent(listener);
 
 
 

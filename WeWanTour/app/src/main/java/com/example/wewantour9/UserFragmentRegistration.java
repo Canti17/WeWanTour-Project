@@ -104,6 +104,7 @@ public class UserFragmentRegistration extends Fragment {
             String fixedname = bundle.getString("key2");
             full_name.setText(fixedname);
             full_name.setEnabled(false);
+            full_name.setTextColor(R.color.blackTextColor);
         }
 
         email.setText(fixedemail);
@@ -198,7 +199,7 @@ public class UserFragmentRegistration extends Fragment {
 
                     if (value == 2) {
                         Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                password.getText().toString(), "", id);
+                                "NO", "", id);
                         reference.child(String.valueOf(customer.getId())).setValue(customer);
                         Toast.makeText(getActivity().getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
                         fAuth.signOut();
@@ -279,24 +280,27 @@ public class UserFragmentRegistration extends Fragment {
 
                 }
 
+                if(value != 2) {
 
-                if (isEmpty(password)) {
-                    passwordbox.setPasswordVisibilityToggleEnabled(false);
-                    password.setError("Password is required!");
-                    var =  false;
-                }
+                    if (isEmpty(password)) {
+                        passwordbox.setPasswordVisibilityToggleEnabled(false);
+                        password.setError("Password is required!");
+                        var = false;
+                    }
 
-                if (isEmpty(password_confirmation)) {
-                    passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
-                    password_confirmation.setError("Password Confirmation is required!");
-                    var = false;
+                    if (isEmpty(password_confirmation)) {
+                        passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
+                        password_confirmation.setError("Password Confirmation is required!");
+                        var = false;
 
-                } else if(password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
-                    /*DO NOTHING*/
-                } else{
-                    passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
-                    password_confirmation.setError("Password Confirmation is different from the password!");
-                    var =  false;
+                    } else if (password.getText().toString().trim().equals(password_confirmation.getText().toString().trim())) {
+                        /*DO NOTHING*/
+                    } else {
+                        passwordboxconfirmation.setPasswordVisibilityToggleEnabled(false);
+                        password_confirmation.setError("Password Confirmation is different from the password!");
+                        var = false;
+                    }
+
                 }
 
                 if (!checkbox.isChecked()) {

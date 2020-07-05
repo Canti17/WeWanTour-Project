@@ -124,6 +124,9 @@ public class Login extends AppCompatActivity {
 
         googleSignInclient = GoogleSignIn.getClient(this,gso);
 
+        googleSignInclient.signOut();
+        fAuth.signOut();
+
         signinbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

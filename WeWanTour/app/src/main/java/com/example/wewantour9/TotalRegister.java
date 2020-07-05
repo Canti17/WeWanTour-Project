@@ -129,20 +129,6 @@ public class TotalRegister extends AppCompatActivity {
                 //tab.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_LABELED);
 
 
-/*
-                ViewPager.LayoutParams layoutparams = new ViewPager.LayoutParams();
-                layoutparams.height = 500;
-                ViewPager.LayoutParams layoutparams2 = new ViewPager.LayoutParams();
-                layoutparams2.height = 1000;
-
-                Log.d("ue", l);
-                if(g == 0){
-                    viewpager.setLayoutParams(layoutparams);
-                }
-                else{
-                    viewpager.setLayoutParams(layoutparams2);
-
-                }*/
             }
 
             @Override
