@@ -150,7 +150,7 @@ public class tour_details extends AppCompatActivity {
             gotToSummaryPage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(tour_details.this, Login.class);
+                    Intent intent = new Intent(tour_details.this, GoogleIntermediate.class);
                     startActivity(intent);
                     finish();
                 }

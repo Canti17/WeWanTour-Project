@@ -33,6 +33,7 @@ public class reservation_summary extends AppCompatActivity {
     private ConstraintLayout transportLayout;
     private Reservation reservation;
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
+    private Boolean currentUserIsCustomer = false;
 
     private String new_reservation_id;
     private FirebaseDatabase database;
@@ -194,6 +195,7 @@ public class reservation_summary extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             Customer customer_crnt = postSnapshot.getValue(Customer.class);
                             if(customer_crnt.getEmail().equals(currentUser.getEmail())) {
+                                currentUserIsCustomer = true;
                                 db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
                                 //db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                             }
@@ -204,11 +206,29 @@ public class reservation_summary extends AppCompatActivity {
                     }
                 });
 
+                if(!currentUserIsCustomer){
+                    db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                Agency agency_crnt = postSnapshot.getValue(Agency.class);
+                                if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
+                                    db_agency.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
+                                    //db_agency.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
+
                 //
                 //from here all should be changed and more simple when the tours and transports id coerence will be inserted (no more random delete and all the second line commented used for the insertion)
                 //
+                //Update the transport in the all TRASPORT list of the database
                 if(reservation.getTransport()!=null) {
-                    //Update the transport in the all TRASPORT list of the database
                     db_transport.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -222,29 +242,6 @@ public class reservation_summary extends AppCompatActivity {
                                 }
                             }
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                    //Update the transport in the Agency Transport List
-                    db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                Agency buffer_agency = postSnapshot.getValue(Agency.class);
-                                if (buffer_agency.getEmail().equals(reservation.getTransport().getAgency())) {
-                                    for (DataSnapshot listTourSnapshot : postSnapshot.child("list_transports").getChildren()) {
-                                        Transport agency_transport = listTourSnapshot.getValue(Transport.class);
-                                        if(agency_transport.equals(reservation.getTransport())){
-                                            Map<String, Object> updateMap = new HashMap<>();
-                                            updateMap.put("currentPeople", newCurrentPeoplesTransport);
-                                            db_agency.child(postSnapshot.getKey()).child("list_transports").child(listTourSnapshot.getKey()).updateChildren(updateMap);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
@@ -268,12 +265,14 @@ public class reservation_summary extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
-                //Update the tour in the Agency Tour List
+
                 db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             Agency buffer_agency = postSnapshot.getValue(Agency.class);
+
+                            //Update the tour in the Agency Tour List
                             if (buffer_agency.getEmail().equals(reservation.getTour().getAgency())) {
                                 for (DataSnapshot listTourSnapshot : postSnapshot.child("list_tour").getChildren()) {
                                     Tour agency_tour = listTourSnapshot.getValue(Tour.class);
@@ -281,6 +280,20 @@ public class reservation_summary extends AppCompatActivity {
                                         Map<String, Object> updateMap = new HashMap<>();
                                         updateMap.put("currentPeople", newCurrentPeoplesTour);
                                         db_agency.child(postSnapshot.getKey()).child("list_tour").child(listTourSnapshot.getKey()).updateChildren(updateMap);
+                                    }
+                                }
+                            }
+
+                            //Update the transport in the Agency Transport List
+                            if(reservation.getTransport()!=null) {
+                                if (buffer_agency.getEmail().equals(reservation.getTransport().getAgency())) {
+                                    for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
+                                        Transport agency_transport = listTransportSnapshot.getValue(Transport.class);
+                                        if(agency_transport.equals(reservation.getTransport())){
+                                            Map<String, Object> updateMap = new HashMap<>();
+                                            updateMap.put("currentPeople", newCurrentPeoplesTransport);
+                                            db_agency.child(postSnapshot.getKey()).child("list_transports").child(listTransportSnapshot.getKey()).updateChildren(updateMap);
+                                        }
                                     }
                                 }
                             }

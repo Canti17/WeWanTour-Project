@@ -3,6 +3,7 @@ package com.example.wewantour9;
 import android.media.Image;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
@@ -10,6 +11,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String image;
+    private ArrayList<Reservation> list_reservation;
 
 
     private int id;
@@ -22,11 +24,22 @@ public class User implements Serializable {
         this.password = password;
         this.image = image;
         this.id = id;
+        this.list_reservation =  new ArrayList<Reservation>();
     }
 
     public User(){}
 
+    public void setList_reservation(ArrayList<Reservation> list_reservation) {
+        this.list_reservation = list_reservation;
+    }
 
+    public ArrayList<Reservation> getList_reservation() {
+        return list_reservation;
+    }
+
+    public void addReservation(Reservation reserve){
+        this.list_reservation.add(reserve);
+    }
 
 
     public String getFull_name() {
