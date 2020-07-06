@@ -66,6 +66,7 @@ public class List_tour_inAgency extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mUploads.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Tour upload = postSnapshot.getValue(Tour.class);
                     mUploads.add(upload);

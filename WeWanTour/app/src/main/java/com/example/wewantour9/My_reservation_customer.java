@@ -66,6 +66,10 @@ public class My_reservation_customer extends AppCompatActivity {
 
 
 
+        // qui dovrei leggere direttamente dal riferimento "USER" del DB, ma dovrei fare il check se è agency o customer.
+        // per ora controllo dalle  Reservation nel DB per vedere quali solo quelle del current user!
+        // FUTURE WORK!!!!!!
+
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("RESERVATION");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 

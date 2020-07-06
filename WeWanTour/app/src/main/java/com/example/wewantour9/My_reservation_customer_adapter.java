@@ -18,6 +18,11 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
 
     private Context mContext;
     private List<Reservation> reservations;
+    private Double tour_cost=0.0;
+    private Double transport_cost=0.0;
+    private String transport_start_place="";
+    private String transport_start_hour="";
+    private String transport_vhc="";
 
     public My_reservation_customer_adapter(Context mContext, List<Reservation> reservations) {
         this.mContext = mContext;
@@ -39,9 +44,25 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                 .load(reservation.getTour().getFilePath())
                 .into(holder.img_tour);
         holder.text_tour_place.setText(reservation.getTour().getStartPlace());
-        holder.text_total_cost.setText("€"+Double.toString(Double.valueOf(reservation.getTour().getPrice())+Double.valueOf(reservation.getTransport().getCost())));
-        holder.text_transport_start_place.setText(reservation.getTransport().getStartLocation());
-        holder.text_transport_start_hour.setText(reservation.getTransport().getStartHour());
+        tour_cost=reservation.getTour().getPrice();
+        if(reservation.getTransport()!= null){
+
+            transport_cost=reservation.getTransport().getCost();
+            transport_start_place=reservation.getTransport().getStartLocation();
+            transport_start_hour=reservation.getTransport().getStartHour();
+            transport_vhc=reservation.getTransport().getVehicle();
+        }else{
+            holder.itemView.findViewById(R.id.textView4).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.transport_info).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.transport_vhc).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.text_start_place).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.text_start_hour).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.imageView10).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.imageView12).setVisibility(View.GONE);
+        }
+        holder.text_total_cost.setText("€"+Double.toString((tour_cost+transport_cost)*reservation.getNumberOfPeople()));
+        holder.text_transport_start_place.setText(transport_start_place);
+        holder.text_transport_start_hour.setText(transport_start_hour);
         holder.text_tour_date.setText(reservation.getTour().getStartDate());
         holder.text_tour_hour.setText(reservation.getTour().getStartHour());
         holder.text_total_people.setText(String.valueOf(reservation.getNumberOfPeople()));
@@ -56,7 +77,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                     .into(holder.img_tour_vehicle);
         }
 
-        if(reservation.getTransport().getVehicle().equals("Bus")){
+        if(transport_vhc.equals("Bus")){
             Glide.with(mContext)
                     .load(R.drawable.ic_directions_bus_black_24dp)
                     .into(holder.img_transport_vehicle);
