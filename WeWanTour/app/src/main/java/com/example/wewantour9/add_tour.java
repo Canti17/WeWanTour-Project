@@ -190,7 +190,7 @@ public class add_tour extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("New Tour");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // initialise views
@@ -286,9 +286,9 @@ public class add_tour extends AppCompatActivity {
             public void onClick(View v) {
                 if(bike_pressed){
                     bike_pressed=false;
-                    btn_bike.setBackgroundResource(R.drawable.imgbutton_color1);
+                    btn_bike.setBackgroundResource(R.drawable.imgbutton_color1_blue_version);
                 }
-                btn_walk.setBackgroundResource(R.drawable.imgbutton_color2);
+                btn_walk.setBackgroundResource(R.drawable.modified_date_time_button);
                 walk_pressed=true;
                 txt_vehicle.setError(null);
             }
@@ -299,9 +299,9 @@ public class add_tour extends AppCompatActivity {
             public void onClick(View v) {
                 if(walk_pressed) {
                     walk_pressed = false;
-                    btn_walk.setBackgroundResource(R.drawable.imgbutton_color1);
+                    btn_walk.setBackgroundResource(R.drawable.imgbutton_color1_blue_version);
                 }
-                btn_bike.setBackgroundResource(R.drawable.imgbutton_color2);
+                btn_bike.setBackgroundResource(R.drawable.modified_date_time_button);
                 txt_vehicle.setError(null);
                 bike_pressed=true;
             }
