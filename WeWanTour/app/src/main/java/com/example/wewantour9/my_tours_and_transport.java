@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-public class myReservation extends AppCompatActivity {
+public class my_tours_and_transport extends AppCompatActivity {
 
     DrawerLayout drawer;
     //NavigationView nav_view;

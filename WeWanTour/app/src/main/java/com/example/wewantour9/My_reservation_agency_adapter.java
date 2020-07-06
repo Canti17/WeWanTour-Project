@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_reservation_customer_adapter.ImageViewHolder> {
+public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reservation_agency_adapter.ImageViewHolder> {
 
     private Context mContext;
     private List<Reservation> reservations;
@@ -24,20 +24,20 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
     private String transport_start_hour="";
     private String transport_vhc="";
 
-    public My_reservation_customer_adapter(Context mContext, List<Reservation> reservations) {
+    public My_reservation_agency_adapter(Context mContext, List<Reservation> reservations) {
         this.mContext = mContext;
         this.reservations=reservations;
     }
 
     @NonNull
     @Override
-    public My_reservation_customer_adapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public My_reservation_agency_adapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.my_reservation_row, parent, false);
-        return new My_reservation_customer_adapter.ImageViewHolder(v);
+        return new My_reservation_agency_adapter.ImageViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull My_reservation_customer_adapter.ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull My_reservation_agency_adapter.ImageViewHolder holder, int position) {
         final Reservation reservation=reservations.get(position);
         holder.text_tour_name.setText(reservation.getTour().getName());
         Glide.with(mContext)

@@ -12,6 +12,7 @@ package com.example.wewantour9;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.ProgressBar;
+        import android.widget.TextView;
         import android.widget.Toast;
 
         import com.google.firebase.database.DataSnapshot;
@@ -29,8 +30,10 @@ public class List_tour_forAddTransport  extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private List_tour_forAddTransport_adapter mAdapter;
     private ProgressBar mProgressCircle;
+    private TextView noToursLabel;
+
     private DatabaseReference mDatabaseReferenceTour;
-    private List<Tour> mUploads;
+    private List<Tour> tours;
     private LinearLayoutManager mLayoutManager;
     private Activity activity;
     private Toolbar toolbar;
@@ -44,6 +47,8 @@ public class List_tour_forAddTransport  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_tour_for_add_transport);
+
+        noToursLabel = findViewById(R.id.txt_available_tours);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -51,7 +56,7 @@ public class List_tour_forAddTransport  extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mProgressCircle = findViewById(R.id.progress_circle);
-        mUploads = new ArrayList<Tour>();
+        tours = new ArrayList<Tour>();
 
         activity=this;
 
@@ -68,9 +73,14 @@ public class List_tour_forAddTransport  extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Tour upload = postSnapshot.getValue(Tour.class);
-                    mUploads.add(upload);
+                    tours.add(upload);
                 }
-                mAdapter = new List_tour_forAddTransport_adapter(List_tour_forAddTransport.this, mUploads);
+                if(tours.isEmpty()){
+                    noToursLabel.setVisibility(View.VISIBLE);
+                }else{
+                    noToursLabel.setVisibility(View.GONE);
+                }
+                mAdapter = new List_tour_forAddTransport_adapter(List_tour_forAddTransport.this, tours);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
