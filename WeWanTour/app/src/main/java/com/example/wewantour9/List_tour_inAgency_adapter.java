@@ -41,7 +41,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
     public void onBindViewHolder(@NonNull ImageViewHolder holder, final int position) {
         final Tour current_tour=uploads.get(position);
         holder.text_name_tour.setText(current_tour.getName());
-        holder.text_name_agency.setText(current_tour.getAgency());
+
         holder.text_start_place.setText(current_tour.getStartPlace());
         holder.text_date_tour.setText(current_tour.getStartDate());
         holder.text_hour_tour.setText(current_tour.getStartHour());
@@ -100,7 +100,6 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            text_name_agency=itemView.findViewById(R.id.text_name_agency);
             text_name_tour =itemView.findViewById(R.id.text_name_tour);
             text_start_place=itemView.findViewById(R.id.text_start_place);
             text_date_tour =itemView.findViewById(R.id.text_date_tour);
