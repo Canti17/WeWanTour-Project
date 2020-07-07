@@ -120,7 +120,7 @@ public class add_transport extends AppCompatActivity implements
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("New Transport");
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         fAuth = FirebaseAuth.getInstance();

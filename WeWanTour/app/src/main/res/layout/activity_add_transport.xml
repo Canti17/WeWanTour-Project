@@ -46,22 +46,6 @@
             tools:context=".add_transport">
 
 
-                <TextView
-                    android:id="@+id/NewTransportTitle"
-                    style="@style/formHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/baloo"
-                    android:text="NEW TRANSPORT"
-                    app:layout_constraintBottom_toTopOf="@+id/textView6TransportAsterisc"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.500"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.175" />
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/HintMovementTransportStartCity"
                     style="@style/TextInputLayout"
@@ -393,7 +377,8 @@
                     android:id="@+id/textView6TransportAsterisc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
                     android:text="* denotes required fields"
                     android:textAllCaps="true"
                     android:textColor="#000000"
@@ -402,7 +387,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/HintMovementTransportStartCity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
