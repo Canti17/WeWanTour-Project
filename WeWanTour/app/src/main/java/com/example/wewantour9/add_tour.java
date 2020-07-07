@@ -138,7 +138,7 @@ public class add_tour extends AppCompatActivity {
             String fileLastPath= filePath.getLastPathSegment();
             String[] fileNamesplitted= fileLastPath.split("/");
 
-            FileName = fileNamesplitted[2];
+            FileName = fileNamesplitted[1];
 
             /* I need to set reference_img beacause here I take the file name from the device,
             I will use it later when I call the putFile(filePath) function*/
