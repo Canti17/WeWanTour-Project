@@ -94,7 +94,6 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
 
         menu.findItem(R.id.nav_login).setVisible(false);
         menu.findItem(R.id.nav_register).setVisible(false);
-        menu.findItem(R.id.nav_reservations).setVisible(false);
 
         }
 
@@ -134,7 +133,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                     break;
                 }
             case R.id.nav_reservations:
-
+                startActivity(new Intent(HomepageAgency.this, My_reservation_agency.class));
                 break;
             case R.id.nav_credits:
                 startActivity(new Intent(HomepageAgency.this, Credits.class));
