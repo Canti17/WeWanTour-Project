@@ -59,9 +59,6 @@ public class tour_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_details);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
@@ -141,7 +138,7 @@ public class tour_details extends AppCompatActivity {
         directRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TotalRegister.class));
+                startActivity(new Intent(getApplicationContext(), GoogleIntermediate.class));
             }
         });
 
@@ -155,9 +152,8 @@ public class tour_details extends AppCompatActivity {
             gotToSummaryPage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(tour_details.this, GoogleIntermediate.class);
+                    Intent intent = new Intent(tour_details.this, Login.class);
                     startActivity(intent);
-                    finish();
                 }
             });
 
