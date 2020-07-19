@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +33,7 @@ public class reservation_summary extends AppCompatActivity {
 
     private TextView tourTitleValue, tourDateValue, tourHourValue, tourPlaceValue, transportDateValue, transportHourValue, transportPlaceValue, priceNumberPeople, priceNumberPeople1, priceTourCost, priceTransportCost, priceTotalCost, priceTransportLabel, priceTransportX, priceTransportPlus, priceTourPlus;
     private Button submitButton;
-    private ImageView tourVehicleValue, transportVehicleValue;
+    private ImageView tourVehicleValue, transportVehicleValue, tourImage;
     private ConstraintLayout transportLayout;
     private Reservation reservation;
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
@@ -74,6 +75,7 @@ public class reservation_summary extends AppCompatActivity {
         tourHourValue = findViewById(R.id.textViewReservationSummaryTourHourValue);
         tourPlaceValue = findViewById(R.id.textViewReservationSummaryTourPlaceValue);
         tourVehicleValue = findViewById(R.id.imageViewReservationSummaryTourVehicleValue);
+        tourImage = findViewById(R.id.imageViewrReservationSummaryTour);
 
         transportDateValue = findViewById(R.id.textViewReservationSummaryTransportDateValue);
         transportHourValue = findViewById(R.id.textViewReservationSummaryTransportHourValue);
@@ -131,6 +133,7 @@ public class reservation_summary extends AppCompatActivity {
         double totalCost;
 
         //set tour field
+        Glide.with(getApplicationContext()).load(reservation.getTour().getFilePath()).into(tourImage);
         tourTitleValue.setText(reservation.getTour().getName());
         tourDateValue.setText(reservation.getTour().getStartDate());
         tourHourValue.setText(reservation.getTour().getStartHour());
