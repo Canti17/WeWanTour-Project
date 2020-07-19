@@ -221,6 +221,16 @@
                             android:text="2343242"
                             android:textSize="18sp" />
 
+                        <Button
+                            android:id="@+id/btn_profile"
+                            style="@style/modifiedSubmitButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:text="Go to My Reservations"
+                            app:layout_constraintVertical_bias="0.0" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -243,6 +253,8 @@
                             android:fontFamily="sans-serif-black"
                             android:text="WEWANTOUR"
                             android:textSize="12dp" />
+
+
 
                     </LinearLayout>
 

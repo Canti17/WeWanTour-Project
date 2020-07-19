@@ -63,6 +63,8 @@ public class ProfileUser extends AppCompatActivity {
     private TextView agencyedit,ivaedit, phonedit;
     private ImageView image;
 
+    private Button button;
+
     ImageView edit;
     private DatabaseReference db_User;
 
@@ -92,6 +94,8 @@ public class ProfileUser extends AppCompatActivity {
         password = findViewById(R.id.password);
 
         edit = findViewById(R.id.edit);
+
+        button = findViewById(R.id.btn_profile);
 
         image = findViewById(R.id.image);
 
@@ -245,6 +249,23 @@ public class ProfileUser extends AppCompatActivity {
                     })
                     .show();
         }
+
+
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(value == 0){
+                    startActivity(new Intent(getApplicationContext(), My_reservation_agency.class));
+                }
+                else{
+                    startActivity(new Intent(getApplicationContext(), My_reservation_customer.class));
+                }
+
+
+            }
+        });
 
     }
 
