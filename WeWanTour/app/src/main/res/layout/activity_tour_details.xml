@@ -23,7 +23,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="enterAlways|scroll"
             app:popupTheme="@style/AppTheme"
-            app:titleTextColor="@color/whiteTextColor" />
+            app:titleTextColor="@color/whiteTextColor"
+            app:menu="@menu/info_toolbar_menu"/>
 
 
         <androidx.core.widget.NestedScrollView

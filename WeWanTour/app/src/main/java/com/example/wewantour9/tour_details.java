@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +58,10 @@ public class tour_details extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_details);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
@@ -290,9 +295,43 @@ public class tour_details extends AppCompatActivity {
         }
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        finish();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_toolbar_menu, menu);
         return true;
     }
-}
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int res_id = item.getItemId();
+        if (res_id == R.id.menu_info) {
+            AlertDialog.Builder info = new AlertDialog.Builder(tour_details.this);
+            info.setMessage("Remember: You can book a transport only for all the people in your group not only a part!");
+
+
+            info.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                }
+            });
+
+            info.create().show();
+        } else {
+
+            finish();
+
+
+        }
+
+
+        return true;
+
+    }
+
+
+    }
+
+

@@ -223,7 +223,7 @@
 
                         <Button
                             android:id="@+id/btn_profile"
-                            style="@style/modifiedSubmitButton"
+                            style="@style/modifiedDateTimeButton"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="20dp"
