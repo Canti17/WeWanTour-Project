@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/img_tour"
-            android:layout_width="193dp"
-            android:layout_height="163dp"
+            android:layout_width="181dp"
+            android:layout_height="146dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/col"
             android:scaleType="fitXY"
@@ -56,7 +56,7 @@
             android:id="@+id/text_start_place"
             android:layout_width="133dp"
             android:layout_height="49dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="56dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -67,8 +67,8 @@
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintStart_toEndOf="@+id/img_tour"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
             app:srcCompat="@drawable/ic_date_black_24dp" />
@@ -89,10 +89,10 @@
             android:layout_height="34dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.741"
+            app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toEndOf="@+id/text_hour_tour"
             app:layout_constraintTop_toBottomOf="@+id/text_date_tour"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.818"
             app:srcCompat="@drawable/ic_directions_bike_black_24dp" />
 
         <TextView
@@ -113,24 +113,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="56dp"
             app:layout_constraintStart_toEndOf="@+id/img_tour"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_place_black_24dp" />
-
-        <Button
-            android:id="@+id/btn_add_transport"
-            style="@style/modifiedDateTimeButton"
-            android:layout_width="123dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="8dp"
-            android:text="Add Transport"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.904"
-            app:layout_constraintStart_toEndOf="@+id/img_tour"
-            app:layout_constraintTop_toBottomOf="@+id/text_hour_tour"
-            app:layout_constraintVertical_bias="0.555" />
 
         <ImageView
             android:id="@+id/btn_edit_tour"

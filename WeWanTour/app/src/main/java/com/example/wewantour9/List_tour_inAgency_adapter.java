@@ -61,14 +61,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                 .into(holder.img_tour);
 
         //Passaggio ad add_tour con l'ogetto PER RICCARDO se l'idea è mettere il bottone sposta il codice nell'onClick del bottone KISS
-        holder.btn_add_transport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, add_transport.class);
-                intent.putExtra("Tour class from ListTourInAgency", uploads.get(position));
-                mContext.startActivity(intent);
-            }
-        });
+
 
         holder.img_edit_tour.setOnClickListener(new View.OnClickListener() {
             @Override
