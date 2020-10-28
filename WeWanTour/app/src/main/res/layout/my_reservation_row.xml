@@ -16,6 +16,23 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
+        <Button
+            android:id="@+id/btn_delete_reservation"
+            android:layout_width="66dp"
+            android:layout_height="23dp"
+            android:background="#E15252"
+            android:shadowRadius="10"
+            android:text="DELETE"
+            android:textColor="#FBFBFB"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/text_cost"
+            app:layout_constraintEnd_toStartOf="@+id/tour_vhc"
+            app:layout_constraintHorizontal_bias="0.928"
+            app:layout_constraintStart_toEndOf="@+id/tour_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.142" />
+
         <TextView
             android:id="@+id/tour_name"
             android:layout_width="192dp"

@@ -182,17 +182,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_agency_name" />
 
-        <ImageView
-            android:id="@+id/imageView17"
-            android:layout_width="27dp"
-            android:layout_height="34dp"
+        <Button
+            android:id="@+id/btn_delete_transport"
+            android:layout_width="66dp"
+            android:layout_height="23dp"
+            android:background="#E15252"
+            android:shadowRadius="10"
+            android:text="DELETE"
+            android:textColor="#FBFBFB"
+            android:textSize="10sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/transport_vehicle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.87"
+            app:layout_constraintHorizontal_bias="0.811"
             app:layout_constraintStart_toEndOf="@+id/text_destination"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
+            app:layout_constraintVertical_bias="0.178" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

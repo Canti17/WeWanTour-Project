@@ -72,6 +72,14 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                 mContext.startActivity(intent);
             }
         });
+
+
+        holder.btn_delete_tour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // new for ANDREA
+            }
+        });
     }
 
     @Override
@@ -89,6 +97,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         public ImageView img_tour;
         public Button btn_add_transport;
         public ImageView img_edit_tour;
+        public Button btn_delete_tour;
 
 
         public ImageViewHolder(@NonNull View itemView) {
@@ -101,6 +110,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
             img_tour= itemView.findViewById(R.id.img_tour);
             btn_add_transport=itemView.findViewById(R.id.btn_add_transport);
             img_edit_tour=itemView.findViewById(R.id.btn_edit_tour);
+            btn_delete_tour=itemView.findViewById(R.id.btn_delete_tour);
         }
     }
 }

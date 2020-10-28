@@ -1,9 +1,11 @@
 package com.example.wewantour9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +52,14 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
                     .into(holder.img_vehicle_transport);
         }
 
+
+        holder.btn_delete_transport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // new for ANDREA
+            }
+        });
+
     }
 
     @Override
@@ -64,6 +74,7 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
         public TextView text_start_date;
         public TextView text_start_hour;
         public ImageView img_vehicle_transport;
+        public Button btn_delete_transport;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +84,7 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
             text_start_date=itemView.findViewById(R.id.text_start_date);
             text_start_hour=itemView.findViewById(R.id.text_start_hour);
             img_vehicle_transport=itemView.findViewById(R.id.transport_vehicle);
+            btn_delete_transport=itemView.findViewById(R.id.btn_delete_transport);
 
         }
     }

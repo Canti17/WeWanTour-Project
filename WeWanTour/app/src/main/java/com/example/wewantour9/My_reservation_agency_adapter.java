@@ -1,9 +1,11 @@
 package com.example.wewantour9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -86,6 +88,13 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     .load(R.drawable.car)
                     .into(holder.img_transport_vehicle);
         }
+
+        holder.btn_delete_reservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // new for ANDREA
+            }
+        });
     }
 
 
@@ -105,7 +114,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
         public TextView text_total_people;
         public TextView text_transport_start_place;
         public TextView text_transport_start_hour;
-
+        public Button btn_delete_reservation;
 
 
         public ImageViewHolder(@NonNull View itemView) {
@@ -121,6 +130,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
             text_total_cost=itemView.findViewById(R.id.text_cost);
             text_transport_start_place=itemView.findViewById(R.id.text_start_place);
             text_transport_start_hour=itemView.findViewById(R.id.text_start_hour);
+            btn_delete_reservation=itemView.findViewById(R.id.btn_delete_reservation);
         }
     }
 }

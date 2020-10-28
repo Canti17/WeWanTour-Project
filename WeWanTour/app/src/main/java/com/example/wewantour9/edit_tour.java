@@ -191,12 +191,12 @@ public class edit_tour extends AppCompatActivity {
 
 
         if(current_tour.getVehicle().equals("bike")){
-            btn_bike.setBackgroundResource(R.drawable.imgbutton_color2);
+            btn_bike.setBackgroundResource(R.drawable.modified_date_time_button);
             bike_pressed=true;
             vehicle="bike";
 
         }else if(current_tour.getVehicle().equals("walk")){
-            btn_walk.setBackgroundResource(R.drawable.imgbutton_color2);
+            btn_walk.setBackgroundResource(R.drawable.modified_date_time_button);
             walk_pressed=true;
             vehicle="walk";
 
@@ -206,9 +206,9 @@ public class edit_tour extends AppCompatActivity {
                 public void onClick(View v) {
                     if (bike_pressed) {
                         bike_pressed = false;
-                        btn_bike.setBackgroundResource(R.drawable.imgbutton_color1);
+                        btn_bike.setBackgroundResource(R.drawable.imgbutton_color1_blue_version);
                     }
-                    btn_walk.setBackgroundResource(R.drawable.imgbutton_color2);
+                    btn_walk.setBackgroundResource(R.drawable.modified_date_time_button);
                     walk_pressed = true;
                     txt_vehicle.setError(null);
                     vehicle="walk";
@@ -220,9 +220,9 @@ public class edit_tour extends AppCompatActivity {
                 public void onClick(View v) {
                     if (walk_pressed) {
                         walk_pressed = false;
-                        btn_walk.setBackgroundResource(R.drawable.imgbutton_color1);
+                        btn_walk.setBackgroundResource(R.drawable.imgbutton_color1_blue_version);
                     }
-                    btn_bike.setBackgroundResource(R.drawable.imgbutton_color2);
+                    btn_bike.setBackgroundResource(R.drawable.modified_date_time_button);
                     txt_vehicle.setError(null);
                     bike_pressed = true;
                     vehicle="bike";
