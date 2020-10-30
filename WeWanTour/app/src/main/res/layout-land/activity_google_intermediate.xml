@@ -28,7 +28,9 @@
             app:popupTheme="@style/AppTheme"
             app:titleTextColor="@color/whiteTextColor" />
 
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +54,7 @@
             android:fontFamily="@font/baloo"
             android:text="Create Account"
             android:textColor="@color/primaryTextColor"
-            android:textSize="36sp"
+            android:textSize="42sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +64,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_intermediate"
             style="@style/TextInputLayout"
+            android:layout_width="442dp"
             android:layout_gravity="center_horizontal"
             app:boxStrokeColor="#2661FA"
             app:errorEnabled="true"
@@ -76,6 +79,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_field_new"
                 style="@style/TextInputEditText"
+                android:layout_width="452dp"
                 android:hint="Insert Your Email"
                 android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,11 +92,11 @@
 
             android:id="@+id/newaccountbutton"
             style="@style/modifiedSubmitButton"
-            android:layout_width="300dp"
+            android:layout_width="367dp"
             android:layout_height="52dp"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/modified_submit_button"
             android:text="Register with Your Email"
             android:textColor="@android:color/white"
@@ -107,15 +111,15 @@
 
         <TextView
             android:id="@+id/orview"
-            android:layout_width="215dp"
+            android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/baloo"
-            android:text="oppure"
+            android:text="or"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/google_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -125,27 +129,45 @@
 
 
         <com.shobhitpuri.custombuttons.GoogleSignInButton
-        android:id="@+id/google_button"
-        android:layout_width="300dp"
-        android:layout_height="52dp"
-        android:layout_alignParentTop="true"
-        android:layout_margin="0dp"
-        android:text="@string/signupbutton"
-        app:isDarkTheme="true"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="180dp">
+            android:id="@+id/google_button"
+            android:layout_width="375dp"
+            android:layout_height="52dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="0dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/signupbutton"
+            android:textSize="18sp"
+            app:isDarkTheme="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="180dp">
 
         </com.shobhitpuri.custombuttons.GoogleSignInButton>
 
+        <Button
 
-
-
+            android:id="@+id/fake_button"
+            style="@style/modifiedSubmitButton"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/gradient"
+            android:text=""
+            android:visibility="invisible"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/google_button"
+            app:layout_constraintVertical_bias="0.0" />
     </LinearLayout>
 
-
+        </ScrollView>
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

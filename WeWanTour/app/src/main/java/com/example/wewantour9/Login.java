@@ -427,7 +427,7 @@ public class Login extends AppCompatActivity {
 
 
         }catch(ApiException e){
-            Toast.makeText(this, "TUTTO MALE",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Login Failed",Toast.LENGTH_SHORT).show();
             //FirebaseGoogleAuth(null);
         }
 
