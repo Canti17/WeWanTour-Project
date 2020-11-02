@@ -209,7 +209,7 @@ public class Activity_Registration_Agency extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), Login.class));
 
                                 Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                        password.getText().toString().trim(), null, Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
+                                        null, Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
                                         telephone , "Rome" ,iva_number.getText().toString().trim());
 
                                 reference.child(String.valueOf(agency.getId())).setValue(agency);

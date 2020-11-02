@@ -226,7 +226,7 @@ public class AgencyFragmentRegistration extends Fragment {
                         telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
 
                         Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                "NO", "", id, agency_name.getText().toString().trim(),
+                                 "", id, agency_name.getText().toString().trim(),
                                 telephone, "Rome", iva_number.getText().toString().trim());
 
                         reference.child(String.valueOf(agency.getId())).setValue(agency);
@@ -236,17 +236,13 @@ public class AgencyFragmentRegistration extends Fragment {
 
 
                     } else {
-                        final String hashed = Hashing.sha256()
-                                .hashString(password.getText().toString().trim(), StandardCharsets.UTF_8)
-                                .toString();
 
-                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), hashed).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     //verification email
                                     FirebaseUser user = fAuth.getCurrentUser();
-                                    
                                     user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -266,14 +262,11 @@ public class AgencyFragmentRegistration extends Fragment {
 
 
 
-                                    Log.d("HASH Registrazione", hashed);
-
-
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                     Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                            hashed, "", id, agency_name.getText().toString().trim(),
+                                             "", id, agency_name.getText().toString().trim(),
                                             telephone, "Rome", iva_number.getText().toString().trim());
 
                                     Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();

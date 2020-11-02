@@ -162,19 +162,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 login_button.setClickable(false);
 
-                final String hashed = Hashing.sha256().hashString(password.getText().toString().trim(), StandardCharsets.UTF_8).toString();
-
-                Log.d("HASH PRE CONTROLLO", hashed);
-
                 if (loginUser(email, password)) {
 
                     progress.setVisibility(View.VISIBLE);
-                    fAuth.signInWithEmailAndPassword(email.getText().toString().trim(), hashed).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    fAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
-
 
                             //FirebaseUser current_user = fAuth.getCurrentUser();
                             final String emailuser = email.getText().toString().trim();

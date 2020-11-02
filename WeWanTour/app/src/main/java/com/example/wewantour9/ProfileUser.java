@@ -134,12 +134,11 @@ public class ProfileUser extends AppCompatActivity {
                         if (emailuser.equals(customer.getEmail())) {
                             fullname.setText(customer.getFull_name());
                             email.setText(customer.getEmail());
-                            int lun = (customer.getPassword().length())-2;
                             String aster = "";
-                            for(int i= 0; i<lun;i++){
+                            for(int i= 0; i<5;i++){
                                 aster+="*";
                             }
-                            password.setText(customer.getPassword().substring(0,2)+aster);
+                            password.setText(aster);
                             if(!customer.getImage().equals("")){
                                 Glide.with(getApplicationContext()).load(customer.getImage()).into(image);
 
@@ -174,12 +173,11 @@ public class ProfileUser extends AppCompatActivity {
                             phone.setText(agency.getTelephone_number());
                             ivanumber.setText(agency.getIva_number());
                             agencyname.setText(agency.getAgency_name());
-                            int lun = (agency.getPassword().length())-2;
                             String aster = "";
-                            for(int i= 0; i<lun;i++){
+                            for(int i= 0; i<5;i++){
                                 aster+="*";
                             }
-                            password.setText(agency.getPassword().substring(0,2)+aster);
+                            password.setText(aster);
                             if(agency.getImage().equals("")){
                                 Glide.with(getApplicationContext()).load(R.drawable.iconuser).into(image);
                             }

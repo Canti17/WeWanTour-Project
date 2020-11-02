@@ -202,17 +202,15 @@ public class UserFragmentRegistration extends Fragment {
 
                     if (value == 2) {
                         Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                "NO", "", id);
+                                 "", id);
                         reference.child(String.valueOf(customer.getId())).setValue(customer);
                         Toast.makeText(getActivity().getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
                         fAuth.signOut();
                         startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
 
                     } else {
-                        final String hashed = Hashing.sha256()
-                                .hashString(password.getText().toString().trim(), StandardCharsets.UTF_8)
-                                .toString();
-                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), hashed).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
@@ -238,8 +236,7 @@ public class UserFragmentRegistration extends Fragment {
 
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
-                                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                            hashed, "", id);
+                                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(), "", id);
                                     reference.child(String.valueOf(customer.getId())).setValue(customer);
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 } else {

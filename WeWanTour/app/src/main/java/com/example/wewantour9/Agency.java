@@ -23,9 +23,9 @@ public class Agency extends User implements Serializable {
         super();
     }
 
-    public Agency(String full_name, String email, String password, String image, int id, String agency_name, String telephone_number,
+    public Agency(String full_name, String email, String image, int id, String agency_name, String telephone_number,
                   String location, String iva_number) {
-        super(full_name, email, password, image, id);
+        super(full_name, email, image, id);
         this.agency_name = agency_name;
         this.telephone_number = telephone_number;
         this.location = location;

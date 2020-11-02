@@ -191,7 +191,7 @@ public class Activity_Registration_User extends AppCompatActivity {
                                 Toast.makeText(Activity_Registration_User.this, "User Created", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), Login.class));
                                 Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                        password.getText().toString(), null, Integer.parseInt(new_user_id));
+                                         null, Integer.parseInt(new_user_id));
                                 reference.child(String.valueOf(customer.getId())).setValue(customer);
                             } else {
                                 // If sign in fails, display a message to the user.

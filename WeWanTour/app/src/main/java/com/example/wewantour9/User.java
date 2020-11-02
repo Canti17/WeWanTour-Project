@@ -9,7 +9,6 @@ public class User implements Serializable {
 
     private String full_name;
     private String email;
-    private String password;
     private String image;
     private ArrayList<Reservation> list_reservation;
 
@@ -17,11 +16,10 @@ public class User implements Serializable {
     private int id;
 
 
-    public User(String full_name, String email, String password, String image, int id){
+    public User(String full_name, String email,  String image, int id){
 
         this.full_name = full_name;
         this.email = email;
-        this.password = password;
         this.image = image;
         this.id = id;
         this.list_reservation =  new ArrayList<Reservation>();
@@ -54,13 +52,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getImage() {
         return image;
@@ -79,7 +70,6 @@ public class User implements Serializable {
         return "User{" +
                 "full_name='" + full_name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", image='" + image + '\'' +
                 ", id=" + id +
                 '}';
