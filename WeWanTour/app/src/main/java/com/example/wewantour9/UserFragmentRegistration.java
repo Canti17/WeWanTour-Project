@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.hash.Hashing;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.nio.BufferUnderflowException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 
 /**
@@ -206,19 +209,22 @@ public class UserFragmentRegistration extends Fragment {
                         startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
 
                     } else {
-                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        final String hashed = Hashing.sha256()
+                                .hashString(password.getText().toString().trim(), StandardCharsets.UTF_8)
+                                .toString();
+                        fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), hashed).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
                                     //verification email
                                     FirebaseUser user = fAuth.getCurrentUser();
-                                    assert user != null;
+
                                     user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
 
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(requireActivity().getApplicationContext(), "Verification Email has been sent!", Toast.LENGTH_SHORT).show();
 
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
@@ -233,7 +239,7 @@ public class UserFragmentRegistration extends Fragment {
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
                                     Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                            password.getText().toString(), "", id);
+                                            hashed, "", id);
                                     reference.child(String.valueOf(customer.getId())).setValue(customer);
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 } else {

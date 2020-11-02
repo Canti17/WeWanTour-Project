@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.hash.Hashing;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +46,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 
@@ -160,10 +162,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 login_button.setClickable(false);
 
+                final String hashed = Hashing.sha256().hashString(password.getText().toString().trim(), StandardCharsets.UTF_8).toString();
+
+                Log.d("HASH PRE CONTROLLO", hashed);
+
                 if (loginUser(email, password)) {
 
                     progress.setVisibility(View.VISIBLE);
-                    fAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    fAuth.signInWithEmailAndPassword(email.getText().toString().trim(), hashed).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
