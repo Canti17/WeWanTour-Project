@@ -42,7 +42,7 @@ public class tour_details extends AppCompatActivity {
         finish();
     }
 
-    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople, cost, transDate, transHour, transPlace, transCost, noTransport, transDateLabel, transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, directRegister;
+    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople, cost, transDate, transHour, transPlace, transCost, transReservations, noTransport, transDateLabel, transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, transReservationsLabel, directRegister;
     private ImageView vehicle, mainImage, transVehicle, deleteTransport;
     private Button selectTransport, gotToSummaryPage;
     private ConstraintLayout bookingOptionsLayout1, bookingOptionsLayout2;
@@ -50,6 +50,7 @@ public class tour_details extends AppCompatActivity {
     private Tour selectedTour;
     private Transport selectedTransport;
     private Reservation newReservation = new Reservation();
+    private int numberOfReservationForTransport = 0;
 
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
@@ -82,12 +83,14 @@ public class tour_details extends AppCompatActivity {
         transPlace = findViewById(R.id.textViewTourDetailsTransportPlaceValue);
         transCost = findViewById(R.id.textViewTourDetailsTransportCostValue);
         transVehicle = findViewById(R.id.imageViewTourDetailsTransportVehicleValue);
+        transReservations = findViewById(R.id.textViewTourDetailsTransportNumberOfReservationsValue);
         noTransport = findViewById(R.id.textViewTourDetailsNoTransport);
         transDateLabel = findViewById(R.id.textViewTourDetailsTransportDate);
         transHourLabel = findViewById(R.id.textViewTourDetailsTransportHour);
         transPlaceLabel = findViewById(R.id.textViewTourDetailsTransportPlace);
         transCostLabel = findViewById(R.id.textViewTourDetailsTransportCost);
         transVehicleLabel = findViewById(R.id.textViewTourDetailsTransportVehicle);
+        transReservationsLabel = findViewById(R.id.textViewTourDetailsTransportNumberOfReservations);
         deleteTransport = findViewById(R.id.imageViewTourDetailsTransportRemove);
         gotToSummaryPage = findViewById(R.id.buttonTourDetailsGoToSummaryPage);
         directRegister = findViewById(R.id.textViewTourDetailsRegistrationDirectLink);
@@ -125,7 +128,12 @@ public class tour_details extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(tour_details.this, List_transport_for_prenotation.class);
                 intent.putExtra("Tour class for transport list for prenotation", selectedTour);
-                intent.putExtra("Number of people to filter the transports", numberPicker.getValue());
+                //This is used to set the initail value of the number picker in the transports list
+                if(numberOfReservationForTransport == 0){
+                    intent.putExtra("Number of people to filter the transports", numberPicker.getValue());
+                }else{
+                    intent.putExtra("Number of people to filter the transports", numberOfReservationForTransport);
+                }
                 startActivityForResult(intent,1);
             }
         });
@@ -172,6 +180,7 @@ public class tour_details extends AppCompatActivity {
                     newReservation.setTour(selectedTour);
                     newReservation.setCustomer(currentUser.getEmail());
                     newReservation.setNumberOfPeople(numberPicker.getValue());
+                    newReservation.setTransportNumberOfPeople(numberOfReservationForTransport);
                     Intent intent = new Intent(tour_details.this, reservation_summary.class);
                     intent.putExtra("Reservation class from tour details to summary", newReservation);
                     startActivity(intent);
@@ -215,11 +224,13 @@ public class tour_details extends AppCompatActivity {
         transPlace.setVisibility(View.INVISIBLE);
         transDate.setVisibility(View.INVISIBLE);
         transHour.setVisibility(View.INVISIBLE);
+        transReservations.setVisibility(View.INVISIBLE);
         transVehicleLabel.setVisibility(View.INVISIBLE);
         transCostLabel.setVisibility(View.INVISIBLE);
         transPlaceLabel.setVisibility(View.INVISIBLE);
         transDateLabel.setVisibility(View.INVISIBLE);
         transHourLabel.setVisibility(View.INVISIBLE);
+        transReservationsLabel.setVisibility(View.INVISIBLE);
         deleteTransport.setVisibility(View.INVISIBLE);
 
 
@@ -231,15 +242,18 @@ public class tour_details extends AppCompatActivity {
                 transPlace.setVisibility(View.INVISIBLE);
                 transDate.setVisibility(View.INVISIBLE);
                 transHour.setVisibility(View.INVISIBLE);
+                transReservations.setVisibility(View.INVISIBLE);
                 transVehicleLabel.setVisibility(View.INVISIBLE);
                 transCostLabel.setVisibility(View.INVISIBLE);
                 transPlaceLabel.setVisibility(View.INVISIBLE);
                 transDateLabel.setVisibility(View.INVISIBLE);
                 transHourLabel.setVisibility(View.INVISIBLE);
+                transReservationsLabel.setVisibility(View.INVISIBLE);
                 selectTransport.setText("ADD TRANSPORT");
                 noTransport.setVisibility(View.VISIBLE);
                 deleteTransport.setVisibility(View.INVISIBLE);
                 selectedTransport = null;
+                numberOfReservationForTransport = 0;
             }
         });
 
@@ -254,6 +268,7 @@ public class tour_details extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
 
                     selectedTransport =  (Transport) data.getSerializableExtra("Transport from list Transports for booking");
+                    numberOfReservationForTransport = (int) data.getSerializableExtra("People number for transport from list Transports for booking");
 
                     noTransport.setVisibility(View.INVISIBLE);
                     transVehicle.setVisibility(View.VISIBLE);
@@ -261,17 +276,20 @@ public class tour_details extends AppCompatActivity {
                     transPlace.setVisibility(View.VISIBLE);
                     transDate.setVisibility(View.VISIBLE);
                     transHour.setVisibility(View.VISIBLE);
+                    transReservations.setVisibility(View.VISIBLE);
                     transVehicleLabel.setVisibility(View.VISIBLE);
                     transCostLabel.setVisibility(View.VISIBLE);
                     transPlaceLabel.setVisibility(View.VISIBLE);
                     transDateLabel.setVisibility(View.VISIBLE);
                     transHourLabel.setVisibility(View.VISIBLE);
+                    transReservationsLabel.setVisibility(View.VISIBLE);
                     deleteTransport.setVisibility(View.VISIBLE);
 
                     Drawable myDrawableTrans;
                     transDate.setText(selectedTransport.getStartDate());
                     transHour.setText(selectedTransport.getStartHour());
                     transPlace.setText(selectedTransport.getStartLocation());
+                    transReservations.setText(Integer.toString(numberOfReservationForTransport));
                     double transportCost = selectedTransport.getCost();
                     if((transportCost-(int)transportCost)!=0) {
                         transCost.setText(String.valueOf(transportCost) + " €");

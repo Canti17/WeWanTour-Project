@@ -26,17 +26,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
+import com.travijuu.numberpicker.library.NumberPicker;
+
 public class List_transport_for_prenotation extends AppCompatActivity {
 
 
     private RecyclerView mRecyclerView;
     private List_transport_for_prenotation_adapter mAdapter;
-    private TextView noTransportLabel;
+    private TextView noTransportLabel, noTransportsForPeople;
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseReferenceTour;
     private List<Transport> transports;
+    private List<Transport> transportsFilteredByNumberPicker;
     private LinearLayoutManager mLayoutManager;
     private Activity activity;
+    private NumberPicker numberPicker;
 
     private Toolbar toolbar;
 
@@ -52,14 +58,17 @@ public class List_transport_for_prenotation extends AppCompatActivity {
         setContentView(R.layout.activity_list_transport_for_prenotation);
 
         noTransportLabel = findViewById(R.id.textViewTransportListForCustomerBooking);
+        noTransportsForPeople = findViewById(R.id.textViewTransportListForCustomerBookingNoSeats);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        numberPicker = findViewById(R.id.number_picker_transport);
 
         mProgressCircle = findViewById(R.id.progress_circle);
         transports = new ArrayList<Transport>();
+        transportsFilteredByNumberPicker = new ArrayList<Transport>();
 
         activity = this;
 
@@ -72,23 +81,42 @@ public class List_transport_for_prenotation extends AppCompatActivity {
         final Tour selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class for transport list for prenotation");
         final int selectedNumberOfPeople =  (int) getIntent().getSerializableExtra("Number of people to filter the transports");
 
-        mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TRANSPORT");
-        mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
+        numberPicker.setMin(1);
+        numberPicker.setUnit(1);
+        numberPicker.setValue(selectedNumberOfPeople);
 
+        mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TRANSPORT");
+
+        mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
+            int maxTransportPeoples = 0;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Transport upload = postSnapshot.getValue(Transport.class);
-                    if(upload.getDestination().equals(selectedTour.getStartPlace()) && (upload.getMaxPeople()-upload.getCurrentPeople()) >= selectedNumberOfPeople){
+                    int bufferTransportPeople = (upload.getMaxPeople()-upload.getCurrentPeople());
+                    if(upload.getDestination().equals(selectedTour.getStartPlace())){
+                        if(maxTransportPeoples < bufferTransportPeople){
+                            maxTransportPeoples = bufferTransportPeople;
+                        }
                         transports.add(upload);
+                        if(bufferTransportPeople >= numberPicker.getValue()){
+                            transportsFilteredByNumberPicker.add(upload);
+                        }
                     }
                 }
                 if(transports.isEmpty()){
                     noTransportLabel.setVisibility(View.VISIBLE);
                 }else{
                     noTransportLabel.setVisibility(View.GONE);
+                    if(transportsFilteredByNumberPicker.isEmpty()){
+                        noTransportsForPeople.setVisibility(View.VISIBLE);
+                    }else{
+                        noTransportsForPeople.setVisibility(View.GONE);
+                    }
                 }
-                mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transports, activity);
+                //set the max of the number picker maximum number of seata available for the bigger transport
+                numberPicker.setMax(maxTransportPeoples+1);
+                mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transportsFilteredByNumberPicker, activity);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
@@ -100,6 +128,32 @@ public class List_transport_for_prenotation extends AppCompatActivity {
             }
         });
 
+        numberPicker.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int x, ActionEnum y) {
+                transportsFilteredByNumberPicker.clear();
+                for (Transport tr : transports) {
+                    int bufferTransportPeople = (tr.getMaxPeople() - tr.getCurrentPeople());
+                    if (bufferTransportPeople >= x) {
+                        transportsFilteredByNumberPicker.add(tr);
+                    }
+                }
+                if(transports.isEmpty()){
+                    noTransportLabel.setVisibility(View.VISIBLE);
+                }else{
+                    noTransportLabel.setVisibility(View.GONE);
+                    if(transportsFilteredByNumberPicker.isEmpty()){
+                        noTransportsForPeople.setVisibility(View.VISIBLE);
+                    }else{
+                        noTransportsForPeople.setVisibility(View.GONE);
+                    }
+                }
+                mAdapter = new List_transport_for_prenotation_adapter(List_transport_for_prenotation.this, transportsFilteredByNumberPicker, activity);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mProgressCircle.setVisibility(View.INVISIBLE);
+            }
+        });
 
     }
 

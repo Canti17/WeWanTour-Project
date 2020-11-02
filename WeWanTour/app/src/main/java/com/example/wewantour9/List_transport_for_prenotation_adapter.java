@@ -16,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
+import com.travijuu.numberpicker.library.NumberPicker;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +50,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
         holder.text_start_place.setText(transport.getStartLocation());
         holder.text_start_date.setText(transport.getStartDate());
         holder.text_start_hour.setText(transport.getStartHour());
+        holder.number_people.setText(Integer.toString(transport.getCurrentPeople()));
         if(transport.getVehicle().equals("Bus")){
             Glide.with(mContext)
                     .load(R.drawable.ic_directions_bus_black_24dp)
@@ -56,11 +61,14 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
                     .into(holder.img_vehicle_transport);
         }
 
+        //probabilmente invece di portarmi indietro il transport devo portarmi proprio la reservation per tenere il numero di persone prenotate solo per il transporto
         holder.select_transport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NumberPicker np = activity.findViewById(R.id.number_picker_transport);
                 Intent intent = new Intent();
                 intent.putExtra("Transport from list Transports for booking", transport);
+                intent.putExtra("People number for transport from list Transports for booking", np.getValue());
                 activity.setResult(Activity.RESULT_OK, intent);
                 activity.finish();
             }
@@ -76,6 +84,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
         public TextView text_start_place;
         public TextView text_start_date;
         public TextView text_start_hour;
+        public TextView number_people;
         public ImageView img_vehicle_transport;
         public Button select_transport;
 
@@ -86,6 +95,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
             text_start_place=itemView.findViewById(R.id.text_start_place);
             text_start_date=itemView.findViewById(R.id.text_start_date);
             text_start_hour=itemView.findViewById(R.id.text_start_hour);
+            number_people=itemView.findViewById(R.id.number_people);
             img_vehicle_transport=itemView.findViewById(R.id.transport_vehicle);
             select_transport=itemView.findViewById(R.id.select_transport);
 

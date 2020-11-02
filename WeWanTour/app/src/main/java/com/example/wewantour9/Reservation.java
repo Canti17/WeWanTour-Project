@@ -7,13 +7,15 @@ public class Reservation implements Serializable {
     private Transport transport;
     private String customer;
     private int numberOfPeople;
+    private int transportNumberOfPeople;
 
     public Reservation(){}
-    public Reservation(Tour tour, Transport transport, String customer, int numberOfPeople) {
+    public Reservation(Tour tour, Transport transport, String customer, int numberOfPeople, int transportNumberOfPeople) {
         this.tour = tour;
         this.transport = transport;
         this.customer = customer;
         this.numberOfPeople = numberOfPeople;
+        this.transportNumberOfPeople = transportNumberOfPeople;
     }
 
     public Tour getTour() {
@@ -44,13 +46,18 @@ public class Reservation implements Serializable {
 
     public void setNumberOfPeople(int numberOfPeople) { this.numberOfPeople = numberOfPeople; }
 
+    public int getTransportNumberOfPeople() { return transportNumberOfPeople; }
+
+    public void setTransportNumberOfPeople(int transportNumberOfPeople) { this.transportNumberOfPeople = transportNumberOfPeople; }
+
     @Override
     public String toString() {
-        return "Reservation{" + "\n" +
-                "tour=" + tour + "\n\n\n" +
-                "transport=" + transport + "\n\n\n" +
-                "customer='" + customer + "\n\n\n" +
-                "numberOfPeople=" + numberOfPeople + "\n" +
+        return "Reservation{" +
+                "tour=" + tour +
+                ", transport=" + transport +
+                ", customer='" + customer + '\'' +
+                ", numberOfPeople=" + numberOfPeople +
+                ", transportNumberOfPeople=" + transportNumberOfPeople +
                 '}';
     }
 }

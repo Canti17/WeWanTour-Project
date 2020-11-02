@@ -475,7 +475,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/ConstraintLayoutTourDetailsToursSelected"
                         android:layout_width="0dp"
-                        android:layout_height="150dp"
+                        android:layout_height="195dp"
                         android:layout_marginTop="20dp"
                         app:layout_constraintEnd_toEndOf="@+id/buttonTourDetailsAddTransport"
                         app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsAddTransport"
@@ -600,7 +600,7 @@
 
                         <TextView
                             android:id="@+id/textViewTourDetailsTransportPlaceValue"
-                            android:layout_width="115dp"
+                            android:layout_width="95dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:maxLines="2"
@@ -616,7 +616,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="5dp"
-                            android:text="Cost:"
+                            android:text="Cost per seat:"
                             app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
                             app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportPlaceValue" />
 
@@ -646,7 +646,7 @@
                             android:id="@+id/imageViewTourDetailsTransportVehicleValue"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginBottom="18dp"
+                            android:layout_marginBottom="55dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/textViewTourDetailsTransportVehicle"
                             app:layout_constraintHorizontal_bias="0.555"
@@ -664,6 +664,26 @@
                             app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportVehicle"
                             app:layout_constraintTop_toBottomOf="@+id/dividerTourDetailsUp"
                             app:srcCompat="@drawable/cross" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportNumberOfReservations"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Transport\n reservations:"
+                            android:textAlignment="center"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportCost" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsTransportNumberOfReservationsValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            app:layout_constraintBottom_toBottomOf="@+id/textViewTourDetailsTransportNumberOfReservations"
+                            app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportDateValue"
+                            app:layout_constraintTop_toTopOf="@+id/textViewTourDetailsTransportNumberOfReservations" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

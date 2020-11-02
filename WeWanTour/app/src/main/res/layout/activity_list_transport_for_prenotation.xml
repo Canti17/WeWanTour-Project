@@ -49,7 +49,7 @@ android:id="@+id/drawer">
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/homepage_layout"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <ProgressBar
                 android:id="@+id/progress_circle"
@@ -68,7 +68,7 @@ android:id="@+id/drawer">
                 android:id="@+id/textViewTransportListForCustomerBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="85dp"
                 android:text="No available Transports for this Tour"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -76,7 +76,56 @@ android:id="@+id/drawer">
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            <TextView
+                android:id="@+id/textViewTransportListForCustomerBookingNoSeats"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="85dp"
+                android:text="There are no transports available for the selected number of people"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="100sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.travijuu.numberpicker.library.NumberPicker
+                    android:id="@+id/number_picker_transport"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    app:focusable="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:min="0"
+                    app:unit="1"
+                    app:value="0" />
+
+                <TextView
+                    android:id="@+id/textViewInsertTransportNumberOfPeopleLabel"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:maxLines="2"
+                    android:text="Insert transport number of people:"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/number_picker_transport"
+                    app:layout_constraintEnd_toStartOf="@+id/number_picker_transport"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/number_picker_transport" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

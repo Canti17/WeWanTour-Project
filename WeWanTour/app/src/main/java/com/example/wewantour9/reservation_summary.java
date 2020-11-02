@@ -175,8 +175,8 @@ public class reservation_summary extends AppCompatActivity {
                 priceTransportCost.setText(String.valueOf(transportCost) + " €");
             else
                 priceTransportCost.setText(String.valueOf((int)transportCost)+ " €");
-            priceNumberPeople1.setText(String.valueOf(reservation.getNumberOfPeople()));
-            totalCost = (tourCost+transportCost)*reservation.getNumberOfPeople();
+            priceNumberPeople1.setText(String.valueOf(reservation.getTransportNumberOfPeople()));
+            totalCost = (tourCost*reservation.getNumberOfPeople())+(transportCost*reservation.getTransportNumberOfPeople());
         }
 
         if((totalCost-(int)totalCost)!=0)
@@ -248,7 +248,7 @@ public class reservation_summary extends AppCompatActivity {
                                 Transport buffer_transport = postSnapshot.getValue(Transport.class);
                                 if (buffer_transport.equals(reservation.getTransport())) {
                                     Map<String, Object> updateMap = new HashMap<>();
-                                    newCurrentPeoplesTransport = buffer_transport.getCurrentPeople()+reservation.getNumberOfPeople();
+                                    newCurrentPeoplesTransport = buffer_transport.getCurrentPeople()+reservation.getTransportNumberOfPeople();
                                     updateMap.put("currentPeople", newCurrentPeoplesTransport);
                                     db_transport.child(postSnapshot.getKey()).updateChildren(updateMap);
                                 }
