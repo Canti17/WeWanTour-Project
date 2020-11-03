@@ -63,6 +63,7 @@
         <activity
             android:name=".TotalRegister"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ProfileUser"
@@ -74,12 +75,6 @@
         <activity
             android:name=".add_tour"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activity_Registration_Agency"
-            android:parentActivityName=".Homepage" />
-        <activity
-            android:name=".Activity_Registration_User"
-            android:parentActivityName=".Homepage" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
