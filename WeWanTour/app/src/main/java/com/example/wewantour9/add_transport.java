@@ -71,7 +71,7 @@ public class add_transport extends AppCompatActivity implements
         return str;
     }
 
-    public String getNextId(DataSnapshot postSnapshot) {
+    /*public String getNextId(DataSnapshot postSnapshot) {
         ArrayList<String> lastList = new ArrayList<String>();
         for (DataSnapshot postSnapshotList : postSnapshot.getChildren()) {
             lastList.add(postSnapshotList.getKey());
@@ -83,7 +83,7 @@ public class add_transport extends AppCompatActivity implements
             id_progressive = 0;
         }
         return String.valueOf(id_progressive);
-    }
+    }*/
 
 
     @Override
@@ -328,8 +328,8 @@ public class add_transport extends AppCompatActivity implements
                             if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
                                 newTransport.setAgency(agency_crnt.getEmail());
                                 db.child(String.valueOf(new_transport_id)).setValue(newTransport);
-                                db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
-                                //db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
+                                //db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
+                                db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                                 Log.println(Log.ERROR, "DOPOGETMAINFUNCTION", new_transport_id);
                             }
                         }

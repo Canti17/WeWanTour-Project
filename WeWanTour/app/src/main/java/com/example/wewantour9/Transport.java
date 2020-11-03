@@ -115,7 +115,6 @@ public class Transport implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Transport transport = (Transport) o;
         return minPeople == transport.minPeople &&
-                currentPeople == transport.currentPeople &&
                 maxPeople == transport.maxPeople &&
                 Double.compare(transport.cost, cost) == 0 &&
                 Objects.equals(startLocation, transport.startLocation) &&

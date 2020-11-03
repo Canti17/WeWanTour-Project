@@ -170,7 +170,6 @@ public class Tour implements Serializable {
         Tour tour = (Tour) o;
         return Double.compare(tour.price, price) == 0 &&
                 Double.compare(tour.duration, duration) == 0 &&
-                currentPeople == tour.currentPeople &&
                 minPeople == tour.minPeople &&
                 peopleLimit == tour.peopleLimit &&
                 Objects.equals(name, tour.name) &&
@@ -180,8 +179,7 @@ public class Tour implements Serializable {
                 Objects.equals(startHour, tour.startHour) &&
                 Objects.equals(vehicle, tour.vehicle) &&
                 Objects.equals(agency, tour.agency) &&
-                Objects.equals(transports, tour.transports) &&
-                Objects.equals(filePath, tour.filePath);
+                Objects.equals(transports, tour.transports);
     }
 
     public static Comparator<Tour> TourNameComparator = new Comparator<Tour>() {

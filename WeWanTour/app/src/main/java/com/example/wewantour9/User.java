@@ -4,6 +4,7 @@ import android.media.Image;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class User implements Serializable {
 
@@ -74,5 +75,18 @@ public class User implements Serializable {
                 ", id=" + id +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(full_name, user.full_name) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(image, user.image) &&
+                Objects.equals(list_reservation, user.list_reservation);
+    }
+
 }
 

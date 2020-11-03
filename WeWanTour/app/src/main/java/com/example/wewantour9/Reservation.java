@@ -1,6 +1,7 @@
 package com.example.wewantour9;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Reservation implements Serializable {
     private Tour tour;
@@ -60,4 +61,17 @@ public class Reservation implements Serializable {
                 ", transportNumberOfPeople=" + transportNumberOfPeople +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return numberOfPeople == that.numberOfPeople &&
+                transportNumberOfPeople == that.transportNumberOfPeople &&
+                Objects.equals(tour, that.tour) &&
+                Objects.equals(transport, that.transport) &&
+                Objects.equals(customer, that.customer);
+    }
+
 }

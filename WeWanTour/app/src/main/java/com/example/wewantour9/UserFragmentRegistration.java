@@ -40,6 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.nio.BufferUnderflowException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -70,6 +71,7 @@ public class UserFragmentRegistration extends Fragment {
     ProgressBar progress;
 
     private int id;
+    private String new_customer_id;
 
 
     @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
@@ -118,6 +120,26 @@ public class UserFragmentRegistration extends Fragment {
 
         fAuth = FirebaseAuth.getInstance();
         reference = database.getInstance().getReference("USER").child("Customer");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> lastList = new ArrayList<String>();
+                for (DataSnapshot postSnapshotList : dataSnapshot.getChildren()) {
+                    lastList.add(postSnapshotList.getKey());
+                }
+                int id_progressive;
+                if(lastList.size() != 0) {
+                    id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+                }else{
+                    id_progressive = 0;
+                }
+                new_customer_id =  String.valueOf(id_progressive);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -203,7 +225,7 @@ public class UserFragmentRegistration extends Fragment {
                     if (value == 2) {
                         Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
                                  "", id);
-                        reference.child(String.valueOf(customer.getId())).setValue(customer);
+                        reference.child(new_customer_id).setValue(customer);
                         Toast.makeText(getActivity().getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
                         fAuth.signOut();
                         startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
@@ -237,7 +259,7 @@ public class UserFragmentRegistration extends Fragment {
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
                                     Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(), "", id);
-                                    reference.child(String.valueOf(customer.getId())).setValue(customer);
+                                    reference.child(new_customer_id).setValue(customer);
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 } else {
                                     // If sign in fails, display a message to the user.

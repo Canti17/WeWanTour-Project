@@ -48,7 +48,7 @@ public class reservation_summary extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
 
-    public String getNextId(DataSnapshot postSnapshot) {
+    /*public String getNextId(DataSnapshot postSnapshot) {
         ArrayList<String> lastList = new ArrayList<String>();
         for (DataSnapshot postSnapshotList : postSnapshot.getChildren()) {
             lastList.add(postSnapshotList.getKey());
@@ -60,7 +60,7 @@ public class reservation_summary extends AppCompatActivity {
             id_progressive = 0;
         }
         return String.valueOf(id_progressive);
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,8 +208,8 @@ public class reservation_summary extends AppCompatActivity {
                             Customer customer_crnt = postSnapshot.getValue(Customer.class);
                             if(customer_crnt.getEmail().equals(currentUser.getEmail())) {
                                 currentUserIsCustomer = true;
-                                db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
-                                //db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
+                                //db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
+                                db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                             }
                         }
                     }
@@ -225,8 +225,8 @@ public class reservation_summary extends AppCompatActivity {
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 Agency agency_crnt = postSnapshot.getValue(Agency.class);
                                 if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
-                                    db_agency.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
-                                    //db_agency.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
+                                    //db_agency.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
+                                    db_agency.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                                 }
                             }
                         }

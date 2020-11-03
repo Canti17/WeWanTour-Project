@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -71,7 +72,7 @@ public class AgencyFragmentRegistration extends Fragment {
 
     private CountryCodePicker ccp;
 
-
+    private String new_agency_id;
 
     private int id;
 
@@ -130,6 +131,26 @@ public class AgencyFragmentRegistration extends Fragment {
 
 
         reference = database.getInstance().getReference("USER").child("Agency");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> lastList = new ArrayList<String>();
+                for (DataSnapshot postSnapshotList : dataSnapshot.getChildren()) {
+                    lastList.add(postSnapshotList.getKey());
+                }
+                int id_progressive;
+                if(lastList.size() != 0) {
+                    id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
+                }else{
+                    id_progressive = 0;
+                }
+                new_agency_id =  String.valueOf(id_progressive);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
 
 
@@ -229,7 +250,7 @@ public class AgencyFragmentRegistration extends Fragment {
                                  "", id, agency_name.getText().toString().trim(),
                                 telephone, "Rome", iva_number.getText().toString().trim());
 
-                        reference.child(String.valueOf(agency.getId())).setValue(agency);
+                        reference.child(new_agency_id).setValue(agency);
 
                         startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                         Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
@@ -271,7 +292,7 @@ public class AgencyFragmentRegistration extends Fragment {
 
                                     Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 
-                                    reference.child(String.valueOf(agency.getId())).setValue(agency);
+                                    reference.child(new_agency_id).setValue(agency);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(getActivity().getApplicationContext(), "Authentication failed." + task.getException().getMessage(),

@@ -75,6 +75,7 @@ public class My_reservation_customer extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                reservations.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Reservation reserv = postSnapshot.getValue(Reservation.class);
                     if(current_user.getEmail().equals(reserv.getCustomer())){

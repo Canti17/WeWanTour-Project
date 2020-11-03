@@ -7,6 +7,7 @@ import com.google.rpc.Help;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 
 
 public class Agency extends User implements Serializable {
@@ -98,4 +99,19 @@ public class Agency extends User implements Serializable {
                 ", list_transports=" + list_transports +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Agency agency = (Agency) o;
+        return Objects.equals(agency_name, agency.agency_name) &&
+                Objects.equals(telephone_number, agency.telephone_number) &&
+                Objects.equals(location, agency.location) &&
+                Objects.equals(iva_number, agency.iva_number) &&
+                Objects.equals(list_tour, agency.list_tour) &&
+                Objects.equals(list_transports, agency.list_transports);
+    }
+
 }
