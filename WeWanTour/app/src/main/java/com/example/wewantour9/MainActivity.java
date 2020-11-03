@@ -113,14 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btn_registration_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Activity_Registration_User.class));
+                startActivity(new Intent(MainActivity.this, TotalRegister.class));
             }
         });
 
         btn_registration_agency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Activity_Registration_Agency.class));
+                startActivity(new Intent(MainActivity.this, TotalRegister.class));
             }
         });
 
