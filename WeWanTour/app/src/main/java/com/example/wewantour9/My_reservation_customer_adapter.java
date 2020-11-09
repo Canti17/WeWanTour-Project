@@ -2,6 +2,10 @@ package com.example.wewantour9;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -157,16 +162,18 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                             }
                         }
                     }
-                    if(agency_buffer.getEmail().equals(reservation.getTransport().getAgency())){
-                        //get the reservation transport agency id
-                        id_reservation_transport_agency = postSnapshot.getKey();
-                        for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
-                            Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
-                            if(buffer_transport.equals(reservation.getTransport())){
-                                //get the reservation transport id
-                                id_reservation_transport = listTransportSnapshot.getKey();
-                                //get the new number of transport reservations in the case of deletion
-                                newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
+                    if(reservation.getTransport() != null) {
+                        if (agency_buffer.getEmail().equals(reservation.getTransport().getAgency())) {
+                            //get the reservation transport agency id
+                            id_reservation_transport_agency = postSnapshot.getKey();
+                            for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
+                                Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
+                                if (buffer_transport.equals(reservation.getTransport())) {
+                                    //get the reservation transport id
+                                    id_reservation_transport = listTransportSnapshot.getKey();
+                                    //get the new number of transport reservations in the case of deletion
+                                    newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
+                                }
                             }
                         }
                     }
@@ -211,29 +218,40 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                                 //Delete the reservation from the list of reservation of the customer
                                 db_customer_reservations.child(id_user).child("list_reservation").child(id_reservation).removeValue();
 
-                                //Update the tour in the all TOUR list of the database
                                 Map<String, Object> updateMap = new HashMap<>();
-                                updateMap.put("currentPeople", newCurrentPeoplesTransport);
-                                db_transport.child(id_reservation_transport).updateChildren(updateMap);
 
-                                //Update the transport in the Agency Transport List
-                                db_agency.child(id_reservation_transport_agency).child("list_transports").child(id_reservation_transport).updateChildren(updateMap);
+                                if( (reservation.getTransport() != null) && (id_reservation_transport != null)) {
+                                    //Update the transport in the all TRANSPORT list of the database
+                                    updateMap.put("currentPeople", newCurrentPeoplesTransport);
+                                    db_transport.child(id_reservation_transport).updateChildren(updateMap);
 
-                                //Update the tour in the Agency Tour List
-                                updateMap.put("currentPeople", newCurrentPeoplesTour);
-                                db_tour.child(id_reservation_tour).updateChildren(updateMap);
+                                    //Update the transport in the Agency Transport List
+                                    db_agency.child(id_reservation_transport_agency).child("list_transports").child(id_reservation_transport).updateChildren(updateMap);
+                                }
 
-                                //Update the tour in the Agency Tour List
-                                db_agency.child(id_reservation_tour_agency).child("list_tour").child(id_reservation_tour).updateChildren(updateMap);
+                                if(id_reservation_tour != null){
 
+                                    //Update the tour in the Agency Tour List
+                                    updateMap.put("currentPeople", newCurrentPeoplesTour);
+                                    db_tour.child(id_reservation_tour).updateChildren(updateMap);
+
+                                    //Update the tour in the Agency Tour List
+                                    db_agency.child(id_reservation_tour_agency).child("list_tour").child(id_reservation_tour).updateChildren(updateMap);
+
+                                }
+                                String text = "Reservation deleted";
+                                Spannable centeredText = new SpannableString(text);
+                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                        0, text.length() - 1,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         })
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton("No", null)
                         //.setIcon(getResources().getDrawable(R.drawable.error))
                         .show();
-
-
             }
         });
 

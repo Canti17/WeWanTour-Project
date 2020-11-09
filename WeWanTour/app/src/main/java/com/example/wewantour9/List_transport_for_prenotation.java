@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -91,21 +92,38 @@ public class List_transport_for_prenotation extends AppCompatActivity {
             int maxTransportPeoples = 0;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                transports.clear();
+
+                //check if the current date is after the tour starting date
+                final Calendar c = Calendar.getInstance();
+                int current_year = c.get(Calendar.YEAR);
+                int current_month = c.get(Calendar.MONTH)+1;
+                int current_day = c.get(Calendar.DAY_OF_MONTH);
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Transport upload = postSnapshot.getValue(Transport.class);
                     int bufferTransportPeople = (upload.getMaxPeople()-upload.getCurrentPeople());
+
                     if(upload.getDestination().equals(selectedTour.getStartPlace())){
-                        if(maxTransportPeoples < bufferTransportPeople){
-                            maxTransportPeoples = bufferTransportPeople;
-                        }
-                        transports.add(upload);
-                        if(bufferTransportPeople >= numberPicker.getValue()){
-                            transportsFilteredByNumberPicker.add(upload);
+                        String[] dateSplit = upload.getStartDate().split("-");
+                        if( !((current_year>Integer.parseInt(dateSplit[2])) ||
+                                ((current_year == Integer.parseInt(dateSplit[2])) && current_month > Integer.parseInt(dateSplit[1])) ||
+                                ((current_year == Integer.parseInt(dateSplit[2])) && current_month == Integer.parseInt(dateSplit[1]) && current_day > Integer.parseInt(dateSplit[0]))) ){
+
+                            if(maxTransportPeoples < bufferTransportPeople){
+                                maxTransportPeoples = bufferTransportPeople;
+                            }
+                            transports.add(upload);
+                            if(bufferTransportPeople >= numberPicker.getValue()){
+                                transportsFilteredByNumberPicker.add(upload);
+
+                            }
                         }
                     }
                 }
                 if(transports.isEmpty()){
                     noTransportLabel.setVisibility(View.VISIBLE);
+                    noTransportsForPeople.setVisibility(View.GONE);
                 }else{
                     noTransportLabel.setVisibility(View.GONE);
                     if(transportsFilteredByNumberPicker.isEmpty()){
@@ -138,10 +156,7 @@ public class List_transport_for_prenotation extends AppCompatActivity {
                         transportsFilteredByNumberPicker.add(tr);
                     }
                 }
-                if(transports.isEmpty()){
-                    noTransportLabel.setVisibility(View.VISIBLE);
-                }else{
-                    noTransportLabel.setVisibility(View.GONE);
+                if( !(transports.isEmpty()) ){
                     if(transportsFilteredByNumberPicker.isEmpty()){
                         noTransportsForPeople.setVisibility(View.VISIBLE);
                     }else{

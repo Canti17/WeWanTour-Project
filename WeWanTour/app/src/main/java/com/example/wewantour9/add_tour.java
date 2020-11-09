@@ -81,6 +81,7 @@ public class add_tour extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
 
+    private Boolean newIdFlagAlreadySelected = false;
 
 
     private ArrayList<Tour> list_tour_currentUser=new ArrayList<Tour>();
@@ -135,19 +136,21 @@ public class add_tour extends AppCompatActivity {
             // Get the Uri of data
             filePath = data.getData();
 
+            /*
             String fileLastPath= filePath.getLastPathSegment();
             String[] fileNamesplitted= fileLastPath.split("/");
             if(fileNamesplitted.length== fileLastPath.length()){
                 FileName = fileLastPath;
             }else{
                 FileName = fileNamesplitted[1];
-            }
+            }*/
 
-
+            FileName = "Image selected";
 
             /* I need to set reference_img beacause here I take the file name from the device,
             I will use it later when I call the putFile(filePath) function*/
-            reference_img = storageReference.child("tour/"+FileName);
+
+            //reference_img = storageReference.child("tour/"+FileName);
 
             editText3.setText(FileName);
 
@@ -231,7 +234,10 @@ public class add_tour extends AppCompatActivity {
                 }else{
                     id_progressive = 0;
                 }
-                new_tour_id =  String.valueOf(id_progressive);
+                if(!newIdFlagAlreadySelected){
+                    new_tour_id =  String.valueOf(id_progressive);
+                    newIdFlagAlreadySelected = true;
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -419,6 +425,13 @@ public class add_tour extends AppCompatActivity {
 
         // adding listeners on upload or failure of image
 
+        /* get current user to set agency*/
+        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,peopleLimit,minPeople,vehicle,null, null);
+        tour.setAgency(currentUser.getEmail());
+
+        String imageStorageName = "Img_" + Integer.toString(tour.hashCode());
+        reference_img = storageReference.child("tour/"+imageStorageName);
+
         uploadTask=reference_img.putFile(filePath);
 
 
@@ -439,9 +452,7 @@ public class add_tour extends AppCompatActivity {
                         while(!uri.isComplete());
                         uriPath= uri.getResult().toString();
 
-                        /* get current user to set agency*/
-                        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,peopleLimit,minPeople,vehicle,null, uriPath);
-
+                        tour.setFilePath(uriPath);
 
 
                         db_User.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -450,7 +461,6 @@ public class add_tour extends AppCompatActivity {
                                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                     final Agency current_agency= postSnapshot.getValue(Agency.class);
                                     if(current_agency.getEmail().equals(currentUser.getEmail())) {
-                                        tour.setAgency(current_agency.getEmail());
                                         db.child(new_tour_id).setValue(tour);
                                         //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
                                         db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE

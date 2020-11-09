@@ -71,6 +71,8 @@ public class UserFragmentRegistration extends Fragment {
     ProgressBar progress;
 
     private int id;
+
+    private Boolean newIdFlagAlreadySelected = false;
     private String new_customer_id;
 
 
@@ -134,7 +136,10 @@ public class UserFragmentRegistration extends Fragment {
                 }else{
                     id_progressive = 0;
                 }
-                new_customer_id =  String.valueOf(id_progressive);
+                if(!newIdFlagAlreadySelected){
+                    new_customer_id =  String.valueOf(id_progressive);
+                    newIdFlagAlreadySelected = true;
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

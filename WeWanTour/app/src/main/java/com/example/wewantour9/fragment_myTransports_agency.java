@@ -69,6 +69,7 @@ public class fragment_myTransports_agency extends Fragment {
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                transports.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Transport transport = postSnapshot.getValue(Transport.class);
                     if(transport.getAgency().equals(current_user.getEmail())) {

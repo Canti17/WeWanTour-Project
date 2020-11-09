@@ -40,13 +40,15 @@ public class reservation_summary extends AppCompatActivity {
     private Boolean currentUserIsCustomer = false;
 
     private Toolbar toolbar;
-    private String new_reservation_id;
     private FirebaseDatabase database;
     private DatabaseReference db_reservation, db_customer_reservations, db_transport, db_tour, db_agency;
 
 
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
+
+    private Boolean newIdFlagAlreadySelected = false;
+    private String new_reservation_id;
 
     /*public String getNextId(DataSnapshot postSnapshot) {
         ArrayList<String> lastList = new ArrayList<String>();
@@ -108,6 +110,7 @@ public class reservation_summary extends AppCompatActivity {
         db_transport= database.getInstance().getReference("TRANSPORT");
         db_tour= database.getInstance().getReference("TOUR");
         db_agency= database.getInstance().getReference("USER/Agency");
+
         //Id of each reservation
         db_reservation.addValueEventListener(new ValueEventListener() {
             @Override
@@ -122,7 +125,10 @@ public class reservation_summary extends AppCompatActivity {
                 }else{
                     id_progressive = 0;
                 }
-                new_reservation_id =  String.valueOf(id_progressive);
+                if(!newIdFlagAlreadySelected){
+                    new_reservation_id =  String.valueOf(id_progressive);
+                    newIdFlagAlreadySelected = true;
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -186,14 +192,21 @@ public class reservation_summary extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
+        //check before the submit push if the user is a customer or an agency, otherwise the next page will be always the same homepage
+        db_customer_reservations.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Customer customer_crnt = postSnapshot.getValue(Customer.class);
+                    if(customer_crnt.getEmail().equals(currentUser.getEmail())) {
+                        currentUserIsCustomer = true;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +220,6 @@ public class reservation_summary extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             Customer customer_crnt = postSnapshot.getValue(Customer.class);
                             if(customer_crnt.getEmail().equals(currentUser.getEmail())) {
-                                currentUserIsCustomer = true;
                                 //db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
                                 db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                             }
@@ -317,7 +329,13 @@ public class reservation_summary extends AppCompatActivity {
                 });
 
                 //CAMBIARE QUI DEVE ANDARE A MY RESERVATION DELL CUSTOMER
-                Intent intent = new Intent(reservation_summary.this, Homepage.class);
+                Intent intent;
+                Log.e("IS CUSTOMER", currentUserIsCustomer+"");
+                if(currentUserIsCustomer) {
+                    intent = new Intent(reservation_summary.this, Homepage.class);
+                }else{
+                    intent = new Intent(reservation_summary.this, HomepageAgency.class);
+                }
                 startActivity(intent);
                 finish();
 

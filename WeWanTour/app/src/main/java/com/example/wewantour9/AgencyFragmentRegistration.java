@@ -72,6 +72,7 @@ public class AgencyFragmentRegistration extends Fragment {
 
     private CountryCodePicker ccp;
 
+    private Boolean newIdFlagAlreadySelected = false;
     private String new_agency_id;
 
     private int id;
@@ -145,7 +146,10 @@ public class AgencyFragmentRegistration extends Fragment {
                 }else{
                     id_progressive = 0;
                 }
-                new_agency_id =  String.valueOf(id_progressive);
+                if(!newIdFlagAlreadySelected){
+                    new_agency_id =  String.valueOf(id_progressive);
+                    newIdFlagAlreadySelected = true;
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

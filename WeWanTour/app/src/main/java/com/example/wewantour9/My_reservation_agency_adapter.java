@@ -1,20 +1,36 @@
 package com.example.wewantour9;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reservation_agency_adapter.ImageViewHolder> {
 
@@ -25,6 +41,20 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
     private String transport_start_place="";
     private String transport_start_hour="";
     private String transport_vhc="";
+
+    private FirebaseAuth fAuth;
+    private FirebaseUser currentUser;
+    private FirebaseDatabase database;
+    private DatabaseReference db_reservation, db_transport, db_tour, db_agency;
+
+    private String id_reservation;
+    private String id_reservation_tour_agency;
+    private String id_reservation_tour;
+    private String id_reservation_transport_agency;
+    private String id_reservation_transport;
+    private String id_user;
+
+    private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
 
     public My_reservation_agency_adapter(Context mContext, List<Reservation> reservations) {
         this.mContext = mContext;
@@ -89,10 +119,126 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     .into(holder.img_transport_vehicle);
         }
 
+        //DELETE OF THE RESERVATION
+        fAuth = FirebaseAuth.getInstance();
+        currentUser = fAuth.getCurrentUser();
+        db_reservation= database.getInstance().getReference("RESERVATION");
+        db_transport= database.getInstance().getReference("TRANSPORT");
+        db_tour= database.getInstance().getReference("TOUR");
+        db_agency= database.getInstance().getReference("USER/Agency");
+
+        //Get the reservation id
+        db_reservation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Reservation reservation_buffer = postSnapshot.getValue(Reservation.class);
+                    if(reservation_buffer.equals(reservation)){
+                        id_reservation = postSnapshot.getKey();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        //get the agency id of the reservation tour and transport and of the respective agencies + evaluate the new number of reservations in case of delete
+        db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Agency agency_buffer = postSnapshot.getValue(Agency.class);
+                    if(agency_buffer.getEmail().equals(reservation.getTour().getAgency())){
+                        //get the reservation tour agency id
+                        id_reservation_tour_agency = postSnapshot.getKey();
+                        for (DataSnapshot listTourSnapshot : postSnapshot.child("list_tour").getChildren()) {
+                            Tour buffer_tour = listTourSnapshot.getValue(Tour.class);
+                            if(buffer_tour.equals(reservation.getTour())){
+                                //get the reservation tour id
+                                id_reservation_tour = listTourSnapshot.getKey();
+                                //get the new number of tour reservations in the case of deletion
+                                newCurrentPeoplesTour = buffer_tour.getCurrentPeople() - reservation.getNumberOfPeople();
+                            }
+                        }
+                    }
+                    if(reservation.getTransport() != null) {
+                        if (agency_buffer.getEmail().equals(reservation.getTransport().getAgency())) {
+                            //get the reservation transport agency id
+                            id_reservation_transport_agency = postSnapshot.getKey();
+                            for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
+                                Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
+                                if (buffer_transport.equals(reservation.getTransport())) {
+                                    //get the reservation transport id
+                                    id_reservation_transport = listTransportSnapshot.getKey();
+                                    //get the new number of transport reservations in the case of deletion
+                                    newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
+                                }
+                            }
+                        }
+                    }
+                    if(agency_buffer.getEmail().equals(currentUser.getEmail())){
+                        //get the user id
+                        id_user = postSnapshot.getKey();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         holder.btn_delete_reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // new for ANDREA
+                new AlertDialog.Builder(mContext)
+                        .setTitle("Warning")
+                        .setMessage("Are you sure you want to delete this Reservation?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //Delete the reservation from the general RESERVATIONS list
+                                db_reservation.child(id_reservation).removeValue();
+
+                                //Delete the reservation from the list of reservation of the customer
+                                db_agency.child(id_user).child("list_reservation").child(id_reservation).removeValue();
+
+                                Map<String, Object> updateMap = new HashMap<>();
+
+                                if( (reservation.getTransport() != null) && (id_reservation_transport != null)){
+                                    //Update the transport in the all TRANSPORT list of the database
+                                    updateMap.put("currentPeople", newCurrentPeoplesTransport);
+                                    db_transport.child(id_reservation_transport).updateChildren(updateMap);
+
+                                    //Update the transport in the Agency Transport List
+                                    db_agency.child(id_reservation_transport_agency).child("list_transports").child(id_reservation_transport).updateChildren(updateMap);
+                                }
+
+                                if(id_reservation_tour != null){
+
+                                    //Update the tour in the Agency Tour List
+                                    updateMap.put("currentPeople", newCurrentPeoplesTour);
+                                    db_tour.child(id_reservation_tour).updateChildren(updateMap);
+
+                                    //Update the tour in the Agency Tour List
+                                    db_agency.child(id_reservation_tour_agency).child("list_tour").child(id_reservation_tour).updateChildren(updateMap);
+
+                                }
+                                String text = "Reservation deleted";
+                                Spannable centeredText = new SpannableString(text);
+                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                        0, text.length() - 1,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton("No", null)
+                        //.setIcon(getResources().getDrawable(R.drawable.error))
+                        .show();
             }
         });
     }

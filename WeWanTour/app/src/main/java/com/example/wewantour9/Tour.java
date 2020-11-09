@@ -182,6 +182,11 @@ public class Tour implements Serializable {
                 Objects.equals(transports, tour.transports);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, startPlace, startDate, startHour, price, duration, currentPeople, minPeople, peopleLimit, vehicle, agency, transports);
+    }
+
     public static Comparator<Tour> TourNameComparator = new Comparator<Tour>() {
 
         public int compare(Tour s1, Tour s2) {

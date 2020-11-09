@@ -10,7 +10,11 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -54,6 +59,8 @@ public class add_transport extends AppCompatActivity implements
     private FirebaseUser currentUser;
     private FirebaseDatabase database;
     private DatabaseReference db, db_agency;
+
+    private Boolean newIdFlagAlreadySelected = false;
 
     private String new_transport_id;
     private Tour selectedTour;
@@ -145,7 +152,10 @@ public class add_transport extends AppCompatActivity implements
                 }else{
                     id_progressive = 0;
                 }
-                new_transport_id =  String.valueOf(id_progressive);
+                if(!newIdFlagAlreadySelected){
+                    new_transport_id =  String.valueOf(id_progressive);
+                    newIdFlagAlreadySelected = true;
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -330,7 +340,14 @@ public class add_transport extends AppCompatActivity implements
                                 db.child(String.valueOf(new_transport_id)).setValue(newTransport);
                                 //db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
                                 db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
-                                Log.println(Log.ERROR, "DOPOGETMAINFUNCTION", new_transport_id);
+
+                                String text = "Transport uploaded";
+                                Spannable centeredText = new SpannableString(text);
+                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                        0, text.length() - 1,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                Toast toast = Toast.makeText(add_transport.this, centeredText, Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         }
                     }

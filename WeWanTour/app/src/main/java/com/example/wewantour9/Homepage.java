@@ -44,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -198,9 +199,21 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mUploads.clear();
+
+                //check if the current date is after the tour starting date
+                final Calendar c = Calendar.getInstance();
+                int current_year = c.get(Calendar.YEAR);
+                int current_month = c.get(Calendar.MONTH)+1;
+                int current_day = c.get(Calendar.DAY_OF_MONTH);
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Tour upload = postSnapshot.getValue(Tour.class);
-                    mUploads.add(upload);
+                    String[] dateSplit = upload.getStartDate().split("/");
+                    if( !((current_year>Integer.parseInt(dateSplit[2])) ||
+                            ((current_year == Integer.parseInt(dateSplit[2])) && current_month > Integer.parseInt(dateSplit[1])) ||
+                            ((current_year == Integer.parseInt(dateSplit[2])) && current_month == Integer.parseInt(dateSplit[1]) && current_day > Integer.parseInt(dateSplit[0]))) ){
+                        mUploads.add(upload);
+                    }
                 }
                 mAdapter = new tour_adapter(Homepage.this, mUploads);
                 mRecyclerView.setAdapter(mAdapter);
