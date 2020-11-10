@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -40,6 +41,8 @@ public class TotalRegister extends AppCompatActivity {
     private int value;
 
     PagerAdapter pageradapter;
+
+
 
     @Override
     public void onBackPressed() {
@@ -100,7 +103,8 @@ public class TotalRegister extends AppCompatActivity {
         String name = getIntent().getStringExtra("Hey2");
         value =  getIntent().getIntExtra("Google",0);
         //1 è normal, 2 è google
-        Log.d("UEEEE", email);
+
+
 
 
         pageradapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tab.getTabCount(), email, name, value);
