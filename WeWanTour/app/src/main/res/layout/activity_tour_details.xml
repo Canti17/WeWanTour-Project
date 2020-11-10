@@ -67,7 +67,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.512"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageViewMain" />
 
@@ -441,22 +441,21 @@
                     android:id="@+id/constraintLayoutTourDetails3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayoutTourDetails6"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayoutTourDetails6"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails6">
 
                     <TextView
                         android:id="@+id/textViewTourDetailsAddTransport"
-                        android:layout_width="wrap_content"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:text="Need a transfer to\nyour destination ?"
                         android:textAlignment="viewStart"
                         android:textColor="#000000"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.12"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -559,11 +558,11 @@
                             android:id="@+id/textViewTourDetailsTransportDateValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="9dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="8dp"
                             android:text="12-16-2020"
                             app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
-                            app:layout_constraintHorizontal_bias="0.09"
+                            app:layout_constraintHorizontal_bias="0.12"
                             app:layout_constraintStart_toEndOf="@+id/textViewTourDetailsTransportDate"
                             app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsSelectedTransport" />
 
@@ -600,12 +599,13 @@
 
                         <TextView
                             android:id="@+id/textViewTourDetailsTransportPlaceValue"
-                            android:layout_width="95dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="15dp"
                             android:maxLines="2"
                             android:text="Terracina"
-                            app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTourDetailsTransportVehicle"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="@+id/textViewTourDetailsTransportDateValue"
                             app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsTransportHourValue" />
@@ -636,9 +636,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="15dp"
                             android:text="Vehicle:"
                             app:layout_constraintEnd_toStartOf="@+id/dividerTourDetailsRight"
-                            app:layout_constraintHorizontal_bias="0.9"
+                            app:layout_constraintHorizontal_bias="0.95"
                             app:layout_constraintStart_toEndOf="@+id/dividerTourDetailsLeft"
                             app:layout_constraintTop_toBottomOf="@+id/imageViewTourDetailsTransportRemove" />
 
@@ -714,14 +715,15 @@
 
                     <TextView
                         android:id="@+id/textViewTourDetailsNumberOfPeople"
-                        android:layout_width="wrap_content"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="30dp"
                         android:text="Number of people :"
                         android:textAlignment="viewStart"
                         android:textColor="#000000"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.12"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_cost" />
 
@@ -729,10 +731,11 @@
                         android:id="@+id/number_picker"
                         android:layout_width="130dp"
                         android:layout_height="40dp"
-                        android:layout_marginEnd="10dp"
                         app:focusable="false"
                         app:layout_constraintBottom_toBottomOf="@+id/textViewTourDetailsNumberOfPeople"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.78"
+                        app:layout_constraintStart_toEndOf="@+id/textViewTourDetailsNumberOfPeople"
                         app:layout_constraintTop_toTopOf="@+id/textViewTourDetailsNumberOfPeople"
                         app:max="0"
                         app:min="0"
