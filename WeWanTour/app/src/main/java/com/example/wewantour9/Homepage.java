@@ -15,7 +15,9 @@ import androidx.appcompat.view.menu.ActionMenuItemView;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
@@ -79,9 +82,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private int value;
 
 
-
-
-
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -118,24 +118,24 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         value =  getIntent().getIntExtra("Google",0);
 
 
-
-
         //TOOLBAR
         setSupportActionBar(toolbar);
 
-
+        final Activity activity = this;
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
-                return false;
+                filter(query);
+                hideKeyboard(activity);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
-                return false; //booooo
+                return false;
             }
         });
 
@@ -329,6 +329,17 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         popup.show();
 
 
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
