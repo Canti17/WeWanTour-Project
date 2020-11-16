@@ -56,7 +56,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Homepage"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".HomepageAgency"
             android:theme="@style/AppTheme.NoActionBar" />
