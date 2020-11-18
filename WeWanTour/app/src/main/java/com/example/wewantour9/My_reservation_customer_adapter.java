@@ -41,6 +41,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
     private String transport_start_place="";
     private String transport_start_hour="";
     private String transport_vhc="";
+    private Integer transport_current_people=0;
 
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
@@ -83,6 +84,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
             transport_start_place=reservation.getTransport().getStartLocation();
             transport_start_hour=reservation.getTransport().getStartHour();
             transport_vhc=reservation.getTransport().getVehicle();
+            transport_current_people=reservation.getTransportNumberOfPeople();
         }else{
             holder.itemView.findViewById(R.id.textView4).setVisibility(View.GONE);
             holder.itemView.findViewById(R.id.transport_info).setVisibility(View.GONE);
@@ -98,6 +100,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
         holder.text_tour_date.setText(reservation.getTour().getStartDate());
         holder.text_tour_hour.setText(reservation.getTour().getStartHour());
         holder.text_total_people.setText(String.valueOf(reservation.getNumberOfPeople()));
+        holder.text_transport_current_people.setText(String.valueOf(transport_current_people));
 
         if(reservation.getTour().getVehicle().equals("bike")){
             Glide.with(mContext)
@@ -278,6 +281,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
         public TextView text_transport_start_place;
         public TextView text_transport_start_hour;
         public Button btn_delete_reservation;
+        public TextView text_transport_current_people;
 
 
 
@@ -295,6 +299,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
             text_transport_start_place=itemView.findViewById(R.id.text_start_place);
             text_transport_start_hour=itemView.findViewById(R.id.text_start_hour);
             btn_delete_reservation=itemView.findViewById(R.id.btn_delete_reservation);
+            text_transport_current_people= itemView.findViewById(R.id.transportCurrPeople);
         }
     }
 }
