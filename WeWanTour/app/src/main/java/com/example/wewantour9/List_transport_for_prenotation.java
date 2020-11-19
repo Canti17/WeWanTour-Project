@@ -84,7 +84,14 @@ public class List_transport_for_prenotation extends AppCompatActivity {
 
         numberPicker.setMin(1);
         numberPicker.setUnit(1);
-        numberPicker.setValue(selectedNumberOfPeople);
+
+        if (savedInstanceState != null) {
+            numberPicker.setValue(savedInstanceState.getInt("numberPickerPreviousValue"));
+        } else {
+            numberPicker.setValue(selectedNumberOfPeople);
+        }
+
+        Log.e("NumberPickerValue", numberPicker.getValue()+"");
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TRANSPORT");
 
@@ -170,6 +177,7 @@ public class List_transport_for_prenotation extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -177,4 +185,11 @@ public class List_transport_for_prenotation extends AppCompatActivity {
         finish();
         return true;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("numberPickerPreviousValue", numberPicker.getValue());
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
 }
