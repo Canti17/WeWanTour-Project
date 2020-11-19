@@ -47,8 +47,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_img"
         style="@style/TextInputLayout"
-        android:layout_width="184dp"
-        android:layout_height="72dp"
+        android:layout_width="0dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="10dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
@@ -62,7 +63,7 @@
             android:id="@+id/edit_img"
             style="@style/TextInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="53dp"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
@@ -86,16 +87,19 @@
         android:layout_weight="1"
         android:text="Choose"
         app:layout_constraintBottom_toBottomOf="@+id/text_input_img"
-        app:layout_constraintEnd_toEndOf="@+id/text_input_peoplelimit"
+        app:layout_constraintEnd_toStartOf="@+id/text_input_img"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/text_input_peoplelimit"
         app:layout_constraintTop_toTopOf="@+id/text_input_img"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.72" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_name"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +111,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_name"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Name*"
             android:inputType="text"
             android:textColorLink="#2661FA"
@@ -120,7 +125,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_description"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +140,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_description"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Description"
             android:inputType="text"
             android:textColorLink="#2661FA"
@@ -146,7 +155,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_startcity"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -158,6 +170,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_startcity"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Starting City*"
             android:inputType="text"
             android:textColorLink="#2661FA"
@@ -172,9 +185,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_startstreet"
         style="@style/TextInputLayout"
-        android:layout_width="187dp"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="130dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/text_input_startcity"
@@ -186,7 +200,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_startstreet"
             style="@style/TextInputEditText"
-            android:layout_width="184dp"
+            android:layout_width="match_parent"
             android:layout_height="49dp"
             android:hint="Starting Street*"
             android:inputType="text"
@@ -201,8 +215,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_startdate"
         style="@style/TextInputLayout"
-        android:layout_width="183dp"
+        android:layout_width="0dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="150dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/text_input_startcity"
@@ -214,7 +229,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_startdate"
             style="@style/TextInputEditText"
-            android:layout_width="171dp"
+            android:layout_width="match_parent"
             android:layout_height="53dp"
             android:clickable="false"
             android:cursorVisible="false"
@@ -228,20 +243,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_starthour"
         style="@style/TextInputLayout"
-        android:layout_width="183dp"
+        android:layout_width="0dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="150dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/text_input_startcity"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/text_input_startcity"
+        app:layout_constraintStart_toStartOf="@+id/text_input_startdate"
         app:layout_constraintTop_toBottomOf="@+id/text_input_startdate"
         app:theme="@style/InputTextAppTheme">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_starthour"
             style="@style/TextInputEditText"
-            android:layout_width="171dp"
+            android:layout_width="match_parent"
             android:layout_height="53dp"
             android:clickable="false"
             android:cursorVisible="false"
@@ -255,8 +271,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_startcivic"
         style="@style/TextInputLayout"
-        android:layout_width="98dp"
+        android:layout_width="0dp"
         android:layout_height="71dp"
+        android:layout_marginStart="25dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="@+id/text_input_startstreet"
@@ -264,13 +281,12 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/text_input_startstreet"
         app:layout_constraintTop_toTopOf="@+id/text_input_startstreet"
-        app:layout_constraintVertical_bias="0.0"
         app:theme="@style/InputTextAppTheme">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_startcivic"
             style="@style/TextInputEditText"
-            android:layout_width="96dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Civic*"
             android:inputType="text"
@@ -290,32 +306,34 @@
         android:layout_height="48dp"
         android:text="SELECT DATE"
         app:layout_constraintBottom_toBottomOf="@+id/text_input_startdate"
-        app:layout_constraintEnd_toEndOf="@+id/text_input_startcivic"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="@+id/text_input_startcity"
         app:layout_constraintStart_toEndOf="@+id/text_input_startdate"
-        app:layout_constraintTop_toTopOf="@+id/text_input_startdate" />
+        app:layout_constraintTop_toTopOf="@+id/text_input_startdate"
+        app:layout_constraintVertical_bias="0.72" />
 
     <Button
         android:id="@+id/btn_starthour"
         style="@style/modifiedDateTimeButton"
         android:layout_width="113dp"
         android:layout_height="48dp"
-        android:text="SELECT HOUR"
+        android:text="SELECT TIME"
         app:layout_constraintBottom_toBottomOf="@+id/text_input_starthour"
-        app:layout_constraintEnd_toEndOf="@+id/btn_startdate"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="@+id/text_input_startcity"
         app:layout_constraintStart_toEndOf="@+id/text_input_starthour"
-        app:layout_constraintTop_toTopOf="@+id/text_input_starthour" />
+        app:layout_constraintTop_toTopOf="@+id/text_input_starthour"
+        app:layout_constraintVertical_bias="0.72" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_price"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_starthour"
         app:theme="@style/InputTextAppTheme">
@@ -323,6 +341,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_price"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Cost*  (€)"
             android:inputType="numberDecimal"
             android:textColorLink="#2661FA"
@@ -336,11 +355,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_duration"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_price"
         app:theme="@style/InputTextAppTheme">
@@ -348,6 +369,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_duration"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Duration*  (minutes)"
             android:inputType="numberDecimal"
             android:textColorLink="#2661FA"
@@ -362,11 +384,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_currentpeople"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_duration"
         app:theme="@style/InputTextAppTheme">
@@ -374,6 +398,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_minPeople"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Min People*"
             android:inputType="numberSigned"
             android:textColorLink="#2661FA"
@@ -388,10 +413,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_peoplelimit"
         style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:boxStrokeColor="#2661FA"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_currentpeople"
         app:theme="@style/InputTextAppTheme">
@@ -399,6 +427,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittxt_peoplelimit"
             style="@style/TextInputEditText"
+            android:layout_width="match_parent"
             android:hint="Max people*"
             android:inputType="numberSigned"
             android:textColorLink="#2661FA"
@@ -412,15 +441,16 @@
 
     <TextView
         android:id="@+id/txt_vehicle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
         android:text="Vehicle"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toStartOf="@+id/text_input_peoplelimit"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_img" />
 
     <ImageButton
@@ -428,12 +458,12 @@
         android:layout_width="129dp"
         android:layout_height="81dp"
         android:layout_marginTop="13dp"
+        android:layout_marginEnd="160dp"
         android:background="@drawable/imgbutton_color1_blue_version"
         android:padding="16dp"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="@+id/text_input_peoplelimit"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/text_input_peoplelimit"
+        app:layout_constraintEnd_toEndOf="@+id/txt_vehicle"
+        app:layout_constraintStart_toStartOf="@+id/txt_vehicle"
         app:layout_constraintTop_toBottomOf="@+id/txt_vehicle"
         app:srcCompat="@drawable/ic_directions_bike_black_24dp" />
 
@@ -441,13 +471,14 @@
         android:id="@+id/btn_AddTransport"
         android:layout_width="129dp"
         android:layout_height="81dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/imgbutton_color1_blue_version"
         android:padding="16dp"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="@+id/text_input_peoplelimit"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/text_input_peoplelimit"
+        app:layout_constraintEnd_toEndOf="@+id/txt_vehicle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_AddTour"
         app:layout_constraintTop_toBottomOf="@+id/txt_vehicle"
         app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
 
