@@ -6,49 +6,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient">
+    tools:context=".UserFragmentRegistration">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:context=".UserFragmentRegistration">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="367dp"
-            android:layout_height="649dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
             <TextView
                 android:id="@+id/register_logo"
                 style="@style/formHeader"
-                android:layout_width="217dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/baloo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
                 android:text="Registration"
-                android:textAlignment="viewStart"
+                android:textAllCaps="true"
+                android:textColor="#2661FA"
                 android:textSize="36sp"
+
+                android:fontFamily="@font/baloo"
+                app:layout_constraintBottom_toTopOf="@+id/fullname_text"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fullname_text"
                 style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
                 app:boxStrokeColor="#2661FA"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/email_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register_logo"
-                app:layout_constraintVertical_bias="0.04000002"
                 app:theme="@style/InputTextAppTheme">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fullname_field"
                     style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
                     android:hint="Full Name"
                     android:inputType="text"
                     android:textColorLink="#2661FA"
@@ -56,18 +65,25 @@
                     app:layout_constraintEnd_toEndOf="@+id/fullname_text"
                     app:layout_constraintStart_toStartOf="@+id/fullname_text"
                     app:layout_constraintTop_toTopOf="@+id/fullname_text" />
+
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text"
                 style="@style/TextInputLayout"
                 app:boxStrokeColor="#2661FA"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+
                 app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintBottom_toBottomOf="@id/password_text"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullname_text"
+                app:layout_constraintBottom_toTopOf="@id/password_text"
                 app:layout_constraintVertical_bias="0.0"
                 app:theme="@style/InputTextAppTheme">
 
@@ -75,25 +91,27 @@
                     android:id="@+id/email_field"
                     style="@style/TextInputEditText"
                     android:hint="Email"
+                    android:layout_width="match_parent"
                     android:inputType="text"
                     android:textColorLink="#2661FA"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/fullname_text"
-                    app:layout_constraintStart_toStartOf="@+id/fullname_text"
-                    app:layout_constraintTop_toTopOf="@+id/fullname_text" />
+                    app:layout_constraintEnd_toEndOf="@id/email_text"
+                    app:layout_constraintStart_toStartOf="@+id/email_text"
+                    app:layout_constraintTop_toTopOf="@+id/email_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_text"
                 style="@style/TextInputLayout"
+                android:layout_width="0dp"
                 app:boxStrokeColor="#2661FA"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_text"
+                app:layout_constraintBottom_toBottomOf="@id/confirmPassword_text"
+                app:layout_constraintEnd_toEndOf="@id/email_text"
+                app:layout_constraintStart_toStartOf="@id/email_text"
+                app:layout_constraintBottom_toTopOf="@id/confirmPassword_text"
                 app:layout_constraintVertical_bias="0.0"
                 app:passwordToggleEnabled="false"
                 app:theme="@style/InputTextAppTheme">
@@ -102,14 +120,15 @@
                     android:id="@+id/password_field"
                     style="@style/TextInputEditText"
                     android:hint="Password"
+                    android:layout_width="match_parent"
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:textColorLink="#2661FA"
 
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/email_text"
-                    app:layout_constraintStart_toStartOf="@+id/email_text"
-                    app:layout_constraintTop_toTopOf="@+id/email_text" />
+                    app:layout_constraintEnd_toEndOf="@+id/password_text"
+                    app:layout_constraintStart_toStartOf="@+id/password_text"
+                    app:layout_constraintTop_toTopOf="@+id/password_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -118,11 +137,13 @@
                 style="@style/TextInputLayout"
                 app:boxStrokeColor="#2661FA"
                 app:errorEnabled="true"
+                android:layout_width="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_text"
+                app:layout_constraintEnd_toEndOf="@id/password_text"
+                app:layout_constraintStart_toStartOf="@id/password_text"
+                app:layout_constraintBottom_toTopOf="@id/textViewprivacy"
                 app:layout_constraintVertical_bias="0.0"
                 app:passwordToggleEnabled="false"
                 app:theme="@style/InputTextAppTheme">
@@ -131,13 +152,14 @@
                     android:id="@+id/confirm_password_field"
                     style="@style/TextInputEditText"
                     android:hint="Confirm Password"
+                    android:layout_width="match_parent"
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:textColorLink="#2661FA"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/password_text"
-                    app:layout_constraintStart_toStartOf="@+id/password_text"
-                    app:layout_constraintTop_toTopOf="@+id/password_text" />
+                    app:layout_constraintEnd_toEndOf="@+id/confirmPassword_text"
+                    app:layout_constraintStart_toStartOf="@+id/confirmPassword_text"
+                    app:layout_constraintTop_toTopOf="@+id/confirmPassword_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -146,30 +168,31 @@
                 android:layout_width="37dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="26dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
+                app:layout_constraintBottom_toTopOf="@id/register_button"
+                app:layout_constraintStart_toStartOf="@id/confirmPassword_text"
+                app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/textViewprivacy"
                 android:layout_width="279dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="59dp"
                 android:text="     I accept privacy condition"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.151"
                 app:layout_constraintStart_toEndOf="@+id/checkBox"
                 app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text" />
 
             <Button
                 android:id="@+id/register_button"
                 style="@style/modifiedSubmitButton"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="60dp"
                 android:text="CREATE ACCOUNT"
@@ -189,12 +212,12 @@
                 android:layout_width="55dp"
                 android:layout_height="51dp"
                 android:layout_marginStart="178dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="178dp"
                 android:progressTint="#009688"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.419"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_button" />
 
