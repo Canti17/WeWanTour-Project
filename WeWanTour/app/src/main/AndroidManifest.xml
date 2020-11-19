@@ -14,6 +14,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
+        <activity android:name=".my_past_future_reservation"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".My_reservation_agency"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -56,15 +58,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Homepage"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomepageAgency"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TotalRegister"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileUser"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -84,8 +86,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".tour_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
