@@ -105,11 +105,11 @@
                 <TextView
                     android:id="@+id/textViewStartDate"
                     android:layout_width="0dp"
-                    android:layout_height="19dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="5dp"
                     android:text="15/06/2022"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewClockIcon"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
                     app:layout_constraintHorizontal_bias="0.038"
                     app:layout_constraintStart_toEndOf="@+id/imageViewCalendarIcon"
@@ -120,14 +120,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="5dp"
                     android:maxLines="2"
                     android:text="Via della Giuliana, Rome 77prova per vedere la lunghezza come va"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageViewMapIcon"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
                     app:layout_constraintHorizontal_bias="0.061"
                     app:layout_constraintStart_toEndOf="@+id/imageViewMapIcon"
-                    app:layout_constraintTop_toTopOf="@+id/imageViewMapIcon" />
+                    app:layout_constraintTop_toTopOf="@+id/imageViewMapIcon"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
                     android:id="@+id/imageViewMapIcon"
@@ -150,11 +151,11 @@
                 <TextView
                     android:id="@+id/textViewStartTime"
                     android:layout_width="0dp"
-                    android:layout_height="19dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="5dp"
                     android:text="10:30 am"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageViewMapIcon"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
                     app:layout_constraintHorizontal_bias="0.035"
                     app:layout_constraintStart_toEndOf="@+id/textViewClockIcon"
@@ -762,8 +763,8 @@
 
                 <TextView
                     android:id="@+id/textViewTourDetailsRegistrationDirectLink"
-                    android:layout_width="249dp"
-                    android:layout_height="28dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="40dp"

@@ -270,7 +270,6 @@ public class add_transport extends AppCompatActivity implements
         if (v == btnSubmit) {
 
             boolean check = true;
-
             if(txtStartCity.getText().toString().equalsIgnoreCase("")) {
                 //txtStartLocation.setHint("please enter start location");//it gives user to hint
                 txtStartCity.setError("please enter start city");//it gives user to info message
@@ -329,7 +328,6 @@ public class add_transport extends AppCompatActivity implements
 
                 String destFromTour = selectedTour.getStartPlace();
                 newTransport = new Transport(startingLocation, startDate, startHoure, intMinPeople, 0, intMaxPeople, doubleCost, vehicle, destFromTour, null);
-
                 db_agency.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

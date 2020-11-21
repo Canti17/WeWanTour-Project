@@ -76,9 +76,7 @@ public class Agency extends User implements Serializable {
         return list_transports;
     }
 
-    public void setList_transports(ArrayList<Transport> list_transports) {
-        this.list_transports = list_transports;
-    }
+    public void setList_transports(ArrayList<Transport> list_transports) { this.list_transports = list_transports; }
 
     public void addTour(Tour tour){
         this.list_tour.add(tour);
