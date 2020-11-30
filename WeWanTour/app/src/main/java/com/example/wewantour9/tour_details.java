@@ -63,7 +63,7 @@ public class tour_details extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
-        Log.e("tour_details CURRENT USER", currentUser.getEmail());
+        if(currentUser != null) Log.e("tour_details CURRENT USER", currentUser.getEmail());
 
         mainImage = findViewById(R.id.imageViewMain);
         tourTitle = findViewById(R.id.textViewTourTitle);
