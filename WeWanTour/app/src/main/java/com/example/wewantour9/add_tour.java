@@ -82,7 +82,7 @@ public class add_tour extends AppCompatActivity {
     private FirebaseUser currentUser;
 
     private Boolean newIdFlagAlreadySelected = false;
-
+    private Boolean img_selected=false;
 
     private ArrayList<Tour> list_tour_currentUser=new ArrayList<Tour>();
 
@@ -147,6 +147,7 @@ public class add_tour extends AppCompatActivity {
 
             FileName = "Image selected";
 
+            img_selected=true;
             /* I need to set reference_img beacause here I take the file name from the device,
             I will use it later when I call the putFile(filePath) function*/
 
@@ -434,80 +435,108 @@ public class add_tour extends AppCompatActivity {
         String imageStorageName = "Img_" + Integer.toString(tour.hashCode());
         reference_img = storageReference.child("tour/"+imageStorageName);
 
-        uploadTask=reference_img.putFile(filePath);
 
 
-        uploadTask.addOnSuccessListener(
-                new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        // Image uploaded successfully
-                        // Dismiss dialog
-                        progressDialog.dismiss();
-                        Toast.makeText(add_tour.this,
-                                "Tour Uploaded!!",
-                                Toast.LENGTH_SHORT).show();
-
-                        Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                        while(!uri.isComplete());
-                        uriPath= uri.getResult().toString();
-
-                        tour.setFilePath(uriPath);
+        if(!img_selected){
+            filePath=Uri.parse("https://firebasestorage.googleapis.com/v0/b/wewantour9-f9fcd.appspot.com/o/defaultImageForTour.png?alt=media&token=d28b03a3-7e7c-49ab-a8f6-0abf734bb80c");
+            tour.setFilePath(filePath.toString());
 
 
-                        db_User.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    final Agency current_agency= postSnapshot.getValue(Agency.class);
-                                    if(current_agency.getEmail().equals(currentUser.getEmail())) {
-                                        Log.e("add_tour TOUR CLASS BEFORE THE INSERION IN THE DATABASE", tour.toString());
-                                        Log.e("add_tour AGENCY IN WHICH THE TOUR IS INSERTED", current_agency.toString());
-                                        db.child(new_tour_id).setValue(tour);
-                                        //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
-                                        db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
-                                        finish();
-                                        startActivity(new Intent(add_tour.this, HomepageAgency.class));
+            db_User.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        final Agency current_agency= postSnapshot.getValue(Agency.class);
+                        if(current_agency.getEmail().equals(currentUser.getEmail())) {
+                            Log.e("add_tour TOUR CLASS BEFORE THE INSERION IN THE DATABASE", tour.toString());
+                            Log.e("add_tour AGENCY IN WHICH THE TOUR IS INSERTED", current_agency.toString());
+                            db.child(new_tour_id).setValue(tour);
+                            //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
+                            db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+                            finish();
+                            startActivity(new Intent(add_tour.this, HomepageAgency.class));
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }else {
+
+            uploadTask = reference_img.putFile(filePath);
+
+            uploadTask.addOnSuccessListener(
+                    new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            // Image uploaded successfully
+                            // Dismiss dialog
+                            progressDialog.dismiss();
+                            Toast.makeText(add_tour.this,
+                                    "Tour Uploaded!!",
+                                    Toast.LENGTH_SHORT).show();
+
+                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!uri.isComplete()) ;
+                            uriPath = uri.getResult().toString();
+
+                            tour.setFilePath(uriPath);
+
+
+                            db_User.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                        final Agency current_agency = postSnapshot.getValue(Agency.class);
+                                        if (current_agency.getEmail().equals(currentUser.getEmail())) {
+                                            Log.e("add_tour TOUR CLASS BEFORE THE INSERION IN THE DATABASE", tour.toString());
+                                            Log.e("add_tour AGENCY IN WHICH THE TOUR IS INSERTED", current_agency.toString());
+                                            db.child(new_tour_id).setValue(tour);
+                                            //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
+                                            db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+                                            finish();
+                                            startActivity(new Intent(add_tour.this, HomepageAgency.class));
+                                        }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                            }
-                        });
-                    }
-                })
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
+                        }
+                    })
 
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e)
-                    {
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-                        // Error, Image not uploaded
-                        progressDialog.dismiss();
-                        Toast.makeText(add_tour.this, "Failed wewe " + e.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(
-                        new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            // Error, Image not uploaded
+                            progressDialog.dismiss();
+                            Toast.makeText(add_tour.this, "Failed wewe " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
 
-                            // Progress Listener for loading
-                            // percentage on the dialog box
-                            @Override
-                            public void onProgress(
-                                    UploadTask.TaskSnapshot taskSnapshot)
-                            {
-                                double progress
-                                        = (100.0
-                                        * taskSnapshot.getBytesTransferred()
-                                        / taskSnapshot.getTotalByteCount());
-                                progressDialog.setMessage(
-                                        "Uploaded " + (int)progress + "%");
-                            }
-                        });
+                                // Progress Listener for loading
+                                // percentage on the dialog box
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot) {
+                                    double progress
+                                            = (100.0
+                                            * taskSnapshot.getBytesTransferred()
+                                            / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage(
+                                            "Uploaded " + (int) progress + "%");
+                                }
+                            });
+        }
 
 
 

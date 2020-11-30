@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.text.Layout;
 import android.text.Spannable;
@@ -206,36 +207,39 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                                 }
 
                                 if(current_tour.getCurrentPeople()==0 || tourDateBeforeCurrent){
+                                    //Delete the tour from the all TOUR list
+                                    db_tour.child(id_tour).removeValue();
+                                    //Delete the tour from the Agency tour list
+                                    db_agency.child(id_user).child("list_tour").child(id_tour).removeValue();
 
-                                    //Delete the tour image from the firebase storage
-                                    deleteStorageImageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            //Delete the tour from the all TOUR list
-                                            db_tour.child(id_tour).removeValue();
-                                            //Delete the tour from the Agency tour list
-                                            db_agency.child(id_user).child("list_tour").child(id_tour).removeValue();
+                                    Uri temp_path=Uri.parse("https://firebasestorage.googleapis.com/v0/b/wewantour9-f9fcd.appspot.com/o/defaultImageForTour.png?alt=media&token=d28b03a3-7e7c-49ab-a8f6-0abf734bb80c");
+                                    if(!current_tour.getFilePath().equals(temp_path.toString())){
+                                        //Delete the tour image from the firebase storage
+                                        deleteStorageImageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                String text = "Tour deleted";
+                                                Spannable centeredText = new SpannableString(text);
+                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                        0, text.length() - 1,
+                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                                                toast.show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                String text = "Error in the tour deletion, try again";
+                                                Spannable centeredText = new SpannableString(text);
+                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                        0, text.length() - 1,
+                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                                                toast.show();
+                                            }
+                                        });
+                                    }
 
-                                            String text = "Tour deleted";
-                                            Spannable centeredText = new SpannableString(text);
-                                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                                    0, text.length() - 1,
-                                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                                            Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
-                                            toast.show();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            String text = "Error in the tour deletion, try again";
-                                            Spannable centeredText = new SpannableString(text);
-                                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                                    0, text.length() - 1,
-                                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                                            Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
-                                            toast.show();
-                                        }
-                                    });
 
 
                                     if(numberOfToursWithTheSameDestination < 2){
