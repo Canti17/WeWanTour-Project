@@ -128,6 +128,7 @@ public class reservation_summary extends AppCompatActivity {
                 if(!newIdFlagAlreadySelected){
                     new_reservation_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
+                    Log.e("reservation_summary RESERVATION SELECT ID FUNCTION", new_reservation_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
@@ -136,6 +137,7 @@ public class reservation_summary extends AppCompatActivity {
         });
 
         reservation =  (Reservation) getIntent().getSerializableExtra("Reservation class from tour details to summary");
+        Log.e("reservation_summary RESERVATION TO INSERT COMING FROM TOUR DETAILS", reservation.toString());
         double totalCost;
 
         //set tour field
@@ -220,6 +222,7 @@ public class reservation_summary extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             Customer customer_crnt = postSnapshot.getValue(Customer.class);
                             if(customer_crnt.getEmail().equals(currentUser.getEmail())) {
+                                Log.e("reservation_summary CUSTOMER IN WHICH THE RESERVATION IS INSERTED", customer_crnt.toString());
                                 //db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
                                 db_customer_reservations.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                             }
@@ -238,6 +241,7 @@ public class reservation_summary extends AppCompatActivity {
                                 Agency agency_crnt = postSnapshot.getValue(Agency.class);
                                 if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
                                     //db_agency.child(postSnapshot.getKey()).child("list_reservation").child(getNextId(postSnapshot.child("list_reservation"))).setValue(reservation);
+                                    Log.e("reservation_summary AGENCY IN WHICH THE RESERVATION IS INSERTED", agency_crnt.toString());
                                     db_agency.child(postSnapshot.getKey()).child("list_reservation").child(new_reservation_id).setValue(reservation); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /RESERVATION & /USER/Customer/list_reservation WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE
                                 }
                             }
@@ -262,6 +266,8 @@ public class reservation_summary extends AppCompatActivity {
                                     Map<String, Object> updateMap = new HashMap<>();
                                     newCurrentPeoplesTransport = buffer_transport.getCurrentPeople()+reservation.getTransportNumberOfPeople();
                                     updateMap.put("currentPeople", newCurrentPeoplesTransport);
+                                    Log.e("reservation_summary TRANSPORT CURRRENT PEOPLE OLD/NEW", buffer_transport.getCurrentPeople() + "/" + newCurrentPeoplesTransport);
+                                    Log.e("reservation_summary TRANSPORT MODIFIED", buffer_transport.toString());
                                     db_transport.child(postSnapshot.getKey()).updateChildren(updateMap);
                                 }
                             }
@@ -281,6 +287,8 @@ public class reservation_summary extends AppCompatActivity {
                                 Map<String, Object> updateMap = new HashMap<>();
                                 newCurrentPeoplesTour = buffer_tour.getCurrentPeople() + reservation.getNumberOfPeople();
                                 updateMap.put("currentPeople", newCurrentPeoplesTour);
+                                Log.e("reservation_summary TOUR CURRRENT PEOPLE OLD/NEW", buffer_tour.getCurrentPeople() + "/" + newCurrentPeoplesTransport);
+                                Log.e("reservation_summary TOUR MODIFIED", buffer_tour.toString());
                                 db_tour.child(postSnapshot.getKey()).updateChildren(updateMap);
                             }
                         }
@@ -303,6 +311,8 @@ public class reservation_summary extends AppCompatActivity {
                                     if(agency_tour.equals(reservation.getTour())){
                                         Map<String, Object> updateMap = new HashMap<>();
                                         updateMap.put("currentPeople", newCurrentPeoplesTour);
+                                        Log.e("reservation_summary AGENCY OF THE TOUR MODIFIED", buffer_agency.toString());
+                                        Log.e("reservation_summary TOUR IN AGENCY MODIFIED", agency_tour.toString());
                                         db_agency.child(postSnapshot.getKey()).child("list_tour").child(listTourSnapshot.getKey()).updateChildren(updateMap);
                                     }
                                 }
@@ -316,6 +326,8 @@ public class reservation_summary extends AppCompatActivity {
                                         if(agency_transport.equals(reservation.getTransport())){
                                             Map<String, Object> updateMap = new HashMap<>();
                                             updateMap.put("currentPeople", newCurrentPeoplesTransport);
+                                            Log.e("reservation_summary AGENCY OF THE TRANSPORT MODIFIED", buffer_agency.toString());
+                                            Log.e("reservation_summary TRANSPORT IN AGENCY MODIFIED", agency_transport.toString());
                                             db_agency.child(postSnapshot.getKey()).child("list_transports").child(listTransportSnapshot.getKey()).updateChildren(updateMap);
                                         }
                                     }

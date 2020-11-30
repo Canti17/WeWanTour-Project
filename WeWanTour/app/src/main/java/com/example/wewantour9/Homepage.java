@@ -99,6 +99,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
         fAuth = FirebaseAuth.getInstance();
         current_user = fAuth.getCurrentUser();
+        if(current_user != null) Log.e("Homepage CURRENT USER", current_user.getEmail());
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);

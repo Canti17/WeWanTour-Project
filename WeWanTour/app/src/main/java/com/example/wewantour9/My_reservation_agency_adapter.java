@@ -6,6 +6,7 @@ import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AlignmentSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,6 +139,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     Reservation reservation_buffer = postSnapshot.getValue(Reservation.class);
                     if(reservation_buffer.equals(reservation)){
                         id_reservation = postSnapshot.getKey();
+                        Log.e("my_reservation_agency_adapter ID OF THE RESERVATION:", id_reservation);
                     }
                 }
             }
@@ -154,11 +156,13 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     if(agency_buffer.getEmail().equals(reservation.getTour().getAgency())){
                         //get the reservation tour agency id
                         id_reservation_tour_agency = postSnapshot.getKey();
+                        Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TOUR OF THE RESERVATION:", id_reservation_tour_agency);
                         for (DataSnapshot listTourSnapshot : postSnapshot.child("list_tour").getChildren()) {
                             Tour buffer_tour = listTourSnapshot.getValue(Tour.class);
                             if(buffer_tour.equals(reservation.getTour())){
                                 //get the reservation tour id
                                 id_reservation_tour = listTourSnapshot.getKey();
+                                Log.e("my_reservation_agency_adapter ID OF THE RESERVED TOUR:", id_reservation_tour);
                                 //get the new number of tour reservations in the case of deletion
                                 newCurrentPeoplesTour = buffer_tour.getCurrentPeople() - reservation.getNumberOfPeople();
                             }
@@ -168,11 +172,13 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                         if (agency_buffer.getEmail().equals(reservation.getTransport().getAgency())) {
                             //get the reservation transport agency id
                             id_reservation_transport_agency = postSnapshot.getKey();
+                            Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TRANSPORT OF THE RESERVATION:", id_reservation_transport_agency);
                             for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
                                 Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
                                 if (buffer_transport.equals(reservation.getTransport())) {
                                     //get the reservation transport id
                                     id_reservation_transport = listTransportSnapshot.getKey();
+                                    Log.e("my_reservation_agency_adapter ID OF THE RESERVED TRANSPORT:", id_reservation_tour);
                                     //get the new number of transport reservations in the case of deletion
                                     newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
                                 }
@@ -182,6 +188,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     if(agency_buffer.getEmail().equals(currentUser.getEmail())){
                         //get the user id
                         id_user = postSnapshot.getKey();
+                        Log.e("my_reservation_agency_adapter ID OF THE CURRENT USER (AGENCY):", id_reservation_tour);
                     }
                 }
             }

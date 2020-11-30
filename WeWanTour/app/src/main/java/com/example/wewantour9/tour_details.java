@@ -63,6 +63,7 @@ public class tour_details extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
+        Log.e("tour_details CURRENT USER", currentUser.getEmail());
 
         mainImage = findViewById(R.id.imageViewMain);
         tourTitle = findViewById(R.id.textViewTourTitle);
@@ -98,6 +99,7 @@ public class tour_details extends AppCompatActivity {
         bookingOptionsLayout2 = findViewById(R.id.constraintLayoutTourDetails3);
 
         selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from HomePage");
+        Log.e("tour_details TOUR SELECTED IN THE HOMEPAGE",selectedTour.toString());
 
         Glide.with(getApplicationContext()).load(selectedTour.getFilePath()).into(mainImage);
 
@@ -181,6 +183,7 @@ public class tour_details extends AppCompatActivity {
                     newReservation.setCustomer(currentUser.getEmail());
                     newReservation.setNumberOfPeople(numberPicker.getValue());
                     newReservation.setTransportNumberOfPeople(numberOfReservationForTransport);
+                    Log.e("tour_details RESERVATION CLASS TO SEND TO THE SUMMARY PAGE",newReservation.toString());
                     Intent intent = new Intent(tour_details.this, reservation_summary.class);
                     intent.putExtra("Reservation class from tour details to summary", newReservation);
                     startActivity(intent);

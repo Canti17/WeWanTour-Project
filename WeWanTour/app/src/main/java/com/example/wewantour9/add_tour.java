@@ -221,6 +221,7 @@ public class add_tour extends AppCompatActivity {
 
         db_User=database.getInstance().getReference("USER").child("Agency");
         db= database.getInstance().getReference("TOUR");
+
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -237,6 +238,7 @@ public class add_tour extends AppCompatActivity {
                 if(!newIdFlagAlreadySelected){
                     new_tour_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
+                    Log.e("add_tour TOUR SELECT ID FUNCTION", new_tour_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
@@ -461,6 +463,8 @@ public class add_tour extends AppCompatActivity {
                                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                     final Agency current_agency= postSnapshot.getValue(Agency.class);
                                     if(current_agency.getEmail().equals(currentUser.getEmail())) {
+                                        Log.e("add_tour TOUR CLASS BEFORE THE INSERION IN THE DATABASE", tour.toString());
+                                        Log.e("add_tour AGENCY IN WHICH THE TOUR IS INSERTED", current_agency.toString());
                                         db.child(new_tour_id).setValue(tour);
                                         //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
                                         db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE

@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         fAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = fAuth.getCurrentUser();
+        Log.e("HomepageAgency CURRENT USER", currentUser.getEmail());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         nav_view = findViewById(R.id.nav_view);

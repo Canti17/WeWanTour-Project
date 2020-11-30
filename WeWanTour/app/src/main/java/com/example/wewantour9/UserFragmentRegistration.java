@@ -70,8 +70,6 @@ public class UserFragmentRegistration extends Fragment {
     TextView checkbox_textview;
     ProgressBar progress;
 
-    private int id;
-
     private Boolean newIdFlagAlreadySelected = false;
     private String new_customer_id;
 
@@ -139,32 +137,13 @@ public class UserFragmentRegistration extends Fragment {
                 if(!newIdFlagAlreadySelected){
                     new_customer_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
+                    Log.e("UserFragmentRegistration CUSTOMER SELECT ID FUNCTION", new_customer_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-
-                    id= (int) dataSnapshot.getChildrenCount();
-
-                }else{
-                    ///
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-
-            }
-        });
-
 
         //Handle problem checkbox
         privacy_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -229,7 +208,8 @@ public class UserFragmentRegistration extends Fragment {
 
                     if (value == 2) {
                         Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
-                                 "", id);
+                                 "", Integer.parseInt(new_customer_id));
+                        Log.e("UserFragmentRegistration CUSTOMER CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", customer.toString());
                         reference.child(new_customer_id).setValue(customer);
                         Toast.makeText(getActivity().getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
                         fAuth.signOut();
@@ -263,7 +243,8 @@ public class UserFragmentRegistration extends Fragment {
 
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
-                                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(), "", id);
+                                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(), "", Integer.parseInt(new_customer_id));
+                                    Log.e("UserFragmentRegistration CUSTOMER CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", customer.toString());
                                     reference.child(new_customer_id).setValue(customer);
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 } else {

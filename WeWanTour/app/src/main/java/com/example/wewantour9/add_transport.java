@@ -58,12 +58,13 @@ public class add_transport extends AppCompatActivity implements
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
     private FirebaseDatabase database;
-    private DatabaseReference db, db_agency;
+    private DatabaseReference db, db_agency, db_tour;
 
     private Boolean newIdFlagAlreadySelected = false;
 
     private String new_transport_id;
     private Tour selectedTour;
+
 
     private Toolbar toolbar;
 
@@ -136,7 +137,8 @@ public class add_transport extends AppCompatActivity implements
         db_agency = database.getInstance().getReference("USER/Agency");
 
 
-        selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from ListTourInAgency");
+        selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from ListTourInAgency");;
+        Log.e("add_transport TOUR SELECTED IN THE PREVIOUS LIST", selectedTour.toString());
         transportDestination.setText(selectedTour.getStartPlace());
 
         db.addValueEventListener(new ValueEventListener() {
@@ -155,6 +157,7 @@ public class add_transport extends AppCompatActivity implements
                 if(!newIdFlagAlreadySelected){
                     new_transport_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
+                    Log.e("add_transport TRANSPORT SELECT ID FUNCTION", new_transport_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
@@ -335,6 +338,8 @@ public class add_transport extends AppCompatActivity implements
                             Agency agency_crnt = postSnapshot.getValue(Agency.class);
                             if(agency_crnt.getEmail().equals(currentUser.getEmail())) {
                                 newTransport.setAgency(agency_crnt.getEmail());
+                                Log.e("add_transport TRANSPORT CLASS BEFORE THE INSERION IN THE DATABASE", newTransport.toString());
+                                Log.e("add_transport AGENCY IN WHICH THE TRANSPORT IS INSERTED", agency_crnt.toString());
                                 db.child(String.valueOf(new_transport_id)).setValue(newTransport);
                                 //db_agency.child(postSnapshot.getKey()).child("list_transports").child(getNextId(postSnapshot.child("list_transports"))).setValue(newTransport);
                                 db_agency.child(postSnapshot.getKey()).child("list_transports").child(new_transport_id).setValue(newTransport); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TRANSPORT & /USER/Agency/list_transports WHEN THIS LINE USED DELETE THE FUNCTION "getNextId" ABOVE

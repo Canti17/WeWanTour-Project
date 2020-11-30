@@ -6,11 +6,13 @@ import com.google.rpc.Help;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Objects;
 
 
-public class Agency extends User implements Serializable {
+public class Agency extends User {
 
     private String agency_name;
     private String telephone_number;
@@ -32,7 +34,7 @@ public class Agency extends User implements Serializable {
         this.location = location;
         this.iva_number = iva_number;
 
-        this.list_tour=new ArrayList<>();
+        this.list_tour=new ArrayList<Tour>();
         this.list_transports=new ArrayList<Transport>();
     }
 
@@ -68,15 +70,39 @@ public class Agency extends User implements Serializable {
         return list_tour;
     }
 
-    public void setList_tour(ArrayList<Tour> list_tour) {
-        this.list_tour = list_tour;
+    /*public void setList_tour(ArrayList<Tour> list_tour) { this.list_tour = list_tour; }*/
+    //FUNZIONE CHE CI RISOLVE LA VITAAAAAA
+    public void setList_tour(Object list_tour) {
+        if(list_tour instanceof ArrayList){
+            this.list_tour = (ArrayList<Tour>) list_tour;
+        }else if(list_tour instanceof HashMap){
+            ArrayList<Tour> buffer = new ArrayList<Tour>();
+            HashMap<String, Tour> hashMap_reservation = (HashMap<String, Tour>) list_tour;
+            for (Map.Entry<String, Tour> entry : hashMap_reservation.entrySet()) {
+                buffer.add(entry.getValue());
+            }
+            this.list_tour = buffer;
+        }
     }
 
     public ArrayList<Transport> getList_transports() {
         return list_transports;
     }
 
-    public void setList_transports(ArrayList<Transport> list_transports) { this.list_transports = list_transports; }
+    /*public void setList_transports(ArrayList<Transport> list_transports) { this.list_transports = list_transports; }*/
+    //FUNZIONE CHE CI RISOLVE LA VITAAAAAA
+    public void setList_transports(Object list_transports) {
+        if(list_transports instanceof ArrayList){
+            this.list_transports = (ArrayList<Transport>) list_transports;
+        }else if(list_transports instanceof HashMap){
+            ArrayList<Transport> buffer = new ArrayList<Transport>();
+            HashMap<String, Transport> hashMap_reservation = (HashMap<String, Transport>) list_transports;
+            for (Map.Entry<String, Transport> entry : hashMap_reservation.entrySet()) {
+                buffer.add(entry.getValue());
+            }
+            this.list_transports = buffer;
+        }
+    }
 
     public void addTour(Tour tour){
         this.list_tour.add(tour);
@@ -88,7 +114,7 @@ public class Agency extends User implements Serializable {
 
     @Override
     public String toString() {
-        return "Agency{" +
+        return super.toString() + "Agency{" +
                 "agency_name='" + agency_name + '\'' +
                 ", telephone_number='" + telephone_number + '\'' +
                 ", location='" + location + '\'' +
@@ -111,5 +137,7 @@ public class Agency extends User implements Serializable {
                 Objects.equals(list_tour, agency.list_tour) &&
                 Objects.equals(list_transports, agency.list_transports);
     }
+
+    /*public Agency agencyFromJson()*/
 
 }

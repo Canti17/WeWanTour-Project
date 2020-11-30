@@ -1,9 +1,12 @@
 package com.example.wewantour9;
 
 import android.media.Image;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -28,8 +31,19 @@ public class User implements Serializable {
 
     public User(){}
 
-    public void setList_reservation(ArrayList<Reservation> list_reservation) {
-        this.list_reservation = list_reservation;
+    /*public void setList_reservation(ArrayList<Reservation> list_reservation) { this.list_reservation = list_reservation; }*/
+    //FUNZIONE CHE CI RISOLVE LA VITAAAAAA
+    public void setList_reservation(Object list_reservation) {
+        if(list_reservation instanceof ArrayList){
+            this.list_reservation = (ArrayList<Reservation>) list_reservation;
+        }else if(list_reservation instanceof HashMap){
+            ArrayList<Reservation> buffer = new ArrayList<Reservation>();
+            HashMap<String, Reservation> hashMap_reservation = (HashMap<String, Reservation>) list_reservation;
+            for (Map.Entry<String, Reservation> entry : hashMap_reservation.entrySet()) {
+                buffer.add(entry.getValue());
+            }
+            this.list_reservation = buffer;
+        }
     }
 
     public ArrayList<Reservation> getList_reservation() {
@@ -73,6 +87,7 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", image='" + image + '\'' +
                 ", id=" + id +
+                ", list_reservation=" + list_reservation +
                 '}';
     }
 

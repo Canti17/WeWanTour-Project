@@ -75,7 +75,6 @@ public class AgencyFragmentRegistration extends Fragment {
     private Boolean newIdFlagAlreadySelected = false;
     private String new_agency_id;
 
-    private int id;
 
 
     @SuppressLint("ResourceAsColor")
@@ -149,32 +148,13 @@ public class AgencyFragmentRegistration extends Fragment {
                 if(!newIdFlagAlreadySelected){
                     new_agency_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
+                    Log.e("AgencyFragmentRegistration AGENCY SELECT ID FUNCTION", new_agency_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    id= (int) dataSnapshot.getChildrenCount();
-                }else{
-                    ///
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
 
         //Handle problem checkbox
         privacy_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -243,16 +223,13 @@ public class AgencyFragmentRegistration extends Fragment {
 
                     if (value == 2) {
 
-                        Log.d("Key", "SONO QUA");
-
-
-
                         String telephone;
                         telephone = ccp.getSelectedCountryCodeWithPlus() + telephone_number.getText().toString().trim();
 
                         Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                 "", id, agency_name.getText().toString().trim(),
+                                 "", Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
                                 telephone, "Rome", iva_number.getText().toString().trim());
+                        Log.e("AgencyFragmentRegistration AGENCY CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", agency.toString());
 
                         reference.child(new_agency_id).setValue(agency);
 
@@ -291,11 +268,12 @@ public class AgencyFragmentRegistration extends Fragment {
                                     //Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                     Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
-                                             "", id, agency_name.getText().toString().trim(),
+                                             "", Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
                                             telephone, "Rome", iva_number.getText().toString().trim());
 
                                     Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 
+                                    Log.e("AgencyFragmentRegistration AGENCY CLASS BEFORE THE INSERION IN THE DATABASE ELSE", agency.toString());
                                     reference.child(new_agency_id).setValue(agency);
                                 } else {
                                     // If sign in fails, display a message to the user.

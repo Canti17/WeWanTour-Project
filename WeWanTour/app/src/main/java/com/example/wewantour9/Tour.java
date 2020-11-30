@@ -21,7 +21,6 @@ public class Tour implements Serializable {
     private int peopleLimit;
     private String vehicle;
     private String agency;
-    private LinkedList<Transport> transports;
     private String filePath;
 
 
@@ -43,17 +42,9 @@ public class Tour implements Serializable {
         this.minPeople=minPeople;
         this.vehicle = vehicle;
         this.agency=agency;
-        this.transports= new LinkedList<Transport>();
         this.filePath= filePath;
     }
 
-
-
-    public LinkedList<Transport> getTransports() { return transports; }
-
-    public void setTransports(LinkedList<Transport> transports) { this.transports = transports; }
-
-    public void addTransport(Transport transport){ this.transports.add(transport);}
 
     public String getName() {
         return name;
@@ -158,7 +149,6 @@ public class Tour implements Serializable {
                 ", peopleLimit=" + peopleLimit +
                 ", vehicle='" + vehicle + '\'' +
                 ", agency='" + agency + '\'' +
-                ", transports=" + transports +
                 ", filePath='" + filePath + '\'' +
                 '}';
     }
@@ -178,13 +168,12 @@ public class Tour implements Serializable {
                 Objects.equals(startDate, tour.startDate) &&
                 Objects.equals(startHour, tour.startHour) &&
                 Objects.equals(vehicle, tour.vehicle) &&
-                Objects.equals(agency, tour.agency) &&
-                Objects.equals(transports, tour.transports);
+                Objects.equals(agency, tour.agency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, startPlace, startDate, startHour, price, duration, currentPeople, minPeople, peopleLimit, vehicle, agency, transports);
+        return Objects.hash(name, description, startPlace, startDate, startHour, price, duration, currentPeople, minPeople, peopleLimit, vehicle, agency);
     }
 
     public static Comparator<Tour> TourNameComparator = new Comparator<Tour>() {
