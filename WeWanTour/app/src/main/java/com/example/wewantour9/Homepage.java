@@ -16,6 +16,8 @@ import androidx.appcompat.view.menu.ActionMenuItemView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
@@ -36,6 +39,7 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,6 +68,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private LinearLayoutManager mLayoutManager;
     private Toolbar toolbar;
     private Menu menu;
+    private FloatingActionButton floatingButton;
 
     private ArrayList<tour_adapter> allrecyclers;
 
@@ -87,10 +92,41 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int data = DataHolder.getInstance().getData();
+            if(data == 1){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("The pedometer is on. If you close the" +
+                        " app it will stop working, are you sure you want" +
+                        " to go out?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
+
+            }
+            else{
+                super.onBackPressed();
+            }
+
         }
 
     }
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    DataHolder.getInstance().setData(0);
+                    finishAffinity();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked NOTHING HAPPENS
+                    break;
+            }
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +150,15 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         nav_view = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer);
 
+        floatingButton = findViewById(R.id.floatingButton);
+
         searchView = findViewById(R.id.search_view);
 
         value =  getIntent().getIntExtra("Google",0);
+
+
+        //VARIABLE TO SAY THAT I AM AN USER
+        DataHolder.getInstance().setAgencycustomer("customer");
 
 
         //TOOLBAR
@@ -177,11 +219,19 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             //Hide or show items
             menu = nav_view.getMenu();
 
+            //PEDOMETER IS ACTIVE ??
+            int data = DataHolder.getInstance().getData();
+            if(data == 0){
+                floatingButton.findViewById(R.id.floatingButton).setVisibility((View.GONE));
+            }
+
             //GESTIONE MENU
             if(current_user == null) {
                 menu.findItem(R.id.nav_logout).setVisible(false);
                 menu.findItem(R.id.nav_profile).setVisible(false);
                 menu.findItem(R.id.nav_reservations).setVisible(false);
+                menu.findItem(R.id.nav_pedometer).setVisible(false);
+
             }
             else{
                 menu.findItem(R.id.nav_login).setVisible(false);
@@ -192,6 +242,14 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
 
         }
+
+
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();   //GO TO PEDOMETER PAGE
+            }
+                                          });
 
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
@@ -282,6 +340,16 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 }
             case R.id.nav_reservations:
                 startActivity(new Intent(Homepage.this, my_past_future_reservation.class));
+                break;
+
+            case R.id.nav_pedometer:
+                int data = DataHolder.getInstance().getData();
+                if(data == 0) {
+                    startActivity(new Intent(Homepage.this, PedometerChoice.class));
+                }
+                else{
+                    finish();
+                }
                 break;
             case R.id.nav_credits:
                 startActivity(new Intent(Homepage.this, Credits.class));

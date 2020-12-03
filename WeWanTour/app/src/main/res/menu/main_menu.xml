@@ -41,6 +41,12 @@
         </item>
 
 
+        <item
+            android:id="@+id/nav_pedometer"
+            android:title="Pedometer"
+            android:icon="@drawable/pedometer">
+        </item>
+
 
         <item
             android:id="@+id/nav_credits"

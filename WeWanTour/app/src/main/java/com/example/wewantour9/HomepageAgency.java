@@ -8,6 +8,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,10 +48,40 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int data = DataHolder.getInstance().getData();
+            if(data == 1){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("The pedometer is on. If you close the" +
+                        " app it will stop working, are you sure you want" +
+                        " to exit WeWanTour?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener)
+                        .show();
+
+
+            }
+            else{
+                super.onBackPressed();
+            }
+
         }
 
     }
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    DataHolder.getInstance().setData(0);
+                    finishAffinity();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked NOTHING HAPPENS
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +106,10 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         toursandtransports.setOnClickListener((View.OnClickListener) this);
         newtransport.setOnClickListener((View.OnClickListener) this);
         alltours.setOnClickListener((View.OnClickListener) this);
+
+
+        //VARIABLE TO SAY THAT I AM AN AGENCY
+        DataHolder.getInstance().setAgencycustomer("agency");
 
         //TOOLBAR
         setSupportActionBar(toolbar);
@@ -136,6 +172,15 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 }
             case R.id.nav_reservations:
                 startActivity(new Intent(HomepageAgency.this, My_reservation_agency.class));
+                break;
+            case R.id.nav_pedometer:
+                int data = DataHolder.getInstance().getData();
+                if(data == 0) {
+                    startActivity(new Intent(HomepageAgency.this, PedometerChoice.class));
+                }
+                else{
+                    finish();
+                }
                 break;
             case R.id.nav_credits:
                 startActivity(new Intent(HomepageAgency.this, Credits.class));
