@@ -22,9 +22,9 @@ public class Pager_my_past_future_Reservation_Adapter extends FragmentPagerAdapt
 
         switch (position){
             case 0:
-                return new my_future_reservation_customer();
+                return new my_incoming_reservation();
             case 1:
-                return new my_past_reservation_customer();
+                return new my_past_reservation();
 
             default: return null;
         }

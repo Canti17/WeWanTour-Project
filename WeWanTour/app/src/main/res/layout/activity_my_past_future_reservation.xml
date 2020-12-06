@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".my_past_future_reservation"
+tools:context=".my_past_incoming_reservation"
 android:id="@+id/drawerMyReservation"
 android:background="@drawable/gradient">
 <androidx.core.widget.NestedScrollView

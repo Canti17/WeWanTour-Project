@@ -25,7 +25,7 @@
             android:name=".PedometerChoice"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".my_past_future_reservation"
+            android:name=".my_past_incoming_reservation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".My_reservation_agency"

@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-public class my_past_future_reservation extends AppCompatActivity {
+public class my_past_incoming_reservation extends AppCompatActivity {
 
     DrawerLayout drawer;
     //NavigationView nav_view;

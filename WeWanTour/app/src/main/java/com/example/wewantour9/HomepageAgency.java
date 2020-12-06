@@ -171,7 +171,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                     break;
                 }
             case R.id.nav_reservations:
-                startActivity(new Intent(HomepageAgency.this, My_reservation_agency.class));
+                startActivity(new Intent(HomepageAgency.this, my_past_incoming_reservation.class));
                 break;
             case R.id.nav_pedometer:
                 int data = DataHolder.getInstance().getData();
