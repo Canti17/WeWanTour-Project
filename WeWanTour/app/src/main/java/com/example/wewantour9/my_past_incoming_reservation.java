@@ -36,7 +36,7 @@ public class my_past_incoming_reservation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_past_future_reservation);
+        setContentView(R.layout.activity_my_past_incoming_reservation);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

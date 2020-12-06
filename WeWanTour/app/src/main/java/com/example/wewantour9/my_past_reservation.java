@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,64 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  */
@@ -92,6 +39,7 @@ public class my_past_reservation extends Fragment {
     private RecyclerView mRecyclerView;
     private My_reservation_customer_adapter mAdapter;
     private ProgressBar mProgressCircle;
+    private TextView noReservationsLabel;
     private DatabaseReference mDatabaseReferenceTour;
     private List<Reservation> reservations;
     private LinearLayoutManager mLayoutManager;
@@ -115,7 +63,7 @@ public class my_past_reservation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_my_past_reservation_customer, container, false);
+        view= inflater.inflate(R.layout.fragment_my_past_reservation, container, false);
 
         fAuth = FirebaseAuth.getInstance();
         current_user = fAuth.getCurrentUser();
@@ -129,7 +77,7 @@ public class my_past_reservation extends Fragment {
 
         mProgressCircle = view.findViewById(R.id.progress_circle);
         reservations = new ArrayList<Reservation>();
-
+        noReservationsLabel=view.findViewById(R.id.txt_available_PastReservation);
 
 
 
@@ -159,6 +107,11 @@ public class my_past_reservation extends Fragment {
                             reservations.add(reserv);
                         }
                      }
+                }
+                if(reservations.isEmpty()){
+                    noReservationsLabel.setVisibility(View.VISIBLE);
+                }else{
+                    noReservationsLabel.setVisibility(View.GONE);
                 }
                 mAdapter = new My_reservation_customer_adapter(getContext(), reservations);
                 mRecyclerView.setAdapter(mAdapter);

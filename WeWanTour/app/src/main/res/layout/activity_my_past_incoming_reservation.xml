@@ -14,7 +14,7 @@ android:background="@drawable/gradient">
     <include
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        layout="@layout/content_my_past_future_reservation"
+        layout="@layout/content_my_past_incoming_reservation"
         />
 
 </androidx.core.widget.NestedScrollView>
