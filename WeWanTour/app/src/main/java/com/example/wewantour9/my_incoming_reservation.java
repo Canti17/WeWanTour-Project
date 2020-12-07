@@ -2,6 +2,7 @@ package com.example.wewantour9;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,14 +36,16 @@ import java.util.List;
 public class my_incoming_reservation extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private My_reservation_customer_adapter mAdapter;
+    private My_reservation_customer_adapter cAdapter;
+    private My_reservation_agency_adapter aAdapter;
     private ProgressBar mProgressCircle;
     private TextView noReservationsLabel;
-    private DatabaseReference mDatabaseReferenceTour;
+    private DatabaseReference mDatabaseReferenceTour, db_customer_reservations;
     private List<Reservation> reservations;
     private LinearLayoutManager mLayoutManager;
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
+    boolean flagIsCustomer = false;
 
 
     private View view;
@@ -90,6 +93,24 @@ public class my_incoming_reservation extends Fragment {
         noReservationsLabel=view.findViewById(R.id.txt_available_IncomingReservation);
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("RESERVATION");
+        db_customer_reservations= FirebaseDatabase.getInstance().getReference("USER/Customer");
+
+        //get the user id
+        db_customer_reservations.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Customer customer_buffer = postSnapshot.getValue(Customer.class);
+                    if(customer_buffer.getEmail().equals(current_user.getEmail())){
+                        flagIsCustomer = true;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -121,8 +142,13 @@ public class my_incoming_reservation extends Fragment {
                     noReservationsLabel.setVisibility(View.GONE);
                 }
 
-                mAdapter = new My_reservation_customer_adapter(getContext(), reservations);
-                mRecyclerView.setAdapter(mAdapter);
+                if(flagIsCustomer){
+                    cAdapter = new My_reservation_customer_adapter(getContext(), reservations);
+                    mRecyclerView.setAdapter(cAdapter);
+                }else{
+                    aAdapter = new My_reservation_agency_adapter(getContext(), reservations);
+                    mRecyclerView.setAdapter(aAdapter);
+                }
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
