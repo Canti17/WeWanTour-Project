@@ -938,6 +938,7 @@
                             app:layout_constraintStart_toEndOf="@+id/imageViewTourDetailsWeather"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.53999996" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ProgressBar
@@ -968,6 +969,19 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsWeater"
                         app:layout_constraintVertical_bias="0.00999999" />
+
+                    <View
+                        android:id="@+id/dividerTourDetailsWeather"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="70dp"
+                        android:background="@color/blackTextColor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsWeater"
+                        app:layout_constraintWidth_max="50dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
