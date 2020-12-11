@@ -5,12 +5,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,8 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,9 +28,9 @@ import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 import com.travijuu.numberpicker.library.NumberPicker;
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class tour_details extends AppCompatActivity {
@@ -42,10 +42,15 @@ public class tour_details extends AppCompatActivity {
         finish();
     }
 
-    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople, cost, transDate, transHour, transPlace, transCost, transReservations, noTransport, transDateLabel, transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, transReservationsLabel, directRegister;
-    private ImageView vehicle, mainImage, transVehicle, deleteTransport;
+    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople,
+                        cost, transDate, transHour, transPlace, transCost, transReservations, noTransport, transDateLabel,
+                        transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, transReservationsLabel,
+                        directRegister, weatherDescriptionField, minTemperatureField, maxTemperatureField, humidityField,
+                        windSpeedField, weatherNotAvailable;
+    private ImageView vehicle, mainImage, transVehicle, deleteTransport, weatherIcon;
     private Button selectTransport, gotToSummaryPage;
-    private ConstraintLayout bookingOptionsLayout1, bookingOptionsLayout2;
+    private ConstraintLayout bookingOptionsLayout1, bookingOptionsLayout2, weatherDescriptionLayout, weatherHumidityWindLayout;
+    private ProgressBar progressCircle;
     private NumberPicker numberPicker;
     private Tour selectedTour;
     private Transport selectedTransport;
@@ -54,6 +59,14 @@ public class tour_details extends AppCompatActivity {
 
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
+
+    //weather
+    private String buffer="";
+    private Context context = this;
+    private Activity activity = (Activity) context;
+    private JSONObject weatherData;
+    private String sunrise="", sunset="", weatherId="", weatherDescritpion="", minTemp="", maxTemp="", humidity="", windSpeed="";
+    private Boolean weatherGoesWrong = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +110,18 @@ public class tour_details extends AppCompatActivity {
         directRegister = findViewById(R.id.textViewTourDetailsRegistrationDirectLink);
         bookingOptionsLayout1 = findViewById(R.id.constraintLayoutTourDetails6);
         bookingOptionsLayout2 = findViewById(R.id.constraintLayoutTourDetails3);
+        //weather fields
+        weatherIcon = findViewById(R.id.imageViewTourDetailsWeather);
+        weatherDescriptionField = findViewById(R.id.textViewTourDetailsWeatherDescription);
+        minTemperatureField = findViewById(R.id.textViewTourDetailsMinTemperature);
+        maxTemperatureField = findViewById(R.id.textViewTourDetailsMaxTemperature);
+        humidityField = findViewById(R.id.textViewTourDetailsHumidity);
+        windSpeedField = findViewById(R.id.textViewTourDetailsWind);
+        progressCircle = findViewById(R.id.progressBarTourDetailsWeather);
+        weatherDescriptionLayout = findViewById(R.id.constraintLayoutTourDetailsWeatherDescription);
+        weatherHumidityWindLayout = findViewById(R.id.constraintLayoutTourDetailsWeatherHumidityWind);
+        weatherNotAvailable = findViewById(R.id.textViewTourDetailsWeatherNotAvailable);
+
 
         selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from HomePage");
         Log.e("tour_details TOUR SELECTED IN THE HOMEPAGE",selectedTour.toString());
@@ -125,6 +150,8 @@ public class tour_details extends AppCompatActivity {
         vehicle.setImageDrawable(myDrawable);
 
 
+
+
         selectTransport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +171,6 @@ public class tour_details extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         directRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,9 +178,9 @@ public class tour_details extends AppCompatActivity {
             }
         });
 
+
         if(currentUser==null){
             selectTransport.setClickable(false);
-            //selectTransport.setBackgroundColor(Color.parseColor("grey"));
             gotToSummaryPage.setText("Login to book the tour");
             bookingOptionsLayout1.setVisibility(View.GONE);
             bookingOptionsLayout2.setVisibility(View.GONE);
@@ -166,7 +192,6 @@ public class tour_details extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
         }else{
             //Choose number widget
             numberPicker.setMax(selectedTour.getPeopleLimit()-selectedTour.getCurrentPeople());
@@ -235,7 +260,10 @@ public class tour_details extends AppCompatActivity {
         transHourLabel.setVisibility(View.INVISIBLE);
         transReservationsLabel.setVisibility(View.INVISIBLE);
         deleteTransport.setVisibility(View.INVISIBLE);
-
+        //Weather starting impostation
+        progressCircle.setVisibility(View.VISIBLE);
+        weatherDescriptionLayout.setVisibility(View.GONE);
+        weatherHumidityWindLayout.setVisibility(View.GONE);
 
         deleteTransport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,6 +287,90 @@ public class tour_details extends AppCompatActivity {
                 numberOfReservationForTransport = 0;
             }
         });
+
+        //Weather display (the buffer variable is just for the debugging)
+        Thread t = new Thread(){
+            public void run(){
+
+                ArrayList<String> arrayCoordinates = API_usage.getCoordinates(context, selectedTour.getStartPlace());
+
+                if(arrayCoordinates.get(0) != null){
+
+                    weatherData = API_usage.getWeather(context, arrayCoordinates, selectedTour.getStartDate());
+
+                    buffer = arrayCoordinates.toString();
+
+                    if(weatherData != null){
+
+                        buffer = weatherData.toString();
+
+                        try{
+                            sunrise = weatherData.getString("sunrise");
+                            sunset = weatherData.getString("sunset");
+                            weatherId = weatherData.getJSONArray("weather").getJSONObject(0).getString("id");
+                            weatherDescritpion = weatherData.getJSONArray("weather").getJSONObject(0).getString("description");
+                            weatherDescritpion = weatherDescritpion.substring(0, 1).toUpperCase() + weatherDescritpion.substring(1);
+                            minTemp = weatherData.getJSONObject("temp").getString("min");
+                            maxTemp = weatherData.getJSONObject("temp").getString("max");
+                            humidity = weatherData.getString("humidity");
+                            windSpeed = weatherData.getString("wind_speed");
+                            buffer = sunrise+" // "+sunset+" // "+weatherId+" // "+weatherDescritpion+" // "+minTemp+" // "+maxTemp+" // "+humidity+" // "+windSpeed;
+
+                            //something to execute in the main thread, only the main thread is able to modify the view
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    weatherIcon.setImageDrawable(API_usage.getIconFromWeatherCode(context, Integer.parseInt(weatherId), sunrise, sunset, selectedTour.getStartHour()));
+                                    weatherDescriptionField.setText(weatherDescritpion);
+                                    minTemperatureField.setText("Min: " + minTemp + " C°");
+                                    maxTemperatureField.setText("Max: " + maxTemp + " C°");
+                                    humidityField.setText(humidity + " %");
+                                    windSpeedField.setText(windSpeed + " m/s");
+                                    weatherDescriptionLayout.setVisibility(View.VISIBLE);
+                                    weatherHumidityWindLayout.setVisibility(View.VISIBLE);
+                                    progressCircle.setVisibility(View.GONE);
+
+                                }
+                            });
+
+                        }catch (Exception e){
+                            //Case the parse of the weather response not goes well
+                            weatherGoesWrong = true;
+                            buffer = e + weatherData.toString();
+                        }
+                    }else{
+                        //Case api don't find the meteo
+                        weatherGoesWrong = true;
+                        buffer = "NULL weather ";
+                    }
+                }else{
+                    //Case api don't find the coordinates
+                    weatherGoesWrong = true;
+                    buffer = "NULL coordinates";
+                }
+
+                if(weatherGoesWrong){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            weatherNotAvailable.setVisibility(View.VISIBLE);
+                            progressCircle.setVisibility(View.GONE);
+                        }
+                    });
+                }
+
+                Log.e("WEATHER/GEOCODING API DEBUG", buffer);
+
+                /*handler.post(new Runnable(){
+                    public void run(){
+
+                    }
+                });*/
+            }
+        };
+        t.start();
+
 
     }
 
@@ -320,35 +432,24 @@ public class tour_details extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         int res_id = item.getItemId();
         if (res_id == R.id.menu_info) {
             AlertDialog.Builder info = new AlertDialog.Builder(tour_details.this);
             info.setMessage("Remember: You can book a transport only for all the people in your group not only a part!");
-
-
             info.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
-
                 }
             });
-
             info.create().show();
         } else {
 
             finish();
-
-
         }
-
-
         return true;
-
     }
 
 
-    }
+}
 
 

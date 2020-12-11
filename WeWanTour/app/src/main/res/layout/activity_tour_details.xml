@@ -76,7 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="37dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:autoSizeTextType="uniform"
                     android:text="Tour Description"
@@ -84,7 +84,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewMapIcon" />
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetailsWeather" />
 
                 <TextView
                     android:id="@+id/textViewDetailsText"
@@ -775,6 +775,201 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buttonTourDetailsGoToSummaryPage" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutTourDetailsWeather"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/weather_beckground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewMapIcon"
+                    app:layout_constraintWidth_max="500dp"><![CDATA[
+
+                    " />
+
+
+
+                    ]]>
+
+                    <TextView
+                        android:id="@+id/textViewTourDetailsWeater"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Weather"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutTourDetailsWeatherHumidityWind"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetailsWeatherDescription"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:layout_constraintWidth_max="500dp">
+
+                        <ImageView
+                            android:id="@+id/imageViewTourDetailsWeatherHumidity"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="50dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/imageViewTourDetailsWeatherWind"
+                            app:layout_constraintHorizontal_bias="0.57"
+                            app:layout_constraintStart_toEndOf="@+id/textViewTourDetailsMaxTemperature"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/weather_humidity_static_icon" />
+
+                        <ImageView
+                            android:id="@+id/imageViewTourDetailsWeatherWind"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTourDetailsWind"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/weather_wind_static_icon" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsHumidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="80 %"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewTourDetailsWeatherHumidity"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewTourDetailsWeatherHumidity"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewTourDetailsWeatherHumidity" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsWind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="7.6 m/s"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewTourDetailsWeatherWind"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewTourDetailsWeatherWind" />
+
+                        <ImageView
+                            android:id="@+id/imageViewTourDetailsWeatherTemperature"
+                            android:layout_width="40dp"
+                            android:layout_height="45dp"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/weather_temperature_static_icon" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsMinTemperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Min: 16 C°"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewTourDetailsWeatherTemperature"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewTourDetailsWeatherTemperature"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewTourDetailsWeatherTemperature"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsMaxTemperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Max: 25 C°"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewTourDetailsWeatherTemperature"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewTourDetailsWeatherTemperature"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewTourDetailsWeatherTemperature"
+                            app:layout_constraintVertical_bias="0.85" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutTourDetailsWeatherDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsWeater"
+                        app:layout_constraintWidth_max="400dp">
+
+                        <ImageView
+                            android:id="@+id/imageViewTourDetailsWeather"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginEnd="150dp"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            app:srcCompat="@drawable/weather_200_232" />
+
+                        <TextView
+                            android:id="@+id/textViewTourDetailsWeatherDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text="Scattered clouds: 25-50%"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.3"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewTourDetailsWeather"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.53999996" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBarTourDetailsWeather"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="55dp"
+                        android:layout_height="51dp"
+                        android:layout_gravity="center_horizontal"
+                        android:progressTint="#009688"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsWeater" />
+
+                    <TextView
+                        android:id="@+id/textViewTourDetailsWeatherNotAvailable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="65dp"
+                        android:text="Weather not available"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTourDetailsWeater"
+                        app:layout_constraintVertical_bias="0.00999999" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
