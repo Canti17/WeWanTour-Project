@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
 
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/drawer">
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/gradient">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,22 +30,221 @@
             app:titleTextColor="@color/whiteTextColor" />
 
 
-        <androidx.core.widget.NestedScrollView
 
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:background="@drawable/gradient">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            >
+
+            <TextView
+                android:id="@+id/stepnumber"
+                android:layout_width="203dp"
+                android:layout_height="89dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/baloo"
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/blackTextColor"
+                android:textSize="76dp" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/Steps"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:context=".PedometerRun">
+                android:text="STEPS"
+                android:textAlignment="center"
+                android:textColor="@color/blackTextColor"
+                android:layout_gravity="center_horizontal"
+                android:textSize="24dp"
+                android:fontFamily="@font/baloo"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="105dp"
+                app:alignmentMode="alignMargins"
+                android:layout_marginTop="5dp"
+                app:columnCount="3"
+                app:columnOrderPreserved="false"
+                app:rowCount="1">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card1"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toStartOf="@id/card2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/colorPrimary"
+                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/caloriesnumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/baloo"
+                                android:gravity="center"
+                                android:text="0.0"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="40dp" />
+
+
+                            <TextView
+                                android:id="@+id/calories"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/baloo"
+                                android:text="CALORIES"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="24dp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card2"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toStartOf="@+id/card3"
+                        app:layout_constraintStart_toEndOf="@id/card1"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/colorPrimary"
+                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/kmnumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/baloo"
+                                android:gravity="center"
+                                android:text="0.0"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="40dp" />
+
+
+                            <TextView
+                                android:id="@+id/km"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/baloo"
+                                android:text="KM"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="24dp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card3"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/card2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/colorPrimary"
+                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/timenumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/baloo"
+                                android:gravity="center"
+                                android:text="0.00"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="45dp" />
+
+
+                            <TextView
+                                android:id="@+id/time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/baloo"
+                                android:text="TIME"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="24dp" />
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.gridlayout.widget.GridLayout>
+
+
+
 
                 <Button
                     android:id="@+id/stoppedometer"
                     style="@style/modifiedSubmitButton"
+                    android:backgroundTint="#F12E2E"
                     android:layout_width="240dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"
@@ -55,12 +258,6 @@
                     app:layout_constraintVertical_bias="0.100000024" />
 
 
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
