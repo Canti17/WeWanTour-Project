@@ -224,7 +224,6 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                         @Override
                         public void run() {
                             holder.my_reservation_weather_progressbar.setVisibility(View.GONE);
-                            holder.my_reservation_weather_field.setVisibility(View.GONE);
                         }
                     });
                 }
