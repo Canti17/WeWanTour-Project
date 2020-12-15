@@ -9,13 +9,13 @@ android:id="@+id/drawerMyReservation"
 android:background="@drawable/gradient">
 <androidx.core.widget.NestedScrollView
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
 
     <include
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
         layout="@layout/content_my_past_incoming_reservation"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </androidx.core.widget.NestedScrollView>
 
