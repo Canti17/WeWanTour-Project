@@ -37,6 +37,7 @@ public class PedometerRun extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Pedometro");
 
         //IMPLEMENTAZIONE PEDOMETRO CON GESTION ONPAUSE() AND ONRESUME()
 

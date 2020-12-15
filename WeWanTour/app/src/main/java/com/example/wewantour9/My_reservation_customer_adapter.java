@@ -6,7 +6,6 @@ import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AlignmentSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +92,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
             holder.itemView.findViewById(R.id.text_start_hour).setVisibility(View.GONE);
             holder.itemView.findViewById(R.id.imageView10).setVisibility(View.GONE);
             holder.itemView.findViewById(R.id.imageView12).setVisibility(View.GONE);
-            holder.itemView.findViewById(R.id.imageView14).setVisibility(View.GONE);
+            holder.itemView.findViewById(R.id.imageView30).setVisibility(View.GONE);
             holder.itemView.findViewById(R.id.transportCurrPeople).setVisibility(View.GONE);
         }
         holder.text_total_cost.setText("€"+Double.toString((tour_cost+transport_cost)*reservation.getNumberOfPeople()));
