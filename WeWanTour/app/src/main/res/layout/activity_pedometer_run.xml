@@ -22,6 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme"
+            android:layout_marginBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,42 +36,90 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/colorPrimary"
             >
+
+            <TextView
+                android:id="@+id/nometour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="provaprovaprovaprovaprova"
+                android:textAlignment="center"
+                android:textColor="@color/blackTextColor"
+                android:layout_gravity="center_horizontal"
+                android:textSize="22dp"
+                android:fontFamily="@font/baloo"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/circle"
+                android:layout_width="200dp"
+                android:layout_height="205dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:progress="60" />
+
 
             <TextView
                 android:id="@+id/stepnumber"
                 android:layout_width="203dp"
                 android:layout_height="89dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/baloo"
                 android:gravity="center"
-                android:text="0"
-                android:textAlignment="center"
                 android:textColor="@color/blackTextColor"
-                android:textSize="76dp" />
+                android:textSize="50dp"
+                android:fontFamily="@font/baloo"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                app:layout_constraintTop_toTopOf="@+id/progress_bar"
+                android:text="0"  />
 
+                <TextView
+                    android:id="@+id/Steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/baloo"
+                    android:text="STEPS"
+                    android:textAlignment="center"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="22dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+                    app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                    app:layout_constraintTop_toTopOf="@+id/stepnumber"
+                    app:layout_constraintVertical_bias="0.616" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/Steps"
+                android:id="@+id/goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="STEPS"
+                android:text="Goal of the tour:  steps"
                 android:textAlignment="center"
                 android:textColor="@color/blackTextColor"
                 android:layout_gravity="center_horizontal"
-                android:textSize="24dp"
+                android:textSize="22dp"
                 android:fontFamily="@font/baloo"/>
 
 
+
+
+
         </LinearLayout>
-
-
-
-
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid"
@@ -93,7 +142,9 @@
                         android:layout_height="100dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:backgroundTint="@color/colorPrimaryDark"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="10dp"
+                        android:backgroundTint="@color/colorPrimary"
                         app:layout_constraintEnd_toStartOf="@id/card2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -104,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:background="@color/colorPrimary"
-                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:backgroundTint="@color/colorPrimary"
                             android:orientation="vertical">
 
                             <TextView
@@ -117,7 +168,7 @@
                                 android:text="0.0"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
-                                android:textSize="40dp" />
+                                android:textSize="38dp" />
 
 
                             <TextView
@@ -129,7 +180,7 @@
                                 android:text="CALORIES"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
-                                android:textSize="24dp" />
+                                android:textSize="20dp" />
 
 
                         </LinearLayout>
@@ -142,7 +193,9 @@
                         android:layout_height="100dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:backgroundTint="@color/colorPrimaryDark"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="10dp"
+                        android:backgroundTint="@color/colorPrimary"
                         app:layout_constraintEnd_toStartOf="@+id/card3"
                         app:layout_constraintStart_toEndOf="@id/card1"
                         app:layout_constraintTop_toTopOf="parent">
@@ -153,7 +206,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:background="@color/colorPrimary"
-                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:backgroundTint="@color/colorPrimary"
                             android:orientation="vertical">
 
                             <TextView
@@ -166,7 +219,7 @@
                                 android:text="0.0"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
-                                android:textSize="40dp" />
+                                android:textSize="38dp" />
 
 
                             <TextView
@@ -178,7 +231,7 @@
                                 android:text="KM"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
-                                android:textSize="24dp" />
+                                android:textSize="20dp" />
 
                         </LinearLayout>
 
@@ -190,7 +243,9 @@
                         android:layout_height="100dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:backgroundTint="@color/colorPrimaryDark"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="10dp"
+                        android:backgroundTint="@color/colorPrimary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/card2"
                         app:layout_constraintTop_toTopOf="parent">
@@ -201,20 +256,19 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:background="@color/colorPrimary"
-                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:backgroundTint="@color/colorPrimary"
                             android:orientation="vertical">
 
-                            <TextView
+                            <Chronometer
                                 android:id="@+id/timenumber"
                                 android:layout_width="wrap_content"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center_horizontal"
-                                android:fontFamily="@font/baloo"
                                 android:gravity="center"
                                 android:text="0.00"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
-                                android:textSize="45dp" />
+                                android:textSize="38dp" />
 
 
                             <TextView
@@ -226,7 +280,7 @@
                                 android:text="TIME"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
-                                android:textSize="24dp" />
+                                android:textSize="20dp" />
 
 
                         </LinearLayout>
@@ -238,7 +292,9 @@
 
             </androidx.gridlayout.widget.GridLayout>
 
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
                 <Button
@@ -248,7 +304,7 @@
                     android:layout_width="240dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="20dp"
                     android:text="STOP PEDOMETER"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -256,6 +312,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails3"
                     app:layout_constraintVertical_bias="0.100000024" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
