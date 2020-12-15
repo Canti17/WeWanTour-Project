@@ -3,6 +3,7 @@ package com.example.wewantour9;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,8 +66,9 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
     //weather
     private String buffer="";
     private JSONObject weatherData;
-    private String sunrise="", sunset="", weatherId="", weatherDescritpion="", minTemp="", maxTemp="", humidity="", windSpeed="";
+    private String sunrise="", sunset="", weatherId="", weatherDescritpion="", temp="", humidity="", windSpeed="";
     private Boolean weatherGoesWrong = false;
+    private int orientation;
 
     public My_reservation_agency_adapter(Context mContext, List<Reservation> reservations) {
         this.mContext = mContext;
@@ -80,7 +83,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
     }
 
     @Override
-    public void onBindViewHolder(@NonNull My_reservation_agency_adapter.ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final My_reservation_agency_adapter.ImageViewHolder holder, int position) {
         final Reservation reservation=reservations.get(position);
         holder.text_tour_name.setText(reservation.getTour().getName());
         Glide.with(mContext)
@@ -135,6 +138,20 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     .into(holder.img_transport_vehicle);
         }
 
+        orientation = mContext.getResources().getConfiguration().orientation;
+
+        holder.my_reservation_weather_icon.setVisibility(View.INVISIBLE);
+        holder.my_reservation_temperature_icon.setVisibility(View.INVISIBLE);
+        holder.my_reservation_wind_icon.setVisibility(View.INVISIBLE);
+        holder.my_reservation_temperature_field.setVisibility(View.INVISIBLE);
+        holder.my_reservation_wind_field.setVisibility(View.INVISIBLE);
+        holder.my_reservation_weather_field.setVisibility(View.INVISIBLE);
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            holder.my_reservation_humidity_icon.setVisibility(View.INVISIBLE);
+            holder.my_reservation_humidity_field.setVisibility(View.INVISIBLE);
+        }
+
+
         //Weather display (the buffer variable is just for the debugging)
         Thread t = new Thread(){
             public void run(){
@@ -157,29 +174,34 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                             weatherId = weatherData.getJSONArray("weather").getJSONObject(0).getString("id");
                             weatherDescritpion = weatherData.getJSONArray("weather").getJSONObject(0).getString("description");
                             weatherDescritpion = weatherDescritpion.substring(0, 1).toUpperCase() + weatherDescritpion.substring(1);
-                            minTemp = weatherData.getJSONObject("temp").getString("min");
-                            maxTemp = weatherData.getJSONObject("temp").getString("max");
+                            temp = weatherData.getJSONObject("temp").getString("day");
                             humidity = weatherData.getString("humidity");
                             windSpeed = weatherData.getString("wind_speed");
-                            buffer = sunrise+" // "+sunset+" // "+weatherId+" // "+weatherDescritpion+" // "+minTemp+" // "+maxTemp+" // "+humidity+" // "+windSpeed;
+                            buffer = sunrise+" // "+sunset+" // "+weatherId+" // "+weatherDescritpion+" // "+temp+" // "+humidity+" // "+windSpeed;
 
                             //something to execute in the main thread, only the main thread is able to modify the view
-                            /*runOnUiThread(new Runnable() {
+                            ((Activity)mContext).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
 
-                                    weatherIcon.setImageDrawable(API_usage.getIconFromWeatherCode(context, Integer.parseInt(weatherId), sunrise, sunset, selectedTour.getStartHour()));
-                                    weatherDescriptionField.setText(weatherDescritpion);
-                                    minTemperatureField.setText("Min: " + minTemp + " C°");
-                                    maxTemperatureField.setText("Max: " + maxTemp + " C°");
-                                    humidityField.setText(humidity + " %");
-                                    windSpeedField.setText(windSpeed + " m/s");
-                                    weatherDescriptionLayout.setVisibility(View.VISIBLE);
-                                    weatherHumidityWindLayout.setVisibility(View.VISIBLE);
-                                    progressCircle.setVisibility(View.GONE);
+                                    holder.my_reservation_weather_icon.setImageDrawable(API_usage.getIconFromWeatherCode(mContext, Integer.parseInt(weatherId), sunrise, sunset, reservation.getTour().getStartHour()));
+                                    holder.my_reservation_temperature_field.setText(temp + " C°");
+                                    holder.my_reservation_humidity_field.setText(humidity + "%");
+                                    holder.my_reservation_wind_field.setText(windSpeed + " m/s");
+                                    holder.my_reservation_weather_progressbar.setVisibility(View.GONE);
+                                    holder.my_reservation_weather_icon.setVisibility(View.VISIBLE);
+                                    holder.my_reservation_temperature_icon.setVisibility(View.VISIBLE);
+                                    holder.my_reservation_wind_icon.setVisibility(View.VISIBLE);
+                                    holder.my_reservation_temperature_field.setVisibility(View.VISIBLE);
+                                    holder.my_reservation_wind_field.setVisibility(View.VISIBLE);
+                                    holder.my_reservation_weather_field.setVisibility(View.VISIBLE);
+                                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                                        holder.my_reservation_humidity_icon.setVisibility(View.VISIBLE);
+                                        holder.my_reservation_humidity_field.setVisibility(View.VISIBLE);
+                                    }
 
                                 }
-                            });*/
+                            });
 
                         }catch (Exception e){
                             //Case the parse of the weather response not goes well
@@ -198,13 +220,13 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                 }
 
                 if(weatherGoesWrong){
-                    /*runOnUiThread(new Runnable() {
+                    ((Activity)mContext).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            weatherNotAvailable.setVisibility(View.VISIBLE);
-                            progressCircle.setVisibility(View.GONE);
+                            holder.my_reservation_weather_progressbar.setVisibility(View.GONE);
+                            holder.my_reservation_weather_field.setVisibility(View.GONE);
                         }
-                    });*/
+                    });
                 }
 
                 Log.e("WEATHER/GEOCODING API DEBUG", buffer);
@@ -362,6 +384,15 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
         public TextView text_transport_start_hour;
         public Button btn_delete_reservation;
         public TextView text_transport_current_people;
+        public ImageView my_reservation_weather_icon;
+        public ImageView my_reservation_temperature_icon;
+        public ImageView my_reservation_humidity_icon;
+        public ImageView my_reservation_wind_icon;
+        public TextView my_reservation_temperature_field;
+        public TextView my_reservation_humidity_field;
+        public TextView my_reservation_wind_field;
+        public TextView my_reservation_weather_field;
+        public ProgressBar my_reservation_weather_progressbar;
 
 
         public ImageViewHolder(@NonNull View itemView) {
@@ -379,6 +410,15 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
             text_transport_start_hour=itemView.findViewById(R.id.text_start_hour);
             btn_delete_reservation=itemView.findViewById(R.id.btn_delete_reservation);
             text_transport_current_people= itemView.findViewById(R.id.transportCurrPeople);
+            my_reservation_weather_icon = itemView.findViewById(R.id.imageViewMyReservationRowWeather);
+            my_reservation_temperature_icon = itemView.findViewById(R.id.imageViewMyReservationRowTemperature);
+            my_reservation_humidity_icon = itemView.findViewById(R.id.imageViewMyReservationRowHumidity);
+            my_reservation_wind_icon = itemView.findViewById(R.id.imageViewMyReservationRowWind);
+            my_reservation_temperature_field = itemView.findViewById(R.id.textViewMyReservationRowTemperature);
+            my_reservation_humidity_field = itemView.findViewById(R.id.textViewMyReservationRowHumidity);
+            my_reservation_wind_field = itemView.findViewById(R.id.textViewMyReservationsRowWind);
+            my_reservation_weather_field = itemView.findViewById(R.id.textViewMyReservationRowWeather);
+            my_reservation_weather_progressbar = itemView.findViewById(R.id.progressBarMyReservationWeather);
 
         }
     }

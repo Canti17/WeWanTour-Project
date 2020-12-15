@@ -140,14 +140,14 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="15dp"
             android:background="#3F3939"
             android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewMyReservationRowWeather" />
 
         <ImageView
             android:id="@+id/img_tour"
@@ -203,16 +203,18 @@
             android:id="@+id/imageView15"
             android:layout_width="35dp"
             android:layout_height="31dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
             app:layout_constraintStart_toEndOf="@+id/tour_date"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13IconForListTransportPrenotation"
+            app:layout_constraintTop_toTopOf="@+id/imageView11"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_time_black_24dp" />
 
         <TextView
             android:id="@+id/tour_hour"
             android:layout_width="90dp"
             android:layout_height="23dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -264,10 +266,10 @@
             android:layout_width="29dp"
             android:layout_height="29dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
             app:layout_constraintStart_toEndOf="@+id/tour_hour"
-            app:layout_constraintTop_toBottomOf="@+id/text_destination"
-            app:layout_constraintVertical_bias="0.631"
+            app:layout_constraintTop_toTopOf="@+id/imageView11"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_person_black_24dp" />
 
         <TextView
@@ -276,12 +278,12 @@
             android:layout_height="22dp"
             android:layout_marginStart="4dp"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView16"
-            app:layout_constraintTop_toBottomOf="@+id/text_destination"
-            app:layout_constraintVertical_bias="0.68" />
+            app:layout_constraintTop_toTopOf="@+id/imageView16"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/transportCurrPeople"
@@ -322,6 +324,108 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintVertical_bias="0.272"
             app:srcCompat="@drawable/bus" />
+
+        <TextView
+            android:id="@+id/textViewMyReservationRowWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Weather: "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+        <ImageView
+            android:id="@+id/imageViewMyReservationRowWeather"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintStart_toStartOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintTop_toTopOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintVertical_bias="0.483"
+            app:srcCompat="@drawable/weather_200_232" />
+
+        <TextView
+            android:id="@+id/textViewMyReservationRowTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20 C°"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMyReservationRowTemperature"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMyReservationRowTemperature"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMyReservationRowTemperature" />
+
+        <ImageView
+            android:id="@+id/imageViewMyReservationRowTemperature"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="57dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewMyReservationRowWind"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMyReservationRowWeather"
+            app:layout_constraintTop_toTopOf="@+id/textViewMyReservationRowWeather"
+            app:srcCompat="@drawable/weather_temperature_static_icon" />
+
+        <ImageView
+            android:id="@+id/imageViewMyReservationRowHumidity"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewMyReservationRowWind"
+            app:layout_constraintStart_toEndOf="@+id/textViewMyReservationRowTemperature"
+            app:layout_constraintTop_toTopOf="@+id/textViewMyReservationRowWeather"
+            app:srcCompat="@drawable/weather_humidity_static_icon" />
+
+        <TextView
+            android:id="@+id/textViewMyReservationRowHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="60 %"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMyReservationRowHumidity"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMyReservationRowHumidity"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMyReservationRowHumidity"
+            app:layout_constraintVertical_bias="0.49" />
+
+        <ImageView
+            android:id="@+id/imageViewMyReservationRowWind"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintEnd_toStartOf="@+id/textViewMyReservationsRowWind"
+            app:layout_constraintTop_toTopOf="@+id/textViewMyReservationRowWeather"
+            app:srcCompat="@drawable/weather_wind_static_icon" />
+
+        <TextView
+            android:id="@+id/textViewMyReservationsRowWind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.2 m/s"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMyReservationRowWind"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.93"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMyReservationRowWind" />
+
+        <ProgressBar
+            android:id="@+id/progressBarMyReservationWeather"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:indeterminate="true"
+            android:scaleY="2"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMyReservationRowWeather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

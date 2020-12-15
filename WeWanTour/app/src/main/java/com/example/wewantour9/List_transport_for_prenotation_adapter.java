@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import java.util.List;
 public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter<List_transport_for_prenotation_adapter.ImageViewHolder> {
     private Context mContext;
     private List<Transport> transports;
-    private Transport transport;
     private Activity activity;
 
     public List_transport_for_prenotation_adapter(Context mContext, List<Transport> transports, Activity activity) {
@@ -44,7 +44,7 @@ public class List_transport_for_prenotation_adapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        transport=transports.get(position);
+        final Transport transport=transports.get(position);
         holder.text_destination.setText(transport.getDestination());
         holder.text_agency_name.setText(transport.getAgency());
         holder.text_start_place.setText(transport.getStartLocation());
