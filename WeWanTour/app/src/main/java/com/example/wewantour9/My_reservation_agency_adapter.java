@@ -1,5 +1,6 @@
 package com.example.wewantour9;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Layout;
@@ -28,6 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +60,12 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
     private String id_user;
 
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
+
+    //weather
+    private String buffer="";
+    private JSONObject weatherData;
+    private String sunrise="", sunset="", weatherId="", weatherDescritpion="", minTemp="", maxTemp="", humidity="", windSpeed="";
+    private Boolean weatherGoesWrong = false;
 
     public My_reservation_agency_adapter(Context mContext, List<Reservation> reservations) {
         this.mContext = mContext;
@@ -122,6 +132,84 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     .load(R.drawable.car)
                     .into(holder.img_transport_vehicle);
         }
+
+        //Weather display (the buffer variable is just for the debugging)
+        Thread t = new Thread(){
+            public void run(){
+
+                ArrayList<String> arrayCoordinates = API_usage.getCoordinates(mContext, reservation.getTour().getStartPlace());
+
+                if(arrayCoordinates.get(0) != null){
+
+                    weatherData = API_usage.getWeather(mContext, arrayCoordinates, reservation.getTour().getStartDate());
+
+                    buffer = arrayCoordinates.toString();
+
+                    if(weatherData != null){
+
+                        buffer = weatherData.toString();
+
+                        try{
+                            sunrise = weatherData.getString("sunrise");
+                            sunset = weatherData.getString("sunset");
+                            weatherId = weatherData.getJSONArray("weather").getJSONObject(0).getString("id");
+                            weatherDescritpion = weatherData.getJSONArray("weather").getJSONObject(0).getString("description");
+                            weatherDescritpion = weatherDescritpion.substring(0, 1).toUpperCase() + weatherDescritpion.substring(1);
+                            minTemp = weatherData.getJSONObject("temp").getString("min");
+                            maxTemp = weatherData.getJSONObject("temp").getString("max");
+                            humidity = weatherData.getString("humidity");
+                            windSpeed = weatherData.getString("wind_speed");
+                            buffer = sunrise+" // "+sunset+" // "+weatherId+" // "+weatherDescritpion+" // "+minTemp+" // "+maxTemp+" // "+humidity+" // "+windSpeed;
+
+                            //something to execute in the main thread, only the main thread is able to modify the view
+                            /*runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    weatherIcon.setImageDrawable(API_usage.getIconFromWeatherCode(context, Integer.parseInt(weatherId), sunrise, sunset, selectedTour.getStartHour()));
+                                    weatherDescriptionField.setText(weatherDescritpion);
+                                    minTemperatureField.setText("Min: " + minTemp + " C°");
+                                    maxTemperatureField.setText("Max: " + maxTemp + " C°");
+                                    humidityField.setText(humidity + " %");
+                                    windSpeedField.setText(windSpeed + " m/s");
+                                    weatherDescriptionLayout.setVisibility(View.VISIBLE);
+                                    weatherHumidityWindLayout.setVisibility(View.VISIBLE);
+                                    progressCircle.setVisibility(View.GONE);
+
+                                }
+                            });*/
+
+                        }catch (Exception e){
+                            //Case the parse of the weather response not goes well
+                            weatherGoesWrong = true;
+                            buffer = e + weatherData.toString();
+                        }
+                    }else{
+                        //Case api don't find the meteo
+                        weatherGoesWrong = true;
+                        buffer = "NULL weather ";
+                    }
+                }else{
+                    //Case api don't find the coordinates
+                    weatherGoesWrong = true;
+                    buffer = "NULL coordinates";
+                }
+
+                if(weatherGoesWrong){
+                    /*runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            weatherNotAvailable.setVisibility(View.VISIBLE);
+                            progressCircle.setVisibility(View.GONE);
+                        }
+                    });*/
+                }
+
+                Log.e("WEATHER/GEOCODING API DEBUG", buffer);
+
+            }
+        };
+        t.start();
 
         //DELETE OF THE RESERVATION
         fAuth = FirebaseAuth.getInstance();

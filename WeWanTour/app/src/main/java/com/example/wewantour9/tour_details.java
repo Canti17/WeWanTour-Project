@@ -63,7 +63,6 @@ public class tour_details extends AppCompatActivity {
     //weather
     private String buffer="";
     private Context context = this;
-    private Activity activity = (Activity) context;
     private JSONObject weatherData;
     private String sunrise="", sunset="", weatherId="", weatherDescritpion="", minTemp="", maxTemp="", humidity="", windSpeed="";
     private Boolean weatherGoesWrong = false;
