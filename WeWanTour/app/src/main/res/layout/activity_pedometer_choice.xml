@@ -128,7 +128,7 @@
                     android:id="@+id/weight_field"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:hint="Insert Your Weight (kg) (optional)"
+                    android:hint="Insert Your Weight (kg)"
                     android:inputType="numberDecimal"
                     android:textColorLink="#2661FA"
                     app:layout_constraintBottom_toBottomOf="parent"

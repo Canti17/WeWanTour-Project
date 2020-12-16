@@ -1,8 +1,10 @@
 package com.example.wewantour9;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -10,41 +12,48 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-public class PedometerRun extends AppCompatActivity {
+import static java.lang.Math.pow;
+
+public class PedometerRun extends AppCompatActivity implements SensorEventListener, StepListener {
 
     private Toolbar toolbar;
     private Button stoppedometer;
     ProgressBar progress;
-    private int progr;
     private TextView nometour;
     private TextView goaltext;
+    private TextView stepnumber;
+    private TextView caloriesnumber;
+    private TextView kmnumber;
     private int goal;
+    private final int KMTOCM = 100000;
 
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
+
+    private StepDetector simpleStepDetector;
+    private SensorManager sensorManager;
+    private Sensor accel;
+    private int numSteps;
+    private int stride;
+    private String numberEqual;
+    private double caloriescalculator;
+    private int height_int;
+    private int weight_int;
 
     private Chronometer chrono;
 
@@ -72,12 +81,11 @@ public class PedometerRun extends AppCompatActivity {
         progress= findViewById(R.id.progress_bar);
         nometour = findViewById(R.id.nometour);
         goaltext = findViewById(R.id.goal);
+        stepnumber = findViewById(R.id.stepnumber);
+        caloriesnumber = findViewById(R.id.caloriesnumber);
+        kmnumber = findViewById(R.id.kmnumber);
+        numberEqual = "";
 
-
-
-        //UPDATE STEP PROGRESS BAR
-        //progr = progress.getProgress();
-        //progress.setProgress(30);
 
         chrono = findViewById(R.id.timenumber);
         chrono.start();
@@ -92,6 +100,8 @@ public class PedometerRun extends AppCompatActivity {
         String name = extras.getString("Name");
         String height = extras.getString("Height");
         String weight = extras.getString("Weight");
+        height_int = Integer.parseInt(height);
+        weight_int = Integer.parseInt(weight);
         double timetot = extras.getDouble("Timetot");
         double kmtot = extras.getDouble("Km");
 
@@ -102,19 +112,29 @@ public class PedometerRun extends AppCompatActivity {
         CharSequence newnometour = nometour.getText();
         CharSequence namenew = (CharSequence) name;
 
+        stride = createStep(height_int, weight_int);
+
+        //STRINGS OF THE PAGE
         newnometour = namenew +"  -  " + todaynew;
         nometour.setText(newnometour);
-        goal = 9000;
-        String goalstring =String.valueOf(goal);
-        goaltext.setText("Goal: "+ goalstring + " steps");
+        goal = (int)(kmtot*KMTOCM)/stride;  //CALCOLO TRA LO STRIDE(PASSO) e i KM da fare secondo l'agenzia
+        String goalstring = String.valueOf(goal);
+        goaltext.setText("Tour Goal: "+ goalstring + " steps");
 
 
-        Log.d("EEEEE",height);
-        Log.d("EEEEEE",weight);
-        int stride = createStep(height, weight);
+
 
         //IMPLEMENTAZIONE PEDOMETRO CON GESTIONE ONPAUSE() AND ONRESUME()
 
+
+        // Get an instance of the SensorManager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
+
+        numSteps = 0;
+        sensorManager.registerListener(PedometerRun.this, accel, SensorManager.SENSOR_DELAY_FASTEST); //STARTING SENSOR
 
 
 
@@ -130,28 +150,73 @@ public class PedometerRun extends AppCompatActivity {
         });
 
     }
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
-    private int createStep(String height, String weight) {
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector.updateAccel(
+                    event.timestamp, event.values[0], event.values[1], event.values[2]);
+        }
+    }
+
+    @Override
+    public void step(long timeNs) {
+        numSteps++;
+        stepnumber.setText(String.valueOf(numSteps));  //UPDATE TEXT VALUE
+
+        double AverageVelocity = 1.2;
+        double AverageMetersForMinute = AverageVelocity*60;
+        int AverageStepsforMinute = (int)(AverageMetersForMinute*100)/stride;
+
+        caloriescalculator = ((double) 0.035 * weight_int) + (((double) pow(AverageVelocity, 2) /height_int) * ((double)0.029*weight_int));
+        double caloriesnewInt = (double)caloriescalculator/4;
+        int averageStepModified = AverageStepsforMinute/4;
+
+
+
+        int calc = goal/100;
+        for(int i = 1; i<=100; i++){
+            if(numSteps > calc*i){
+                progress.setProgress(i);  //UPDATE STEP PROGRESS BAR
+
+            }
+            if(numSteps == averageStepModified*i){
+                caloriesnewInt = caloriesnewInt*i;
+                String caloriesnew = new DecimalFormat("#.##").format(caloriesnewInt); //"1.2"
+                caloriesnumber.setText(caloriesnew); //UPDATE CALORIES 10 SECOND
+            }
+        }
+
+        double kmdone = ((double)numSteps*stride/100000);
+        String kmdonenew = new DecimalFormat("#.##").format(kmdone); //"1.2"
+
+        if(!numberEqual.equals(kmdonenew)){
+            numberEqual = kmdonenew;
+            kmnumber.setText(kmdonenew);
+        }
+
+        /*long millis = SystemClock.elapsedRealtime() - chrono.getBase();
+        long second = millis/1000;
+        Log.d("EEEEE", String.valueOf(second));*/
+
+
+
+
+
+
+    }
+
+
+    private int createStep(int hht, int wht) {
         int stridelocal = 0;
-        int hht;
-
-        if(weight.equals("default")){   //WEIGHT OPTIONAL NOT MESSO
+        //OTHER IDEAS INTERESTING
+        if(wht > 100){
             stridelocal -=8;
-
-            hht = Integer.parseInt(height);
-            stridelocal +=  (int) (hht*0.414);
         }
-
-        else{
-            hht = Integer.parseInt(height);
-            int wht = Integer.parseInt(weight);
-
-            stridelocal +=  (int) (hht*0.414);
-
-        }
-
-
-
+        stridelocal +=  (int) (hht*0.414);
 
         return stridelocal;
     }
