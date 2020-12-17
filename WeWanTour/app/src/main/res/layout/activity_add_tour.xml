@@ -380,6 +380,34 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_tripLength"
+        style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        app:boxStrokeColor="#2661FA"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_duration"
+        app:theme="@style/InputTextAppTheme">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittxt_tripLength"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:hint="Trip Length*  (km)"
+            android:inputType="numberDecimal"
+            android:textColorLink="#2661FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_tripLength"
+            app:layout_constraintStart_toStartOf="@+id/text_input_tripLength"
+            app:layout_constraintTop_toTopOf="@+id/text_input_tripLength" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_currentpeople"
@@ -392,7 +420,7 @@
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_duration"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_tripLength"
         app:theme="@style/InputTextAppTheme">
 
         <com.google.android.material.textfield.TextInputEditText

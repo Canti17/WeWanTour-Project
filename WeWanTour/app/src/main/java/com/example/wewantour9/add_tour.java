@@ -44,7 +44,7 @@ public class add_tour extends AppCompatActivity {
     private Button btn_DatePicker, btn_HourPicker, btn_submit;
     private ImageButton btn_bike, btn_walk;
     private EditText edtxt_name, edtxt_description, edtxt_startCity,edtxt_startStreet, edtxt_startCivic, edtxt_StartDate, edtxt_StartHour, edtxt_price,
-            edtxt_duration, edtxt_minPeople, edtxt_peopleLimit;
+            edtxt_duration, edtxt_minPeople, edtxt_peopleLimit, edtxt_tripLength;
     private TextView txt_vehicle;
     private int outYear, outMonthOfYear, outDayOfMonth, outMinute, outHourOfDay;
     private Button btn_chooseImg;
@@ -53,6 +53,7 @@ public class add_tour extends AppCompatActivity {
 
     private double doublePrice;
     private double doubleDuration;
+    private double tripLength;
     private String tourName;
     private String tourDescription;
     private String startPlace;
@@ -188,6 +189,7 @@ public class add_tour extends AppCompatActivity {
         edtxt_minPeople = findViewById(R.id.edittxt_minPeople);
         edtxt_peopleLimit= findViewById(R.id.edittxt_peoplelimit);
         txt_vehicle = findViewById(R.id.txt_vehicle);
+        edtxt_tripLength=findViewById(R.id.edittxt_tripLength);
 
 
 
@@ -388,6 +390,10 @@ public class add_tour extends AppCompatActivity {
                     edtxt_peopleLimit.setError("please enter number of people limit");//it gives user to info message
                     check = false;
                 }
+                if(edtxt_tripLength.getText().toString().equalsIgnoreCase("")) {
+                    edtxt_tripLength.setError("please enter length of the trip");//it gives user to info message
+                    check = false;
+                }
                 /*if(!((bike_pressed==true && walk_pressed==false) ||  (bike_pressed==false && walk_pressed==true))){
                     txt_vehicle.setError("please choose the vehicle");//it gives user to info message
                     check = false;
@@ -404,6 +410,7 @@ public class add_tour extends AppCompatActivity {
                     startHour=edtxt_StartHour.getText().toString();
                     minPeople= Integer.parseInt(edtxt_minPeople.getText().toString());
                     peopleLimit= Integer.parseInt(edtxt_peopleLimit.getText().toString());
+                    tripLength=Double.parseDouble(edtxt_tripLength.getText().toString());
 
                     if(bike_pressed==true && walk_pressed==false){
                         vehicle="bike";
@@ -429,7 +436,7 @@ public class add_tour extends AppCompatActivity {
         // adding listeners on upload or failure of image
 
         /* get current user to set agency*/
-        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,peopleLimit,minPeople,vehicle,null, null);
+        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,peopleLimit,minPeople,vehicle,null, null,tripLength);
         tour.setAgency(currentUser.getEmail());
 
         String imageStorageName = "Img_" + Integer.toString(tour.hashCode());

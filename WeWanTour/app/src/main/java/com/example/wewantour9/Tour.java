@@ -22,6 +22,7 @@ public class Tour implements Serializable {
     private String vehicle;
     private String agency;
     private String filePath;
+    private double tripLength;
 
 
 
@@ -29,22 +30,22 @@ public class Tour implements Serializable {
     }
 
 
-    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int peopleLimit,int minPeople, String vehicle, String agency, String filePath) {
+    public Tour(String name, String description, String startPlace, String startDate, String startHour, double price, double duration, int currentPeople, int minPeople, int peopleLimit, String vehicle, String agency, String filePath, double tripLength) {
         this.name = name;
         this.description = description;
         this.startPlace = startPlace;
-        this.startDate= startDate;
-        this.startHour= startHour;
+        this.startDate = startDate;
+        this.startHour = startHour;
         this.price = price;
         this.duration = duration;
         this.currentPeople = currentPeople;
+        this.minPeople = minPeople;
         this.peopleLimit = peopleLimit;
-        this.minPeople=minPeople;
         this.vehicle = vehicle;
-        this.agency=agency;
-        this.filePath= filePath;
+        this.agency = agency;
+        this.filePath = filePath;
+        this.tripLength = tripLength;
     }
-
 
     public String getName() {
         return name;
@@ -134,6 +135,10 @@ public class Tour implements Serializable {
         this.filePath = filePath;
     }
 
+    public double getTripLength() { return tripLength; }
+
+    public void setTripLength(double tripLength) { this.tripLength = tripLength; }
+
     @Override
     public String toString() {
         return "Tour{" +
@@ -150,6 +155,7 @@ public class Tour implements Serializable {
                 ", vehicle='" + vehicle + '\'' +
                 ", agency='" + agency + '\'' +
                 ", filePath='" + filePath + '\'' +
+                ", tripLength='" + tripLength+ '\'' +
                 '}';
     }
 

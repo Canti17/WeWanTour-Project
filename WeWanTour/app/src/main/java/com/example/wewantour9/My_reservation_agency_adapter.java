@@ -299,7 +299,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     if(agency_buffer.getEmail().equals(currentUser.getEmail())){
                         //get the user id
                         id_user = postSnapshot.getKey();
-                        Log.e("my_reservation_agency_adapter ID OF THE CURRENT USER (AGENCY):", id_reservation_tour);
+                        //Log.e("my_reservation_agency_adapter ID OF THE CURRENT USER (AGENCY):", id_reservation_tour);
                     }
                 }
             }
