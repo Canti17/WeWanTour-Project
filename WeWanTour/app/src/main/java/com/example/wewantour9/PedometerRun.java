@@ -1,11 +1,13 @@
 package com.example.wewantour9;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.MenuItem;
@@ -57,6 +59,20 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
 
     private Chronometer chrono;
 
+
+    private int progressStatus = 0;
+    private Handler handler = new Handler();
+
+    private  My_Canvas_View canvas_view;
+
+    private boolean isMoving=false;
+    private TextView percentage;
+    private ProgressBar horiz_pb;
+
+
+    private ObjectAnimator animation;
+
+
     @Override
     public void onBackPressed() {
         String agencycustomer = DataHolder.getInstance().getAgencycustomer();
@@ -91,6 +107,13 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         chrono.start();
         chrono.setBase(SystemClock.elapsedRealtime());
         chrono.setTypeface(ResourcesCompat.getFont(this, R.font.baloo));
+
+        canvas_view=findViewById(R.id.canvas_view);
+        canvas_view.setMoving(false);
+
+
+        percentage = (TextView) findViewById(R.id.tv);
+        horiz_pb = (ProgressBar) findViewById(R.id.pb);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -178,9 +201,18 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
 
 
         int calc = goal/100;
+        canvas_view.setMoving(true);
         for(int i = 1; i<=100; i++){
             if(numSteps > calc*i){
                 progress.setProgress(i);  //UPDATE STEP PROGRESS BAR
+                horiz_pb.setProgress(i);
+                percentage.setText(i+"%");
+
+                /*float end = canvas_view.getTranslationX() + 1;
+                animation = ObjectAnimator.ofFloat(canvas_view, "translationX", end);
+                animation.setDuration(50);
+                animation.start();*/
+
 
             }
             if(numSteps == averageStepModified*i){
@@ -231,5 +263,18 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
             startActivity(new Intent(PedometerRun.this, HomepageAgency.class));
         }
         return true;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        canvas_view.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        canvas_view.pause();
     }
 }
