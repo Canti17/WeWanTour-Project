@@ -215,7 +215,5 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
