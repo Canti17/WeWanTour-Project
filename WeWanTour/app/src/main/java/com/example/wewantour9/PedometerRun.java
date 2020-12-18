@@ -27,7 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.lang.Math.pow;
 
@@ -41,8 +45,9 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
     private TextView stepnumber;
     private TextView caloriesnumber;
     private TextView kmnumber;
-    private int goal;
+    private float goal;
     private final int KMTOCM = 100000;
+    private float kmdone;
 
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
@@ -56,6 +61,8 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
     private double caloriescalculator;
     private int height_int;
     private int weight_int;
+
+    private List<Float> spaceInterval;
 
     private Chronometer chrono;
 
@@ -102,6 +109,8 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         kmnumber = findViewById(R.id.kmnumber);
         numberEqual = "";
 
+        spaceInterval = new ArrayList<Float>();
+
 
         chrono = findViewById(R.id.timenumber);
         chrono.start();
@@ -140,8 +149,9 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         //STRINGS OF THE PAGE
         newnometour = namenew +"  -  " + todaynew;
         nometour.setText(newnometour);
-        goal = (int)(kmtot*KMTOCM)/stride;  //CALCOLO TRA LO STRIDE(PASSO) e i KM da fare secondo l'agenzia
-        String goalstring = String.valueOf(goal);
+        goal = (float)(kmtot*KMTOCM)/stride;  //CALCOLO TRA LO STRIDE(PASSO) e i KM da fare secondo l'agenzia
+        int goalint = (int) goal;
+        String goalstring = String.valueOf(goalint);
         goaltext.setText("Tour Goal: "+ goalstring + " steps");
 
 
@@ -160,8 +170,6 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         sensorManager.registerListener(PedometerRun.this, accel, SensorManager.SENSOR_DELAY_FASTEST); //STARTING SENSOR
 
 
-
-
         stoppedometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,7 +180,27 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
             }
         });
 
+
+        new Timer().scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run(){
+                countIntervals();
+            }
+        },0,10000);
+
+
+
     }
+
+    private void countIntervals() {
+
+        float value = kmdone;   //ALL KM UNTIL NOW
+        value = (float)value*1000;  //KM TO METERS
+        Log.i("EEEE", String.valueOf(value));
+        spaceInterval.add(value);   //ADD TO THE LIST
+    }
+
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
@@ -198,12 +226,11 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         double caloriesnewInt = (double)caloriescalculator/4;
         int averageStepModified = AverageStepsforMinute/4;
 
-
-
-        int calc = goal/100;
+        float calc = goal/100;
         canvas_view.setMoving(true);
         for(int i = 1; i<=100; i++){
-            if(numSteps > calc*i){
+            float number = calc*i;
+            if(numSteps > number){
                 progress.setProgress(i);  //UPDATE STEP PROGRESS BAR
                 horiz_pb.setProgress(i);
                 percentage.setText(i+"%");
@@ -213,7 +240,6 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
                 animation.setDuration(50);
                 animation.start();*/
 
-
             }
             if(numSteps == averageStepModified*i){
                 caloriesnewInt = caloriesnewInt*i;
@@ -222,7 +248,7 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
             }
         }
 
-        double kmdone = ((double)numSteps*stride/100000);
+        kmdone = ((float) numSteps*stride/100000);
         String kmdonenew = new DecimalFormat("#.##").format(kmdone); //"1.2"
 
         if(!numberEqual.equals(kmdonenew)){
