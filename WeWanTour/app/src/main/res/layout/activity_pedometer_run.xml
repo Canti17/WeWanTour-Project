@@ -10,9 +10,8 @@
     android:id="@+id/drawer">
 
 
-
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/gradient">
@@ -30,20 +29,6 @@
             app:layout_scrollFlags="enterAlways|scroll"
             app:popupTheme="@style/AppTheme"
             app:titleTextColor="@color/whiteTextColor" />
-
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-
 
 
 
@@ -70,7 +55,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-               >
+                tools:context=".MainActivity">
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -136,60 +121,7 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="234dp">
-
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginEnd="8dp"
-                android:text="0%"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/pb"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.623" />
-
-            <ProgressBar
-                android:id="@+id/pb"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="18dp"
-                android:layout_below="@id/tv"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="30dp"
-                android:max="100"
-                android:minHeight="18dp"
-                android:progressTint="@color/colorAccent"
-                android:rotationY="-1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/canvas_view" />
-
-            <com.example.wewantour9.My_Canvas_View
-                android:id="@+id/canvas_view"
-                android:layout_width="120dp"
-                android:layout_height="107dp"
-                android:layout_marginStart="45dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="45dp"
-                app:displayShapeName="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.gridlayout.widget.GridLayout
+            <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
@@ -386,9 +318,6 @@
 
 
 
-    </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
