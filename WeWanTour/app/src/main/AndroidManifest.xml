@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wewantour9">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,12 +14,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-
+        <activity android:name=".Run_prova"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PedometerRun"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".PedometerChoice"
             android:theme="@style/AppTheme.NoActionBar" />

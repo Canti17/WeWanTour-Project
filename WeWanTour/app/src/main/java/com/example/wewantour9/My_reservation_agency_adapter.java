@@ -289,7 +289,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                                 if (buffer_transport.equals(reservation.getTransport())) {
                                     //get the reservation transport id
                                     id_reservation_transport = listTransportSnapshot.getKey();
-                                    Log.e("my_reservation_agency_adapter ID OF THE RESERVED TRANSPORT:", id_reservation_tour);
+                                    //Log.e("my_reservation_agency_adapter ID OF THE RESERVED TRANSPORT:", id_reservation_tour);
                                     //get the new number of transport reservations in the case of deletion
                                     newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
                                 }

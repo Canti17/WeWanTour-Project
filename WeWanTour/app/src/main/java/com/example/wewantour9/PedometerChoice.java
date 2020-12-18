@@ -137,7 +137,7 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
 
                     String name = res.getTour().getName();
                     double timetot = res.getTour().getDuration();
-                    double kmtot = 1;
+                    double kmtot = 0.2;
                     DataHolder.getInstance().setData(1);
                     Intent intentrun = new Intent(PedometerChoice.this, PedometerRun.class);
                     intentrun.putExtra("Height", height_p.getText().toString());
