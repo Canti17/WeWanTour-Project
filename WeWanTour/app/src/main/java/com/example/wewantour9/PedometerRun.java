@@ -61,6 +61,8 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
     private double caloriescalculator;
     private int height_int;
     private int weight_int;
+    double kmTot;
+    double timeTot;
 
     private List<Float> spaceInterval;
 
@@ -134,8 +136,8 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         String weight = extras.getString("Weight");
         height_int = Integer.parseInt(height);
         weight_int = Integer.parseInt(weight);
-        double timetot = extras.getDouble("Timetot");
-        double kmtot = extras.getDouble("Km");
+        timeTot = extras.getDouble("Timetot");
+        kmTot = extras.getDouble("Km");
 
         Date today = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
@@ -149,7 +151,7 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         //STRINGS OF THE PAGE
         newnometour = namenew +"  -  " + todaynew;
         nometour.setText(newnometour);
-        goal = (float)(kmtot*KMTOCM)/stride;  //CALCOLO TRA LO STRIDE(PASSO) e i KM da fare secondo l'agenzia
+        goal = (float)(kmTot*KMTOCM)/stride;  //CALCOLO TRA LO STRIDE(PASSO) e i KM da fare secondo l'agenzia
         int goalint = (int) goal;
         String goalstring = String.valueOf(goalint);
         goaltext.setText("Tour Goal: "+ goalstring + " steps");

@@ -122,10 +122,10 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
                 String todaynew= DateFor.format(today);
                 if(!res.getTour().getStartDate().equals(todaynew.toString())){
                     Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
-                }/*
+                }
                 else if(res.getTour().getVehicle().equals("bike")){
                     Toast.makeText(PedometerChoice.this, "Sorry,you are in bike!! The pedometer is not provided for this Tour.", Toast.LENGTH_LONG).show();
-                }*/
+                }
                 else if (height_p.getText().toString().equals("")){
                     Toast.makeText(PedometerChoice.this, "Insert your Height!!", Toast.LENGTH_SHORT).show();
                 }
@@ -137,7 +137,7 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
 
                     String name = res.getTour().getName();
                     double timetot = res.getTour().getDuration();
-                    double kmtot = 0.2;
+                    double kmtot = res.getTour().getTripLength();
                     DataHolder.getInstance().setData(1);
                     Intent intentrun = new Intent(PedometerChoice.this, PedometerRun.class);
                     intentrun.putExtra("Height", height_p.getText().toString());
