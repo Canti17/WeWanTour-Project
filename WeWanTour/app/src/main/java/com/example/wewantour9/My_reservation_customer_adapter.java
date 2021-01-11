@@ -3,7 +3,10 @@ package com.example.wewantour9;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -34,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,10 +73,14 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
     private String sunrise="", sunset="", weatherId="", weatherDescritpion="", temp="", humidity="", windSpeed="";
     private Boolean weatherGoesWrong = false;
     private int orientation;
+    private ArrayList<ArrayList<String>> arrayCoordinatesTours;
+    private ArrayList<Boolean> flagForUpdate;
 
     public My_reservation_customer_adapter(Context mContext, List<Reservation> reservations) {
         this.mContext = mContext;
         this.reservations=reservations;
+        this.arrayCoordinatesTours = new ArrayList<ArrayList<String>>(Collections.nCopies(reservations.size(), new ArrayList<String>(){{add(null);add(null);}}));
+        this.flagForUpdate = new ArrayList<Boolean>(Collections.nCopies(reservations.size(), true));
     }
 
     @NonNull
@@ -83,7 +91,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final My_reservation_customer_adapter.ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final My_reservation_customer_adapter.ImageViewHolder holder, final int position) {
         final Reservation reservation=reservations.get(position);
         holder.text_tour_name.setText(reservation.getTour().getName());
         Glide.with(mContext)
@@ -154,13 +162,15 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
         Thread t = new Thread(){
             public void run(){
 
-                ArrayList<String> arrayCoordinates = API_usage.getCoordinates(mContext, reservation.getTour().getStartPlace());
+                final int p = position;
 
-                if(arrayCoordinates.get(0) != null){
+                arrayCoordinatesTours.add(p, API_usage.getCoordinates(mContext, reservations.get(p).getTour().getStartPlace()));
 
-                    weatherData = API_usage.getWeather(mContext, arrayCoordinates, reservation.getTour().getStartDate());
+                if(arrayCoordinatesTours.get(p).get(0) != null){
 
-                    buffer = arrayCoordinates.toString();
+                    weatherData = API_usage.getWeather(mContext, arrayCoordinatesTours.get(p), reservation.getTour().getStartDate());
+
+                    buffer = arrayCoordinatesTours.get(p).toString();
 
                     if(weatherData != null){
 
@@ -198,14 +208,22 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                                         holder.my_reservation_humidity_field.setVisibility(View.VISIBLE);
                                     }
 
+                                    if(flagForUpdate.get(p)) {
+                                        notifyItemChanged(p);
+                                        flagForUpdate.set(p, false);
+                                    }
+
                                 }
                             });
 
                         }catch (Exception e){
                             //Case the parse of the weather response not goes well
                             weatherGoesWrong = true;
-                            buffer = e + weatherData.toString();
-                        }
+                            if (weatherData != null) {
+                                buffer = e + weatherData.toString();
+                            } else {
+                                buffer = "NULL weather ";
+                            }                        }
                     }else{
                         //Case api don't find the meteo
                         weatherGoesWrong = true;
@@ -231,6 +249,43 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
             }
         };
         t.start();
+
+        holder.text_tour_place.setPaintFlags(holder.text_tour_place.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+
+        holder.text_tour_place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int po = position;
+                if(arrayCoordinatesTours.get(po).get(0) != null) {
+                    //Uri googleMapPointURI = Uri.parse("google.navigation:q="+arrayCoordinatesTour.get(0)+","+arrayCoordinatesTour.get(1));
+                    Uri googleMapPointURI =  Uri.parse("http://maps.google.com/maps?daddr="+arrayCoordinatesTours.get(po).get(0) + "," + arrayCoordinatesTours.get(po).get(1));
+                    Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, googleMapPointURI);
+                    googleMapIntent.setPackage("com.google.android.apps.maps");
+                    Log.e("DEBUG MAPS",po+"");
+                    Log.e("DEBUG MAPS",reservations.get(po).getTour().getStartPlace());
+                    Log.e("DEBUG MAPS",googleMapPointURI.toString());
+                    if (googleMapIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                        mContext.startActivity(googleMapIntent);
+                    }else{
+                        String text = "Install Google Maps or if it is already opened close it";
+                        Spannable centeredText = new SpannableString(text);
+                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                0, text.length() - 1,
+                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }else{
+                    String text = "Invalid location";
+                    Spannable centeredText = new SpannableString(text);
+                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                            0, text.length() - 1,
+                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
 
         //DELETE OF THE RESERVATION
         fAuth = FirebaseAuth.getInstance();
@@ -372,7 +427,6 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
 
 
     }
-
 
     @Override
     public int getItemCount() { return reservations.size(); }

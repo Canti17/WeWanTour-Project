@@ -117,26 +117,30 @@
 
                 <TextView
                     android:id="@+id/textViewStartPlace"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     android:maxLines="2"
                     android:text="Via della Giuliana, Rome 77prova per vedere la lunghezza come va"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageViewMapIcon"
+                    app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
-                    app:layout_constraintHorizontal_bias="0.061"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageViewMapIcon"
-                    app:layout_constraintTop_toTopOf="@+id/imageViewMapIcon"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/textViewClockIcon" />
 
                 <ImageView
                     android:id="@+id/imageViewMapIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewStartPlace"
                     app:layout_constraintStart_toStartOf="@+id/textViewClockIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewClockIcon"
+                    app:layout_constraintTop_toTopOf="@+id/textViewStartPlace"
                     app:srcCompat="@drawable/map" />
 
                 <ImageView
@@ -155,7 +159,7 @@
                     android:layout_marginStart="8dp"
                     android:text="10:30 am"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/imageViewMapIcon"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewClockIcon"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
                     app:layout_constraintHorizontal_bias="0.035"
                     app:layout_constraintStart_toEndOf="@+id/textViewClockIcon"
@@ -781,12 +785,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/weather_beckground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewMapIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStartPlace"
                     app:layout_constraintWidth_max="500dp"><![CDATA[
 
                     " />
@@ -986,6 +990,20 @@
                         app:layout_constraintWidth_max="50dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/imageViewTourDetailsLinkArrow"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="2dp"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewStartPlace"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewTourTitle"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textViewStartPlace"
+                    app:layout_constraintTop_toTopOf="@+id/textViewStartPlace"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:srcCompat="@drawable/link_arrow" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

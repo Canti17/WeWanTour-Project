@@ -10,8 +10,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,7 +54,7 @@ public class tour_details extends AppCompatActivity {
                         transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, transReservationsLabel,
                         directRegister, weatherDescriptionField, minTemperatureField, maxTemperatureField, humidityField,
                         windSpeedField, weatherNotAvailable;
-    private ImageView vehicle, mainImage, transVehicle, deleteTransport, weatherIcon;
+    private ImageView vehicle, mainImage, transVehicle, deleteTransport, weatherIcon, linkIcon;
     private Button selectTransport, gotToSummaryPage;
     private ConstraintLayout bookingOptionsLayout1, bookingOptionsLayout2, weatherDescriptionLayout, weatherHumidityWindLayout;
     private ProgressBar progressCircle;
@@ -66,6 +73,8 @@ public class tour_details extends AppCompatActivity {
     private JSONObject weatherData;
     private String sunrise="", sunset="", weatherId="", weatherDescritpion="", minTemp="", maxTemp="", humidity="", windSpeed="";
     private Boolean weatherGoesWrong = false;
+    //Maps
+    private ArrayList<String> arrayCoordinatesTour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +91,7 @@ public class tour_details extends AppCompatActivity {
         startDate = findViewById(R.id.textViewStartDate);
         startTime = findViewById(R.id.textViewStartTime);
         startPlace = findViewById(R.id.textViewStartPlace);
+        startPlace.setPaintFlags(startPlace.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         detailsText = findViewById(R.id.textViewDetailsText);
         vehicle = findViewById(R.id.imageViewVehicle);
         duration = findViewById(R.id.textViewDurationValue);
@@ -120,6 +130,8 @@ public class tour_details extends AppCompatActivity {
         weatherDescriptionLayout = findViewById(R.id.constraintLayoutTourDetailsWeatherDescription);
         weatherHumidityWindLayout = findViewById(R.id.constraintLayoutTourDetailsWeatherHumidityWind);
         weatherNotAvailable = findViewById(R.id.textViewTourDetailsWeatherNotAvailable);
+
+        linkIcon = findViewById(R.id.imageViewTourDetailsLinkArrow);
 
 
         selectedTour =  (Tour) getIntent().getSerializableExtra("Tour class from HomePage");
@@ -291,13 +303,13 @@ public class tour_details extends AppCompatActivity {
         Thread t = new Thread(){
             public void run(){
 
-                ArrayList<String> arrayCoordinates = API_usage.getCoordinates(context, selectedTour.getStartPlace());
+                arrayCoordinatesTour = API_usage.getCoordinates(context, selectedTour.getStartPlace());
 
-                if(arrayCoordinates.get(0) != null){
+                if(arrayCoordinatesTour.get(0) != null){
 
-                    weatherData = API_usage.getWeather(context, arrayCoordinates, selectedTour.getStartDate());
+                    weatherData = API_usage.getWeather(context, arrayCoordinatesTour, selectedTour.getStartDate());
 
-                    buffer = arrayCoordinates.toString();
+                    buffer = arrayCoordinatesTour.toString();
 
                     if(weatherData != null){
 
@@ -370,7 +382,48 @@ public class tour_details extends AppCompatActivity {
         };
         t.start();
 
+        startPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleMapsForTourDetails();
+            }
+        });
 
+        linkIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleMapsForTourDetails();
+            }
+        });
+
+    }
+
+    public void googleMapsForTourDetails(){
+        if(arrayCoordinatesTour.get(0) != null) {
+            Uri googleMapPointURI = Uri.parse("geo:"+arrayCoordinatesTour.get(0) + "," + arrayCoordinatesTour.get(1)+"?q=" + arrayCoordinatesTour.get(0) + "," + arrayCoordinatesTour.get(1)+"("+selectedTour.getName()+")"+"&z=1");
+            Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, googleMapPointURI);
+            googleMapIntent.setPackage("com.google.android.apps.maps");
+            Log.e("DEBUG ",googleMapPointURI.toString());
+            if (googleMapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(googleMapIntent);
+            }else{
+                String text = "Install Google Maps or if it is already opened close it";
+                Spannable centeredText = new SpannableString(text);
+                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                        0, text.length() - 1,
+                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                Toast toast = Toast.makeText(context, centeredText, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }else{
+            String text = "Invalid location";
+            Spannable centeredText = new SpannableString(text);
+            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                    0, text.length() - 1,
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            Toast toast = Toast.makeText(context, centeredText, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     //Callback function from the transport list
