@@ -228,7 +228,7 @@ public class AgencyFragmentRegistration extends Fragment {
 
                         Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                  "", Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
-                                telephone, "Rome", iva_number.getText().toString().trim());
+                                telephone, iva_number.getText().toString().trim());
                         Log.e("AgencyFragmentRegistration AGENCY CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", agency.toString());
 
                         reference.child(new_agency_id).setValue(agency);
@@ -269,7 +269,7 @@ public class AgencyFragmentRegistration extends Fragment {
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                     Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                              "", Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
-                                            telephone, "Rome", iva_number.getText().toString().trim());
+                                            telephone, iva_number.getText().toString().trim());
 
                                     Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 

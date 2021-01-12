@@ -79,7 +79,7 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Pedometro");
+        getSupportActionBar().setTitle("Pedometer");
 
 
 
@@ -116,40 +116,39 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
         startbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Reservation res = SearchReservation(reservationselected);
-                Date today = new Date();
-                SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-                String todaynew= DateFor.format(today);
-                if(!res.getTour().getStartDate().equals(todaynew.toString())){
-                    Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
+                if (reservationselected == null){
+                    Toast.makeText(PedometerChoice.this, "You have not selected a correct Tour!", Toast.LENGTH_LONG).show();
                 }
-                else if(res.getTour().getVehicle().equals("bike")){
-                    Toast.makeText(PedometerChoice.this, "Sorry,you are in bike!! The pedometer is not provided for this Tour.", Toast.LENGTH_LONG).show();
-                }
-                else if (height_p.getText().toString().equals("")){
-                    Toast.makeText(PedometerChoice.this, "Insert your Height!!", Toast.LENGTH_SHORT).show();
-                }
-                else if (weight_p.getText().toString().equals("")){
-                    Toast.makeText(PedometerChoice.this, "Insert your Weight!!", Toast.LENGTH_SHORT).show();
-                }
-
                 else {
+                    Reservation res = SearchReservation(reservationselected);
+                    Date today = new Date();
+                    SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+                    String todaynew = DateFor.format(today);
+                    if (!res.getTour().getStartDate().equals(todaynew.toString())) {
+                        Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
+                    } else if (res.getTour().getVehicle().equals("bike")) {
+                        Toast.makeText(PedometerChoice.this, "Sorry,you are in bike!! The pedometer is not provided for this Tour.", Toast.LENGTH_LONG).show();
+                    } else if (height_p.getText().toString().equals("")) {
+                        Toast.makeText(PedometerChoice.this, "Insert your Height!!", Toast.LENGTH_SHORT).show();
+                    } else if (weight_p.getText().toString().equals("")) {
+                        Toast.makeText(PedometerChoice.this, "Insert your Weight!!", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    String name = res.getTour().getName();
-                    double timetot = res.getTour().getDuration();
-                    double kmtot = res.getTour().getTripLength();
-                    DataHolder.getInstance().setData(1);
-                    Intent intentrun = new Intent(PedometerChoice.this, PedometerRun.class);
-                    intentrun.putExtra("Height", height_p.getText().toString());
-                    intentrun.putExtra("Weight", weight_p.getText().toString());
-                    intentrun.putExtra("Name", name);
-                    intentrun.putExtra("Timetot", timetot);
-                    intentrun.putExtra("Km", kmtot);
+                        String name = res.getTour().getName();
+                        double timetot = res.getTour().getDuration();
+                        double kmtot = res.getTour().getTripLength();
+                        DataHolder.getInstance().setData(1);
+                        Intent intentrun = new Intent(PedometerChoice.this, PedometerRun.class);
+                        intentrun.putExtra("Height", height_p.getText().toString());
+                        intentrun.putExtra("Weight", weight_p.getText().toString());
+                        intentrun.putExtra("Name", name);
+                        intentrun.putExtra("Timetot", timetot);
+                        intentrun.putExtra("Km", kmtot);
 
-                    startActivity(intentrun);
-                    finish();
+                        startActivity(intentrun);
+                        finish();
+                    }
                 }
-
             }
         });
 
