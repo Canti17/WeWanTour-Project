@@ -49,7 +49,7 @@ public class tour_details extends AppCompatActivity {
         finish();
     }
 
-    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, minPeople, nowPeople, maxPeople,
+    private TextView tourTitle, startDate, startTime, startPlace, detailsText, duration, length, minPeople, nowPeople, maxPeople,
                         cost, transDate, transHour, transPlace, transCost, transReservations, noTransport, transDateLabel,
                         transHourLabel, transPlaceLabel, transCostLabel, transVehicleLabel, transReservationsLabel,
                         directRegister, weatherDescriptionField, minTemperatureField, maxTemperatureField, humidityField,
@@ -95,6 +95,7 @@ public class tour_details extends AppCompatActivity {
         detailsText = findViewById(R.id.textViewDetailsText);
         vehicle = findViewById(R.id.imageViewVehicle);
         duration = findViewById(R.id.textViewDurationValue);
+        length= findViewById(R.id.textViewLengthValue);
         minPeople = findViewById(R.id.textViewMinPeople);
         nowPeople = findViewById(R.id.textViewNowPeople);
         maxPeople = findViewById(R.id.textViewMaxPeople);
@@ -145,6 +146,7 @@ public class tour_details extends AppCompatActivity {
         startPlace.setText(selectedTour.getStartPlace());
         detailsText.setText(selectedTour.getDescription());
         duration.setText(String.valueOf((int)selectedTour.getDuration())+" min");
+        length.setText("   " + String.valueOf(selectedTour.getTripLength()) + " Km");
         minPeople.setText(String.valueOf(selectedTour.getMinPeople()));
         nowPeople.setText(String.valueOf(selectedTour.getCurrentPeople()));
         maxPeople.setText(String.valueOf(selectedTour.getPeopleLimit()));
