@@ -115,35 +115,27 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
 
-                if (reservationselected == null){
+                if (reservationselected == null) {
                     Toast.makeText(PedometerChoice.this, "You have not selected a correct Tour!", Toast.LENGTH_LONG).show();
+
                 }else{
 
-                    Reservation res = SearchReservation(reservationselected);
-                Date today = new Date();
-                SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-                String todaynew= DateFor.format(today);
-                String[] tour_date_splitted= res.getTour().getStartDate().split("/");
-                String tour_date;
-                if(Integer.parseInt(tour_date_splitted[1])<10){
-                    tour_date=tour_date_splitted[0]+"/"+"0"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
-                }else{
-                    tour_date=tour_date_splitted[0]+"/"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
-                }
-                Log.d("STAMPO DATA TOUR",""+tour_date+"-- "+tour_date.equals(todaynew.toString()));
-                Log.d("STAMPO DATA OGGI",""+todaynew.toString());
-                if(!tour_date.equals(todaynew.toString())){
-                    Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
-
-                
-                else {
                     Reservation res = SearchReservation(reservationselected);
                     Date today = new Date();
                     SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-                    String todaynew = DateFor.format(today);
-                    if (!res.getTour().getStartDate().equals(todaynew.toString())) {
-                        Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
-                    } else if (res.getTour().getVehicle().equals("bike")) {
+                    String todaynew= DateFor.format(today);
+                    String[] tour_date_splitted= res.getTour().getStartDate().split("/");
+                    String tour_date;
+                    if(Integer.parseInt(tour_date_splitted[1])<10){
+                        tour_date=tour_date_splitted[0]+"/"+"0"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
+                    }else{
+                        tour_date=tour_date_splitted[0]+"/"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
+                    }
+                    
+                    if(!tour_date.equals(todaynew.toString())) {
+                    Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
+                    }
+                     else if (res.getTour().getVehicle().equals("bike")) {
                         Toast.makeText(PedometerChoice.this, "Sorry,you are in bike!! The pedometer is not provided for this Tour.", Toast.LENGTH_LONG).show();
                     } else if (height_p.getText().toString().equals("")) {
                         Toast.makeText(PedometerChoice.this, "Insert your Height!!", Toast.LENGTH_SHORT).show();
@@ -170,7 +162,7 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
 
                 }
                 
-            }
+
         });
 
 
