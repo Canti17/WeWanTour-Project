@@ -16,7 +16,6 @@ public class Agency extends User {
 
     private String agency_name;
     private String telephone_number;
-    private String location;
     private String iva_number;
 
     private ArrayList<Tour> list_tour;
@@ -27,11 +26,10 @@ public class Agency extends User {
     }
 
     public Agency(String full_name, String email, String image, int id, String agency_name, String telephone_number,
-                  String location, String iva_number) {
+                   String iva_number) {
         super(full_name, email, image, id);
         this.agency_name = agency_name;
         this.telephone_number = telephone_number;
-        this.location = location;
         this.iva_number = iva_number;
 
         this.list_tour=new ArrayList<Tour>();
@@ -48,14 +46,6 @@ public class Agency extends User {
 
     public void setTelephone_number(String telephone_number) {
         this.telephone_number = telephone_number;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getIva_number() {
@@ -117,7 +107,6 @@ public class Agency extends User {
         return super.toString() + "Agency{" +
                 "agency_name='" + agency_name + '\'' +
                 ", telephone_number='" + telephone_number + '\'' +
-                ", location='" + location + '\'' +
                 ", iva_number='" + iva_number + '\'' +
                 ", list_tour=" + list_tour +
                 ", list_transports=" + list_transports +
@@ -132,7 +121,6 @@ public class Agency extends User {
         Agency agency = (Agency) o;
         return Objects.equals(agency_name, agency.agency_name) &&
                 Objects.equals(telephone_number, agency.telephone_number) &&
-                Objects.equals(location, agency.location) &&
                 Objects.equals(iva_number, agency.iva_number) &&
                 Objects.equals(list_tour, agency.list_tour) &&
                 Objects.equals(list_transports, agency.list_transports);

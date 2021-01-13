@@ -137,8 +137,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         nav_view = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer);
 
-        floatingButton = findViewById(R.id.floatingButton);
-
         searchView = findViewById(R.id.search_view);
 
         value =  getIntent().getIntExtra("Google",0);
@@ -206,11 +204,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             //Hide or show items
             menu = nav_view.getMenu();
 
-            //PEDOMETER IS ACTIVE ??
-            int data = DataHolder.getInstance().getData();
-            if(data == 0){
-                floatingButton.findViewById(R.id.floatingButton).setVisibility((View.GONE));
-            }
 
             //GESTIONE MENU
             if(current_user == null) {
@@ -229,15 +222,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
 
         }
-
-
-        floatingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();   //GO TO PEDOMETER PAGE
-            }
-                                          });
-
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TOUR");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {

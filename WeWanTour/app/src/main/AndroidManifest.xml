@@ -14,12 +14,17 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-        <activity android:name=".Run_prova"
+        <activity android:name=".Review"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Run_prova"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PedometerRun"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PedometerChoice"
             android:theme="@style/AppTheme.NoActionBar" />
