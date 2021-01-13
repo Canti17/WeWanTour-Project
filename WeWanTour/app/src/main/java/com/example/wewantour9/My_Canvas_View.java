@@ -27,6 +27,11 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
     private volatile boolean playing;
     private Canvas canvas;// New variables for the sprite sheet animation
 
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
     private long timeThisFrame;
 
     long fps;
@@ -63,12 +68,16 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
     private Rect frameToDraw;
 
     // A rect that defines an area of the screen on which to draw
+    private RectF whereToDraw;
 
-
-    RectF whereToDraw;
+    public RectF getWhereToDraw() {
+        return whereToDraw;
+    }
 
     Paint paint;
 
+
+    private int window_w=0;
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -82,11 +91,13 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
         // We need to do this because Android automatically
         // scales bitmaps based on screen density
         bitmapBob = Bitmap.createScaledBitmap(bitmapBob,
-                w*frameCount,
-                h ,
+                w/2*frameCount,
+                h/2,
                 true);
-        frameHeight=h;
-        frameWidth=w;
+        frameHeight=h/2;
+        frameWidth=w/2;
+        window_w=w;
+        //bobXPosition=this.getWidth()/2;
     }
 
 
@@ -126,6 +137,20 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
         frameToDraw.right = frameToDraw.left + frameWidth;
 
     }
+
+
+    public float k= 0;
+    public float current_position=0;
+
+    public void setK_to2(int val){
+        k= (float) 8*val;
+        current_position+=k;
+    }
+    public void setK_to0(){
+        k=5;
+        current_position+=k;
+    }
+
     // Draw the newly updated scene
     public void draw() throws IOException {
         // Make sure our drawing surface is valid or we crash
@@ -136,15 +161,20 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
 
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             frameToDraw = new Rect(0, 0, frameWidth, frameHeight);
-            whereToDraw = new RectF(bobXPosition,bobYPosition, bobXPosition + frameWidth, frameHeight);
+            whereToDraw = new RectF(bobXPosition,0, bobXPosition + frameWidth, frameHeight);
 
-            whereToDraw.set((int)bobXPosition, 0, (int)bobXPosition + frameWidth, frameHeight);
+            Log.d("STAMPO K", ""+k);
+
+            whereToDraw.set( current_position,frameHeight/2, (float) (current_position+frameWidth/1.5),frameHeight*2);
+
             getCurrentFrame();
             canvas.drawBitmap(bitmapBob, frameToDraw, whereToDraw, paint);
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
         }
+        //invalidate();
+
 
     }
 
@@ -157,7 +187,6 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
         } catch (InterruptedException e) {
             Log.e("Error:", "joining thread");
         }
-
     }
 
     // If SimpleGameEngine Activity is started theb
@@ -167,11 +196,6 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
         gameThread = new Thread(this);
         gameThread.start();
     }
-
-
-
-
-
 
     // The SurfaceView class implements onTouchListener
     // So we can override this method and detect screen touches.
@@ -183,7 +207,6 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
                 isMoving = !isMoving;
                 break;
         }
-
         return true;
     }*/
 
@@ -192,7 +215,6 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
         isMoving=value;
     }
 
-
     @Override
     public void run() {
         while (playing) {
@@ -200,12 +222,11 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
             // Capture the current time in milliseconds in startFrameTime
             long startFrameTime = System.currentTimeMillis();
 
-
-
             // Draw the frame
             try {
                 draw();
             } catch (IOException e) {
+                Log.d("PORCO DI QUEL", "DIO");
                 e.printStackTrace();
             }
 

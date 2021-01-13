@@ -8,12 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -120,7 +118,16 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
                 Date today = new Date();
                 SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
                 String todaynew= DateFor.format(today);
-                if(!res.getTour().getStartDate().equals(todaynew.toString())){
+                String[] tour_date_splitted= res.getTour().getStartDate().split("/");
+                String tour_date;
+                if(Integer.parseInt(tour_date_splitted[1])<10){
+                    tour_date=tour_date_splitted[0]+"/"+"0"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
+                }else{
+                    tour_date=tour_date_splitted[0]+"/"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
+                }
+                Log.d("STAMPO DATA TOUR",""+tour_date+"-- "+tour_date.equals(todaynew.toString()));
+                Log.d("STAMPO DATA OGGI",""+todaynew.toString());
+                if(!tour_date.equals(todaynew.toString())){
                     Toast.makeText(PedometerChoice.this, "Error: This Tour is not starting today!!", Toast.LENGTH_LONG).show();
                 }
                 else if(res.getTour().getVehicle().equals("bike")){
