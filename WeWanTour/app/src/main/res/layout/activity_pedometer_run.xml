@@ -147,15 +147,15 @@
                 android:id="@+id/tv"
                 android:layout_width="34dp"
                 android:layout_height="20dp"
+                android:layout_marginTop="132dp"
                 android:text="0%"
                 android:textAlignment="textEnd"
+
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/graphView2"
                 app:layout_constraintEnd_toStartOf="@+id/pb"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.873" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.example.wewantour9.My_Canvas_View
                 android:id="@+id/canvas_view"
@@ -186,22 +186,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/canvas_view" />
 
 
-            <com.example.wewantour9.graphView
-                android:id="@+id/graphView2"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pb"
-                app:layout_constraintVertical_bias="1.0">
 
-            </com.example.wewantour9.graphView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -385,7 +370,31 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <com.example.wewantour9.graphView
+                android:id="@+id/graphView2"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="1.0">
+
+            </com.example.wewantour9.graphView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp">
 
 
                 <Button
@@ -398,10 +407,9 @@
                     android:layout_marginBottom="20dp"
                     android:text="STOP PEDOMETER"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTourDetails3"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.100000024" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

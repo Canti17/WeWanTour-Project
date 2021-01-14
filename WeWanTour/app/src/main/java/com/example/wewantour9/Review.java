@@ -1,10 +1,13 @@
 package com.example.wewantour9;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.media.Rating;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,14 +33,16 @@ public class Review extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
-        toolbar = findViewById(R.id.toolbar);
         sendReview = findViewById(R.id.sendReview);
         text = findViewById(R.id.textarea);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Review");
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
+
 
         rating = (RatingBar) findViewById(R.id.rating);
         //ratingBar.setRating(5);
@@ -56,7 +61,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (rating.getRating() == 0.0){
-                    Toast.makeText(Review.this, String.valueOf("Please, rate the tour from 0 to 5 stars!"),
+                    Toast.makeText(Review.this, String.valueOf("Please, rate the tour from 0.5 to 5 stars!"),
                             Toast.LENGTH_SHORT).show();
 
                 }
@@ -77,5 +82,12 @@ public class Review extends AppCompatActivity {
 
 
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
     }
 }
