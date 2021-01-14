@@ -2,6 +2,7 @@ package com.example.wewantour9;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -73,6 +74,8 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
     private Handler handler = new Handler();
 
     private  My_Canvas_View canvas_view;
+    private Canvas canvas;
+    private graphView graphView;
 
     private boolean isMoving=false;
     private TextView percentage;
@@ -81,6 +84,10 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
 
     private ObjectAnimator animation;
 
+    private int x_ripetition;
+
+    private boolean global_bool=false;
+    private int temp=-1;
 
     @Override
     public void onBackPressed() {
@@ -123,6 +130,12 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         canvas_view.setMoving(false);
 
 
+        canvas=canvas_view.getCanvas();
+
+
+        graphView=findViewById(R.id.graphView2);
+
+
         percentage = (TextView) findViewById(R.id.tv);
         horiz_pb = (ProgressBar) findViewById(R.id.pb);
 
@@ -138,6 +151,12 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         weight_int = Integer.parseInt(weight);
         timeTot = extras.getDouble("Timetot");
         kmTot = extras.getDouble("Km");
+
+
+        Log.d("STAMPO IN PEDOMETER RUN--------- KM-----",""+kmTot);
+
+        graphView.setLunghezza_percorso((float) (kmTot*1000));
+        graphView.setDurata_tour((float) timeTot);
 
         Date today = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
@@ -157,6 +176,7 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         goaltext.setText("Tour Goal: "+ goalstring + " steps");
 
 
+        x_ripetition=1;
 
 
         //IMPLEMENTAZIONE PEDOMETRO CON GESTIONE ONPAUSE() AND ONRESUME()
@@ -170,6 +190,7 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
 
         numSteps = 0;
         sensorManager.registerListener(PedometerRun.this, accel, SensorManager.SENSOR_DELAY_FASTEST); //STARTING SENSOR
+
 
 
         stoppedometer.setOnClickListener(new View.OnClickListener() {
@@ -196,10 +217,13 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
 
     private void countIntervals() {
 
+        x_ripetition+=1;
         float value = kmdone;   //ALL KM UNTIL NOW
         value = (float)value*1000;  //KM TO METERS
         Log.i("EEEE", String.valueOf(value));
         spaceInterval.add(value);   //ADD TO THE LIST
+
+        graphView.addLine(x_ripetition,value);
     }
 
 
@@ -228,6 +252,10 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
         double caloriesnewInt = (double)caloriescalculator/4;
         int averageStepModified = AverageStepsforMinute/4;
 
+
+
+        int old_progress=0;
+
         float calc = goal/100;
         canvas_view.setMoving(true);
         for(int i = 1; i<=100; i++){
@@ -235,8 +263,9 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
             if(numSteps > number){
                 progress.setProgress(i);  //UPDATE STEP PROGRESS BAR
                 horiz_pb.setProgress(i);
-                percentage.setText(i+"%");
 
+                percentage.setText(i+"%");
+                old_progress=i;
                 /*float end = canvas_view.getTranslationX() + 1;
                 animation = ObjectAnimator.ofFloat(canvas_view, "translationX", end);
                 animation.setDuration(50);
@@ -248,7 +277,32 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
                 String caloriesnew = new DecimalFormat("#.##").format(caloriesnewInt); //"1.2"
                 caloriesnumber.setText(caloriesnew); //UPDATE CALORIES 10 SECOND
             }
+
+
         }
+
+
+
+        if(old_progress!=temp) {
+            temp = old_progress;
+
+            Log.d("STAMPO IL TEMP", ""+temp);
+
+
+            if (old_progress != 0 && old_progress % 1 == 0) {
+
+                canvas_view.setK_to2(1);
+           /* if(old_progress<16) {
+                canvas_view.setK_to2(1);
+            }else if(old_progress>=16 && old_progress<31){
+                canvas_view.setK_to2(3);
+            }*/
+            }
+
+        }
+
+        Log.d("STAMPO OLD_PROGRESS:", "" + old_progress);
+
 
         kmdone = ((float) numSteps*stride/100000);
         String kmdonenew = new DecimalFormat("#.##").format(kmdone); //"1.2"

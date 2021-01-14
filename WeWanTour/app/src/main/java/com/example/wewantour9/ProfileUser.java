@@ -254,14 +254,7 @@ public class ProfileUser extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(value == 0){
-                    startActivity(new Intent(getApplicationContext(), My_reservation_agency.class));
-                }
-                else{
-                    startActivity(new Intent(getApplicationContext(), My_reservation_customer.class));
-                }
-
-
+                 startActivity(new Intent(getApplicationContext(), my_past_incoming_reservation.class));
             }
         });
 

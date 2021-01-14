@@ -143,10 +143,10 @@ public class my_incoming_reservation extends Fragment {
                 }
 
                 if(flagIsCustomer){
-                    cAdapter = new My_reservation_customer_adapter(getContext(), reservations);
+                    cAdapter = new My_reservation_customer_adapter(getContext(), reservations,false);
                     mRecyclerView.setAdapter(cAdapter);
                 }else{
-                    aAdapter = new My_reservation_agency_adapter(getContext(), reservations);
+                    aAdapter = new My_reservation_agency_adapter(getContext(), reservations,false);
                     mRecyclerView.setAdapter(aAdapter);
                 }
                 mRecyclerView.setLayoutManager(mLayoutManager);

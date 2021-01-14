@@ -67,6 +67,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
 
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
 
+    private Boolean isPastReservation;
     //weather
     private String buffer="";
     private JSONObject weatherData;
@@ -76,9 +77,10 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
     private ArrayList<ArrayList<String>> arrayCoordinatesTours;
     private ArrayList<Boolean> flagForUpdate;
 
-    public My_reservation_customer_adapter(Context mContext, List<Reservation> reservations) {
+    public My_reservation_customer_adapter(Context mContext, List<Reservation> reservations, Boolean isPastReservation) {
         this.mContext = mContext;
         this.reservations=reservations;
+        this.isPastReservation=isPastReservation;
         this.arrayCoordinatesTours = new ArrayList<ArrayList<String>>(Collections.nCopies(reservations.size(), new ArrayList<String>(){{add(null);add(null);}}));
         this.flagForUpdate = new ArrayList<Boolean>(Collections.nCopies(reservations.size(), true));
     }
@@ -99,6 +101,18 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                 .into(holder.img_tour);
         holder.text_tour_place.setText(reservation.getTour().getStartPlace());
         tour_cost=reservation.getTour().getPrice();
+        if(isPastReservation){
+            holder.btn_rating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, Review.class));
+                }
+            });
+
+        }else{
+            holder.btn_rating.setVisibility(View.GONE);
+        }
+
         if(reservation.getTransport()!= null){
 
             transport_cost=reservation.getTransport().getCost();
@@ -455,6 +469,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
         public TextView my_reservation_wind_field;
         public TextView my_reservation_weather_field;
         public ProgressBar my_reservation_weather_progressbar;
+        public Button btn_rating;
 
 
 
@@ -482,6 +497,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
             my_reservation_wind_field = itemView.findViewById(R.id.textViewMyReservationsRowWind);
             my_reservation_weather_field = itemView.findViewById(R.id.textViewMyReservationRowWeather);
             my_reservation_weather_progressbar = itemView.findViewById(R.id.progressBarMyReservationWeather);
+            btn_rating=itemView.findViewById(R.id.btn_rating);
         }
     }
 }

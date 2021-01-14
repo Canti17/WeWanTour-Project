@@ -125,14 +125,11 @@
             android:id="@+id/btn_edit_tour"
             android:layout_width="26dp"
             android:layout_height="31dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/text_start_place"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/btn_delete_tour"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.075"
             app:srcCompat="@drawable/ic_edit_black_24dp" />
 
         <Button
@@ -146,11 +143,11 @@
             android:textSize="10sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_start_place"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.832"
+            app:layout_constraintEnd_toStartOf="@+id/btn_edit_tour"
+            app:layout_constraintHorizontal_bias="0.968"
             app:layout_constraintStart_toEndOf="@+id/text_name_tour"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.109" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
