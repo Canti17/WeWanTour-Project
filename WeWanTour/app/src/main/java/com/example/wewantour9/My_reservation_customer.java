@@ -82,7 +82,7 @@ public class My_reservation_customer extends AppCompatActivity {
                         reservations.add(reserv);
                     }
                 }
-                mAdapter = new My_reservation_customer_adapter(My_reservation_customer.this, reservations);
+                mAdapter = new My_reservation_customer_adapter(My_reservation_customer.this, reservations,true);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
