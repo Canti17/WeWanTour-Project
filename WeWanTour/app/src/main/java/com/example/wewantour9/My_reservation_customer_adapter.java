@@ -105,7 +105,9 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
             holder.btn_rating.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext, Review.class));
+                    Intent intento = new Intent(mContext, Review.class);
+                    intento.putExtra("IDTOUR", id_reservation_tour);
+                    mContext.startActivity(intento);
                 }
             });
 

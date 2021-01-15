@@ -12,6 +12,7 @@ class Server(Resource):
 
     def get(self):
         #REQ is the id of the request
+        parser.remove_argument('email')
         parser.remove_argument('rate')
         parser.add_argument('req', type=int, required = True)
         args = parser.parse_args()
@@ -24,17 +25,16 @@ class Server(Resource):
 
 
     def post(self):
-        parser.add_argument('req', type=int, required = True)
+        parser.add_argument('email', required = True)
+        parser.add_argument('tourid',type=int, required=True)
         parser.add_argument('rate', type=float, required = True)
         args = parser.parse_args()
 
-        req = args['req'] #LA RICHIESTA CLIENT AVRA PARAMETRO REQ
+        email = args['email'] #LA RICHIESTA CLIENT AVRA PARAMETRO REQ
+        tourid = args['tourid']
         rate = args['rate']#IL VOTO DATO DAL CLIENT?
 
-        if rate > 5 or rate < 0:
-            return {'msg': "POST", 'error': True}
-        else:
-            return {'msg': "POST", 'error': False}
+        return {'msg': "POST", 'error': False}
             
         
 
