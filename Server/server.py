@@ -5,22 +5,21 @@ from flask_restful import Api, Resource, reqparse
 application = Flask(__name__)
 api = Api(application)
 
-RATE = 1; #VALUE GIVEN TO THIS GET REQUEST
+
 parser = reqparse.RequestParser()
+another_parser = reqparse.RequestParser()
 
 class Server(Resource):
 
     def get(self):
         #REQ is the id of the request
-        parser.remove_argument('email')
-        parser.remove_argument('rate')
-        parser.add_argument('req', type=int, required = True)
-        args = parser.parse_args()
+        another_parser.add_argument('tourid', type=int, required = True)
+        args = another_parser.parse_args()
 
-        req = args['req'] #LA RICHIESTA CLIENT AVRA PARAMETRO REQ
+        tourid = args['tourid'] #LA RICHIESTA CLIENT AVRA PARAMETRO TOURID
 
-        if req == RATE:
-            return {'msg': "GET", 'error': False}
+        
+        return {'msg': "GET", 'error': False}
 
 
 
@@ -30,11 +29,24 @@ class Server(Resource):
         parser.add_argument('rate', type=float, required = True)
         args = parser.parse_args()
 
-        email = args['email'] #LA RICHIESTA CLIENT AVRA PARAMETRO REQ
-        tourid = args['tourid']
-        rate = args['rate']#IL VOTO DATO DAL CLIENT?
+        email = args['email'] #LA RICHIESTA CLIENT AVRA PARAMETRO EMAIL
+        tourid = args['tourid']  #IL TOUR ID DELLA RICHIESTA POST
+        rate = args['rate']#IL VOTO DATO DAL CLIENT
 
         return {'msg': "POST", 'error': False}
+
+    
+    def delete(self):
+
+        #REQ is the id of the request
+        another_parser.add_argument('tourid', type=int, required = True)
+        args = another_parser.parse_args()
+
+        tourid = args['tourid'] #LA RICHIESTA CLIENT AVRA PARAMETRO TOURID
+
+        
+        return {'msg': "DELETE", 'error': False}
+
             
         
 
