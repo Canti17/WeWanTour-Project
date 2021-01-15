@@ -39,6 +39,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,8 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
     private FirebaseUser currentUser;
     private FirebaseDatabase database;
     private DatabaseReference db_transport, db_tour, db_agency;
-    private String id_user, id_tour;
+    private String id_user;
+    private ArrayList<String> id_tour;
     private ArrayList<ArrayList<String>> id_transports_agencies = new ArrayList<ArrayList<String>>();
     private int numberOfToursWithTheSameDestination = 0;
     private FirebaseStorage storage;
@@ -61,6 +63,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
     public List_tour_inAgency_adapter(Context mContext, List<Tour> uploads) {
         this.mContext = mContext;
         this.uploads = uploads;
+        this.id_tour = new ArrayList<String>(Collections.nCopies(uploads.size(), ""));
     }
 
 
@@ -162,7 +165,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                         Tour buffer_tour = listTourSnapshot.getValue(Tour.class);
                         if(buffer_tour.equals(current_tour)){
                             //get the tour id
-                            id_tour = listTourSnapshot.getKey();
+                            id_tour.set(position, listTourSnapshot.getKey());
                         }
                     }
                     //get the agency id of all the transports related to that tour List (agencyEmail, id_transport, id_agency)
@@ -208,9 +211,9 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
 
                                 if(current_tour.getCurrentPeople()==0 || tourDateBeforeCurrent){
                                     //Delete the tour from the all TOUR list
-                                    db_tour.child(id_tour).removeValue();
+                                    db_tour.child(id_tour.get(position)).removeValue();
                                     //Delete the tour from the Agency tour list
-                                    db_agency.child(id_user).child("list_tour").child(id_tour).removeValue();
+                                    db_agency.child(id_user).child("list_tour").child(id_tour.get(position)).removeValue();
 
                                     Uri temp_path=Uri.parse("https://firebasestorage.googleapis.com/v0/b/wewantour9-f9fcd.appspot.com/o/defaultImageForTour.png?alt=media&token=d28b03a3-7e7c-49ab-a8f6-0abf734bb80c");
                                     if(!current_tour.getFilePath().equals(temp_path.toString())){

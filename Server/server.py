@@ -77,9 +77,12 @@ class Server(Resource):
 #Add a review (done with the post)
 def new_review (email, tourid, rate, message):
     buffer_list = [email, tourid, rate, message]
+    index_duplicate = -1
     for i in range(len(reviews_list)):
         if ((reviews_list[i][0] == buffer_list[0]) and (reviews_list[i][1] == buffer_list[1])):
-            del reviews_list[i]
+            index_duplicate = i
+    if (index_duplicate != -1):
+        del reviews_list[index_duplicate]
     reviews_list.append(buffer_list)
     print(reviews_list)
     store_reviews();

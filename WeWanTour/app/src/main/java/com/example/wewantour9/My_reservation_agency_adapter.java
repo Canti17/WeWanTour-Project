@@ -58,11 +58,11 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
     private FirebaseDatabase database;
     private DatabaseReference db_reservation, db_transport, db_tour, db_agency;
 
-    private String id_reservation;
-    private String id_reservation_tour_agency;
-    private String id_reservation_tour;
-    private String id_reservation_transport_agency;
-    private String id_reservation_transport;
+    private ArrayList<String> id_reservation;
+    private ArrayList<String> id_reservation_tour_agency;
+    private ArrayList<String> id_reservation_tour;
+    private ArrayList<String> id_reservation_transport_agency;
+    private ArrayList<String> id_reservation_transport;
     private String id_user;
 
     private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
@@ -85,6 +85,11 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
         this.isPastReservation=isPastReservation;
         this.arrayCoordinatesTours = new ArrayList<ArrayList<String>>(Collections.nCopies(reservations.size(), new ArrayList<String>(){{add(null);add(null);}}));
         this.flagForUpdate = new ArrayList<Boolean>(Collections.nCopies(reservations.size(), true));
+        this.id_reservation = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
+        this.id_reservation_tour_agency = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
+        this.id_reservation_tour = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
+        this.id_reservation_transport_agency = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
+        this.id_reservation_transport = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
     }
 
 
@@ -110,7 +115,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                 @Override
                 public void onClick(View v) {
                     Intent intento = new Intent(mContext, Review.class);
-                    intento.putExtra("IDTOUR", id_reservation_tour);
+                    intento.putExtra("IDTOUR", id_reservation_tour.get(position));
                     mContext.startActivity(intento);
                 }
             });
@@ -329,8 +334,8 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Reservation reservation_buffer = postSnapshot.getValue(Reservation.class);
                     if(reservation_buffer.equals(reservation)){
-                        id_reservation = postSnapshot.getKey();
-                        Log.e("my_reservation_agency_adapter ID OF THE RESERVATION:", id_reservation);
+                        id_reservation.set(position, postSnapshot.getKey());
+                        Log.e("my_reservation_agency_adapter ID OF THE RESERVATION:", id_reservation.get(position));
                     }
                 }
             }
@@ -346,14 +351,14 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     Agency agency_buffer = postSnapshot.getValue(Agency.class);
                     if(agency_buffer.getEmail().equals(reservation.getTour().getAgency())){
                         //get the reservation tour agency id
-                        id_reservation_tour_agency = postSnapshot.getKey();
-                        Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TOUR OF THE RESERVATION:", id_reservation_tour_agency);
+                        id_reservation_tour_agency.set(position, postSnapshot.getKey());
+                        Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TOUR OF THE RESERVATION:", id_reservation_tour_agency.get(position));
                         for (DataSnapshot listTourSnapshot : postSnapshot.child("list_tour").getChildren()) {
                             Tour buffer_tour = listTourSnapshot.getValue(Tour.class);
                             if(buffer_tour.equals(reservation.getTour())){
                                 //get the reservation tour id
-                                id_reservation_tour = listTourSnapshot.getKey();
-                                Log.e("my_reservation_agency_adapter ID OF THE RESERVED TOUR:", id_reservation_tour);
+                                id_reservation_tour.set(position, listTourSnapshot.getKey());
+                                Log.e("my_reservation_agency_adapter ID OF THE RESERVED TOUR:", id_reservation_tour.get(position));
                                 //get the new number of tour reservations in the case of deletion
                                 newCurrentPeoplesTour = buffer_tour.getCurrentPeople() - reservation.getNumberOfPeople();
                             }
@@ -362,13 +367,13 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     if(reservation.getTransport() != null) {
                         if (agency_buffer.getEmail().equals(reservation.getTransport().getAgency())) {
                             //get the reservation transport agency id
-                            id_reservation_transport_agency = postSnapshot.getKey();
-                            Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TRANSPORT OF THE RESERVATION:", id_reservation_transport_agency);
+                            id_reservation_transport_agency.set(position, postSnapshot.getKey());
+                            Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TRANSPORT OF THE RESERVATION:", id_reservation_transport_agency.get(position));
                             for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
                                 Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
                                 if (buffer_transport.equals(reservation.getTransport())) {
                                     //get the reservation transport id
-                                    id_reservation_transport = listTransportSnapshot.getKey();
+                                    id_reservation_transport.set(position, listTransportSnapshot.getKey());
                                     //Log.e("my_reservation_agency_adapter ID OF THE RESERVED TRANSPORT:", id_reservation_tour);
                                     //get the new number of transport reservations in the case of deletion
                                     newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
@@ -401,30 +406,30 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                             public void onClick(DialogInterface dialog, int which) {
 
                                 //Delete the reservation from the general RESERVATIONS list
-                                db_reservation.child(id_reservation).removeValue();
+                                db_reservation.child(id_reservation.get(position)).removeValue();
 
                                 //Delete the reservation from the list of reservation of the customer
-                                db_agency.child(id_user).child("list_reservation").child(id_reservation).removeValue();
+                                db_agency.child(id_user).child("list_reservation").child(id_reservation.get(position)).removeValue();
 
                                 Map<String, Object> updateMap = new HashMap<>();
 
-                                if( (reservation.getTransport() != null) && (id_reservation_transport != null)){
+                                if( (reservation.getTransport() != null) && (id_reservation_transport.get(position) != "")){
                                     //Update the transport in the all TRANSPORT list of the database
                                     updateMap.put("currentPeople", newCurrentPeoplesTransport);
-                                    db_transport.child(id_reservation_transport).updateChildren(updateMap);
+                                    db_transport.child(id_reservation_transport.get(position)).updateChildren(updateMap);
 
                                     //Update the transport in the Agency Transport List
-                                    db_agency.child(id_reservation_transport_agency).child("list_transports").child(id_reservation_transport).updateChildren(updateMap);
+                                    db_agency.child(id_reservation_transport_agency.get(position)).child("list_transports").child(id_reservation_transport.get(position)).updateChildren(updateMap);
                                 }
 
-                                if(id_reservation_tour != null){
+                                if(id_reservation_tour.get(position) != ""){
 
                                     //Update the tour in the Agency Tour List
                                     updateMap.put("currentPeople", newCurrentPeoplesTour);
-                                    db_tour.child(id_reservation_tour).updateChildren(updateMap);
+                                    db_tour.child(id_reservation_tour.get(position)).updateChildren(updateMap);
 
                                     //Update the tour in the Agency Tour List
-                                    db_agency.child(id_reservation_tour_agency).child("list_tour").child(id_reservation_tour).updateChildren(updateMap);
+                                    db_agency.child(id_reservation_tour_agency.get(position)).child("list_tour").child(id_reservation_tour.get(position)).updateChildren(updateMap);
 
                                 }
                                 String text = "Reservation deleted";

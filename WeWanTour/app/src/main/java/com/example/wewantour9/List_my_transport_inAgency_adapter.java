@@ -28,7 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<List_my_transport_inAgency_adapter.ImageViewHolder> {
@@ -39,11 +41,13 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
     private FirebaseUser currentUser;
     private FirebaseDatabase database;
     private DatabaseReference db_transport, db_agency;
-    private String id_user, id_transport;
+    private String id_user;
+    private ArrayList<String >id_transport;
 
     public List_my_transport_inAgency_adapter(Context mContext, List<Transport> transports) {
         this.mContext = mContext;
         this.transports = transports;
+        this.id_transport = new ArrayList<String>(Collections.nCopies(transports.size(), ""));
     }
 
     @NonNull
@@ -55,7 +59,7 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, final int position) {
         final Transport transport=transports.get(position);
         holder.text_destination.setText(transport.getDestination());
         holder.text_agency_name.setText(transport.getAgency());
@@ -93,7 +97,7 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
                         Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
                         if(buffer_transport.equals(transport)){
                             //get the transport id
-                            id_transport = listTransportSnapshot.getKey();
+                            id_transport.set(position, listTransportSnapshot.getKey());
                         }
                     }
                 }
@@ -132,9 +136,9 @@ public class List_my_transport_inAgency_adapter extends RecyclerView.Adapter<Lis
                                 }
                                 if(transport.getCurrentPeople()==0 || transportDateBeforeCurrent){
                                     //Delete the tour from the all TOUR list
-                                    db_transport.child(id_transport).removeValue();
+                                    db_transport.child(id_transport.get(position)).removeValue();
                                     //Delete the tour from the Agency tour list
-                                    db_agency.child(id_user).child("list_transports").child(id_transport).removeValue();
+                                    db_agency.child(id_user).child("list_transports").child(id_transport.get(position)).removeValue();
 
                                     String text = "Transport deleted";
                                     Spannable centeredText = new SpannableString(text);
