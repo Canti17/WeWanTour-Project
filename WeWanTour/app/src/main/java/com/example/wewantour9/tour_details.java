@@ -31,21 +31,34 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.JsonObject;
 import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 import com.travijuu.numberpicker.library.NumberPicker;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class tour_details extends AppCompatActivity {
 
     private Toolbar toolbar;
+
+    String url;
+    List<String> jsonResponses = new ArrayList<>();
 
     @Override
     public void onBackPressed() {
@@ -83,6 +96,8 @@ public class tour_details extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_details);
+
+        url = getApplicationContext().getResources().getString(R.string.URLServer);
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -402,6 +417,49 @@ public class tour_details extends AppCompatActivity {
                 googleMapsForTourDetails();
             }
         });
+
+
+
+
+        //GET CALL TO REVIEW VALUE
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+"tourid=2"/*DA MODIFICARE*/, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    //JSONArray jsonArray = response.getJSONArray("data");
+                    //for(int i = 0; i < jsonArray.length(); i++){
+                        //JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String msg = response.getString("msg");
+
+                        //Double rating = response.getDouble("rating");
+                        //int number = response.getInt("number");
+
+
+                        Log.i("VOLLEY", "Ha funzionato");
+                        Log.i("VOLLEY", "La risposta è:"+msg);
+
+                        jsonResponses.add(msg);
+                   // }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("VOLLEY","Errore");
+                Log.e("VOLLEY",error.toString());
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+
+
+
+
+
 
         SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   5 / 5");
         ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

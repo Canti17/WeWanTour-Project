@@ -51,7 +51,7 @@ public class Review extends AppCompatActivity {
     FirebaseUser current_user;
     private String id_tour;
 
-    String URL = "http://42361994aade.ngrok.io/?";
+    String url;
 
 
     @Override
@@ -80,6 +80,8 @@ public class Review extends AppCompatActivity {
         id_tour = extras.getString("IDTOUR");
 
         rating = (RatingBar) findViewById(R.id.rating);
+
+        url = getApplicationContext().getResources().getString(R.string.URLServer);
 
 
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -113,7 +115,7 @@ public class Review extends AppCompatActivity {
 
                     Log.i("VOLLEY","Provo ad inviare questi dati: email="+current_user.getEmail()+", tourID="+id_tour+", rating="+rating+" e il commento="+testo);
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL+"email="+current_user.getEmail()+"&tourid="+id_tour+"&rate="+rating, jsonBody, new Response.Listener<JSONObject>() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url+"email="+current_user.getEmail()+"&tourid="+id_tour+"&rate="+rating, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.i("VOLLEY", "Ha funzionato!");

@@ -26,4 +26,7 @@
     <!-- Geocoding API Key -->
     <string name="geocoding_api_key">AublC7lArVRhzoUHlGhjAHNQs8m4hvk5Js-1E7FZbq8lgczlLUMnMq8SfxcLZHrU</string>
 
+
+    <string name="URLServer">http://06078a7e8c0b.ngrok.io/?</string>
+
 </resources>
