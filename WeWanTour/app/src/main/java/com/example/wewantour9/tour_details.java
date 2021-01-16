@@ -423,7 +423,7 @@ public class tour_details extends AppCompatActivity {
 
         //GET CALL TO REVIEW VALUE
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+"nometour="+selectedTour.getName(), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+"nametour="+selectedTour.getName(), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

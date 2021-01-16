@@ -204,7 +204,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
 
                 new AlertDialog.Builder(mContext)
                         .setTitle("Warning")
-                        .setMessage("Are you sure you want to delete this Tour?")
+                        .setMessage("Do you also want to delete reviews for any tour with this name?")
 
                         // Specifying a listener allows you to take an action before dismissing the dialog.
                         // The dialog is automatically dismissed when a dialog button is clicked.
@@ -212,10 +212,10 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                             public void onClick(DialogInterface dialog, int which) {
 
 
-                                //DELETE CALL TO TOUR NAME
+                                //DELETE CALL TO TOUR NAME (DELETE OF THE TOUR FROM THE REVIEWS)
                                 RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
-                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url+"nometour="+uploads.get(position).getName(), null, new Response.Listener<JSONObject>() {
+                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url+"nametour="+uploads.get(position).getName(), null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         try {
@@ -226,6 +226,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
 
 
                                             if(!msg){
+                                                //DELETE OF THE TOUR FROM THE DATABASE
                                                 //check if the current date is after the tour starting date
                                                 final Calendar c = Calendar.getInstance();
                                                 int current_year = c.get(Calendar.YEAR);
@@ -332,8 +333,80 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                             }
                         })
                         // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton("No", null)
-                        //.setIcon(getResources().getDrawable(R.drawable.error))
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //DELETE OF THE TOUR FROM THE DATABASE
+                                //check if the current date is after the tour starting date
+                                final Calendar c = Calendar.getInstance();
+                                int current_year = c.get(Calendar.YEAR);
+                                int current_month = c.get(Calendar.MONTH)+1;
+                                int current_day = c.get(Calendar.DAY_OF_MONTH);
+
+                                String[] dateSplit = current_tour.getStartDate().split("/");
+                                Boolean tourDateBeforeCurrent = false;
+
+                                if( (current_year>Integer.parseInt(dateSplit[2])) ||
+                                        ((current_year == Integer.parseInt(dateSplit[2])) && current_month > Integer.parseInt(dateSplit[1])) ||
+                                        ((current_year == Integer.parseInt(dateSplit[2])) && current_month == Integer.parseInt(dateSplit[1]) && current_day > Integer.parseInt(dateSplit[0]))){
+                                    tourDateBeforeCurrent = true;
+                                }
+
+                                if(current_tour.getCurrentPeople()==0 || tourDateBeforeCurrent){
+                                    //Delete the tour from the all TOUR list
+                                    db_tour.child(id_tour.get(position)).removeValue();
+                                    //Delete the tour from the Agency tour list
+                                    db_agency.child(id_user).child("list_tour").child(id_tour.get(position)).removeValue();
+
+                                    Uri temp_path=Uri.parse("https://firebasestorage.googleapis.com/v0/b/wewantour9-f9fcd.appspot.com/o/defaultImageForTour.png?alt=media&token=d28b03a3-7e7c-49ab-a8f6-0abf734bb80c");
+                                    if(!current_tour.getFilePath().equals(temp_path.toString())){
+                                        //Delete the tour image from the firebase storage
+                                        deleteStorageImageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                String text = "Tour deleted";
+                                                Spannable centeredText = new SpannableString(text);
+                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                        0, text.length() - 1,
+                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                                                toast.show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                String text = "Error in the tour deletion, try again";
+                                                Spannable centeredText = new SpannableString(text);
+                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                        0, text.length() - 1,
+                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                                                toast.show();
+                                            }
+                                        });
+                                    }
+
+                                    if(numberOfToursWithTheSameDestination < 2){
+                                        for(ArrayList<String> ls : id_transports_agencies){
+                                            //Delete all the transports that have as destination this tour from all TRANSPORT list
+                                            db_transport.child(ls.get(1)).removeValue();
+                                            //Delete all the transports that have as destination this tour from the respective agency transport list
+                                            db_agency.child(ls.get(2)).child("list_transports").child(ls.get(1)).removeValue();
+                                        }
+                                    }
+                                }
+                                else{
+                                    String text = "Tour cannot be cancelled because it has reservations and has not expired.";
+                                    Spannable centeredText = new SpannableString(text);
+                                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                            0, text.length() - 1,
+                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                    Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+
+                            }
+                        })
                         .show();
 
             }
