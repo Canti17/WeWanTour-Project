@@ -49,7 +49,7 @@ public class Review extends AppCompatActivity {
 
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
-    private String id_tour;
+    private String name_tour;
 
     String url;
 
@@ -77,7 +77,7 @@ public class Review extends AppCompatActivity {
         current_user = fAuth.getCurrentUser();
 
         Bundle extras = getIntent().getExtras();
-        id_tour = extras.getString("IDTOUR");
+        name_tour = extras.getString("tour_key_name_for_reservation");
 
         rating = (RatingBar) findViewById(R.id.rating);
 
@@ -113,9 +113,9 @@ public class Review extends AppCompatActivity {
 
                     final String requestBody = jsonBody.toString();
 
-                    Log.i("VOLLEY","Provo ad inviare questi dati: email="+current_user.getEmail()+", tourID="+id_tour+", rating="+rating+" e il commento="+testo);
+                    Log.i("VOLLEY","Provo ad inviare questi dati: email="+current_user.getEmail()+", tourID="+name_tour+", rating="+rating+" e il commento="+testo);
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url+"email="+current_user.getEmail()+"&tourid="+id_tour+"&rate="+rating, jsonBody, new Response.Listener<JSONObject>() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url+"email="+current_user.getEmail()+"&nametour="+name_tour+"&rate="+rating, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.i("VOLLEY", "Ha funzionato!");

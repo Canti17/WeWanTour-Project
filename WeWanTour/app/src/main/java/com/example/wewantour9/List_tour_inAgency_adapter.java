@@ -23,6 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +41,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,11 +68,14 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
     private int numberOfToursWithTheSameDestination = 0;
     private FirebaseStorage storage;
     private StorageReference deleteStorageImageReference;
+    private String url ;
+    private List<String> jsonResponses = new ArrayList<>();
 
     public List_tour_inAgency_adapter(Context mContext, List<Tour> uploads) {
         this.mContext = mContext;
         this.uploads = uploads;
         this.id_tour = new ArrayList<String>(Collections.nCopies(uploads.size(), ""));
+        url = mContext.getResources().getString(R.string.URLServer);
     }
 
 
@@ -181,10 +193,15 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
             }
         });
 
+
+
+
+
         //DELETE button onClick()
         holder.btn_delete_tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 new AlertDialog.Builder(mContext)
                         .setTitle("Warning")
                         .setMessage("Are you sure you want to delete this Tour?")
@@ -194,75 +211,121 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                //check if the current date is after the tour starting date
-                                final Calendar c = Calendar.getInstance();
-                                int current_year = c.get(Calendar.YEAR);
-                                int current_month = c.get(Calendar.MONTH)+1;
-                                int current_day = c.get(Calendar.DAY_OF_MONTH);
 
-                                String[] dateSplit = current_tour.getStartDate().split("/");
-                                Boolean tourDateBeforeCurrent = false;
+                                //DELETE CALL TO TOUR NAME
+                                RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
-                                if( (current_year>Integer.parseInt(dateSplit[2])) ||
-                                        ((current_year == Integer.parseInt(dateSplit[2])) && current_month > Integer.parseInt(dateSplit[1])) ||
-                                        ((current_year == Integer.parseInt(dateSplit[2])) && current_month == Integer.parseInt(dateSplit[1]) && current_day > Integer.parseInt(dateSplit[0]))){
-                                    tourDateBeforeCurrent = true;
-                                }
+                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url+"nometour="+uploads.get(position).getName(), null, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            boolean msg = response.getBoolean("error");
 
-                                if(current_tour.getCurrentPeople()==0 || tourDateBeforeCurrent){
-                                    //Delete the tour from the all TOUR list
-                                    db_tour.child(id_tour.get(position)).removeValue();
-                                    //Delete the tour from the Agency tour list
-                                    db_agency.child(id_user).child("list_tour").child(id_tour.get(position)).removeValue();
+                                            Log.i("VOLLEY", "Ha funzionato");
+                                            Log.i("VOLLEY", "La risposta è:"+msg);
 
-                                    Uri temp_path=Uri.parse("https://firebasestorage.googleapis.com/v0/b/wewantour9-f9fcd.appspot.com/o/defaultImageForTour.png?alt=media&token=d28b03a3-7e7c-49ab-a8f6-0abf734bb80c");
-                                    if(!current_tour.getFilePath().equals(temp_path.toString())){
-                                        //Delete the tour image from the firebase storage
-                                        deleteStorageImageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                String text = "Tour deleted";
-                                                Spannable centeredText = new SpannableString(text);
-                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                                        0, text.length() - 1,
-                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
-                                                toast.show();
+
+                                            if(!msg){
+                                                //check if the current date is after the tour starting date
+                                                final Calendar c = Calendar.getInstance();
+                                                int current_year = c.get(Calendar.YEAR);
+                                                int current_month = c.get(Calendar.MONTH)+1;
+                                                int current_day = c.get(Calendar.DAY_OF_MONTH);
+
+                                                String[] dateSplit = current_tour.getStartDate().split("/");
+                                                Boolean tourDateBeforeCurrent = false;
+
+                                                if( (current_year>Integer.parseInt(dateSplit[2])) ||
+                                                        ((current_year == Integer.parseInt(dateSplit[2])) && current_month > Integer.parseInt(dateSplit[1])) ||
+                                                        ((current_year == Integer.parseInt(dateSplit[2])) && current_month == Integer.parseInt(dateSplit[1]) && current_day > Integer.parseInt(dateSplit[0]))){
+                                                    tourDateBeforeCurrent = true;
+                                                }
+
+                                                if(current_tour.getCurrentPeople()==0 || tourDateBeforeCurrent){
+                                                    //Delete the tour from the all TOUR list
+                                                    db_tour.child(id_tour.get(position)).removeValue();
+                                                    //Delete the tour from the Agency tour list
+                                                    db_agency.child(id_user).child("list_tour").child(id_tour.get(position)).removeValue();
+
+                                                    Uri temp_path=Uri.parse("https://firebasestorage.googleapis.com/v0/b/wewantour9-f9fcd.appspot.com/o/defaultImageForTour.png?alt=media&token=d28b03a3-7e7c-49ab-a8f6-0abf734bb80c");
+                                                    if(!current_tour.getFilePath().equals(temp_path.toString())){
+                                                        //Delete the tour image from the firebase storage
+                                                        deleteStorageImageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                String text = "Tour deleted";
+                                                                Spannable centeredText = new SpannableString(text);
+                                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                                        0, text.length() - 1,
+                                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                                                                toast.show();
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                String text = "Error in the tour deletion, try again";
+                                                                Spannable centeredText = new SpannableString(text);
+                                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                                        0, text.length() - 1,
+                                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                                                                toast.show();
+                                                            }
+                                                        });
+                                                    }
+
+
+
+                                                    if(numberOfToursWithTheSameDestination < 2){
+                                                        for(ArrayList<String> ls : id_transports_agencies){
+                                                            //Delete all the transports that have as destination this tour from all TRANSPORT list
+                                                            db_transport.child(ls.get(1)).removeValue();
+                                                            //Delete all the transports that have as destination this tour from the respective agency transport list
+                                                            db_agency.child(ls.get(2)).child("list_transports").child(ls.get(1)).removeValue();
+                                                        }
+                                                    }
+                                                }
+                                                else{
+                                                    String text = "Tour cannot be cancelled because it has reservations and has not expired.";
+                                                    Spannable centeredText = new SpannableString(text);
+                                                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                            0, text.length() - 1,
+                                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                    Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                                                    toast.show();
+                                                }
+
                                             }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                String text = "Error in the tour deletion, try again";
-                                                Spannable centeredText = new SpannableString(text);
-                                                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                                        0, text.length() - 1,
-                                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                                                Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
-                                                toast.show();
-                                            }
-                                        });
-                                    }
 
-
-
-                                    if(numberOfToursWithTheSameDestination < 2){
-                                        for(ArrayList<String> ls : id_transports_agencies){
-                                            //Delete all the transports that have as destination this tour from all TRANSPORT list
-                                            db_transport.child(ls.get(1)).removeValue();
-                                            //Delete all the transports that have as destination this tour from the respective agency transport list
-                                            db_agency.child(ls.get(2)).child("list_transports").child(ls.get(1)).removeValue();
+                                            jsonResponses.add(String.valueOf(msg));
+                                            // }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
                                     }
-                                }
-                                else{
-                                    String text = "Tour cannot be cancelled because it has reservations and has not expired.";
-                                    Spannable centeredText = new SpannableString(text);
-                                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                                            0, text.length() - 1,
-                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                                    Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
-                                    toast.show();
-                                }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        error.printStackTrace();
+                                        Log.e("VOLLEY","Errore");
+                                        Log.e("VOLLEY",error.toString());
+                                        String text = "Error in the tour deletion, try again";
+                                        Spannable centeredText = new SpannableString(text);
+                                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                0, text.length() - 1,
+                                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                        Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                                        toast.show();
+                                    }
+                                });
+
+                                requestQueue.add(jsonObjectRequest);
+
+
+
+
+
 
 
 
@@ -272,6 +335,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
                         .setNegativeButton("No", null)
                         //.setIcon(getResources().getDrawable(R.drawable.error))
                         .show();
+
             }
         });
     }

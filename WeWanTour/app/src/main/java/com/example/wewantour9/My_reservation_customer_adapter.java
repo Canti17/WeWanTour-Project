@@ -111,7 +111,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                 @Override
                 public void onClick(View v) {
                     Intent intento = new Intent(mContext, Review.class);
-                    intento.putExtra("IDTOUR", id_reservation_tour.get(position));
+                    intento.putExtra("tour_key_name_for_reservation", reservations.get(position).getTour().getName());
                     mContext.startActivity(intento);
                 }
             });
