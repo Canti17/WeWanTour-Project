@@ -204,7 +204,7 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
 
                 new AlertDialog.Builder(mContext)
                         .setTitle("Warning")
-                        .setMessage("Do you also want to delete reviews for any tour with this name? \n (Touch the screen to exit)")
+                        .setMessage("Do you also want to delete reviews for any tour with this name?\n(Touch the screen to exit)")
 
                         // Specifying a listener allows you to take an action before dismissing the dialog.
                         // The dialog is automatically dismissed when a dialog button is clicked.
