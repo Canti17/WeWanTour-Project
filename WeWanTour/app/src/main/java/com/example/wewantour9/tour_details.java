@@ -419,6 +419,10 @@ public class tour_details extends AppCompatActivity {
         });
 
 
+        SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   5 / 5");
+        ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        reviewScore.setText(ratingString);
 
 
         //GET CALL TO REVIEW VALUE
@@ -432,9 +436,15 @@ public class tour_details extends AppCompatActivity {
                         //JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String msg = response.getString("msg");
 
-                        //Double rating = response.getDouble("rating");
-                        //int number = response.getInt("number");
+                        Double rating = response.getDouble("rating");
+                        int number = response.getInt("number");
 
+                        SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   "+ rating +" / 5");
+                        ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        reviewScore.setText(ratingString);
+
+                        reviewNumber.setText(number + "  Reviews");
 
                         Log.i("VOLLEY", "Ha funzionato");
                         Log.i("VOLLEY", "La risposta è:"+msg);
@@ -458,13 +468,6 @@ public class tour_details extends AppCompatActivity {
 
 
 
-
-
-
-        SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   5 / 5");
-        ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        reviewScore.setText(ratingString);
 
     }
 

@@ -1068,7 +1068,7 @@
                         android:id="@+id/textViewTourDetailsReviewNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="680  Reviews"
+                        android:text="0  Reviews"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
