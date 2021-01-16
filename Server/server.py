@@ -95,7 +95,10 @@ def get_number_rating(nametour):
         if (reviews_list[i][1] == nametour):
             sum_of_reviews_rating += reviews_list[i][2]
             total_number_of_reviews += 1
-    average_rating = sum_of_reviews_rating/total_number_of_reviews
+    if(total_number_of_reviews != 0):
+        average_rating = sum_of_reviews_rating/total_number_of_reviews
+    else:
+        average_rating = 5
     return average_rating, total_number_of_reviews
 
 #Delete all the reviews of one tour (done with the delete)
