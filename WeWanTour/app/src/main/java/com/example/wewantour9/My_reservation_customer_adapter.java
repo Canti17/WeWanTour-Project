@@ -65,7 +65,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
     private ArrayList<String> id_reservation_transport;
     private String id_user;
 
-    private int newCurrentPeoplesTransport, newCurrentPeoplesTour;
+    private ArrayList<Integer> newCurrentPeoplesTransport, newCurrentPeoplesTour;
 
     private Boolean isPastReservation;
     //weather
@@ -88,6 +88,8 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
         this.id_reservation_tour = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
         this.id_reservation_transport_agency = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
         this.id_reservation_transport = new ArrayList<String>(Collections.nCopies(reservations.size(), ""));
+        this.newCurrentPeoplesTransport = new ArrayList<Integer>(Collections.nCopies(reservations.size(), 0));
+        this.newCurrentPeoplesTour = new ArrayList<Integer>(Collections.nCopies(reservations.size(), 0));
     }
 
     @NonNull
@@ -347,7 +349,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                                 //get the reservation tour id
                                 id_reservation_tour.set(position, listTourSnapshot.getKey());
                                 //get the new number of tour reservations in the case of deletion
-                                newCurrentPeoplesTour = buffer_tour.getCurrentPeople() - reservation.getNumberOfPeople();
+                                newCurrentPeoplesTour.set(position, buffer_tour.getCurrentPeople() - reservation.getNumberOfPeople());
                             }
                         }
                     }
@@ -361,7 +363,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                                     //get the reservation transport id
                                     id_reservation_transport.set(position, listTransportSnapshot.getKey());
                                     //get the new number of transport reservations in the case of deletion
-                                    newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
+                                    newCurrentPeoplesTransport.set(position, buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople());
                                 }
                             }
                         }
@@ -411,7 +413,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
 
                                 if( (reservation.getTransport() != null) && (id_reservation_transport.get(position) != "")) {
                                     //Update the transport in the all TRANSPORT list of the database
-                                    updateMap.put("currentPeople", newCurrentPeoplesTransport);
+                                    updateMap.put("currentPeople", newCurrentPeoplesTransport.get(position));
                                     db_transport.child(id_reservation_transport.get(position)).updateChildren(updateMap);
 
                                     //Update the transport in the Agency Transport List
@@ -421,7 +423,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                                 if(id_reservation_tour.get(position) != ""){
 
                                     //Update the tour in the Agency Tour List
-                                    updateMap.put("currentPeople", newCurrentPeoplesTour);
+                                    updateMap.put("currentPeople", newCurrentPeoplesTour.get(position));
                                     db_tour.child(id_reservation_tour.get(position)).updateChildren(updateMap);
 
                                     //Update the tour in the Agency Tour List
