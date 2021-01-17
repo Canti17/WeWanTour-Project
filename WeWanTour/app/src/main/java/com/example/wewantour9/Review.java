@@ -3,6 +3,7 @@ package com.example.wewantour9;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
 import android.media.Rating;
@@ -63,6 +64,9 @@ public class Review extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+
+
+
 
         sendReview = findViewById(R.id.sendReview);
         text = findViewById(R.id.textarea);

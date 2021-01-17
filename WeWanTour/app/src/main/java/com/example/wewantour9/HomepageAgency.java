@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class HomepageAgency extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private FirebaseDatabase database;
@@ -91,7 +93,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
         fAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = fAuth.getCurrentUser();
-        Log.e("HomepageAgency CURRENT USER", currentUser.getEmail());
+        Log.e("HomepageAgency CURRENT USER", Objects.requireNonNull(currentUser.getEmail()));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         nav_view = findViewById(R.id.nav_view);
@@ -181,6 +183,9 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 else{
                     finish();
                 }
+                break;
+            case R.id.nav_compass:
+                startActivity(new Intent(HomepageAgency.this, Compass.class));
                 break;
             case R.id.nav_credits:
                 startActivity(new Intent(HomepageAgency.this, Credits.class));

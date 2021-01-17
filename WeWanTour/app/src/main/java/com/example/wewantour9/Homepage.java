@@ -211,6 +211,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 menu.findItem(R.id.nav_profile).setVisible(false);
                 menu.findItem(R.id.nav_reservations).setVisible(false);
                 menu.findItem(R.id.nav_pedometer).setVisible(false);
+                menu.findItem(R.id.nav_compass).setVisible(false);
 
             }
             else{
@@ -321,6 +322,9 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 else{
                     finish();
                 }
+                break;
+            case R.id.nav_compass:
+                startActivity(new Intent(Homepage.this, Compass.class));
                 break;
             case R.id.nav_credits:
                 startActivity(new Intent(Homepage.this, Credits.class));

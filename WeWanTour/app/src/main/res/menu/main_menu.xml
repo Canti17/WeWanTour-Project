@@ -47,6 +47,12 @@
             android:icon="@drawable/pedometer">
         </item>
 
+        <item
+            android:id="@+id/nav_compass"
+            android:title="Check Orientation"
+            android:icon="@drawable/compass_icon">
+        </item>
+
 
         <item
             android:id="@+id/nav_credits"
