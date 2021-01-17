@@ -185,7 +185,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
 
                 final int p = position;
 
-                arrayCoordinatesTours.add(p, API_usage.getCoordinates(mContext, reservations.get(p).getTour().getStartPlace()));
+                arrayCoordinatesTours.set(p, API_usage.getCoordinates(mContext, reservations.get(p).getTour().getStartPlace()));
 
                 if(arrayCoordinatesTours.get(p).get(0) != null){
 

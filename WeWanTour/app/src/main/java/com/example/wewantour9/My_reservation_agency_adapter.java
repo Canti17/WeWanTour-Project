@@ -191,9 +191,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
 
                 final int p = position;
 
-                arrayCoordinatesTours.add(p, API_usage.getCoordinates(mContext, reservations.get(p).getTour().getStartPlace()));
-
-                //ArrayList<String> arrayCoordinatesTour = API_usage.getCoordinates(mContext, reservation.getTour().getStartPlace());
+                arrayCoordinatesTours.set(p, API_usage.getCoordinates(mContext, reservations.get(p).getTour().getStartPlace()));
 
                 if (arrayCoordinatesTours.get(p).get(0) != null) {
 
@@ -285,14 +283,12 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
         holder.text_tour_place.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int po = position;
-                if(arrayCoordinatesTours.get(po).get(0) != null) {
-                    //Uri googleMapPointURI = Uri.parse("google.navigation:q="+arrayCoordinatesTour.get(0)+","+arrayCoordinatesTour.get(1));
-                    Uri googleMapPointURI =  Uri.parse("http://maps.google.com/maps?daddr="+arrayCoordinatesTours.get(po).get(0) + "," + arrayCoordinatesTours.get(position).get(1));
+                if(arrayCoordinatesTours.get(position).get(0) != null) {
+                    Uri googleMapPointURI =  Uri.parse("http://maps.google.com/maps?daddr="+arrayCoordinatesTours.get(position).get(0) + "," + arrayCoordinatesTours.get(position).get(1));
                     Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, googleMapPointURI);
                     googleMapIntent.setPackage("com.google.android.apps.maps");
-                    Log.e("DEBUG MAPS",po+"");
-                    Log.e("DEBUG MAPS",reservations.get(po).getTour().getStartPlace());
+                    Log.e("DEBUG MAPS",position+"");
+                    Log.e("DEBUG MAPS",reservations.get(position).getTour().getStartPlace());
                     Log.e("DEBUG MAPS",googleMapPointURI.toString());
                     if (googleMapIntent.resolveActivity(mContext.getPackageManager()) != null) {
                         mContext.startActivity(googleMapIntent);
@@ -306,7 +302,7 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                         toast.show();
                     }
                 }else{
-                    Log.e("DEBUG MAPS",po+"");
+                    Log.e("DEBUG MAPS",position+"");
                     String text = "Invalid location";
                     Spannable centeredText = new SpannableString(text);
                     centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
@@ -335,7 +331,6 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     Reservation reservation_buffer = postSnapshot.getValue(Reservation.class);
                     if(reservation_buffer.equals(reservation)){
                         id_reservation.set(position, postSnapshot.getKey());
-                        Log.e("my_reservation_agency_adapter ID OF THE RESERVATION:", id_reservation.get(position));
                     }
                 }
             }
@@ -352,7 +347,6 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     if(agency_buffer.getEmail().equals(reservation.getTour().getAgency())){
                         //get the reservation tour agency id
                         id_reservation_tour_agency.set(position, postSnapshot.getKey());
-                        Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TOUR OF THE RESERVATION:", id_reservation_tour_agency.get(position));
                         for (DataSnapshot listTourSnapshot : postSnapshot.child("list_tour").getChildren()) {
                             Tour buffer_tour = listTourSnapshot.getValue(Tour.class);
                             if(buffer_tour.equals(reservation.getTour())){
@@ -368,13 +362,12 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                         if (agency_buffer.getEmail().equals(reservation.getTransport().getAgency())) {
                             //get the reservation transport agency id
                             id_reservation_transport_agency.set(position, postSnapshot.getKey());
-                            Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TRANSPORT OF THE RESERVATION:", id_reservation_transport_agency.get(position));
+                            //Log.e("my_reservation_agency_adapter ID OF THE AGENCY OF THE TRANSPORT OF THE RESERVATION:", id_reservation_transport_agency.get(position));
                             for (DataSnapshot listTransportSnapshot : postSnapshot.child("list_transports").getChildren()) {
                                 Transport buffer_transport = listTransportSnapshot.getValue(Transport.class);
                                 if (buffer_transport.equals(reservation.getTransport())) {
                                     //get the reservation transport id
                                     id_reservation_transport.set(position, listTransportSnapshot.getKey());
-                                    //Log.e("my_reservation_agency_adapter ID OF THE RESERVED TRANSPORT:", id_reservation_tour);
                                     //get the new number of transport reservations in the case of deletion
                                     newCurrentPeoplesTransport = buffer_transport.getCurrentPeople() - reservation.getTransportNumberOfPeople();
                                 }
@@ -384,7 +377,6 @@ public class My_reservation_agency_adapter extends RecyclerView.Adapter<My_reser
                     if(agency_buffer.getEmail().equals(currentUser.getEmail())){
                         //get the user id
                         id_user = postSnapshot.getKey();
-                        //Log.e("my_reservation_agency_adapter ID OF THE CURRENT USER (AGENCY):", id_reservation_tour);
                     }
                 }
             }
