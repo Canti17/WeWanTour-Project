@@ -105,59 +105,60 @@ public class my_incoming_reservation extends Fragment {
                         flagIsCustomer = true;
                     }
                 }
+                mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        reservations.clear();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            Reservation reserv = postSnapshot.getValue(Reservation.class);
+                            if (current_user.getEmail().equals(reserv.getCustomer())) {
+                                String start_date = reserv.getTour().getStartDate();
+                                Date date1 = null;
+                                try {
+                                    date1 = new SimpleDateFormat("dd/MM/yyyy").parse(start_date);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                Date current_date = new Date();
+
+                                if (isSameDay(date1,current_date) || date1.after(current_date)) {
+                                    reservations.add(reserv);
+                                }
+                            }
+                        }
+
+                        if (reservations.isEmpty()) {
+                            noReservationsLabel.setVisibility(View.VISIBLE);
+                        } else {
+                            noReservationsLabel.setVisibility(View.GONE);
+                        }
+
+                        if (flagIsCustomer) {
+                            cAdapter = new My_reservation_customer_adapter(getContext(), reservations, false);
+                            mRecyclerView.setAdapter(cAdapter);
+                        } else {
+                            aAdapter = new My_reservation_agency_adapter(getContext(), reservations, false);
+                            mRecyclerView.setAdapter(aAdapter);
+                        }
+                        mRecyclerView.setLayoutManager(mLayoutManager);
+                        mProgressCircle.setVisibility(View.INVISIBLE);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        mProgressCircle.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
 
-        mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                reservations.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Reservation reserv = postSnapshot.getValue(Reservation.class);
-                    if (current_user.getEmail().equals(reserv.getCustomer())) {
-                        String start_date = reserv.getTour().getStartDate();
-                        Date date1 = null;
-                        try {
-                            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(start_date);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                        Date current_date = new Date();
-
-                        if (isSameDay(date1,current_date) || date1.after(current_date)) {
-                            reservations.add(reserv);
-                        }
-                    }
-                }
-
-                if(reservations.isEmpty()){
-                    noReservationsLabel.setVisibility(View.VISIBLE);
-                }else{
-                    noReservationsLabel.setVisibility(View.GONE);
-                }
-
-                if(flagIsCustomer){
-                    cAdapter = new My_reservation_customer_adapter(getContext(), reservations,false);
-                    mRecyclerView.setAdapter(cAdapter);
-                }else{
-                    aAdapter = new My_reservation_agency_adapter(getContext(), reservations,false);
-                    mRecyclerView.setAdapter(aAdapter);
-                }
-                mRecyclerView.setLayoutManager(mLayoutManager);
-                mProgressCircle.setVisibility(View.INVISIBLE);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                mProgressCircle.setVisibility(View.INVISIBLE);
-            }
-        });
 
 
         return view;

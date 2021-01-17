@@ -407,7 +407,7 @@ public class My_reservation_customer_adapter extends RecyclerView.Adapter<My_res
                                 db_reservation.child(id_reservation.get(position)).removeValue();
 
                                 //Delete the reservation from the list of reservation of the customer
-                                db_agency.child(id_user).child("list_reservation").child(id_reservation.get(position)).removeValue();
+                                db_customer_reservations.child(id_user).child("list_reservation").child(id_reservation.get(position)).removeValue();
 
                                 Map<String, Object> updateMap = new HashMap<>();
 
