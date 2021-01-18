@@ -15,6 +15,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -91,6 +93,8 @@ public class tour_details extends AppCompatActivity {
     private Boolean weatherGoesWrong = false;
     //Maps
     private ArrayList<String> arrayCoordinatesTour;
+    //Web API
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -395,11 +399,6 @@ public class tour_details extends AppCompatActivity {
 
                 Log.e("WEATHER/GEOCODING API DEBUG", buffer);
 
-                /*handler.post(new Runnable(){
-                    public void run(){
-
-                    }
-                });*/
             }
         };
         t.start();
@@ -419,55 +418,12 @@ public class tour_details extends AppCompatActivity {
         });
 
 
-        SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   5 / 5");
+        SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   5.0 / 5.0");
         ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         reviewScore.setText(ratingString);
 
-
-        //GET CALL TO REVIEW VALUE
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+"nametour="+selectedTour.getName(), null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    //JSONArray jsonArray = response.getJSONArray("data");
-                    //for(int i = 0; i < jsonArray.length(); i++){
-                        //JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String msg = response.getString("msg");
-
-                        Double rating = response.getDouble("rating");
-                        int number = response.getInt("number");
-
-                        SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   "+ rating +" / 5");
-                        ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        reviewScore.setText(ratingString);
-
-                        reviewNumber.setText(number + "  Reviews");
-
-                        Log.i("VOLLEY", "Ha funzionato");
-                        Log.i("VOLLEY", "La risposta è:"+msg);
-
-                        jsonResponses.add(msg);
-                   // }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Log.e("VOLLEY","Errore");
-                Log.e("VOLLEY",error.toString());
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-
-
-
+        pollingForReviews();
 
     }
 
@@ -497,6 +453,59 @@ public class tour_details extends AppCompatActivity {
             Toast toast = Toast.makeText(context, centeredText, Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    public void pollingForReviews(){
+        //GET CALL TO REVIEW VALUE
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + "nametour=" + selectedTour.getName(), null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    //JSONArray jsonArray = response.getJSONArray("data");
+                    //for(int i = 0; i < jsonArray.length(); i++){
+                    //JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String msg = response.getString("msg");
+
+                    Double rating = response.getDouble("rating");
+                    int number = response.getInt("number");
+
+                    SpannableStringBuilder ratingString = new SpannableStringBuilder("Rating:   " + rating + " / 5.0");
+                    ratingString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    reviewScore.setText(ratingString);
+
+                    reviewNumber.setText(number + "  Reviews");
+
+                    Log.i("VOLLEY", "Ha funzionato");
+                    Log.i("VOLLEY", "La risposta è:" + msg);
+
+                    jsonResponses.add(msg);
+                    // }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("VOLLEY", "Errore");
+                Log.e("VOLLEY", error.toString());
+
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pollingForReviews();
+                    }
+                }, 1000);
+
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     //Callback function from the transport list

@@ -6,8 +6,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.media.Rating;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +56,8 @@ public class Review extends AppCompatActivity {
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
     private String name_tour;
+
+    private Context mContext = this;
 
     String url;
 
@@ -125,7 +132,13 @@ public class Review extends AppCompatActivity {
                             Log.i("VOLLEY", "Ha funzionato!");
                             Log.i("VOLLEY", response.toString());
 
-                            Toast.makeText(getApplicationContext(), "Grazie per aver recensito questo Tour!" , Toast.LENGTH_LONG).show();
+                            String text = "Thank you for reviewing this tour!";
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                    0, text.length() - 1,
+                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_SHORT);
+                            toast.show();
                             finish();
                         }
                     }, new Response.ErrorListener()  {
@@ -133,6 +146,14 @@ public class Review extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             Log.e("VOLLEY", error.toString());
                             Log.e("VOLLEY", "Errore");
+
+                            String text = "The server is not responding, please try again";
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                    0, text.length() - 1,
+                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                            toast.show();
                         }
                     }) {
                         @Override
