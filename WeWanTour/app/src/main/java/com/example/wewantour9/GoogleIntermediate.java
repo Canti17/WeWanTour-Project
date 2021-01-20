@@ -198,13 +198,11 @@ public class GoogleIntermediate extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    Log.d("Inizializzato a True flag", String.valueOf(flaggoogle));
                     for(DataSnapshot data: dataSnapshot.getChildren() ){
                         Agency agency = data.getValue(Agency.class);
                         Log.d("Email Database", agency.getEmail());
                         Log.d("Email Google", em2);
                         if(em2.equals(agency.getEmail())){
-                            Log.d("SONO QUA","AGENCY");
                             variable = 1000; //AGENCY
                             flaggoogle = false;
                             break;
@@ -227,7 +225,6 @@ public class GoogleIntermediate extends AppCompatActivity {
                         ValueEventListener listener2 = (new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Log.d("Inizializzato a True flag2", String.valueOf(flaggoogle2));
 
                                 for(DataSnapshot data: dataSnapshot.getChildren() ) {
                                     Customer customer = data.getValue(Customer.class);
@@ -235,7 +232,6 @@ public class GoogleIntermediate extends AppCompatActivity {
                                     Log.d("Email Google", em2);
                                     if (em2.equals(customer.getEmail())) {
 
-                                        Log.d("SONO QUA","CUSTOMER");
                                         variable = 100;//CUSTOMER
                                         flaggoogle2 = false;
                                         break;
@@ -286,7 +282,7 @@ public class GoogleIntermediate extends AppCompatActivity {
 
 
         }catch(ApiException e){
-            Toast.makeText(this, "TUTTO MALE",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registration Not Completed!",Toast.LENGTH_SHORT).show();
             //FirebaseGoogleAuth(null);
         }
 
@@ -312,7 +308,7 @@ public class GoogleIntermediate extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(GoogleIntermediate.this, "TUTTO MALE DI NUOVO",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoogleIntermediate.this, "Error! Try Again Later!",Toast.LENGTH_SHORT).show();
 
                 }
             }

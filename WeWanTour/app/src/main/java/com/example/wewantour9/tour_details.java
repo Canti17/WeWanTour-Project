@@ -572,7 +572,7 @@ public class tour_details extends AppCompatActivity {
         int res_id = item.getItemId();
         if (res_id == R.id.menu_info) {
             AlertDialog.Builder info = new AlertDialog.Builder(tour_details.this);
-            info.setMessage("Remember: You can book a transport only for all the people in your group not only a part!");
+            info.setMessage("Select how many people you want to book for, choose if you want to add a transport and click on book!");
             info.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

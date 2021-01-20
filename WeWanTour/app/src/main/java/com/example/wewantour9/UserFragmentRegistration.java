@@ -104,12 +104,18 @@ public class UserFragmentRegistration extends Fragment {
         value = bundle.getInt("google");
 
         if(value == 2){
-            passwordbox.setVisibility(View.GONE);
-            passwordboxconfirmation.setVisibility(View.GONE);
             String fixedname = bundle.getString("key2");
             full_name.setText(fixedname);
             full_name.setEnabled(false);
             full_name.setTextColor(R.color.blackTextColor);
+
+            password.setText("Google Account");
+            password.setEnabled(false);
+            password.setTextColor(R.color.blackTextColor);
+
+            password_confirmation.setText("Google Account");
+            password_confirmation.setEnabled(false);
+            password_confirmation.setTextColor(R.color.blackTextColor);
         }
 
         email.setText(fixedemail);
@@ -242,9 +248,8 @@ public class UserFragmentRegistration extends Fragment {
 
 
                                     // Sign in success, update UI with the signed-in user's information
-                                    //Toast.makeText(getActivity().getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity().getApplicationContext(), "Account Created", Toast.LENGTH_SHORT).show();
                                     Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(), "", Integer.parseInt(new_customer_id));
-                                    Log.e("UserFragmentRegistration CUSTOMER CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", customer.toString());
                                     reference.child(new_customer_id).setValue(customer);
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 } else {

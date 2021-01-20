@@ -116,13 +116,19 @@ public class AgencyFragmentRegistration extends Fragment {
         value = bundle.getInt("google");
 
         if(value == 2){
-            passwordbox.setVisibility(View.GONE);
-            passwordboxconfirmation.setVisibility(View.GONE);
             String fixedname = bundle.getString("key2");
 
             full_name.setText(fixedname);
             full_name.setEnabled(false);
             full_name.setTextColor(R.color.blackTextColor);
+
+            password.setText("Google Account");
+            password.setEnabled(false);
+            password.setTextColor(R.color.blackTextColor);
+
+            password_confirmation.setText("Google Account");
+            password_confirmation.setEnabled(false);
+            password_confirmation.setTextColor(R.color.blackTextColor);
         }
 
         email.setText(fixedemail);
@@ -273,7 +279,6 @@ public class AgencyFragmentRegistration extends Fragment {
 
                                     Toast.makeText(getContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 
-                                    Log.e("AgencyFragmentRegistration AGENCY CLASS BEFORE THE INSERION IN THE DATABASE ELSE", agency.toString());
                                     reference.child(new_agency_id).setValue(agency);
                                 } else {
                                     // If sign in fails, display a message to the user.
