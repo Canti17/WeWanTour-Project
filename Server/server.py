@@ -1,7 +1,6 @@
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
 import json
-from pathlib import Path
 import os.path
 
 application = Flask(__name__)

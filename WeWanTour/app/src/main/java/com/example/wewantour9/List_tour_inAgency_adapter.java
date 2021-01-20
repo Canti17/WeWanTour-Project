@@ -75,7 +75,6 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
         this.mContext = mContext;
         this.uploads = uploads;
         this.id_tour = new ArrayList<String>(Collections.nCopies(uploads.size(), ""));
-        url = mContext.getResources().getString(R.string.URLServer);
     }
 
 
@@ -89,6 +88,9 @@ public class List_tour_inAgency_adapter extends RecyclerView.Adapter<List_tour_i
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, final int position) {
         final Tour current_tour=uploads.get(position);
+
+        url = mContext.getResources().getString(R.string.URLServer);
+
         holder.text_name_tour.setText(current_tour.getName());
 
         holder.text_start_place.setText(current_tour.getStartPlace());

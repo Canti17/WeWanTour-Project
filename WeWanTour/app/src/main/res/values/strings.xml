@@ -27,6 +27,6 @@
     <string name="geocoding_api_key">AublC7lArVRhzoUHlGhjAHNQs8m4hvk5Js-1E7FZbq8lgczlLUMnMq8SfxcLZHrU</string>
 
 
-    <string name="URLServer">http://bf55e32e9466.ngrok.io/?</string>
+    <string name="URLServer">http://green.pythonanywhere.com/?</string>
 
 </resources>
