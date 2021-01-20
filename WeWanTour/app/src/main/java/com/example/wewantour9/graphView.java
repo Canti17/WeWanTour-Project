@@ -83,7 +83,7 @@ public class graphView extends View {
 
     public void setDurata_tour(float durata_tour) {
         this.durata_tour = durata_tour;
-        delay=40*60;
+        delay=15*60;
         //durata_tour=20; //minuti
         durata_tour_secondi=this.durata_tour*60+delay;
 
