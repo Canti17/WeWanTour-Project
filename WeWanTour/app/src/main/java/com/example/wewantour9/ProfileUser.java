@@ -67,6 +67,7 @@ public class ProfileUser extends AppCompatActivity {
 
     ImageView edit;
     private DatabaseReference db_User;
+    private DatabaseReference db_User2;
 
 
 
@@ -122,7 +123,7 @@ public class ProfileUser extends AppCompatActivity {
             phone.setVisibility(View.GONE);
             agencyname.setVisibility(View.GONE);
 
-            db_User = FirebaseDatabase.getInstance().getReference("USER");
+
 
             DatabaseReference db = FirebaseDatabase.getInstance().getReference("USER").child("Customer");
             db.addValueEventListener(new ValueEventListener() {
@@ -178,13 +179,8 @@ public class ProfileUser extends AppCompatActivity {
                                 aster+="*";
                             }
                             password.setText(aster);
-                            if(agency.getImage().equals("")){
-                                Glide.with(getApplicationContext()).load(R.drawable.iconuser).into(image);
-                            }
-                            else{
+                            if(!agency.getImage().equals("")){
                                 Glide.with(getApplicationContext()).load(agency.getImage()).into(image);
-
-
                             }
 
                             break;
@@ -328,6 +324,9 @@ public class ProfileUser extends AppCompatActivity {
                         while(!uri.isComplete());
                         uriPath= uri.getResult().toString();
 
+                        db_User = FirebaseDatabase.getInstance().getReference("USER");
+                        db_User2 = FirebaseDatabase.getInstance().getReference("USER");
+
 
 
                         if(value == 0){
@@ -360,7 +359,7 @@ public class ProfileUser extends AppCompatActivity {
                         else{
                             //AGENCYYYYYY
 
-                            db_User.addListenerForSingleValueEvent(new ValueEventListener() {
+                            db_User2.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -369,7 +368,7 @@ public class ProfileUser extends AppCompatActivity {
                                         Agency agency = data.getValue(Agency.class);
                                         if (emailuser.equals(agency.getEmail())) {
 
-                                            db_User.child("Agency").child(data.getKey()).child("image").setValue(uriPath);
+                                            db_User2.child("Agency").child(data.getKey()).child("image").setValue(uriPath);
                                             break;
 
                                         }

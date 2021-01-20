@@ -58,6 +58,7 @@ public class Login extends AppCompatActivity {
     ProgressBar progress;
     TextView link;
     TextView forgot;
+    FirebaseUser current_user;
 
     private GoogleSignInAccount acc;
 
@@ -90,6 +91,7 @@ public class Login extends AppCompatActivity {
         email =  findViewById(R.id.email_field_login);
         password = findViewById(R.id.password_field_login);
         fAuth = FirebaseAuth.getInstance();
+        current_user = fAuth.getCurrentUser();
         progress =  findViewById(R.id.progressBar);
         link =  findViewById(R.id.link);
         forgot =  findViewById(R.id.forgotpassword);
@@ -435,35 +437,37 @@ public class Login extends AppCompatActivity {
     }
 
     private void FirebaseGoogleAuth(GoogleSignInAccount go) {
+        Log.i("CIAO","percheeeeeeeeeee");
+        if (current_user == null) {
+            Toast.makeText(this, "Logged In Succesfully", Toast.LENGTH_SHORT).show();
+            AuthCredential authcredetnial = GoogleAuthProvider.getCredential(go.getIdToken(), null);
+            final String em = go.getEmail();
+            mAuth.signInWithCredential(authcredetnial).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
 
-        Toast.makeText(this, "Logged In Succesfully",Toast.LENGTH_SHORT).show();
-        AuthCredential authcredetnial = GoogleAuthProvider.getCredential(go.getIdToken(),null);
-        final String em = go.getEmail();
-        mAuth.signInWithCredential(authcredetnial).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+                        if (variable == 1000) {
+                            Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
+                            intent.putExtra("Google", 2);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finishAffinity();
+                        } else {
 
-                    if(variable == 1000) {
-                        Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
-                        intent.putExtra("Google", 2);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
+                            Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                            intent.putExtra("Google", 2);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+
+
                     }
-                    else {
-
-                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                        intent.putExtra("Google", 2);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-
-
                 }
-            }
-        });
+
+            });
+        }
     }
 
 

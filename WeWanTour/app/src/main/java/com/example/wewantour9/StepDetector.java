@@ -6,7 +6,7 @@ public class StepDetector {
     private static final int VEL_RING_SIZE = 10;
 
     // The sensitivity is determined by the threshold. 25f very sensitive!
-    private static final float STEP_THRESHOLD = 25f;  //SENSITIVITY
+    private static final float STEP_THRESHOLD = 30f;  //SENSITIVITY
 
     private static final int STEP_DELAY_NS = 250000000;
 

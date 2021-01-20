@@ -90,11 +90,29 @@ public class PedometerChoice extends AppCompatActivity implements AdapterView.On
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Reservation reserv = postSnapshot.getValue(Reservation.class);
                     if(current_user.getEmail().equals(reserv.getCustomer())){
-                        reservations.add(reserv);
-                        reservationsname.add(reserv.getTour().getName());
+                        Date today = new Date();
+                        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+                        String todaynew= DateFor.format(today);
+                        String[] tour_date_splitted= reserv.getTour().getStartDate().split("/");
+                        String tour_date;
+                        if(Integer.parseInt(tour_date_splitted[1])<10){
+                            tour_date=tour_date_splitted[0]+"/"+"0"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
+                        }else{
+                            tour_date=tour_date_splitted[0]+"/"+tour_date_splitted[1]+"/"+tour_date_splitted[2];
+                        }
+
+                        if(tour_date.equals(todaynew.toString())) {
+                            reservations.add(reserv);
+                            reservationsname.add(reserv.getTour().getName());
+                        }
+
                     }
                 }
                 //mAdapter = new SpinnerAdapter(PedometerChoice.this, reservations)};
+                Log.i("EEEE", reservationsname.toString());
+                if (reservationsname.isEmpty()){
+                    Toast.makeText(PedometerChoice.this, "You have not Reservations for today!", Toast.LENGTH_LONG).show();
+                }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(PedometerChoice.this,
                         android.R.layout.simple_spinner_item, reservationsname);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

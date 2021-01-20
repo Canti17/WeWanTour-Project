@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,6 +72,8 @@ public class reservation_summary extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         currentUser = fAuth.getCurrentUser();
+
+        Log.i("CIAO", currentUser.getEmail());
 
         tourTitleValue = findViewById(R.id.textViewReservationSummary);
         tourDateValue = findViewById(R.id.textViewReservationSummaryTourDateValue);
@@ -342,14 +345,18 @@ public class reservation_summary extends AppCompatActivity {
 
                 //CAMBIARE QUI DEVE ANDARE A MY RESERVATION DELL CUSTOMER
                 Intent intent;
-                Log.e("IS CUSTOMER", currentUserIsCustomer+"");
+
                 if(currentUserIsCustomer) {
                     intent = new Intent(reservation_summary.this, Homepage.class);
+                    Toast.makeText(getApplicationContext(), "Creato",Toast.LENGTH_SHORT).show();
+                    //finish();
                 }else{
+                    //finish();
+                    Toast.makeText(getApplicationContext(), "Creato",Toast.LENGTH_SHORT).show();
                     intent = new Intent(reservation_summary.this, HomepageAgency.class);
                 }
                 startActivity(intent);
-                finishAffinity();
+                finish();
 
             }
         });
