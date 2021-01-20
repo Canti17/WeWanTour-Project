@@ -71,7 +71,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     private ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
 
-    private int value;
+    private int valueGoogle;
 
 
     @Override
@@ -140,7 +140,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         searchView = findViewById(R.id.search_view);
 
         Log.i("CIAO", "Problema è qui?");
-        value =  getIntent().getIntExtra("Google",0);
+        valueGoogle =  getIntent().getIntExtra("Google",0);
 
 
         //VARIABLE TO SAY THAT I AM AN USER
@@ -295,7 +295,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(inte);
                 break;
             case R.id.nav_logout:
-                if(value == 2){
+                if(valueGoogle == 2){
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
                             .requestEmail()

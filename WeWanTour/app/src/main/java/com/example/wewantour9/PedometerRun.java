@@ -197,6 +197,7 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 chrono.stop();
+                progress.setProgress(0);  //UPDATE STEP PROGRESS BAR
                 DataHolder.getInstance().setData(0);
                 startActivity(new Intent(PedometerRun.this, PedometerChoice.class));
                 finish();
