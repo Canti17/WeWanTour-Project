@@ -31,8 +31,8 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
     private float[] myLastAcceleration = new float[3];
     private final float[] myOrientation = new float[3];
 
-    private float angle = 0f;
-    private float current_angle = 0f;
+    private float yaw = 0f;
+    private float current_yaw = 0f;
 
     private final float[] rotationMatrix = new float[9];
 
@@ -93,12 +93,12 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
         if(success){
             SensorManager.getOrientation(rotationMatrix, myOrientation);
 
-            angle = (float) Math.toDegrees(myOrientation[0]);
-            angle = (angle+360)%360;
+            yaw = (float) Math.toDegrees(myOrientation[0]);
+            yaw = (yaw+360)%360;
 
             //ANIMATION NOT CANVAS
-            Animation animation = new RotateAnimation(-current_angle, -angle, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            current_angle = angle;
+            Animation animation = new RotateAnimation(-current_yaw, -yaw, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            current_yaw = yaw;
 
             animation.setDuration(500);
             animation.setRepeatCount(0);

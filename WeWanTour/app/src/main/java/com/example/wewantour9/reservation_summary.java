@@ -349,7 +349,7 @@ public class reservation_summary extends AppCompatActivity {
                     intent = new Intent(reservation_summary.this, HomepageAgency.class);
                 }
                 startActivity(intent);
-                finish();
+                finishAffinity();
 
             }
         });
