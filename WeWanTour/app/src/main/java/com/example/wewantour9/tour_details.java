@@ -81,6 +81,7 @@ public class tour_details extends AppCompatActivity {
     private Transport selectedTransport;
     private Reservation newReservation = new Reservation();
     private int numberOfReservationForTransport = 0;
+    private Context mContext = this;
 
     private FirebaseAuth fAuth;
     private FirebaseUser currentUser;
@@ -247,9 +248,19 @@ public class tour_details extends AppCompatActivity {
                     newReservation.setNumberOfPeople(numberPicker.getValue());
                     newReservation.setTransportNumberOfPeople(numberOfReservationForTransport);
                     Log.e("tour_details RESERVATION CLASS TO SEND TO THE SUMMARY PAGE",newReservation.toString());
-                    Intent intent = new Intent(tour_details.this, reservation_summary.class);
-                    intent.putExtra("Reservation class from tour details to summary", newReservation);
-                    startActivity(intent);
+                    if(numberPicker.getValue() != 0) {
+                        Intent intent = new Intent(tour_details.this, reservation_summary.class);
+                        intent.putExtra("Reservation class from tour details to summary", newReservation);
+                        startActivity(intent);
+                    }else{
+                        String text = "This tour has no more available seats";
+                        Spannable centeredText = new SpannableString(text);
+                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                0, text.length() - 1,
+                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        Toast toast = Toast.makeText(mContext, centeredText, Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             });
 

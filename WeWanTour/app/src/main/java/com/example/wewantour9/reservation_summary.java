@@ -348,13 +348,10 @@ public class reservation_summary extends AppCompatActivity {
 
                 if(currentUserIsCustomer) {
                     intent = new Intent(reservation_summary.this, Homepage.class);
-                    Toast.makeText(getApplicationContext(), "Creato",Toast.LENGTH_SHORT).show();
-                    //finish();
                 }else{
-                    //finish();
-                    Toast.makeText(getApplicationContext(), "Creato",Toast.LENGTH_SHORT).show();
                     intent = new Intent(reservation_summary.this, HomepageAgency.class);
                 }
+                Toast.makeText(getApplicationContext(), "Tour Booked",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 finish();
 
