@@ -213,7 +213,7 @@ public class UserFragmentRegistration extends Fragment {
                     progress.setVisibility(View.VISIBLE);
 
                     if (value == 2) {
-                        Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(),
+                        Customer customer = new Customer(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                  "", Integer.parseInt(new_customer_id));
                         Log.e("UserFragmentRegistration CUSTOMER CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", customer.toString());
                         reference.child(new_customer_id).setValue(customer);
@@ -249,7 +249,7 @@ public class UserFragmentRegistration extends Fragment {
 
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(getActivity().getApplicationContext(), "Account Created", Toast.LENGTH_SHORT).show();
-                                    Customer customer = new Customer(full_name.getText().toString(), email.getText().toString(), "", Integer.parseInt(new_customer_id));
+                                    Customer customer = new Customer(full_name.getText().toString().trim(), email.getText().toString().trim(), "", Integer.parseInt(new_customer_id));
                                     reference.child(new_customer_id).setValue(customer);
                                     startActivity(new Intent(getActivity().getApplicationContext(), Login.class));
                                 } else {
