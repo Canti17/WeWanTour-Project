@@ -93,8 +93,9 @@ public class tour_details extends AppCompatActivity {
     private Boolean weatherGoesWrong = false;
     //Maps
     private ArrayList<String> arrayCoordinatesTour;
-    //Web API
+    //Server API
     private RequestQueue requestQueue;
+    private Boolean flagPollingReviews = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -423,7 +424,7 @@ public class tour_details extends AppCompatActivity {
         ratingString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         reviewScore.setText(ratingString);
 
-        pollingForReviews();
+        pollingForReviews(0);
 
     }
 
@@ -455,15 +456,12 @@ public class tour_details extends AppCompatActivity {
         }
     }
 
-    public void pollingForReviews(){
+    public void pollingForReviews(final int numberOfTry){
         //GET CALL TO REVIEW VALUE
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + "nametour=" + selectedTour.getName(), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    //JSONArray jsonArray = response.getJSONArray("data");
-                    //for(int i = 0; i < jsonArray.length(); i++){
-                    //JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String msg = response.getString("msg");
 
                     Double rating = response.getDouble("rating");
@@ -480,7 +478,6 @@ public class tour_details extends AppCompatActivity {
                     Log.i("VOLLEY", "La risposta è:" + msg);
 
                     jsonResponses.add(msg);
-                    // }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -492,14 +489,15 @@ public class tour_details extends AppCompatActivity {
                 Log.e("VOLLEY", "Errore");
                 Log.e("VOLLEY", error.toString());
 
-                final Handler handler = new Handler(Looper.getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pollingForReviews();
-                    }
-                }, 1000);
-
+                if(numberOfTry <= 6 && flagPollingReviews) {
+                    final Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pollingForReviews(numberOfTry + 1);
+                        }
+                    }, 1000);
+                }
             }
         });
 
@@ -558,6 +556,11 @@ public class tour_details extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        flagPollingReviews = false;
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
