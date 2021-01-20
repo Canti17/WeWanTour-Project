@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +39,8 @@ public class fragment_myTransports_agency extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private FirebaseAuth fAuth;
     FirebaseUser current_user;
+    private TextView noTransportLabel;
+
 
     public fragment_myTransports_agency() {
         // Required empty public constructor
@@ -64,6 +67,8 @@ public class fragment_myTransports_agency extends Fragment {
         mProgressCircle = view.findViewById(R.id.progress_circle);
         transports = new ArrayList<Transport>();
 
+        noTransportLabel=view.findViewById(R.id.txt_available_MyTransport);
+
 
         mDatabaseReferenceTour = FirebaseDatabase.getInstance().getReference("TRANSPORT");
         mDatabaseReferenceTour.addValueEventListener(new ValueEventListener() {
@@ -80,6 +85,11 @@ public class fragment_myTransports_agency extends Fragment {
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mProgressCircle.setVisibility(View.INVISIBLE);
+                if(transports.isEmpty()){
+                    noTransportLabel.setVisibility(View.VISIBLE);
+                }else{
+                    noTransportLabel.setVisibility(View.GONE);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
