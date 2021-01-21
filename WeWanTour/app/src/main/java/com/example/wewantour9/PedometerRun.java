@@ -235,7 +235,7 @@ public class PedometerRun extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            simpleStepDetector.updateAccel(
+            simpleStepDetector.updateAcceleration(
                     event.timestamp, event.values[0], event.values[1], event.values[2]);
         }
     }

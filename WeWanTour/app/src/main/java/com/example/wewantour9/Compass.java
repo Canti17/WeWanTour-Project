@@ -39,7 +39,6 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
 
 
     private compassView compassView;
-
     private Matrix compass_matrix;
 
     @Override
@@ -60,16 +59,15 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
 
 
         text_compass = findViewById(R.id.text_compass);
-
-        String text_compassstring = text_compass.getText().toString(); //We need this?
+        compass = findViewById(R.id.compass);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magn = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        compassView=findViewById(R.id.compass_view);
-
-        compass_matrix=compassView.getMatrix();
+        //RICK LINES
+        //compassView=findViewById(R.id.compass_view);
+        //compass_matrix=compassView.getMatrix();
 
 
         sensorManager.registerListener(Compass.this, accel, SensorManager.SENSOR_DELAY_NORMAL); //STARTING SENSOR
@@ -92,11 +90,10 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             myLastAcceleration = sensorEvent.values.clone();
-
         }
+
         if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             myLastMagnetic = sensorEvent.values.clone();
-
         }
 
         boolean success = SensorManager.getRotationMatrix(rotationMatrix, null, myLastAcceleration, myLastMagnetic);
@@ -106,11 +103,18 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
             yaw = (float) Math.toDegrees(myOrientation[0]);
             yaw = (yaw+360)%360;
 
-            compassView.setPosMatrix(yaw);
+
             //ANIMATION NOT CANVAS
+            Animation animation = new RotateAnimation(-current_yaw, -yaw, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            current_yaw = yaw;
 
+            animation.setDuration(500);
+            animation.setRepeatCount(0);
+            animation.setFillAfter(true);
 
-//            compass.startAnimation(animation);
+            compass.startAnimation(animation);
+            //RICK FUNCTION CALL POSMATRIX
+            //compassView.setPosMatrix(yaw);
 
         }
 

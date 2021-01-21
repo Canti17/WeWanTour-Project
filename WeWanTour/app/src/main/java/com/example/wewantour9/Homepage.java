@@ -122,7 +122,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
         fAuth = FirebaseAuth.getInstance();
         current_user = fAuth.getCurrentUser();
-        if(current_user != null) Log.i("CIAOHomepage CURRENT USER", current_user.getEmail());
+        if(current_user != null) Log.i("Homepage CURRENT USER", current_user.getEmail());
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -139,7 +139,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
         searchView = findViewById(R.id.search_view);
 
-        Log.i("CIAO", "Problema è qui?");
         valueGoogle =  getIntent().getIntExtra("Google",0);
 
 

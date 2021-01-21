@@ -49,7 +49,6 @@ import java.util.Objects;
  */
 public class UserFragmentRegistration extends Fragment {
 
-   // NestedScrollView scroll;
 
     public UserFragmentRegistration() {
         // Required empty public constructor
@@ -143,7 +142,6 @@ public class UserFragmentRegistration extends Fragment {
                 if(!newIdFlagAlreadySelected){
                     new_customer_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
-                    Log.e("UserFragmentRegistration CUSTOMER SELECT ID FUNCTION", new_customer_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
@@ -215,7 +213,6 @@ public class UserFragmentRegistration extends Fragment {
                     if (value == 2) {
                         Customer customer = new Customer(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                  "", Integer.parseInt(new_customer_id));
-                        Log.e("UserFragmentRegistration CUSTOMER CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", customer.toString());
                         reference.child(new_customer_id).setValue(customer);
                         Toast.makeText(getActivity().getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
                         fAuth.signOut();

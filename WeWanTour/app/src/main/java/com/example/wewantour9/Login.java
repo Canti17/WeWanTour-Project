@@ -120,7 +120,6 @@ public class Login extends AppCompatActivity {
 
         }
 
-        Log.i("CIAO","Sono nella OnCreate del Login");
         signinbutton = findViewById(R.id.google_button);
 
         mAuth = FirebaseAuth.getInstance();
@@ -172,51 +171,53 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                            Toast.makeText(Login.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
 
-                            //FirebaseUser current_user = fAuth.getCurrentUser();
-                            final String emailuser = email.getText().toString().trim();
-                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER");
 
-                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                //FirebaseUser current_user = fAuth.getCurrentUser();
+                                final String emailuser = email.getText().toString().trim();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER");
 
-                                    boolean flag = true;
-                                    for(DataSnapshot data: dataSnapshot.child("Agency").getChildren() ){
-                                        Agency agency = data.getValue(Agency.class);
-                                        if(emailuser.equals(agency.getEmail())){
-                                            flag = false;
+                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                            Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
+                                        boolean flag = true;
+                                        for(DataSnapshot data: dataSnapshot.child("Agency").getChildren() ){
+                                            Agency agency = data.getValue(Agency.class);
+                                            if(emailuser.equals(agency.getEmail())){
+                                                flag = false;
+
+                                                Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
+                                                intent.putExtra("Google",1);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                                finish();
+                                                break;
+                                            }
+                                        }
+                                        if(flag) {
+                                            Log.d("SONO qui", "*******PARTE LA MAIN ACTIVITY");
+
+
+
+                                            Intent intent = new Intent(getApplicationContext(), Homepage.class);
                                             intent.putExtra("Google",1);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
-                                            break;
                                         }
-                                    }
-                                    if(flag) {
-                                        Log.d("SONO qui", "*******PARTE LA MAIN ACTIVITY");
 
 
 
-                                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                                        intent.putExtra("Google",1);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
                                     }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                                    }
+                                });
 
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
+                                Toast.makeText(Login.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
 
                             }
                             else{
@@ -360,13 +361,11 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    Log.d("Inizializzato a True flag", String.valueOf(flaggoogle));
                     for(DataSnapshot data: dataSnapshot.getChildren() ){
                         Agency agency = data.getValue(Agency.class);
                         Log.d("Email Database", agency.getEmail());
                         Log.d("Email Google", em2);
                         if(em2.equals(agency.getEmail())){
-                            Log.d("SONO QUA","AGENCY");
                             variable = 1000; //AGENCY
                             flaggoogle = false;
                             break;
@@ -384,15 +383,12 @@ public class Login extends AppCompatActivity {
                         db2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Log.d("Inizializzato a True flag2", String.valueOf(flaggoogle2));
 
                                 for(DataSnapshot data: dataSnapshot.getChildren() ) {
                                     Customer customer = data.getValue(Customer.class);
                                     Log.d("Email Database", customer.getEmail());
                                     Log.d("Email Google", em2);
                                     if (em2.equals(customer.getEmail())) {
-
-                                        Log.d("SONO QUA","CUSTOMER");
                                         variable = 100;//CUSTOMER
                                         flaggoogle2 = false;
                                         break;
@@ -443,39 +439,36 @@ public class Login extends AppCompatActivity {
     }
 
     private void FirebaseGoogleAuth(GoogleSignInAccount go) {
-        Log.i("CIAO","percheeeeeeeeeee");
-        if (current_user == null) {
-            Toast.makeText(this, "Logged In Succesfully", Toast.LENGTH_SHORT).show();
-            AuthCredential authcredetnial = GoogleAuthProvider.getCredential(go.getIdToken(), null);
-            final String em = go.getEmail();
-            mAuth.signInWithCredential(authcredetnial).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
+        Toast.makeText(this, "Logged In Succesfully", Toast.LENGTH_SHORT).show();
+        AuthCredential authcredetnial = GoogleAuthProvider.getCredential(go.getIdToken(), null);
+        final String em = go.getEmail();
+        mAuth.signInWithCredential(authcredetnial).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
 
-                        if (variable == 1000) {
-                            Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
-                            intent.putExtra("Google", 2);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        } else {
+                    if (variable == 1000) {
+                        Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
+                        intent.putExtra("Google", 2);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
 
-                            Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                            intent.putExtra("Google", 2);
-                            //reference.removeEventListener(listener);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-
-
+                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                        intent.putExtra("Google", 2);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
                     }
-                }
 
-            });
-        }
+
+                }
+            }
+
+        });
     }
+
 
 
 

@@ -154,7 +154,6 @@ public class AgencyFragmentRegistration extends Fragment {
                 if(!newIdFlagAlreadySelected){
                     new_agency_id =  String.valueOf(id_progressive);
                     newIdFlagAlreadySelected = true;
-                    Log.e("AgencyFragmentRegistration AGENCY SELECT ID FUNCTION", new_agency_id+"--"+newIdFlagAlreadySelected);
                 }
             }
             @Override
@@ -235,7 +234,6 @@ public class AgencyFragmentRegistration extends Fragment {
                         Agency agency = new Agency(full_name.getText().toString().trim(), email.getText().toString().trim(),
                                  "", Integer.parseInt(new_agency_id), agency_name.getText().toString().trim(),
                                 telephone, iva_number.getText().toString().trim());
-                        Log.e("AgencyFragmentRegistration AGENCY CLASS BEFORE THE INSERION IN THE DATABASE VALUE == 2", agency.toString());
 
                         reference.child(new_agency_id).setValue(agency);
 
@@ -259,7 +257,7 @@ public class AgencyFragmentRegistration extends Fragment {
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Log.d("TAG", "Error: Verification Mail not sent" + e.getMessage());
+                                            Toast.makeText(getContext(), "Error: Verification Mail not sent!", Toast.LENGTH_SHORT).show();
 
                                         }
                                     });

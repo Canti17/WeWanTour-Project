@@ -30,25 +30,21 @@ import java.util.Objects;
 
 public class TotalRegister extends AppCompatActivity {
 
-    DrawerLayout drawer;
-    //NavigationView nav_view;
-    //ActionBarDrawerToggle toggle;
+    private DrawerLayout drawer;
 
-    ViewPager viewpager;
-    TabLayout tab;
-    TabItem firstitem;
-    TabItem seconditem;
+    private ViewPager viewpager;
+    private TabLayout tab;
+    private TabItem firstitem;
+    private TabItem seconditem;
     private int value;
 
-    PagerAdapter pageradapter;
+    private PagerAdapter pageradapter;
 
 
 
     @Override
     public void onBackPressed() {
-
             finish();
-
     }
 
 
@@ -99,10 +95,10 @@ public class TotalRegister extends AppCompatActivity {
         //drawer.addDrawerListener(toggle);
         //toggle.setDrawerIndicatorEnabled(true);
         //toggle.syncState();
-        String email =  getIntent().getStringExtra("Hey");
-        String name = getIntent().getStringExtra("Hey2");
+        String email =  getIntent().getStringExtra("EmailGoogle");
+        String name = getIntent().getStringExtra("NameGoogle");
         value =  getIntent().getIntExtra("Google",0);
-        //1 è normal, 2 è google
+        //1 is normal, 2 is google
 
 
 
@@ -131,13 +127,10 @@ public class TotalRegister extends AppCompatActivity {
                 int g = tab.getPosition();
                 String l = Integer.toString(g);
                 //tab.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_LABELED);
-
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -146,9 +139,7 @@ public class TotalRegister extends AppCompatActivity {
             }
         });
 
-
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tab));
-
 
     }
 
@@ -161,7 +152,6 @@ public class TotalRegister extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         int res_id = item.getItemId();
         if(res_id == R.id.menu_info){
             AlertDialog.Builder info = new AlertDialog.Builder(TotalRegister.this);
@@ -173,7 +163,6 @@ public class TotalRegister extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
-
                 }
             });
 
@@ -181,17 +170,11 @@ public class TotalRegister extends AppCompatActivity {
         }
 
         else{
-
                 finish();
-
-
         }
-
 
         return true;
     }
-
-
 
 
      @Override

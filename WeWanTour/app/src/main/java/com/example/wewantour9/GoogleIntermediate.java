@@ -132,7 +132,7 @@ public class GoogleIntermediate extends AppCompatActivity {
 
                 if(checkemail()) {
                     Intent intent = new Intent(GoogleIntermediate.this, TotalRegister.class);
-                    intent.putExtra("Hey", newemail);
+                    intent.putExtra("EmailGoogle", newemail);
                     intent.putExtra("Google",1);
                     startActivity(intent);
 
@@ -191,10 +191,10 @@ public class GoogleIntermediate extends AppCompatActivity {
 
 
             final String em2 = acc.getEmail();
-            Log.d("UEEE", em2);
+
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER").child("Agency");
 
-            ValueEventListener listener = (new ValueEventListener() {
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -212,13 +212,6 @@ public class GoogleIntermediate extends AppCompatActivity {
                     if(flaggoogle == false){
                         googleSignInclient.signOut();
                         mAuth.signOut();
-                        FirebaseUser current_user = mAuth.getCurrentUser();
-                        if(current_user == null){
-                            Log.i("CIAO","current user nullo primo flag");
-                        }
-                        else{
-                            Log.i("CIAO", current_user.getEmail() +"primo flag");
-                        }
 
                         Intent intent = new Intent(GoogleIntermediate.this, Login.class);
                         intent.putExtra("ControlloLogin", 1);
@@ -230,7 +223,7 @@ public class GoogleIntermediate extends AppCompatActivity {
                     else{
 
                         DatabaseReference db2 = FirebaseDatabase.getInstance().getReference("USER").child("Customer");
-                        ValueEventListener listener2 = (new ValueEventListener() {
+                        db2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -249,13 +242,7 @@ public class GoogleIntermediate extends AppCompatActivity {
                                 if(flaggoogle2 == false){
                                     googleSignInclient.signOut();
                                     mAuth.signOut();
-                                    FirebaseUser current_user = mAuth.getCurrentUser();
-                                    if(current_user == null){
-                                        Log.i("CIAO","current user nullo secondo flag");
-                                    }
-                                    else{
-                                        Log.i("CIAO", current_user.getEmail() +"secondo flag");
-                                    }
+
                                     Intent intent = new Intent(GoogleIntermediate.this, Login.class);
                                     intent.putExtra("ControlloLogin", 1);
                                     startActivity(intent);
@@ -273,7 +260,7 @@ public class GoogleIntermediate extends AppCompatActivity {
 
                             }
                         });
-                        db2.addListenerForSingleValueEvent(listener2);
+                        //db2.addListenerForSingleValueEvent(listener2);
 
 
                     }
@@ -285,18 +272,10 @@ public class GoogleIntermediate extends AppCompatActivity {
                 }
             });
 
-            reference.addListenerForSingleValueEvent(listener);
-
-
-
-
-
-
-
+            //reference.addListenerForSingleValueEvent(listener);
 
         }catch(ApiException e){
             Toast.makeText(this, "Registration Not Completed!",Toast.LENGTH_SHORT).show();
-            //FirebaseGoogleAuth(null);
         }
 
     }
@@ -312,17 +291,17 @@ public class GoogleIntermediate extends AppCompatActivity {
                 if(task.isSuccessful()){
 
                     Intent intent = new Intent(GoogleIntermediate.this, TotalRegister.class);
-                    intent.putExtra("Hey", em);
-                    intent.putExtra("Hey2",et);
+                    intent.putExtra("EmailGoogle", em);
+                    intent.putExtra("NameGoogle",et);
                     intent.putExtra("Google",2);
                     startActivity(intent);
                     Toast.makeText(GoogleIntermediate.this, "Complete the Registration!",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
 
-                    //USER NON NULLO TESTED
+                    //USER NOT NULL TESTED
                     googleSignInclient.signOut();
                     mAuth.signOut();
-                    //USER NULLO TESTED
+                    //USER NULL TESTED
 
                 }
                 else{
