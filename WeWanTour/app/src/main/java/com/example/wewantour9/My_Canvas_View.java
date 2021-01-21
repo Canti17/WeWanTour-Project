@@ -163,7 +163,7 @@ public class My_Canvas_View extends SurfaceView implements Runnable,SurfaceHolde
             frameToDraw = new Rect(0, 0, frameWidth, frameHeight);
             whereToDraw = new RectF(bobXPosition,0, bobXPosition + frameWidth, frameHeight);
 
-            Log.d("STAMPO K", ""+k);
+            //Log.d("STAMPO K", ""+k);
 
             whereToDraw.set( current_position,frameHeight/2, (float) (current_position+frameWidth/1.5),frameHeight*2);
 
