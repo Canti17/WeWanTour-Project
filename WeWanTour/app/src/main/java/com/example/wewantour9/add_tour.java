@@ -112,19 +112,6 @@ public class add_tour extends AppCompatActivity {
         startActivityForResult(
                 Intent.createChooser(intent, "Select Image from here..."), PICK_IMAGE_REQUEST);
     }
-    /*public String getNextId(DataSnapshot postSnapshot) {
-        ArrayList<String> lastList = new ArrayList<String>();
-        for (DataSnapshot postSnapshotList : postSnapshot.getChildren()) {
-            lastList.add(postSnapshotList.getKey());
-        }
-        int id_progressive;
-        if(lastList.size() != 0) {
-            id_progressive = Integer.parseInt(lastList.get(lastList.size() - 1)) + 1;
-        }else{
-            id_progressive = 0;
-        }
-        return String.valueOf(id_progressive);
-    }*/
 
     // Override onActivityResult method
     @Override
@@ -137,14 +124,6 @@ public class add_tour extends AppCompatActivity {
             // Get the Uri of data
             filePath = data.getData();
 
-            /*
-            String fileLastPath= filePath.getLastPathSegment();
-            String[] fileNamesplitted= fileLastPath.split("/");
-            if(fileNamesplitted.length== fileLastPath.length()){
-                FileName = fileLastPath;
-            }else{
-                FileName = fileNamesplitted[1];
-            }*/
 
             FileName = "Image selected";
 
@@ -152,7 +131,6 @@ public class add_tour extends AppCompatActivity {
             /* I need to set reference_img beacause here I take the file name from the device,
             I will use it later when I call the putFile(filePath) function*/
 
-            //reference_img = storageReference.child("tour/"+FileName);
 
             editText3.setText(FileName);
 
@@ -394,10 +372,6 @@ public class add_tour extends AppCompatActivity {
                     edtxt_tripLength.setError("please enter length of the trip");//it gives user to info message
                     check = false;
                 }
-                /*if(!((bike_pressed==true && walk_pressed==false) ||  (bike_pressed==false && walk_pressed==true))){
-                    txt_vehicle.setError("please choose the vehicle");//it gives user to info message
-                    check = false;
-                }*/
                 if(check){
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(outYear, outMonthOfYear, outDayOfMonth, outHourOfDay, outMinute);
@@ -458,8 +432,7 @@ public class add_tour extends AppCompatActivity {
                             Log.e("add_tour TOUR CLASS BEFORE THE INSERION IN THE DATABASE", tour.toString());
                             Log.e("add_tour AGENCY IN WHICH THE TOUR IS INSERTED", current_agency.toString());
                             db.child(new_tour_id).setValue(tour);
-                            //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
-                            db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+                            db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour);
                             finish();
                             startActivity(new Intent(add_tour.this, HomepageAgency.class));
                         }
@@ -503,8 +476,7 @@ public class add_tour extends AppCompatActivity {
                                             Log.e("add_tour TOUR CLASS BEFORE THE INSERION IN THE DATABASE", tour.toString());
                                             Log.e("add_tour AGENCY IN WHICH THE TOUR IS INSERTED", current_agency.toString());
                                             db.child(new_tour_id).setValue(tour);
-                                            //db_User.child(postSnapshot.getKey()).child("list_tour").child(getNextId(postSnapshot.child("list_tour"))).setValue(tour);
-                                            db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour); //QUESTA RIGA VA SOSTITUITA ALLA PRECEDENTE QUANDO DECIDIAMO DI NON CANCELLARE PIU COSE A CAVOLO, SERVE AD AVERE UNA CONGRUENZA NEL DB TRA GLI ID /TOUR & /USER/Agency/list_tour WHEN THIS LINE USED DELETE THE FUNCTION "getNetId" ABOVE
+                                            db_User.child(postSnapshot.getKey()).child("list_tour").child(new_tour_id).setValue(tour);
                                             finish();
                                             startActivity(new Intent(add_tour.this, HomepageAgency.class));
                                         }
