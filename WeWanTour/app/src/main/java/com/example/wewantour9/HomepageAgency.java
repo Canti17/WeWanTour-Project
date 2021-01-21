@@ -154,6 +154,7 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                 startActivity(intent);
                 break;
             case R.id.nav_logout:
+                Intent intento = new Intent(HomepageAgency.this, Homepage.class);
                 if(value == 2){
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
@@ -162,13 +163,15 @@ public class HomepageAgency extends AppCompatActivity implements NavigationView.
                     GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
                     fAuth.signOut();
                     mGoogleSignInClient.signOut();
-                    startActivity(new Intent(HomepageAgency.this, Homepage.class));
+                    intento.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intento);
                     finish();
                     break;
                 }
                 else {
                     fAuth.signOut();
-                    startActivity(new Intent(HomepageAgency.this, Homepage.class));
+                    intento.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intento);
                     finish();
                     break;
                 }

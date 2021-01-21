@@ -295,6 +295,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(inte);
                 break;
             case R.id.nav_logout:
+                Intent intento = new Intent(Homepage.this, Homepage.class);
                 if(valueGoogle == 2){
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
@@ -303,13 +304,15 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                     GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
                     fAuth.signOut();
                     mGoogleSignInClient.signOut();
-                    startActivity(new Intent(Homepage.this, Homepage.class));
+                    intento.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intento);
                     finish();
                     break;
                 }
                 else {
                     fAuth.signOut();
-                    startActivity(new Intent(Homepage.this, Homepage.class));
+                    intento.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intento);
                     finish();
                     break;
                 }

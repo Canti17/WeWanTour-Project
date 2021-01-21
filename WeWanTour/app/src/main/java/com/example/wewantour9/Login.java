@@ -59,6 +59,7 @@ public class Login extends AppCompatActivity {
     TextView link;
     TextView forgot;
     FirebaseUser current_user;
+    DatabaseReference reference;
 
     private GoogleSignInAccount acc;
 
@@ -119,7 +120,7 @@ public class Login extends AppCompatActivity {
 
         }
 
-
+        Log.i("CIAO","Sono nella OnCreate del Login");
         signinbutton = findViewById(R.id.google_button);
 
         mAuth = FirebaseAuth.getInstance();
@@ -189,7 +190,7 @@ public class Login extends AppCompatActivity {
 
                                             Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
                                             intent.putExtra("Google",1);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
                                             break;
@@ -202,7 +203,7 @@ public class Login extends AppCompatActivity {
 
                                         Intent intent = new Intent(getApplicationContext(), Homepage.class);
                                         intent.putExtra("Google",1);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -328,26 +329,34 @@ public class Login extends AppCompatActivity {
         startActivityForResult(signinintent, 1);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
+            Log.d("FLAG2prima", "FUORI IL TRY CATCH");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handlesigninresult(task);
+            try {
+                Log.d("FLAG2prima", "DENTRO IL TRYCATCH");
+                handlesigninresult(task);
+            } catch (ApiException e) {
+                e.printStackTrace();
+
+            }
         }
     }
 
-    private void handlesigninresult(Task<GoogleSignInAccount> task) {
+    private void handlesigninresult(Task<GoogleSignInAccount> task) throws ApiException {
 
         Log.d("FLAGprima", String.valueOf(flaggoogle));
         Log.d("FLAG2prima", String.valueOf(flaggoogle2));
-        try {
-            acc = task.getResult(ApiException.class);
-            final String em2 = acc.getEmail();
-            Log.d("UEEE", em2);
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USER").child("Agency");
 
-            ValueEventListener listener = (new ValueEventListener() {
+        acc = task.getResult(ApiException.class);
+        final String em2 = acc.getEmail();
+        Log.d("UEEE", em2);
+        reference = FirebaseDatabase.getInstance().getReference("USER").child("Agency");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -372,7 +381,7 @@ public class Login extends AppCompatActivity {
                     else{
 
                         DatabaseReference db2 = FirebaseDatabase.getInstance().getReference("USER").child("Customer");
-                        ValueEventListener listener2 = (new ValueEventListener() {
+                        db2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Log.d("Inizializzato a True flag2", String.valueOf(flaggoogle2));
@@ -412,7 +421,7 @@ public class Login extends AppCompatActivity {
 
                             }
                         });
-                        db2.addValueEventListener(listener2);
+                        //db2.addValueEventListener(listener2);
 
 
                     }
@@ -424,15 +433,12 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-            reference.addValueEventListener(listener); //FA PARTIRE TUTTO IL CODICE SOPRA
+            //reference.addValueEventListener(listener); //FA PARTIRE TUTTO IL CODICE SOPRA
 
 
 
 
-        }catch(ApiException e){
-            Toast.makeText(this, "Login Failed",Toast.LENGTH_SHORT).show();
-            //FirebaseGoogleAuth(null);
-        }
+
 
     }
 
@@ -450,16 +456,17 @@ public class Login extends AppCompatActivity {
                         if (variable == 1000) {
                             Intent intent = new Intent(getApplicationContext(), HomepageAgency.class);
                             intent.putExtra("Google", 2);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finishAffinity();
+                            finish();
                         } else {
 
                             Intent intent = new Intent(getApplicationContext(), Homepage.class);
                             intent.putExtra("Google", 2);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            //reference.removeEventListener(listener);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finishAffinity();
+                            finish();
                         }
 
 

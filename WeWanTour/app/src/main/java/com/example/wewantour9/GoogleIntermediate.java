@@ -212,6 +212,14 @@ public class GoogleIntermediate extends AppCompatActivity {
                     if(flaggoogle == false){
                         googleSignInclient.signOut();
                         mAuth.signOut();
+                        FirebaseUser current_user = mAuth.getCurrentUser();
+                        if(current_user == null){
+                            Log.i("CIAO","current user nullo primo flag");
+                        }
+                        else{
+                            Log.i("CIAO", current_user.getEmail() +"primo flag");
+                        }
+
                         Intent intent = new Intent(GoogleIntermediate.this, Login.class);
                         intent.putExtra("ControlloLogin", 1);
                         startActivity(intent);
@@ -241,6 +249,13 @@ public class GoogleIntermediate extends AppCompatActivity {
                                 if(flaggoogle2 == false){
                                     googleSignInclient.signOut();
                                     mAuth.signOut();
+                                    FirebaseUser current_user = mAuth.getCurrentUser();
+                                    if(current_user == null){
+                                        Log.i("CIAO","current user nullo secondo flag");
+                                    }
+                                    else{
+                                        Log.i("CIAO", current_user.getEmail() +"secondo flag");
+                                    }
                                     Intent intent = new Intent(GoogleIntermediate.this, Login.class);
                                     intent.putExtra("ControlloLogin", 1);
                                     startActivity(intent);
@@ -250,8 +265,6 @@ public class GoogleIntermediate extends AppCompatActivity {
 
                                 else{
                                     FirebaseGoogleAuth(acc);
-
-
                                 }
 
                             }
@@ -306,6 +319,11 @@ public class GoogleIntermediate extends AppCompatActivity {
                     Toast.makeText(GoogleIntermediate.this, "Complete the Registration!",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
 
+                    //USER NON NULLO TESTED
+                    googleSignInclient.signOut();
+                    mAuth.signOut();
+                    //USER NULLO TESTED
+
                 }
                 else{
                     Toast.makeText(GoogleIntermediate.this, "Error! Try Again Later!",Toast.LENGTH_SHORT).show();
@@ -313,6 +331,9 @@ public class GoogleIntermediate extends AppCompatActivity {
                 }
             }
         });
+
+
+
     }
 
     static boolean isEmpty(EditText text) {
