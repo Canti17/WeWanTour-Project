@@ -77,11 +77,7 @@ import androidx.core.content.res.ResourcesCompat;
      }
 
 
-     public void setPosMatrix(float yaw){
-         matrix.setTranslate(0f,(h_view-w_view)/2f);
-         matrix.postScale(0.6f,0.6f,w_view/2f,h_view/2f);
-         matrix.setRotate((float) (-yaw*180/Math.PI), w_view/2f, h_view/2f);
-     }
+
 
      private void init() {
 
@@ -131,15 +127,6 @@ import androidx.core.content.res.ResourcesCompat;
          super.onSizeChanged(w, h, oldw, oldh);
          h_view=h;
          w_view=w;
-         frameHeight=h/10;
-         frameWidth=w/10;
-
-         compass= BitmapFactory.decodeResource(getResources(), R.mipmap.compass);
-
-         compass = Bitmap.createScaledBitmap(compass,
-                 w,
-                 h,
-                 true);
 
      }
 
@@ -148,20 +135,34 @@ import androidx.core.content.res.ResourcesCompat;
 
      private Canvas canvas_m;
 
+     public void setPosMatrix(float yaw){
+         matrix.setRotate((float) (-yaw*180/Math.PI), w_view/2f, h_view/2f);
+         Log.d("STAMPO YAW:", ""+yaw);
+     }
+
      @Override
      protected void onDraw(Canvas canvas) {
          super.onDraw(canvas);
              canvas_m=canvas;
 
+         compass= BitmapFactory.decodeResource(getResources(), R.mipmap.compass);
+
+         compass = Bitmap.createScaledBitmap(compass,
+                 w_view,
+                 h_view,
+                 true);
+
+         matrix.reset();
+
+         matrix.setTranslate(0f,0f);
+         matrix.postScale(0.9f,0.9f,w_view/2f,h_view/2f);
 
 
-             frameToDraw = new Rect(0, 0, 0, 0);
-             whereToDraw = new RectF(0,0,  canvas.getWidth(), canvas.getHeight());
-             //canvas.drawBitmap(compass, null, whereToDraw, paint4);
-             canvas.drawBitmap(compass,matrix, paint4);
+
+         canvas.drawBitmap(compass,matrix, paint4);
 
 
-             invalidate();
+         invalidate();
 
      }
 
