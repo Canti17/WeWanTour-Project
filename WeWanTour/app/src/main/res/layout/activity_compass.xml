@@ -39,43 +39,37 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40dp"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/baloo"
                 android:text="Compass"
                 android:textColor="@color/blackTextColor"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.04000002">
+                app:layout_constraintTop_toTopOf="parent">
 
             </TextView>
 
-
             <ImageView
-                android:id="@+id/compass"
-                android:layout_width="350dp"
-                android:layout_height="410dp"
-                android:layout_marginStart="22dp"
-                android:layout_marginEnd="22dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/compass1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_compass"
-            app:layout_constraintVertical_bias="0.16"></ImageView>
+                android:id="@+id/imageViewCompassRedTriangle"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
 
-        <ImageView
-            android:id="@+id/imageViewCompassRedTriangle"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="@+id/compass"
-            app:layout_constraintStart_toStartOf="@+id/compass"
-            app:layout_constraintTop_toTopOf="@+id/compass"
-            app:srcCompat="@drawable/red_triange_compass" />
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_compass"
+                app:srcCompat="@drawable/red_triange_compass" />
+
+            <com.example.wewantour9.compassView
+                android:id="@+id/compass_view"
+                android:layout_width="match_parent"
+                android:layout_height="510dp"
+                app:displayShapeName="true"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewCompassRedTriangle"
+                tools:layout_editor_absoluteX="0dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,14 +59,15 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
 
 
         text_compass = findViewById(R.id.text_compass);
-        compass = findViewById(R.id.compass);
+        //compass = findViewById(R.id.compass);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magn = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         //RICK LINES
-        //compassView=findViewById(R.id.compass_view);
+        compassView=findViewById(R.id.compass_view);
+
         //compass_matrix=compassView.getMatrix();
 
 
@@ -105,16 +106,18 @@ public class Compass  extends AppCompatActivity implements SensorEventListener {
 
 
             //ANIMATION NOT CANVAS
-            Animation animation = new RotateAnimation(-current_yaw, -yaw, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            /*Animation animation = new RotateAnimation(-current_yaw, -yaw, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             current_yaw = yaw;
 
             animation.setDuration(500);
             animation.setRepeatCount(0);
             animation.setFillAfter(true);
 
-            compass.startAnimation(animation);
+            compass.startAnimation(animation);*/
             //RICK FUNCTION CALL POSMATRIX
-            //compassView.setPosMatrix(yaw);
+            compassView.setBearing(yaw);
+            //compassView.postInvalidate();
+
 
         }
 

@@ -21,106 +21,46 @@ import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
 
- public class compassView extends View implements SurfaceHolder.Callback{
+ public class compassView extends View{
 
-     Paint paint;
-     Paint d_paint;
-     Paint number_paint;
-     Paint number_paint2;
-     Paint text_paint;
-     Paint paint2;
-
-     private static final Paint paint4 = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-     private Path path;
+     private static final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+     private int width = 0;
+     private int height = 0;
+     private Matrix matrix; // to manage rotation of the compass view
+     private Bitmap bitmap;
+     private float bearing; // rotation angle to North
 
      private int h_view=0;
      private int w_view=0;
 
-
-     private SurfaceHolder ourHolder;
-     Bitmap compass;
-
-
-     private static Matrix matrix = null;
-
-     private int frameWidth = 120, frameHeight = 370;
-
-
-     // A rectangle to define an area of the sprite sheet that represents 1 frame
-     private Rect frameToDraw;
-
-     // A rect that defines an area of the screen on which to draw
-     private RectF whereToDraw;
-
-
-     public Matrix getMatrix() {
-         return matrix;
-     }
-
-
-
      public compassView(Context context) {
          super(context);
-
-         init();
+         initialize();
      }
 
-     public compassView(Context context, AttributeSet attrs) {
-         super(context, attrs);
-         init();
+     public compassView(Context context, AttributeSet attr) {
+         super(context, attr);
+         initialize();
      }
 
-     public compassView(Context context, AttributeSet attrs, int defStyle) {
-         super(context, attrs, defStyle);
-         init();
-     }
-
-
-
-
-     private void init() {
-
+     private void initialize() {
          matrix = new Matrix();
-
-
-         path  = new Path();
-
-         paint2 = new Paint();
-         paint2.setColor(Color.BLUE);
-         paint2.setStrokeWidth(6);
-         paint2.setStyle(Paint.Style.STROKE);
-
-         paint = new Paint();
-         paint.setColor(Color.BLACK);
-         paint.setStrokeWidth(15);
-         paint.setStyle(Paint.Style.STROKE);
-
-         d_paint = new Paint();
-         d_paint.setColor(Color.BLACK);
-         d_paint.setStrokeWidth(5);
-         d_paint.setStyle(Paint.Style.STROKE);
-
-         text_paint= new Paint();
-         text_paint.setColor(Color.BLACK);
-         text_paint.setTextSize(35);
-         text_paint.setTypeface(Typeface.create("Arial",Typeface.BOLD));
-
-
-         number_paint= new Paint();
-         number_paint.setColor(Color.BLACK);
-         number_paint.setTextSize(30);
-         number_paint.setStyle(Paint.Style.FILL);
-         number_paint.setTextAlign(Paint.Align.CENTER);
-
-
-         number_paint2 = new Paint();
-         number_paint2.setColor(Color.BLACK);
-         number_paint2.setTextSize(30);
-         number_paint2.setStyle(Paint.Style.FILL);
-         number_paint2.setTextAlign(Paint.Align.RIGHT);
+         // create bitmap for compass icon
+         bitmap = BitmapFactory.decodeResource(getResources(),
+                 R.drawable.compass1);
      }
 
+     public void setBearing(float b) {
+         bearing = b;
+     }
+
+     @Override
+     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+         width = MeasureSpec.getSize(widthMeasureSpec);
+         height = MeasureSpec.getSize(heightMeasureSpec);
+         setMeasuredDimension(width, height);
+     }
 
      @Override
      protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -131,53 +71,43 @@ import androidx.core.content.res.ResourcesCompat;
      }
 
 
-
-
-     private Canvas canvas_m;
-
-     public void setPosMatrix(float yaw){
-         matrix.setRotate((float) (-yaw*180/Math.PI), w_view/2f, h_view/2f);
-         Log.d("STAMPO YAW:", ""+yaw);
-     }
-
      @Override
      protected void onDraw(Canvas canvas) {
-         super.onDraw(canvas);
-             canvas_m=canvas;
 
-         compass= BitmapFactory.decodeResource(getResources(), R.mipmap.compass);
 
-         compass = Bitmap.createScaledBitmap(compass,
-                 w_view,
-                 h_view,
-                 true);
+         int bitmapWidth = bitmap.getWidth();
+         int bitmapHeight = bitmap.getHeight();
+         int canvasWidth = canvas.getWidth();
+         int canvasHeight = canvas.getHeight();
 
+         bitmap= BitmapFactory.decodeResource(getResources(), R.mipmap.compass);
+
+
+         bitmap = Bitmap.createScaledBitmap(bitmap,
+                     (int) (h_view*0.65), (int) (h_view*0.65), true);
+
+
+         // center
+         int bitmapX = bitmap.getWidth() / 2;
+         int bitmapY = bitmap.getHeight() / 2;
+         int parentX = width /2;
+         int parentY = height /3;
+         int centerX = parentX - bitmapX;
+         int centerY = parentY - bitmapY;
+
+         // calculate rotation angle
+         int rotation = (int) (360 - bearing);
+
+         // reset matrix
          matrix.reset();
-
-         matrix.setTranslate(0f,0f);
-         matrix.postScale(0.9f,0.9f,w_view/2f,h_view/2f);
-
-
-
-         canvas.drawBitmap(compass,matrix, paint4);
-
+         matrix.setRotate(rotation, bitmapX, bitmapY);
+         // center bitmap on canvas
+         matrix.postTranslate(centerX, centerY);
+         // draw bitmap
+         canvas.drawBitmap(bitmap, matrix, paint);
 
          invalidate();
 
      }
 
-     @Override
-     public void surfaceCreated(SurfaceHolder holder) {
-
-     }
-
-     @Override
-     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-     }
-
-     @Override
-     public void surfaceDestroyed(SurfaceHolder holder) {
-
-     }
  }
