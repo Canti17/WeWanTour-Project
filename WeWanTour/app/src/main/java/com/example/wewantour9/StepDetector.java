@@ -16,7 +16,7 @@ public class StepDetector {
     private float[] accelRingX = new float[SIZE_RING];
     private float[] accelRingY = new float[SIZE_RING];
     private float[] accelRingZ = new float[SIZE_RING];
-    private int counterVeloc = 0;
+    private int counterVel = 0;
     private float[] velRing = new float[ACCEL_RING];
     private long lastStepTimeNs = 0;
     private float oldAccelerationEstimate = 0;
@@ -51,7 +51,6 @@ public class StepDetector {
 
         //NORMALIZZAZIONE DEL VETTORE RISULTANTE DELLA MEDIA -- NORMALIZE OF THIS VECTOR
         float normalization_factor = SensorFilter.norm(worldZ);
-
         worldZ[0] = worldZ[0] / normalization_factor;
         worldZ[1] = worldZ[1] / normalization_factor;
         worldZ[2] = worldZ[2] / normalization_factor;
@@ -59,11 +58,16 @@ public class StepDetector {
 
         //VETTORE Z PROVENIENTE DAL PRODOTTO SCALARE DEL VETTORE ATTUALE E IL VETTORE MEDIA
         /*Geometricamente vuol dire che quando i due vettori analizzati sono ortogonali il risultato sarà 0.
-        Mentre se i valori hanno la stessa direzione con verso uguale o diverso avranno il valore massimo.*/
+        Mentre se i valori hanno la stessa direzione con verso uguale o diverso avranno il valore massimo.
+        Il normalization factor è la norma del vettore della media che è uguale alla velocità di gravità (9.81) quando
+        il telefono è fermo */
         float currentZ = SensorFilter.dot(worldZ, currentAccel) - normalization_factor;
-        counterVeloc++;
+        counterVel++;
         //ARRAY DI ULTIME ACCELERAZIONI Z
-        velRing[counterVeloc % ACCEL_RING] = currentZ;
+        velRing[counterVel % ACCEL_RING] = currentZ;
+
+        //LOG DI DEBUGGING
+        //Log.e("CurrentZ= SensorFilter.dot(worldZ, currentAccel)", currentZ+"= SensorFilter.dot(|"+worldZ[0]+"|"+worldZ[1]+"|"+worldZ[2]+"|"+", |"+currentAccel[0]+"|"+currentAccel[1]+"|"+currentAccel[2]+"|"+")");
 
         float accelerationEstimate = SensorFilter.sum(velRing);
 
