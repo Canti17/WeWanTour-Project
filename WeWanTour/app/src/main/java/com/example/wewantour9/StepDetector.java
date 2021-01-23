@@ -1,9 +1,11 @@
 package com.example.wewantour9;
 
+import android.util.Log;
+
 public class StepDetector {
 
     private static final int SIZE_RING = 50;
-    private static final int VEL_RING = 10;
+    private static final int ACCEL_RING = 10;
 
     // The sensitivity is determined by the threshold. 25f very sensitive!
     private static final float THRESHOLD = 30f;  //SENSITIVITY
@@ -15,9 +17,9 @@ public class StepDetector {
     private float[] accelRingY = new float[SIZE_RING];
     private float[] accelRingZ = new float[SIZE_RING];
     private int counterVeloc = 0;
-    private float[] velRing = new float[VEL_RING];
+    private float[] velRing = new float[ACCEL_RING];
     private long lastStepTimeNs = 0;
-    private float oldVelocityEstimate = 0;
+    private float oldAccelerationEstimate = 0;
 
     private StepListener listener;
 
@@ -25,7 +27,10 @@ public class StepDetector {
         this.listener = listener;
     }
 
-
+/*L'idea è quella di calcolare il passo solamente quando il campionamento cambia direzione
+  velocemente (simulando un passo reale), ossia quando nei 50 campionamenti dell Accelerazione (SIZE RING) si nota un
+  cambio di direzione.
+ */
     public void updateAcceleration(long timeNs, float x, float y, float z) {
         float[] currentAccel = new float[3];
         currentAccel[0] = x;
@@ -50,21 +55,25 @@ public class StepDetector {
         worldZ[0] = worldZ[0] / normalization_factor;
         worldZ[1] = worldZ[1] / normalization_factor;
         worldZ[2] = worldZ[2] / normalization_factor;
-        //STESSO VETTORE DIVENTA UN VETTORE UNITARIO
+        //VETTORE NORMALIZZATO CHE MI DA SOLO LA DIREZIONE QUINDI
 
         //VETTORE Z PROVENIENTE DAL PRODOTTO SCALARE DEL VETTORE ATTUALE E IL VETTORE MEDIA
+        /*Geometricamente vuol dire che quando i due vettori analizzati sono ortogonali il risultato sarà 0.
+        Mentre se i valori hanno la stessa direzione con verso uguale o diverso avranno il valore massimo.*/
         float currentZ = SensorFilter.dot(worldZ, currentAccel) - normalization_factor;
         counterVeloc++;
         //ARRAY DI ULTIME ACCELERAZIONI Z
-        velRing[counterVeloc % VEL_RING] = currentZ;
+        velRing[counterVeloc % ACCEL_RING] = currentZ;
 
-        float velocityEstimate = SensorFilter.sum(velRing);
+        float accelerationEstimate = SensorFilter.sum(velRing);
 
-        if (velocityEstimate > THRESHOLD && oldVelocityEstimate <= THRESHOLD
+        /*Quando cambiamo direzione (simulando il passo) accelerationEstimate è positivo mentre oldAccelerationEstimate
+          è negativo*/
+        if (accelerationEstimate > THRESHOLD && oldAccelerationEstimate <= THRESHOLD
                 && (timeNs - lastStepTimeNs > STEP_DELAY_NS)) {
             listener.step(timeNs);
             lastStepTimeNs = timeNs;
         }
-        oldVelocityEstimate = velocityEstimate;
+        oldAccelerationEstimate = accelerationEstimate;
     }
 }
