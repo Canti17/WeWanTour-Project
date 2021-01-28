@@ -410,7 +410,7 @@ public class add_tour extends AppCompatActivity {
         // adding listeners on upload or failure of image
 
         /* get current user to set agency*/
-        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,peopleLimit,minPeople,vehicle,null, null,tripLength);
+        tour=new Tour(tourName,tourDescription,startPlace,startDate,startHour,doublePrice,doubleDuration,0,minPeople,peopleLimit,vehicle,null, null,tripLength);
         tour.setAgency(currentUser.getEmail());
 
         String imageStorageName = "Img_" + Integer.toString(tour.hashCode());
