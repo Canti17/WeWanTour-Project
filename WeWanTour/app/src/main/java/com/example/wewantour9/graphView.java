@@ -196,8 +196,6 @@ public class graphView extends View {
 
 
         for(float i=1;i<numero_intervalli;++i){
-            //Log.d("STAMPO LA i",""+i);
-            //Log.d("PORCACCIOOOOOOO", String.valueOf(h_view-(lunghezza_intervallo_canvas*i)-distance));
             canvas.drawLine(distance, h_view-(lunghezza_intervallo_canvas*i)-distance, (float) (distance*1.2), h_view-(lunghezza_intervallo_canvas*i)-distance,d_paint);
             canvas.drawLine(distance, h_view-(lunghezza_intervallo_canvas*i)-distance, (float)(distance-((distance*1.2)-distance)), h_view-(lunghezza_intervallo_canvas*i)-distance,d_paint);
             canvas.drawText(""+lunghezza_intervallo_da_considerare*(int)i, (float) (distance-distance/3), (float) ((float)h_view-(lunghezza_intervallo_canvas*i)-(distance/1.1)), number_paint2);
@@ -211,8 +209,6 @@ public class graphView extends View {
         //-------------ASSE X-----------------//
 
 
-       // Log.d("LUNGHEZZA INTERVALLO X IN CANVAS",""+lunghezza_intervallo_x_canvas);
-
         canvas.drawText(""+0, (float) distance, (float)(h_view-distance+(distance*1.6-distance)), number_paint);
         canvas.drawText("min", (float) ((float) w_view-(distance/1.4)), (float)(h_view-distance+(distance*1.6-distance)), text_paint);
         canvas.drawText("m", (float) distance-60, (float)(35), text_paint);
@@ -220,8 +216,6 @@ public class graphView extends View {
 
 
         for(int i=1;i<numero_intervalli_x;i++){
-            //Log.d("ASSE X____ STAMPO",""+(h_view-distance));
-           // Log.d("ASSE X____ STAMPO distance*1.5",""+(distance*1.5));
             canvas.drawLine(lunghezza_intervallo_x_canvas*i+distance, h_view-distance, lunghezza_intervallo_x_canvas*i+distance, (float) (h_view-distance-(distance*1.2-distance)),d_paint);
             canvas.drawLine(lunghezza_intervallo_x_canvas*i+distance, h_view-distance, lunghezza_intervallo_x_canvas*i+distance, (float) (h_view-distance+(distance*1.2-distance)),d_paint);
             canvas.drawText(""+(int)(tempo_intervallo_da_considerare/60)*i, (float) (lunghezza_intervallo_x_canvas*i+distance), (float)(h_view-distance+(distance*1.6-distance)), number_paint);
@@ -232,8 +226,8 @@ public class graphView extends View {
         //-----------------------------------//
 
 
-        Log.d("QUESTO é H_VIEWWWWWW_",h_view-distance+"");
-        Log.d("QUESTO é W_VIEWWWWWW_",w_view-distance+"");
+        //Log.d("QUESTO é H_VIEWWWWWW_",h_view-distance+"");
+        //Log.d("QUESTO é W_VIEWWWWWW_",w_view-distance+"");
 
         canvas.drawLine(distance, h_view-distance, w_view,h_view-distance, d_paint); //asse X
         canvas.drawLine(distance, h_view-distance, distance,0, d_paint); //asse Y
